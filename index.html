@@ -133,6 +133,8 @@
     .mds-btn--primary:disabled { background: var(--border-strong); color: #fff; cursor: not-allowed; }
     .mds-btn--secondary { background: #fff; color: var(--text); border: 1.5px solid var(--border); }
     .mds-btn--secondary:hover { background: var(--bg-subtle); }
+    .mds-btn--outline { background: #fff; color: #3859ff; border: 1.5px solid #3859ff; }
+    .mds-btn--outline:hover { background: #f0f3ff; }
     .mds-btn--tertiary { background: var(--bg-subtle); color: var(--text); }
     .mds-btn--tertiary:hover { background: #e4e6ec; }
     .mds-btn--ghost { background: none; color: var(--text); }
@@ -219,10 +221,10 @@
     /* ===== MDS SELECT (CUSTOM DROPDOWN) ===== */
     .mds-select-wrapper { position: relative; display: inline-block; }
     .mds-select-trigger {
-      height: 40px; min-width: 140px; border: 1.5px solid var(--border); border-radius: var(--radius-xs);
-      padding: 0 32px 0 var(--space-150); font-family: var(--font-body); font-size: 14px;
+      height: 40px; min-width: 140px; border: 1.5px solid #e0e2e8; border-radius: 4px;
+      padding: 0 32px 0 12px; font-family: var(--font-body); font-size: 14px;
       color: var(--text); background: var(--white); cursor: pointer; display: flex;
-      align-items: center; gap: var(--space-50); white-space: nowrap; position: relative;
+      align-items: center; gap: 4px; white-space: nowrap; position: relative;
       box-sizing: border-box;
     }
     .mds-select-trigger.open { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary); }
@@ -456,12 +458,21 @@
       color: var(--text-subtle); margin-bottom: 0; line-height: 1;
     }
     .card--setup .setup-header-left svg { width: 16px; height: 16px; color: var(--text-muted); }
-    .setup-content { display: flex; align-items: stretch; gap: var(--space-200); }
+    .setup-content { display: flex; align-items: stretch; gap: 16px; }
     .setup-visual {
-      width: 320px; flex-shrink: 0; border-radius: var(--radius-sm);
-      padding: var(--space-200); display: flex; flex-direction: column;
+      width: 320px; flex-shrink: 0; border-radius: 8px;
+      padding: 16px; display: flex; flex-direction: column;
       justify-content: center; gap: 6px; position: relative; overflow: hidden;
       background: linear-gradient(135deg, #e8f5c8 0%, #d4ecb0 50%, #c5e49d 100%);
+    }
+    .setup-visual-bg {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; border-radius: 8px; pointer-events: none;
+    }
+    .setup-visual-content {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; justify-content: center; gap: 6px;
+      flex: 1;
     }
     .setup-visual-number {
       font-family: var(--font-heading); font-size: 32px; font-weight: 400;
@@ -469,22 +480,25 @@
     }
     .setup-visual-label {
       font-family: var(--font-body); font-size: 12px; font-weight: 400;
-      line-height: 1.5; color: var(--text);
+      line-height: 1.5; color: #222428; width: 288px;
     }
-    .setup-visual-illustration {
-      position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
-      display: flex; align-items: center; gap: 4px; opacity: 0.5;
+    .setup-info {
+      flex: 1; display: flex; flex-direction: column; justify-content: center;
+      gap: 12px; background: var(--white); border-radius: 8px;
     }
-    .setup-info { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: var(--space-150); }
     .setup-title {
       font-family: var(--font-heading); font-size: 16px; font-weight: 600;
       line-height: 1.5; color: #1a1b1e;
     }
+    .setup-body {
+      display: flex; flex-direction: column; gap: 16px;
+    }
     .setup-desc {
       font-family: var(--font-body); font-size: 12px; font-weight: 400;
-      line-height: 1.5; color: var(--text);
+      line-height: 1.5; color: #222428;
     }
-    .setup-actions { display: flex; gap: var(--space-100); margin-top: var(--space-200); }
+    .setup-actions { display: flex; gap: 8px; }
+    .setup-actions .mds-btn { height: 32px; padding: 0 12px; font-size: 14px; }
 
     /* Analytics — [uplift]Card Shadow, radii-100, spacing-300 pad */
     .card--analytics {
@@ -512,12 +526,14 @@
     .card-title-link:hover { text-decoration: underline; }
     .card-title-link svg { width: 14px; height: 14px; }
     .analytics-grid {
-      display: flex; flex-wrap: wrap; gap: 24px 48px;
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 24px 48px;
     }
     .analytics-item {
-      flex: 1 0 400px; min-width: 400px; height: 107px;
-      display: flex; align-items: center; gap: var(--space-200);
-      border: none; border-radius: var(--radius-sm); padding: 0;
+      height: 107px;
+      display: flex; align-items: center; gap: 16px;
+      border: none; border-radius: 8px; padding: 0;
+      min-width: 0;
     }
     .analytics-item-content {
       width: 96px; flex-shrink: 0; display: flex; flex-direction: column;
@@ -542,6 +558,9 @@
       font-family: var(--font-body); font-size: 12px; font-weight: 400;
       line-height: 1.5; color: var(--text-subtle); white-space: nowrap;
       overflow: hidden;
+    }
+    @media (max-width: 830px) {
+      .analytics-grid { grid-template-columns: 1fr; }
     }
 
     /* What's New — elevation-200, radii-100, spacing-300 pad, spacing-150 gap */
@@ -746,20 +765,44 @@
     .status-cell { display: flex; align-items: center; gap: var(--space-100); flex-wrap: wrap; }
 
     /* Explore Tab */
-    .explore-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-200); padding: var(--space-300); }
+    .explore-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; padding: 24px;
+    }
     .explore-card {
-      border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden;
-      display: flex; flex-direction: column; transition: box-shadow 0.15s;
+      background: var(--white); border: 1px solid #e9eaef;
+      border-radius: 8px; padding: 24px;
+      display: flex; flex-direction: column; gap: 16px;
+      transition: box-shadow 0.15s;
     }
     .explore-card:hover { box-shadow: 0 2px 8px rgba(34,36,40,0.08); }
     .explore-card-img {
-      height: 140px; background: linear-gradient(135deg, #e8e0ff 0%, #dfe3ff 100%);
-      display: flex; align-items: center; justify-content: center;
+      height: 240px; background: #f1f2f5; border-radius: 4px;
     }
-    .explore-card-body { padding: var(--space-200); display: flex; flex-direction: column; gap: var(--space-100); flex: 1; }
-    .explore-card-title { font-family: var(--font-heading); font-size: 16px; font-weight: 600; }
-    .explore-card-desc { font-size: 13px; color: var(--text-subtle); line-height: 1.5; flex: 1; }
-    .explore-card-actions { display: flex; gap: var(--space-100); margin-top: var(--space-50); }
+    .explore-card-body {
+      display: flex; flex-direction: column; gap: 24px; flex: 1;
+    }
+    .explore-card-content {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .explore-card-meta {
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .explore-card-title {
+      font-family: var(--font-heading); font-size: 20px; font-weight: 600;
+      color: #1c1c1c; line-height: 1.4;
+    }
+    .explore-card-desc {
+      font-family: var(--font-body); font-size: 14px; font-weight: 400;
+      color: #1c1c1c; line-height: 1.4;
+    }
+    .explore-card-actions { display: flex; gap: 12px; align-items: center; }
+    .explore-card-actions .mds-btn {
+      height: 32px; padding: 0 8px; font-size: 14px; border-radius: 4px;
+    }
+    .explore-card-actions .mds-btn--ghost {
+      color: #222428; font-weight: 600;
+    }
 
     @media (max-width: 900px) { .explore-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 600px) { .explore-grid { grid-template-columns: 1fr; } }
@@ -778,84 +821,113 @@
 
     /* Overview Card */
     .overview-card {
-      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
-      padding: var(--space-300);
+      background: var(--white); border: none; border-radius: 8px;
+      padding: 16px 24px 24px 24px;
+      box-shadow: 0 0 10px rgba(5,0,56,0.08);
     }
     .overview-title {
-      font-family: var(--font-heading); font-size: 18px; font-weight: 600;
-      color: var(--text); margin-bottom: var(--space-200);
+      font-family: var(--font-heading); font-size: 16px; font-weight: 600;
+      color: #656b81; margin-bottom: 8px; line-height: 1.5;
     }
-    .overview-metrics { display: flex; gap: var(--space-300); }
+    .overview-metrics { display: flex; gap: 24px; }
     .overview-metric {
-      flex: 1; display: flex; flex-direction: column; gap: var(--space-100);
-      padding: var(--space-200); border: 1px solid var(--border); border-radius: var(--radius-sm);
+      display: flex; flex-direction: column; gap: 2px;
+      padding: 12px 16px 8px 16px; border: 1px solid #e0e2e8; border-radius: 8px;
+      min-width: 240px;
     }
     .metric-tag { align-self: flex-start; }
-    .metric-value-row { display: flex; align-items: baseline; gap: var(--space-50); }
-    .metric-value { font-family: var(--font-heading); font-size: 28px; font-weight: 600; color: var(--text); }
-    .metric-value-total { font-family: var(--font-body); font-size: 14px; color: var(--text-subtle); }
-    .metric-action { display: flex; flex-direction: column; gap: var(--space-50); margin-top: auto; }
-    .metric-label { font-size: 13px; color: var(--text-subtle); }
-    .metric-link { display: inline-flex; align-items: center; gap: var(--space-50); font-size: 14px; color: var(--text); text-decoration: none; font-weight: 500; }
-    .metric-link:hover { text-decoration: underline; }
-    .metric-link svg { width: 16px; height: 16px; color: var(--text); flex-shrink: 0; }
+    .metric-value-row { display: flex; align-items: baseline; gap: 8px; height: 36px; }
+    .metric-value { font-family: var(--font-heading); font-size: 20px; font-weight: 600; color: #222428; line-height: 1.4; }
+    .metric-value-total { font-family: var(--font-heading); font-size: 20px; font-weight: 400; color: #656b81; }
+    .metric-action { display: flex; align-items: center; gap: 2px; height: 36px; }
+    .metric-action-link {
+      display: inline-flex; align-items: center; gap: 2px;
+      font-family: var(--font-body); font-size: 12px; font-weight: 600; color: #3859ff;
+      text-decoration: none; line-height: 1;
+    }
+    .metric-action-link svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .metric-action-link:hover { text-decoration: underline; }
+    .metric-label {
+      font-family: var(--font-body); font-size: 12px; font-weight: 600;
+      color: #222428; line-height: 1;
+    }
+    .metric-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-body); font-size: 16px; font-weight: 400; color: #222428;
+      text-decoration: underline; line-height: 1.5;
+    }
+    .metric-link:hover { opacity: 0.7; }
+    .metric-link svg { width: 15px; height: 15px; color: #222428; flex-shrink: 0; }
 
     /* AI Workflows Tabs */
-    .aiw-section { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-    .aiw-tabs { display: flex; border-bottom: 1px solid var(--border); }
+    .aiw-section { background: var(--white); border: none; border-radius: 0; overflow: hidden; }
+    .aiw-tabs {
+      display: flex; gap: 24px; border-bottom: 1px solid #e9eaef;
+      padding: 0 24px; background: var(--white);
+    }
     .aiw-tab {
-      padding: var(--space-150) 20px; font-family: var(--font-body); font-size: 14px; font-weight: 600;
-      color: var(--text-subtle); background: none; border: none; cursor: pointer;
+      height: 60px; display: flex; align-items: center;
+      font-family: var(--font-heading); font-size: 16px; font-weight: 500;
+      color: #222428; background: none; border: none; cursor: pointer;
       border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.15s;
+      padding: 0;
     }
     .aiw-tab:hover { color: var(--text); }
-    .aiw-tab.active { color: var(--text); border-bottom-color: var(--text); }
+    .aiw-tab.active { color: #3859ff; border-bottom-color: #3859ff; }
 
     .aiw-panel { display: none; }
     .aiw-panel.active { display: block; }
 
     /* Users Panel */
-    #aiw-panel-users { padding: 0 var(--space-300) var(--space-300); }
+    #aiw-panel-users { padding: 0 24px 24px; }
 
     .aiw-toolbar {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0; margin: var(--space-300) 0; background: var(--white);
+      padding: 0; margin: 24px 0; background: var(--white);
     }
-    .aiw-toolbar > div { display: flex; align-items: center; gap: var(--space-100); }
+    .aiw-toolbar > div { display: flex; align-items: center; gap: 8px; }
 
     .aiw-search {
-      height: 40px; min-width: 260px; border: 1.5px solid var(--border); border-radius: var(--radius-xs);
-      padding: 0 var(--space-150) 0 36px; font-family: var(--font-body); font-size: 14px;
+      height: 40px; width: 400px; border: none; border-radius: 4px;
+      padding: 0 12px 0 32px; font-family: var(--font-body); font-size: 14px;
       color: var(--text); outline: none;
-      background: var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'%3E%3Cpath fill='%236f7489' d='M15 10a5 5 0 1 0-10 0 5 5 0 0 0 10 0Zm2 0c0 1.572-.52 3.023-1.395 4.191l5.102 5.102-1.414 1.414-5.102-5.102A7 7 0 1 1 17 10Z'/%3E%3C/svg%3E") no-repeat 10px center;
+      background: #f1f2f5 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'%3E%3Cpath fill='%236f7489' d='M15 10a5 5 0 1 0-10 0 5 5 0 0 0 10 0Zm2 0c0 1.572-.52 3.023-1.395 4.191l5.102 5.102-1.414 1.414-5.102-5.102A7 7 0 1 1 17 10Z'/%3E%3C/svg%3E") no-repeat 8px center;
       background-size: 16px;
     }
-    .aiw-search:focus { border-color: var(--primary); }
-    .aiw-search::placeholder { color: var(--text-muted); }
+    .aiw-search:focus { box-shadow: 0 0 0 2px #3859ff; }
+    .aiw-search::placeholder { color: #6f7489; }
 
     /* Users Table */
     .users-table { width: 100%; border-collapse: collapse; }
+    .users-table thead tr {
+      border-bottom: 1px solid #e9eaef;
+    }
     .users-table th {
-      text-align: left; padding: var(--space-100) var(--space-150); font-family: var(--font-body);
-      font-size: 14px; font-weight: 600; color: var(--text-subtle);
-      border-bottom: 1px solid var(--border-subtle); height: 48px; vertical-align: middle;
+      text-align: left; padding: 0 12px; font-family: var(--font-body);
+      font-size: 14px; font-weight: 600; color: #656b81;
+      height: 64px; vertical-align: middle; white-space: nowrap;
     }
+    .users-table th.th-checkbox { width: 38px; padding: 0 12px 0 2px; }
+    .users-table th.th-user { width: 250px; }
+    .users-table th.th-more { width: 56px; }
     .users-table td {
-      padding: var(--space-150); font-family: var(--font-body); font-size: 14px; color: var(--text);
-      border-bottom: 1px solid var(--border-subtle); height: 68px; vertical-align: middle; line-height: 1.4;
+      padding: 0 12px; font-family: var(--font-body); font-size: 14px; color: #222428;
+      border-bottom: 1px solid #e9eaef; height: 68px; vertical-align: middle; line-height: 1.4;
     }
-    .users-table td:last-child { width: 56px; text-align: right; padding-right: 12px; }
+    .users-table td.td-checkbox { width: 38px; padding: 0 12px 0 2px; }
+    .users-table td.td-user { width: 250px; padding: 12px; }
+    .users-table td.td-more { width: 56px; text-align: right; padding-right: 12px; }
 
-    .user-cell { display: flex; align-items: center; gap: var(--space-150); }
-    .user-avatar { width: 36px; height: 36px; border-radius: 999px; background: var(--bg-subtle); flex-shrink: 0; overflow: hidden; }
+    .user-cell { display: flex; align-items: center; gap: 12px; }
+    .user-avatar { width: 36px; height: 36px; border-radius: 999px; background: #f1f2f5; flex-shrink: 0; overflow: hidden; }
     .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
     .user-info { display: flex; flex-direction: column; min-width: 0; }
-    .user-name { font-family: var(--font-body); font-size: 14px; color: var(--text); line-height: 1.4; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .user-email { font-family: var(--font-body); font-size: 12px; color: var(--text-subtle); line-height: 1.5; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .user-name { font-family: var(--font-body); font-size: 14px; color: #222428; line-height: 1.4; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .user-email { font-family: var(--font-body); font-size: 12px; color: #656b81; line-height: 1.5; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-    .th-label { display: inline-flex; align-items: center; gap: var(--space-50); }
-    .th-label svg { color: var(--text-subtle); }
-    .cell-link { color: var(--primary); cursor: pointer; font-size: 14px; text-decoration: none; }
+    .th-label { display: inline-flex; align-items: center; gap: 4px; }
+    .th-label svg { color: #656b81; width: 16px; height: 16px; }
+    .cell-link { color: #3859ff; cursor: pointer; font-size: 14px; text-decoration: none; font-weight: 400; }
     .cell-link:hover { text-decoration: underline; }
 
     /* ===== MDS CHECKBOX (styled native) ===== */
@@ -1097,19 +1169,20 @@
           </div>
           <div class="setup-content">
             <div class="setup-visual">
-              <div class="setup-visual-number">23</div>
-              <div class="setup-visual-label">Unclaimed Teams</div>
-              <div class="setup-visual-illustration">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24"><circle cx="6" cy="12" r="3" fill="#6b7a3d"/><circle cx="12" cy="12" r="3" fill="#6b7a3d"/><circle cx="18" cy="12" r="3" fill="#6b7a3d"/></svg>
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24" style="color:#6b7a3d;"><path fill="currentColor" d="M21.769 11.36v1.28l-5 6-1.538-1.28L18.865 13H3v-2h15.865l-3.634-4.36 1.538-1.28 5 6Z"/></svg>
+              <img class="setup-visual-bg" src="https://www.figma.com/api/mcp/asset/d49bec41-d1af-4b5e-bb13-b306b48ed8ff" alt="">
+              <div class="setup-visual-content">
+                <div class="setup-visual-number">23</div>
+                <div class="setup-visual-label">Unclaimed Teams</div>
               </div>
             </div>
             <div class="setup-info">
               <div class="setup-title">Set up domain control for flexfund.com</div>
-              <div class="setup-desc">23 teams using the flexfund.com domain that aren't currently managed by your Enterprise plan. Add and verify your organization's domain to control how people from this email domain can join and use Miro.</div>
-              <div class="setup-actions">
-                <button class="mds-btn mds-btn--primary mds-btn--medium">Add domain</button>
-                <button class="mds-btn mds-btn--tertiary mds-btn--medium">Not now</button>
+              <div class="setup-body">
+                <div class="setup-desc">23 teams using the flexfund.com domain that aren't currently managed by your Enterprise plan. Add and verify your organization's domain to control how people from this email domain can join and use Miro.</div>
+                <div class="setup-actions">
+                  <button class="mds-btn mds-btn--primary mds-btn--medium">Add domain</button>
+                  <button class="mds-btn mds-btn--tertiary mds-btn--medium">Not now</button>
+                </div>
               </div>
             </div>
           </div>
@@ -1287,7 +1360,7 @@
             </button>
           </div>
           <div class="addon-card-img">
-            <img src="https://www.figma.com/api/mcp/asset/831fbb03-6a4a-4577-a1be-b84aac3cce83" alt="Miro Prototypes">
+            <img src="addon-preview.png" alt="Miro Prototypes">
             <span class="addon-card-img-badge">GIF</span>
           </div>
           <div class="addon-card-body">
@@ -1375,51 +1448,93 @@
           <div id="tab-explore" class="tab-panel">
             <div class="explore-grid">
               <div class="explore-card">
-                <div class="explore-card-img"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" style="color:var(--text-muted)"><path fill="currentColor" fill-rule="evenodd" d="M18 3a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3h12ZM6 5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H6Z" clip-rule="evenodd"/></svg></div>
+                <div class="explore-card-img"></div>
                 <div class="explore-card-body">
-                  <div class="explore-card-title">Whiteboard</div>
-                  <div class="explore-card-desc">Collaborate visually with your team using infinite canvas and templates.</div>
-                  <div class="explore-card-actions"><button class="mds-btn mds-btn--secondary mds-btn--small">Learn more</button></div>
+                  <div class="explore-card-content">
+                    <div class="explore-card-meta">
+                      <div class="explore-card-title">Miro Insights</div>
+                    </div>
+                    <div class="explore-card-desc">Miro Insights transforms customer feedback into actionable product insights, helping teams prioritize what matters most.</div>
+                    <div class="explore-card-actions">
+                      <button class="mds-btn mds-btn--outline mds-btn--medium">Contact us</button>
+                      <button class="mds-btn mds-btn--ghost mds-btn--medium">Learn more</button>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="explore-card">
-                <div class="explore-card-img"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" style="color:var(--text-muted)"><path fill="currentColor" fill-rule="evenodd" d="M14 3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v2h4l1 1v2h1a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h1v-1H8v1h1a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h1v-2l1-1h4v-2h-1a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4ZM5 20h4v-3H5v3Zm10 0h4v-3h-4v3ZM10 8h4V5h-4v3Z" clip-rule="evenodd"/></svg></div>
+                <div class="explore-card-img"></div>
                 <div class="explore-card-body">
-                  <div class="explore-card-title">Diagramming</div>
-                  <div class="explore-card-desc">Create flowcharts, org charts, and technical diagrams with ease.</div>
-                  <div class="explore-card-actions"><button class="mds-btn mds-btn--secondary mds-btn--small">Learn more</button></div>
+                  <div class="explore-card-content">
+                    <div class="explore-card-meta">
+                      <div class="explore-card-title">Miro Engage</div>
+                    </div>
+                    <div class="explore-card-desc">Miro Engage enables interactive presentations and workshops, keeping participants aligned and involved in real-time.</div>
+                    <div class="explore-card-actions">
+                      <button class="mds-btn mds-btn--outline mds-btn--medium">Contact us</button>
+                      <button class="mds-btn mds-btn--ghost mds-btn--medium">Learn more</button>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="explore-card">
-                <div class="explore-card-img"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" style="color:var(--text-muted)"><path fill="currentColor" fill-rule="evenodd" d="M15.01 3.37a3.866 3.866 0 0 1 5.594 5.335L19.445 9.95l-.455 3.191-1.697.566-.793-.793-5.937 5.936a5.001 5.001 0 0 1-2.554 1.367l-3.813.763-1.176-1.177.762-3.812a5.001 5.001 0 0 1 1.367-2.555L11.086 7.5l-.793-.793.543-1.693 2.746-.458 1.15-.903.278-.283ZM6.563 14.85a3.001 3.001 0 0 0-.82 1.533l-.469 2.341 2.342-.468a3.001 3.001 0 0 0 1.533-.82l5.937-5.937L12.5 8.916 6.563 14.85ZM19.091 4.755a1.866 1.866 0 0 0-2.652.014l-.325.331-.096.087-1.4 1.1-.454.2-1.084.18 4.212 4.211.218-1.52.258-.538 1.37-1.477a1.866 1.866 0 0 0-.047-2.588Z" clip-rule="evenodd"/></svg></div>
+                <div class="explore-card-img"></div>
                 <div class="explore-card-body">
-                  <div class="explore-card-title">Design</div>
-                  <div class="explore-card-desc">Design and prototype user interfaces and experiences.</div>
-                  <div class="explore-card-actions"><button class="mds-btn mds-btn--secondary mds-btn--small">Learn more</button></div>
+                  <div class="explore-card-content">
+                    <div class="explore-card-meta">
+                      <div class="explore-card-title">Miro Prototypes</div>
+                    </div>
+                    <div class="explore-card-desc">Create interactive, clickable prototypes from screenshots, diagrams, or docs, powered by AI in just a few minutes.</div>
+                    <div class="explore-card-actions">
+                      <button class="mds-btn mds-btn--outline mds-btn--medium">Contact us</button>
+                      <button class="mds-btn mds-btn--ghost mds-btn--medium">Learn more</button>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="explore-card">
-                <div class="explore-card-img"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" style="color:var(--text-muted)"><path fill="currentColor" fill-rule="evenodd" d="M17 8v5l-1 1h-1.667v2l-1 1H8l-1-1v-5l1-1h2V8l1-1h5l1 1Zm-8 7h3.333v-1H11l-1-1v-1H9v3Zm3-3h3V9h-3v3ZM5 3h14V2h3v3h-1v14h1v3h-3v-1H5v1H2v-3h1V5H2V2h3v1Zm0 16h14V5H5v14Z" clip-rule="evenodd"/></svg></div>
+                <div class="explore-card-img"></div>
                 <div class="explore-card-body">
-                  <div class="explore-card-title">Project Management</div>
-                  <div class="explore-card-desc">Plan, track, and manage projects visually with your team.</div>
-                  <div class="explore-card-actions"><button class="mds-btn mds-btn--secondary mds-btn--small">Learn more</button></div>
+                  <div class="explore-card-content">
+                    <div class="explore-card-meta">
+                      <div class="explore-card-title">Miro Insights</div>
+                    </div>
+                    <div class="explore-card-desc">Miro Insights transforms customer feedback into actionable product insights, helping teams prioritize what matters most.</div>
+                    <div class="explore-card-actions">
+                      <button class="mds-btn mds-btn--tertiary mds-btn--medium">Contact us</button>
+                      <button class="mds-btn mds-btn--ghost mds-btn--medium">Learn more <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M10 7H5a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-5h2v5a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h5v2Zm11.992-3.876-1 8-1.984-.248.637-5.108-7.938 7.939-1.414-1.414 7.94-7.94-5.109.64-.248-1.985 8-1 1.116 1.116Z"/></svg></button>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="explore-card">
-                <div class="explore-card-img"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" style="color:var(--text-muted)"><path fill="currentColor" fill-rule="evenodd" d="M19.5 2h-1A2.5 2.5 0 0 1 16 4.5v1A2.5 2.5 0 0 1 18.5 8h1A2.5 2.5 0 0 1 22 5.5v-1A2.5 2.5 0 0 1 19.5 2Zm-14 14h-1A2.5 2.5 0 0 1 2 18.5v1A2.5 2.5 0 0 1 4.5 22h1A2.5 2.5 0 0 1 8 19.5v-1A2.5 2.5 0 0 1 5.5 16Zm7.91-11.776c-.232-1.629-2.588-1.635-2.82 0a7.5 7.5 0 0 1-6.366 6.365c-1.635.233-1.629 2.59 0 2.822a7.498 7.498 0 0 1 6.365 6.363c.233 1.63 2.589 1.633 2.821 0a7.496 7.496 0 0 1 6.364-6.364c1.633-.232 1.63-2.588 0-2.82a7.498 7.498 0 0 1-6.364-6.366ZM6.659 12A9.509 9.509 0 0 0 12 6.658 9.507 9.507 0 0 0 17.34 12 9.505 9.505 0 0 0 12 17.34 9.508 9.508 0 0 0 6.658 12Z" clip-rule="evenodd"/></svg></div>
+                <div class="explore-card-img"></div>
                 <div class="explore-card-body">
-                  <div class="explore-card-title">Innovation Workspace</div>
-                  <div class="explore-card-desc">Ideate, brainstorm, and innovate with powerful workshop tools.</div>
-                  <div class="explore-card-actions"><button class="mds-btn mds-btn--secondary mds-btn--small">Learn more</button></div>
+                  <div class="explore-card-content">
+                    <div class="explore-card-meta">
+                      <div class="explore-card-title">Miro Engage</div>
+                    </div>
+                    <div class="explore-card-desc">Miro Engage enables interactive presentations and workshops, keeping participants aligned and involved in real-time.</div>
+                    <div class="explore-card-actions">
+                      <button class="mds-btn mds-btn--tertiary mds-btn--medium">Start trial</button>
+                      <button class="mds-btn mds-btn--ghost mds-btn--medium">Learn more <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M10 7H5a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-5h2v5a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h5v2Zm11.992-3.876-1 8-1.984-.248.637-5.108-7.938 7.939-1.414-1.414 7.94-7.94-5.109.64-.248-1.985 8-1 1.116 1.116Z"/></svg></button>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="explore-card">
-                <div class="explore-card-img"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" style="color:var(--text-muted)"><path fill="currentColor" d="M20 12a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Zm-4.946-1.336-.303.175c-.99.544-2.146.916-3.393 1.075l.576 1.726 1.485 3.466-1.838.788-1.5-3.5-.03-.078-.052-.154-.05.154-.03.078-1.5 3.5-1.838-.788 1.485-3.466.575-1.726a9.677 9.677 0 0 1-3.062-.903l-.252-.13a8.074 8.074 0 0 1-.381-.217l1.039-1.71c.093.057.188.112.287.165 1.015.544 2.305.88 3.727.88 1.45 0 2.763-.349 3.787-.912l.23-.132 1.038 1.709ZM13.5 7.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/></svg></div>
+                <div class="explore-card-img"></div>
                 <div class="explore-card-body">
-                  <div class="explore-card-title">Meeting Toolkit</div>
-                  <div class="explore-card-desc">Run effective meetings with agendas, timers, and voting tools.</div>
-                  <div class="explore-card-actions"><button class="mds-btn mds-btn--secondary mds-btn--small">Learn more</button></div>
+                  <div class="explore-card-content">
+                    <div class="explore-card-meta">
+                      <div class="explore-card-title">Miro Prototypes</div>
+                    </div>
+                    <div class="explore-card-desc">Create interactive, clickable prototypes from screenshots, diagrams, or docs, powered by AI in just a few minutes.</div>
+                    <div class="explore-card-actions">
+                      <button class="mds-btn mds-btn--tertiary mds-btn--medium">Contact us</button>
+                      <button class="mds-btn mds-btn--ghost mds-btn--medium">Learn more <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M10 7H5a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-5h2v5a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h5v2Zm11.992-3.876-1 8-1.984-.248.637-5.108-7.938 7.939-1.414-1.414 7.94-7.94-5.109.64-.248-1.985 8-1 1.116 1.116Z"/></svg></button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1449,23 +1564,18 @@
               <div class="metric-value-row">
                 <span class="metric-value">90</span>
                 <span class="metric-value-total">/ 100</span>
-              </div>
-              <div class="metric-action">
-                <a href="#" class="metric-link">
+                <a href="#" class="metric-action-link">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m12.64 2.231 6 5-1.28 1.538L13 5.135V21h-2V5.135L6.64 8.769 5.36 7.23l6-5h1.28Z"/></svg>
                   Contact Sales
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M21.769 11.36v1.28l-5 6-1.538-1.28L18.865 13H3v-2h15.865l-3.634-4.36 1.538-1.28 5 6Z"/></svg>
                 </a>
               </div>
             </div>
-            <div class="overview-metric">
-              <span class="mds-tag mds-tag--neutral-prominent metric-tag">AI Credit usage</span>
+            <div class="overview-metric" style="border: 1px solid #e0e2e8;">
+              <span class="metric-label">AI Credit usage</span>
               <div class="metric-value-row">
-                <span class="metric-value">1,200</span>
-              </div>
-              <div class="metric-action">
                 <a href="#" class="metric-link">
                   View in Analytics
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M21.769 11.36v1.28l-5 6-1.538-1.28L18.865 13H3v-2h15.865l-3.634-4.36 1.538-1.28 5 6Z"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M10 7H5a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-5h2v5a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h5v2Zm11.992-3.876-1 8-1.984-.248.637-5.108-7.938 7.939-1.414-1.414 7.94-7.94-5.109.64-.248-1.985 8-1 1.116 1.116Z"/></svg>
                 </a>
               </div>
             </div>
@@ -1475,7 +1585,7 @@
         <!-- Tabs Section -->
         <div class="aiw-section">
           <div class="aiw-tabs">
-            <button class="aiw-tab active" data-aiw-tab="users">Users</button>
+            <button class="aiw-tab active" data-aiw-tab="users">Users (90)</button>
             <button class="aiw-tab" data-aiw-tab="settings">Settings</button>
             <button class="aiw-tab" data-aiw-tab="about">About</button>
           </div>
@@ -1518,54 +1628,60 @@
             <table class="users-table">
               <thead>
                 <tr>
-                  <th><span class="th-label">Users <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M15.293 8.707 12 5.414 8.707 8.707 7.293 7.293l4-4h1.414l4 4-1.414 1.414Zm-6.586 6.586L12 18.586l3.293-3.293 1.414 1.414-4 4h-1.414l-4-4 1.414-1.414Z"/></svg></span></th>
-                  <th><span class="th-label">License <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Zm-9-1v6h-2v-4H9.5v-2H13Zm.5-2.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/></svg></span></th>
-                  <th><span class="th-label">User groups</span></th>
-                  <th><span class="th-label">Teams</span></th>
-                  <th><span class="th-label">Last active <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Zm-9-1v6h-2v-4H9.5v-2H13Zm.5-2.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/></svg></span></th>
-                  <th></th>
+                  <th class="th-checkbox"><input type="checkbox"></th>
+                  <th class="th-user"><span class="th-label">Users <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m12.64 2.231 6 5-1.28 1.538L13 5.135V21h-2V5.135L6.64 8.769 5.36 7.23l6-5h1.28Z"/></svg></span></th>
+                  <th><span class="th-label">License <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M11 16h2v2h-2v-2Zm3-6a2 2 0 1 0-4 0H8a4 4 0 1 1 5 3.874v1.122h-2V13l1-1a2 2 0 0 0 2-2Zm6 2a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Z"/></svg></span></th>
+                  <th><span class="th-label">User groups <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M11 16h2v2h-2v-2Zm3-6a2 2 0 1 0-4 0H8a4 4 0 1 1 5 3.874v1.122h-2V13l1-1a2 2 0 0 0 2-2Zm6 2a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Z"/></svg></span></th>
+                  <th><span class="th-label">Teams <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M11 16h2v2h-2v-2Zm3-6a2 2 0 1 0-4 0H8a4 4 0 1 1 5 3.874v1.122h-2V13l1-1a2 2 0 0 0 2-2Zm6 2a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Z"/></svg></span></th>
+                  <th><span class="th-label">Last active <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M11 16h2v2h-2v-2Zm3-6a2 2 0 1 0-4 0H8a4 4 0 1 1 5 3.874v1.122h-2V13l1-1a2 2 0 0 0 2-2Zm6 2a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Z"/></svg></span></th>
+                  <th class="th-more"></th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=emily" alt="EC"></div><div class="user-info"><span class="user-name">Emily Carter</span><span class="user-email">emily.carter@samplemail.com</span></div></div></td>
-                  <td><span class="mds-tag mds-tag--lime">Full</span></td>
-                  <td><span class="cell-link">1 User group</span></td>
-                  <td><span class="cell-link">2 teams</span></td>
-                  <td>2 days ago</td>
-                  <td><button class="mds-icon-btn" style="width:32px;height:32px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg></button></td>
-                </tr>
-                <tr>
-                  <td><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=michael" alt="MJ"></div><div class="user-info"><span class="user-name">Michael Johnson</span><span class="user-email">michael.j@webmail.com</span></div></div></td>
-                  <td><span class="mds-tag mds-tag--sunshine">Basic</span></td>
-                  <td><span class="cell-link">1 User group</span></td>
-                  <td><span class="cell-link">2 teams</span></td>
-                  <td>5 days ago</td>
-                  <td><button class="mds-icon-btn" style="width:32px;height:32px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg></button></td>
-                </tr>
-                <tr>
-                  <td><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=sophia" alt="SD"></div><div class="user-info"><span class="user-name">Sophia Davis</span><span class="user-email">sophia.d@domainmail.com</span></div></div></td>
-                  <td><span class="mds-tag mds-tag--lime">Full</span></td>
-                  <td><span class="cell-link">1 User group</span></td>
-                  <td><span class="cell-link">2 teams</span></td>
-                  <td>1 day ago</td>
-                  <td><button class="mds-icon-btn" style="width:32px;height:32px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg></button></td>
-                </tr>
-                <tr>
-                  <td><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=daniel" alt="DS"></div><div class="user-info"><span class="user-name">Daniel Smith</span><span class="user-email">daniel.smith@customemail.co...</span></div></div></td>
+                  <td class="td-checkbox"><input type="checkbox"></td>
+                  <td class="td-user"><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=quinn" alt="QO"></div><div class="user-info"><span class="user-name">Quinn Odom</span><span class="user-email">quinn.odom@acme.com</span></div></div></td>
                   <td><span class="mds-tag mds-tag--lime">Full</span></td>
                   <td><span class="cell-link">2 User groups</span></td>
-                  <td><span class="cell-link">1 team</span></td>
-                  <td>3 days ago</td>
-                  <td><button class="mds-icon-btn" style="width:32px;height:32px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg></button></td>
+                  <td><span class="cell-link">2 teams</span></td>
+                  <td>Sep 19, 2025</td>
+                  <td class="td-more"><button class="mds-icon-btn" style="width:32px;height:32px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg></button></td>
                 </tr>
                 <tr>
-                  <td><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=olivia" alt="OB"></div><div class="user-info"><span class="user-name">Olivia Brown</span><span class="user-email">olivia.b@personalmail.com</span></div></div></td>
-                  <td><span class="mds-tag mds-tag--sunshine">Basic</span></td>
-                  <td><span class="cell-link">1 User group</span></td>
+                  <td class="td-checkbox"><input type="checkbox"></td>
+                  <td class="td-user"><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=jordan" alt="JB"></div><div class="user-info"><span class="user-name">Jordan Bell</span><span class="user-email">jordan.bell@acme.com</span></div></div></td>
+                  <td><span class="mds-tag mds-tag--lime">Full</span></td>
+                  <td><span class="cell-link">2 User groups</span></td>
                   <td><span class="cell-link">2 teams</span></td>
-                  <td>7 days ago</td>
-                  <td><button class="mds-icon-btn" style="width:32px;height:32px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg></button></td>
+                  <td>Sep 19, 2025</td>
+                  <td class="td-more"><button class="mds-icon-btn" style="width:32px;height:32px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg></button></td>
+                </tr>
+                <tr>
+                  <td class="td-checkbox"><input type="checkbox"></td>
+                  <td class="td-user"><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=skylar" alt="SL"></div><div class="user-info"><span class="user-name">Skylar Luna</span><span class="user-email">skylar.luna@acme.com</span></div></div></td>
+                  <td><span class="mds-tag mds-tag--lime">Full</span></td>
+                  <td><span class="cell-link">2 User groups</span></td>
+                  <td><span class="cell-link">2 teams</span></td>
+                  <td>Sep 19, 2025</td>
+                  <td class="td-more"><button class="mds-icon-btn" style="width:32px;height:32px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg></button></td>
+                </tr>
+                <tr>
+                  <td class="td-checkbox"><input type="checkbox"></td>
+                  <td class="td-user"><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=jamie" alt="JS"></div><div class="user-info"><span class="user-name">Jamie Stern</span><span class="user-email">jamie.stern@acme.com</span></div></div></td>
+                  <td><span class="mds-tag mds-tag--sunshine">Basic</span></td>
+                  <td><span class="cell-link">2 User groups</span></td>
+                  <td><span class="cell-link">2 teams</span></td>
+                  <td>Sep 19, 2025</td>
+                  <td class="td-more"><button class="mds-icon-btn" style="width:32px;height:32px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg></button></td>
+                </tr>
+                <tr>
+                  <td class="td-checkbox"><input type="checkbox"></td>
+                  <td class="td-user"><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=avery" alt="AP"></div><div class="user-info"><span class="user-name">Avery Park</span><span class="user-email">avery.park@acme.com</span></div></div></td>
+                  <td><span class="mds-tag mds-tag--sunshine">Basic</span></td>
+                  <td><span class="cell-link">2 User groups</span></td>
+                  <td><span class="cell-link">2 teams</span></td>
+                  <td>Sep 19, 2025</td>
+                  <td class="td-more"><button class="mds-icon-btn" style="width:32px;height:32px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg></button></td>
                 </tr>
               </tbody>
             </table>
@@ -1809,30 +1925,42 @@
       var max = Math.max.apply(null, data);
       var min = Math.min.apply(null, data);
       var range = max - min || 1;
-      var pad = 4;
+      var padX = 8, padY = 8;
+      var points = [];
       ctx.clearRect(0, 0, w, h);
-      ctx.beginPath();
       for (var i = 0; i < data.length; i++) {
-        var x = pad + (i / (data.length - 1)) * (w - pad * 2);
-        var y = h - pad - ((data[i] - min) / range) * (h - pad * 2);
-        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        var x = padX + (i / (data.length - 1)) * (w - padX * 2);
+        var y = h - padY - ((data[i] - min) / range) * (h - padY * 2);
+        points.push({ x: x, y: y });
+      }
+      ctx.beginPath();
+      for (var i = 0; i < points.length; i++) {
+        if (i === 0) ctx.moveTo(points[i].x, points[i].y);
+        else ctx.lineTo(points[i].x, points[i].y);
       }
       ctx.strokeStyle = color;
       ctx.lineWidth = 2;
       ctx.lineJoin = 'round';
+      ctx.lineCap = 'round';
       ctx.stroke();
-      ctx.lineTo(pad + (w - pad * 2), h);
-      ctx.lineTo(pad, h);
-      ctx.closePath();
-      ctx.fillStyle = color.replace('1)', '0.08)').replace('rgb', 'rgba');
-      ctx.fill();
+      for (var i = 0; i < points.length; i++) {
+        ctx.beginPath();
+        ctx.arc(points[i].x, points[i].y, 3.5, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(points[i].x, points[i].y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = '#fff';
+        ctx.fill();
+      }
     }
 
     function initCharts() {
-      drawChart('chart-boards', [280, 295, 310, 300, 320, 315, 330, 340], 'rgb(66,98,255)');
-      drawChart('chart-teams', [65, 70, 68, 72, 75, 73, 78, 80], 'rgb(16,185,129)');
-      drawChart('chart-users', [100, 108, 105, 112, 115, 118, 122, 126], 'rgb(139,92,246)');
-      drawChart('chart-licenses', [180, 185, 190, 192, 195, 200, 204, 208], 'rgb(245,158,11)');
+      var blue = '#7b9eff';
+      drawChart('chart-boards', [280, 310, 300, 320, 340, 330, 335, 320], blue);
+      drawChart('chart-teams', [60, 65, 62, 68, 72, 75, 78, 82], blue);
+      drawChart('chart-users', [100, 108, 105, 112, 115, 118, 122, 126], blue);
+      drawChart('chart-licenses', [180, 190, 195, 200, 205, 210, 204, 200], blue);
     }
 
     // Greeting
