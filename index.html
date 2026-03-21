@@ -1,0 +1,1913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Miro Admin Dashboard</title>
+  <style>
+    @font-face { font-family: 'Roobert PRO'; src: url('fonts/RoobertPRO-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Roobert PRO'; src: url('fonts/RoobertPRO-Medium.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Roobert PRO'; src: url('fonts/RoobertPRO-SemiBold.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Roobert PRO'; src: url('fonts/RoobertPRO-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+
+    :root {
+      /* MDS Typography */
+      --font-heading: 'Roobert PRO', sans-serif;
+      --font-body: 'Noto Sans', 'Inter', sans-serif;
+      /* MDS Layout */
+      --sidebar-width: 260px;
+      --right-panel-width: 304px;
+      /* MDS Colors - Primary */
+      --primary: #4262ff;
+      --primary-hover: #314cd9;
+      --primary-subtle: #eff0ff;
+      --primary-prominent: #2b3ea0;
+      /* MDS Colors - Neutrals */
+      --bg: #f5f5f5;
+      --bg-subtle: #f1f2f5;
+      --white: #ffffff;
+      --border: #e0e2e8;
+      --border-subtle: #e9eaef;
+      --border-strong: #c2c9d6;
+      /* MDS Colors - Text */
+      --text: #222428;
+      --text-subtle: #656b81;
+      --text-muted: #7d8297;
+      --text-disabled: #b0b5c4;
+      /* MDS Colors - Semantic */
+      --success: #17b169;
+      --success-bg: #d4f5e2;
+      --warning: #e5a100;
+      --warning-bg: #fff3d1;
+      --danger: #f24726;
+      --danger-bg: #ffe0db;
+      /* MDS Radii */
+      --radius: 12px;
+      --radius-sm: 8px;
+      --radius-xs: 4px;
+      /* MDS Nav Active */
+      --nav-active-bg: #d9dffc;
+      --nav-active-text: #2a41b6;
+      /* MDS Spacing */
+      --space-50: 4px;
+      --space-100: 8px;
+      --space-150: 12px;
+      --space-200: 16px;
+      --space-300: 24px;
+      --space-400: 32px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ===== HEADER / TOPBAR ===== */
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 56px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--space-200);
+      z-index: 100;
+    }
+
+    .topbar-left, .topbar-right { display: flex; align-items: center; gap: var(--space-100); }
+    .topbar-logo { height: 20px; margin-left: var(--space-100); }
+
+    .topbar-right .topbar-avatar {
+      width: 32px; height: 32px; border-radius: 999px;
+      background: #d9b3ff; display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-body); font-size: 13px; font-weight: 600; color: var(--white);
+    }
+
+    /* ===== MDS ICON BUTTON ===== */
+    .mds-icon-btn {
+      width: 40px; height: 40px; border: none; background: none; border-radius: var(--radius-xs);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--text); flex-shrink: 0;
+    }
+    .mds-icon-btn:hover { background: var(--bg-subtle); }
+    .mds-icon-btn svg { width: 24px; height: 24px; }
+    .mds-icon-btn--medium { width: 36px; height: 36px; }
+    .mds-icon-btn--medium svg { width: 20px; height: 20px; }
+    .mds-icon-btn--xlarge { width: 48px; height: 48px; }
+    .mds-icon-btn--xlarge svg { width: 24px; height: 24px; }
+    .mds-icon-btn--primary { background: var(--primary); color: #fff; }
+    .mds-icon-btn--primary:hover { background: var(--primary-hover); }
+    .mds-icon-btn--secondary { background: #fff; color: var(--text); border: 1.5px solid var(--border); }
+    .mds-icon-btn--secondary:hover { background: var(--bg-subtle); }
+
+    /* ===== MDS BUTTONS ===== */
+    .mds-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: var(--space-50);
+      font-family: var(--font-body); font-weight: 600; border: none; border-radius: var(--radius-xs);
+      cursor: pointer; white-space: nowrap; transition: background 0.15s, color 0.15s, border-color 0.15s;
+      line-height: 1; text-decoration: none;
+    }
+    .mds-btn svg { flex-shrink: 0; }
+    .mds-btn--small { height: 32px; padding: 0 12px; font-size: 13px; }
+    .mds-btn--small svg { width: 14px; height: 14px; }
+    .mds-btn--medium { height: 36px; padding: 0 14px; font-size: 14px; }
+    .mds-btn--medium svg { width: 16px; height: 16px; }
+    .mds-btn--large { height: 40px; padding: 0 16px; font-size: 14px; }
+    .mds-btn--large svg { width: 16px; height: 16px; }
+    .mds-btn--xlarge { height: 48px; padding: 0 20px; font-size: 16px; }
+    .mds-btn--xlarge svg { width: 20px; height: 20px; }
+
+    .mds-btn--primary { background: var(--primary); color: #fff; }
+    .mds-btn--primary:hover { background: var(--primary-hover); }
+    .mds-btn--primary:disabled { background: var(--border-strong); color: #fff; cursor: not-allowed; }
+    .mds-btn--secondary { background: #fff; color: var(--text); border: 1.5px solid var(--border); }
+    .mds-btn--secondary:hover { background: var(--bg-subtle); }
+    .mds-btn--tertiary { background: var(--bg-subtle); color: var(--text); }
+    .mds-btn--tertiary:hover { background: #e4e6ec; }
+    .mds-btn--ghost { background: none; color: var(--text); }
+    .mds-btn--ghost:hover { background: var(--bg-subtle); }
+    .mds-btn--ghost-prominent { background: none; color: var(--primary); }
+    .mds-btn--ghost-prominent:hover { background: var(--primary-subtle); }
+    .mds-btn--danger { background: var(--danger); color: #fff; }
+    .mds-btn--danger:hover { background: #d93a1d; }
+    .mds-btn--danger-secondary { background: #fff; color: var(--danger); border: 1.5px solid var(--danger); }
+    .mds-btn--danger-secondary:hover { background: var(--danger-bg); }
+
+    /* ===== MDS TAGS ===== */
+    .mds-tag {
+      display: inline-flex; align-items: center; height: 24px; padding: 0 8px;
+      border-radius: var(--radius-xs); font-family: var(--font-body); font-size: 12px; font-weight: 600;
+      line-height: 1; white-space: nowrap; border: none; outline: none; gap: var(--space-50);
+    }
+    .mds-tag svg { width: 14px; height: 14px; flex-shrink: 0; }
+    /* Neutral */
+    .mds-tag--neutral { background: var(--bg-subtle); color: var(--text-subtle); }
+    .mds-tag--neutral-prominent { background: var(--border-subtle); color: var(--text); }
+    /* Primary */
+    .mds-tag--primary { background: #dfe3ff; color: #2b3ea0; }
+    .mds-tag--primary-prominent { background: #4262ff; color: #fff; }
+    .mds-tag--primary-subtle { background: #f0f1ff; color: #4262ff; }
+    /* Success */
+    .mds-tag--success { background: #d4f5e2; color: #18693a; }
+    .mds-tag--success-prominent { background: #17b169; color: #fff; }
+    /* Warning */
+    .mds-tag--warning { background: #fff3d1; color: #8a6500; }
+    .mds-tag--warning-prominent { background: #e5a100; color: #fff; }
+    /* Danger */
+    .mds-tag--danger { background: #ffe0db; color: #c42a10; }
+    .mds-tag--danger-prominent { background: #f24726; color: #fff; }
+    /* Lime */
+    .mds-tag--lime { background: #e8f5d4; color: #3d6b00; }
+    .mds-tag--lime-prominent { background: #7cb305; color: #fff; }
+    /* Sunshine */
+    .mds-tag--sunshine { background: #fff3d1; color: #8a6500; }
+    .mds-tag--sunshine-prominent { background: #e5a100; color: #fff; }
+    /* Orange */
+    .mds-tag--orange { background: #ffebd6; color: #a05200; }
+    /* Coral */
+    .mds-tag--coral { background: #ffe0db; color: #c42a10; }
+    /* Lilac */
+    .mds-tag--lilac { background: #eee0ff; color: #6b3fa0; }
+    /* Teal */
+    .mds-tag--teal { background: #d3f5f0; color: #0d6b5e; }
+    /* Ocean */
+    .mds-tag--ocean { background: #d6eeff; color: #005ea0; }
+    /* Ghost */
+    .mds-tag--ghost { background: transparent; color: var(--text-subtle); }
+
+    /* ===== MDS SWITCH ===== */
+    .mds-switch {
+      width: 40px; height: 24px; border-radius: 12px; background: var(--border-strong);
+      position: relative; cursor: pointer; transition: background 0.2s; flex-shrink: 0;
+    }
+    .mds-switch::after {
+      content: ''; position: absolute; top: 2px; left: 2px;
+      width: 20px; height: 20px; border-radius: 50%; background: var(--white);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+      transition: transform 0.2s;
+    }
+    .mds-switch.checked { background: var(--primary); }
+    .mds-switch.checked::after { transform: translateX(16px); }
+    .mds-switch:hover { opacity: 0.9; }
+
+    /* ===== MDS RADIO ===== */
+    .mds-radio {
+      width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border-strong);
+      background: var(--white); position: relative; cursor: pointer; flex-shrink: 0;
+      transition: border-color 0.15s;
+    }
+    .mds-radio:hover { border-color: var(--text-subtle); }
+    .mds-radio.checked { border-color: var(--primary); }
+    .mds-radio.checked::after {
+      content: ''; position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px; height: 10px; border-radius: 50%; background: var(--primary);
+    }
+
+    /* ===== MDS SELECT (CUSTOM DROPDOWN) ===== */
+    .mds-select-wrapper { position: relative; display: inline-block; }
+    .mds-select-trigger {
+      height: 40px; min-width: 140px; border: 1.5px solid var(--border); border-radius: var(--radius-xs);
+      padding: 0 32px 0 var(--space-150); font-family: var(--font-body); font-size: 14px;
+      color: var(--text); background: var(--white); cursor: pointer; display: flex;
+      align-items: center; gap: var(--space-50); white-space: nowrap; position: relative;
+      box-sizing: border-box;
+    }
+    .mds-select-trigger.open { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary); }
+    .mds-select-trigger.filled { color: var(--text); }
+    .mds-select-trigger:not(.filled) { color: var(--text-muted); }
+    .mds-select-chevron {
+      position: absolute; right: var(--space-100); top: 50%; transform: translateY(-50%);
+      width: 20px; height: 20px; color: var(--text); pointer-events: none;
+      transition: transform 0.15s ease;
+    }
+    .mds-select-trigger.open .mds-select-chevron { transform: translateY(-50%) rotate(180deg); }
+    .mds-select-dropdown {
+      display: none; position: absolute; top: calc(100% + 2px); left: 0;
+      min-width: 280px; background: var(--white); border: 1px solid var(--border-subtle); border-radius: var(--radius-xs);
+      box-shadow: 0 4px 12px rgba(34,36,40,0.12); padding: var(--space-100); z-index: 100;
+      flex-direction: column; gap: 0; max-height: 260px; overflow-y: auto;
+    }
+    .mds-select-dropdown.open { display: flex; }
+    .mds-select-dropdown-search {
+      width: 100%; height: 32px; border: 1.5px solid var(--border); border-radius: var(--radius-xs);
+      padding: 0 var(--space-100) 0 32px; font-family: var(--font-body); font-size: 14px;
+      color: var(--text); box-sizing: border-box; margin-bottom: var(--space-100); background: var(--white)
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'%3E%3Cpath fill='%236f7489' d='M10 2a8 8 0 0 1 6.32 12.906l4.387 4.387-1.414 1.414-4.387-4.387A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12Z'/%3E%3C/svg%3E")
+        no-repeat 8px center; background-size: 16px; outline: none;
+    }
+    .mds-select-dropdown-search:focus { border-color: var(--primary); }
+    .mds-select-dropdown-search::placeholder { color: var(--text-muted); }
+    .mds-select-option {
+      display: flex; align-items: center; gap: var(--space-50); height: 40px;
+      padding: 0 var(--space-200) 0 28px; border-radius: var(--radius-xs); font-family: var(--font-body);
+      font-size: 14px; color: var(--text); cursor: pointer; flex-shrink: 0;
+    }
+    .mds-select-option:hover { background: var(--bg-subtle); }
+    .mds-select-option.selected { padding-left: var(--space-100); color: var(--primary-hover); }
+    .mds-select-option-check { width: 16px; height: 16px; flex-shrink: 0; color: var(--primary-hover); }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      position: fixed;
+      top: 56px; left: 0; bottom: 0;
+      width: var(--sidebar-width);
+      background: var(--white);
+      border-right: 1px solid var(--bg-subtle);
+      overflow-y: auto;
+      overflow-x: hidden;
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      transition: width 0.25s ease;
+    }
+
+    .sidebar.collapsed { width: 64px; overflow-x: hidden; }
+    .sidebar.collapsed .sidebar-org-info,
+    .sidebar.collapsed .sidebar-org-chevron,
+    .sidebar.collapsed .nav-label,
+    .sidebar.collapsed .nav-chevron { display: none; }
+    .sidebar.collapsed .sidebar-nav a { justify-content: center; padding: var(--space-100); gap: 0; }
+    .sidebar.collapsed .sidebar-org { justify-content: center; padding: var(--space-100); }
+
+    /* Org Picker Container */
+    .sidebar-org-container {
+      padding: var(--space-50);
+      border-bottom: 1px solid var(--bg-subtle);
+      flex-shrink: 0;
+    }
+    .sidebar-org {
+      display: flex; align-items: center; gap: var(--space-50);
+      padding: var(--space-100) var(--space-150) var(--space-100) var(--space-100);
+      border-radius: var(--radius-xs); cursor: pointer;
+    }
+    .sidebar-org:hover { background: var(--bg-subtle); }
+    .sidebar-org-icon {
+      width: 40px; height: 40px; border-radius: 2px; background: #8821a6;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--white); font-weight: 700; font-size: 16px; flex-shrink: 0;
+      overflow: hidden;
+    }
+    .sidebar-org-icon img { width: 100%; height: 100%; object-fit: cover; }
+    .sidebar-org-info { flex: 1; display: flex; flex-direction: column; gap: var(--space-50); min-width: 0; }
+    .sidebar-org-name {
+      font-family: var(--font-heading); font-size: 14px; font-weight: 600;
+      color: var(--text); line-height: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .sidebar-org-tag {
+      display: inline-flex; align-items: center; height: 16px; padding: 0 var(--space-50);
+      background: var(--bg-subtle); border-radius: 2px;
+      font-family: var(--font-body); font-size: 10px; font-weight: 600;
+      color: var(--text-subtle); text-transform: uppercase; letter-spacing: 0.25px;
+      line-height: 16px; white-space: nowrap; width: fit-content;
+    }
+    .sidebar-org-chevron { color: var(--text-subtle); flex-shrink: 0; }
+    .sidebar-org-chevron svg { width: 20px; height: 20px; }
+
+    /* Nav Items */
+    .sidebar-nav-container {
+      padding: var(--space-200) var(--space-100);
+      flex: 1;
+    }
+    .sidebar-nav { display: flex; flex-direction: column; gap: var(--space-100); }
+    .sidebar-nav a {
+      display: flex; align-items: center; gap: var(--space-200);
+      padding: var(--space-100) var(--space-200);
+      border-radius: var(--radius-xs); text-decoration: none;
+      color: var(--text); font-family: var(--font-heading); font-size: 14px; font-weight: 500;
+      transition: background 0.15s, color 0.15s;
+    }
+    .sidebar-nav a:hover { background: var(--bg-subtle); }
+    .sidebar-nav a.active { background: var(--nav-active-bg, #d9dffc); color: var(--nav-active-text, #2a41b6); }
+    .sidebar-nav a .nav-icon { width: 24px; height: 24px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .sidebar-nav a .nav-icon svg { width: 24px; height: 24px; }
+    .nav-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; }
+    .nav-chevron { width: 20px; height: 20px; flex-shrink: 0; color: var(--text-subtle); margin-left: auto; }
+    .nav-chevron svg { width: 20px; height: 20px; }
+    .sidebar-divider { height: 1px; background: var(--border); margin: var(--space-100) 0; }
+
+    /* ===== MAIN WRAPPER ===== */
+    .main-wrapper {
+      margin-left: var(--sidebar-width);
+      margin-top: 56px;
+      display: flex;
+      min-height: calc(100vh - 56px);
+      transition: margin-left 0.25s ease;
+    }
+
+    body.sidebar-collapsed .main-wrapper { margin-left: 64px; }
+
+    .main-content {
+      flex: 1;
+      padding: var(--space-300) var(--space-400);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-300);
+      min-width: 0;
+    }
+
+    .right-panel {
+      width: var(--right-panel-width);
+      padding: var(--space-300) var(--space-300) var(--space-300) 0;
+      padding-top: 82px;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-300);
+      flex-shrink: 0;
+      align-self: flex-start;
+    }
+
+    /* ===== PAGE ROUTING ===== */
+    .page-section { display: none; }
+    .page-section.active { display: contents; }
+
+    /* ===== GREETING ===== */
+    .greeting {
+      font-family: var(--font-heading);
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .page-title {
+      font-family: var(--font-heading);
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    /* ===== CARDS ===== */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: var(--space-300);
+      border: 1px solid var(--border);
+      margin-bottom: 0;
+    }
+
+    .card-title {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: var(--space-200);
+    }
+
+    /* Needs Attention */
+    .card--attention {
+      margin-bottom: 0;
+      border: none;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 2px 8px rgba(34,36,40,0.12), 0 0 12px rgba(34,36,40,0.04);
+    }
+    .card--attention .card-title {
+      font-family: var(--font-body); font-size: 16px; font-weight: 600;
+      color: var(--text-subtle); margin-bottom: 0;
+    }
+    .card--attention > .card-title + .attention-items { margin-top: var(--space-150); }
+    .attention-items { display: flex; gap: var(--space-200); }
+    .attention-item {
+      flex: 1; padding: var(--space-150); border-radius: var(--radius-sm);
+      display: flex; flex-direction: column; gap: 6px; cursor: pointer; transition: opacity 0.15s;
+    }
+    .attention-item:hover { opacity: 0.9; }
+    .attention-item--license { background: #eae7ff; }
+    .attention-item--app { background: #fff7d9; }
+    .attention-item-header {
+      display: flex; align-items: center; gap: 6px;
+      font-family: var(--font-body); font-size: 12px; font-weight: 600;
+      color: var(--text);
+    }
+    .attention-item-header svg { width: 18px; height: 18px; }
+    .attention-count {
+      font-family: var(--font-heading); font-size: 32px; font-weight: 400;
+      line-height: 1.2; color: #1a1b1e;
+    }
+
+    /* Setup Guide */
+    .card--setup { margin-bottom: 0; }
+    .card--setup .card-title-row { display: flex; align-items: center; gap: 6px; margin-bottom: var(--space-200); }
+    .card--setup .card-title-row .card-title { margin-bottom: 0; }
+    .setup-content { display: flex; align-items: center; gap: var(--space-300); }
+    .setup-ring-wrapper { display: flex; flex-direction: column; align-items: center; gap: var(--space-50); flex-shrink: 0; }
+    .setup-ring {
+      width: 80px; height: 80px; position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .setup-ring-number { font-family: var(--font-heading); font-size: 28px; font-weight: 700; color: var(--text); position: absolute; }
+    .setup-ring-label { font-size: 11px; color: var(--text-subtle); text-align: center; white-space: nowrap; }
+    .setup-info { flex: 1; }
+    .setup-title { font-family: var(--font-heading); font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: var(--space-50); }
+    .setup-desc { font-size: 14px; color: var(--text-subtle); line-height: 1.5; }
+    .setup-actions { display: flex; gap: var(--space-100); margin-top: var(--space-150); }
+
+    /* Analytics */
+    .card--analytics { margin-bottom: 0; }
+    .card-title-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-200); }
+    .card-title-left { display: flex; align-items: center; gap: 6px; }
+    .card-title-left .card-title { margin-bottom: 0; }
+    .card-title-left svg { width: 16px; height: 16px; color: var(--text-muted); }
+    .card-title-link { font-size: 14px; color: var(--text); text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: var(--space-50); }
+    .card-title-link:hover { text-decoration: underline; }
+    .card-title-link svg { width: 14px; height: 14px; }
+    .analytics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-200); }
+    .analytics-item { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: var(--space-200); }
+    .analytics-label { font-size: 13px; color: var(--text-subtle); margin-bottom: var(--space-50); }
+    .analytics-value { font-family: var(--font-heading); font-size: 28px; font-weight: 600; }
+    .analytics-chart { height: 80px; margin-top: var(--space-100); }
+    .analytics-chart canvas { width: 100%; height: 100%; }
+    .analytics-x-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-top: var(--space-50); }
+
+    /* What's New */
+    .card--whatsnew { margin-bottom: 0; }
+    .whatsnew-items { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-200); }
+    .whatsnew-item {
+      display: flex; flex-direction: column; border: 1px solid var(--border);
+      border-radius: var(--radius-sm); overflow: hidden;
+    }
+    .whatsnew-img {
+      width: 100%; height: 140px; background: linear-gradient(135deg, #e8e0ff 0%, #dfe3ff 100%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .whatsnew-img img { width: 100%; height: 100%; object-fit: cover; }
+    .whatsnew-body { flex: 1; display: flex; flex-direction: column; padding: var(--space-200); }
+    .whatsnew-title { font-family: var(--font-heading); font-size: 14px; font-weight: 600; margin-bottom: var(--space-50); }
+    .whatsnew-desc { font-size: 13px; color: var(--text-subtle); line-height: 1.5; flex: 1; }
+    .whatsnew-link { font-size: 13px; color: var(--primary); text-decoration: none; font-weight: 500; margin-top: var(--space-50); }
+    .whatsnew-link:hover { text-decoration: underline; }
+    .whatsnew-actions { display: flex; gap: var(--space-100); margin-top: var(--space-150); padding-top: var(--space-150); border-top: 1px solid var(--bg-subtle); }
+    @media (max-width: 900px) { .whatsnew-items { grid-template-columns: 1fr; } }
+
+    /* Right Panel Cards */
+    .rp-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 20px;
+    }
+    .rp-card-header {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-150);
+    }
+    .rp-card-title {
+      font-family: var(--font-heading); font-size: 16px; font-weight: 600;
+      color: var(--text); margin-bottom: 0;
+    }
+    .rp-card-action { font-size: 13px; color: var(--text); text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: var(--space-50); }
+    .rp-card-action:hover { text-decoration: underline; }
+    .rp-card-action svg { width: 14px; height: 14px; }
+    .rp-item {
+      display: flex; align-items: center; gap: 10px; padding: 10px 0;
+      border-bottom: 1px solid var(--bg-subtle); cursor: pointer; transition: opacity 0.15s;
+    }
+    .rp-item:last-child { border-bottom: none; }
+    .rp-item:hover { opacity: 0.8; }
+    .rp-item-icon {
+      width: 32px; height: 32px; border-radius: 6px; background: var(--bg-subtle);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      color: var(--text-subtle);
+    }
+    .rp-item-icon svg { width: 16px; height: 16px; }
+    .rp-item-label { font-size: 14px; color: var(--text); }
+
+    /* Admin Release */
+    .release-item { display: flex; flex-direction: column; gap: 2px; padding: 10px 0; border-bottom: 1px solid var(--bg-subtle); }
+    .release-item:last-child { border-bottom: none; }
+    .release-title { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.4; }
+    .release-date { font-size: 12px; color: var(--text-muted); }
+
+    /* Add-on Banner */
+    .addon-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden; position: relative;
+    }
+    .addon-card-close {
+      position: absolute; top: var(--space-150); right: var(--space-150); width: 28px; height: 28px;
+      border: none; background: rgba(255,255,255,0.8); border-radius: var(--radius-xs);
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+      color: var(--text); z-index: 1;
+    }
+    .addon-card-close:hover { background: var(--white); }
+    .addon-card-close svg { width: 16px; height: 16px; }
+    .addon-card-img {
+      width: 100%; height: 160px; background: linear-gradient(135deg, #1a1b1e 0%, #2d2e36 100%);
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .addon-card-body { padding: var(--space-200); }
+    .addon-card-tag { display: inline-block; margin-bottom: var(--space-100); }
+    .addon-card-title { font-family: var(--font-heading); font-size: 16px; font-weight: 600; margin-bottom: var(--space-50); }
+    .addon-card-desc { font-size: 13px; color: var(--text-subtle); line-height: 1.5; margin-bottom: var(--space-150); }
+
+    /* ===== PRODUCTS PAGE ===== */
+    .products-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; }
+    .products-tabs { display: flex; border-bottom: 1px solid var(--border); }
+    .products-tab {
+      padding: var(--space-150) 20px; font-family: var(--font-body); font-size: 14px; font-weight: 600;
+      color: var(--text-subtle); background: none; border: none; cursor: pointer;
+      border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.15s;
+    }
+    .products-tab:hover { color: var(--text); }
+    .products-tab.active { color: var(--text); border-bottom-color: var(--text); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .products-table { width: 100%; border-collapse: collapse; }
+    .products-table th {
+      text-align: left; padding: var(--space-150) var(--space-200); font-size: 13px; font-weight: 600;
+      color: var(--text-subtle); border-bottom: 1px solid var(--border);
+    }
+    .products-table td {
+      padding: var(--space-200); font-size: 14px; color: var(--text); border-bottom: 1px solid var(--bg-subtle);
+      vertical-align: middle;
+    }
+    .product-row-clickable { cursor: pointer; transition: background 0.1s; }
+    .product-row-clickable:hover { background: #f8f8fa; }
+    .product-icon { width: 32px; height: 32px; border-radius: 6px; }
+    .product-name-value { display: flex; align-items: center; gap: var(--space-150); }
+    .text-disabled { color: var(--text-muted); }
+    .text-link { color: var(--primary); text-decoration: none; cursor: pointer; }
+    .text-link:hover { text-decoration: underline; }
+    .trial-days { font-size: 12px; color: var(--text-subtle); }
+
+    /* Explore Tab */
+    .explore-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-200); padding: var(--space-300); }
+    .explore-card {
+      border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden;
+      display: flex; flex-direction: column; transition: box-shadow 0.15s;
+    }
+    .explore-card:hover { box-shadow: 0 2px 8px rgba(34,36,40,0.08); }
+    .explore-card-img {
+      height: 140px; background: linear-gradient(135deg, #e8e0ff 0%, #dfe3ff 100%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .explore-card-body { padding: var(--space-200); display: flex; flex-direction: column; gap: var(--space-100); flex: 1; }
+    .explore-card-title { font-family: var(--font-heading); font-size: 16px; font-weight: 600; }
+    .explore-card-desc { font-size: 13px; color: var(--text-subtle); line-height: 1.5; flex: 1; }
+    .explore-card-actions { display: flex; gap: var(--space-100); margin-top: var(--space-50); }
+
+    @media (max-width: 900px) { .explore-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .explore-grid { grid-template-columns: 1fr; } }
+
+    /* ===== AI WORKFLOWS PAGE ===== */
+    .page-header-group { display: flex; flex-direction: column; gap: 0; }
+
+    .breadcrumb { display: flex; align-items: center; gap: var(--space-50); margin-bottom: 0; }
+    .breadcrumb a {
+      font-family: var(--font-body); font-size: 14px; color: var(--primary);
+      text-decoration: none; cursor: pointer;
+    }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb-sep { font-size: 14px; color: var(--text-subtle); }
+    .breadcrumb-current { font-size: 14px; color: var(--text-subtle); }
+
+    /* Overview Card */
+    .overview-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: var(--space-300);
+    }
+    .overview-title {
+      font-family: var(--font-heading); font-size: 18px; font-weight: 600;
+      color: var(--text); margin-bottom: var(--space-200);
+    }
+    .overview-metrics { display: flex; gap: var(--space-300); }
+    .overview-metric {
+      flex: 1; display: flex; flex-direction: column; gap: var(--space-100);
+      padding: var(--space-200); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    }
+    .metric-tag { align-self: flex-start; }
+    .metric-value-row { display: flex; align-items: baseline; gap: var(--space-50); }
+    .metric-value { font-family: var(--font-heading); font-size: 28px; font-weight: 600; color: var(--text); }
+    .metric-value-total { font-family: var(--font-body); font-size: 14px; color: var(--text-subtle); }
+    .metric-action { display: flex; flex-direction: column; gap: var(--space-50); margin-top: auto; }
+    .metric-label { font-size: 13px; color: var(--text-subtle); }
+    .metric-link { display: inline-flex; align-items: center; gap: var(--space-50); font-size: 14px; color: var(--text); text-decoration: none; font-weight: 500; }
+    .metric-link:hover { text-decoration: underline; }
+    .metric-link svg { width: 16px; height: 16px; color: var(--text); flex-shrink: 0; }
+
+    /* AI Workflows Tabs */
+    .aiw-section { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .aiw-tabs { display: flex; border-bottom: 1px solid var(--border); }
+    .aiw-tab {
+      padding: var(--space-150) 20px; font-family: var(--font-body); font-size: 14px; font-weight: 600;
+      color: var(--text-subtle); background: none; border: none; cursor: pointer;
+      border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.15s;
+    }
+    .aiw-tab:hover { color: var(--text); }
+    .aiw-tab.active { color: var(--text); border-bottom-color: var(--text); }
+
+    .aiw-panel { display: none; }
+    .aiw-panel.active { display: block; }
+
+    /* Users Panel */
+    #aiw-panel-users { padding: 0 var(--space-300) var(--space-300); }
+
+    .aiw-toolbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0; margin: var(--space-300) 0; background: var(--white);
+    }
+    .aiw-toolbar > div { display: flex; align-items: center; gap: var(--space-100); }
+
+    .aiw-search {
+      height: 40px; min-width: 260px; border: 1.5px solid var(--border); border-radius: var(--radius-xs);
+      padding: 0 var(--space-150) 0 36px; font-family: var(--font-body); font-size: 14px;
+      color: var(--text); outline: none;
+      background: var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'%3E%3Cpath fill='%236f7489' d='M10 2a8 8 0 0 1 6.32 12.906l4.387 4.387-1.414 1.414-4.387-4.387A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12Z'/%3E%3C/svg%3E") no-repeat 10px center;
+      background-size: 16px;
+    }
+    .aiw-search:focus { border-color: var(--primary); }
+    .aiw-search::placeholder { color: var(--text-muted); }
+
+    /* Users Table */
+    .users-table { width: 100%; border-collapse: collapse; }
+    .users-table th {
+      text-align: left; padding: var(--space-100) var(--space-150); font-family: var(--font-body);
+      font-size: 14px; font-weight: 600; color: var(--text-subtle);
+      border-bottom: 1px solid var(--border-subtle); height: 48px; vertical-align: middle;
+    }
+    .users-table td {
+      padding: var(--space-150); font-family: var(--font-body); font-size: 14px; color: var(--text);
+      border-bottom: 1px solid var(--border-subtle); height: 68px; vertical-align: middle; line-height: 1.4;
+    }
+    .users-table td:last-child { width: 56px; text-align: right; padding-right: 12px; }
+
+    .user-cell { display: flex; align-items: center; gap: var(--space-150); }
+    .user-avatar { width: 36px; height: 36px; border-radius: 999px; background: var(--bg-subtle); flex-shrink: 0; overflow: hidden; }
+    .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .user-info { display: flex; flex-direction: column; min-width: 0; }
+    .user-name { font-family: var(--font-body); font-size: 14px; color: var(--text); line-height: 1.4; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .user-email { font-family: var(--font-body); font-size: 12px; color: var(--text-subtle); line-height: 1.5; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    .th-label { display: inline-flex; align-items: center; gap: var(--space-50); }
+    .th-label svg { color: var(--text-subtle); }
+    .cell-link { color: var(--primary); cursor: pointer; font-size: 14px; text-decoration: none; }
+    .cell-link:hover { text-decoration: underline; }
+
+    /* ===== MDS CHECKBOX (styled native) ===== */
+    input[type="checkbox"] { accent-color: var(--primary); }
+
+    /* Settings Panel */
+    .settings-content { padding: var(--space-300); display: flex; flex-direction: column; gap: var(--space-300); }
+    .settings-section { display: flex; flex-direction: column; gap: var(--space-150); }
+    .settings-section-header { display: flex; flex-direction: column; gap: var(--space-50); }
+    .settings-section-title { font-family: var(--font-heading); font-size: 16px; font-weight: 600; color: var(--text); }
+    .settings-section-desc { font-family: var(--font-body); font-size: 14px; color: var(--text-subtle); line-height: 1.5; }
+    .settings-toggle-group { display: flex; flex-direction: column; gap: var(--space-150); }
+    .settings-toggle-row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-200); }
+    .settings-toggle-label { font-family: var(--font-body); font-size: 14px; color: var(--text); }
+    .settings-radio-group { display: flex; flex-direction: column; gap: var(--space-150); }
+    .settings-radio-row { display: flex; align-items: center; gap: var(--space-100); cursor: pointer; }
+    .settings-radio-label { font-family: var(--font-body); font-size: 14px; color: var(--text); }
+
+    /* About Panel */
+    .about-layout { display: flex; gap: var(--space-300); padding: var(--space-300); }
+    .about-main { flex: 1; display: flex; flex-direction: column; gap: var(--space-200); min-width: 0; }
+    .about-sidebar { width: 320px; flex-shrink: 0; display: flex; flex-direction: column; gap: var(--space-200); }
+    .about-section-title { font-family: var(--font-heading); font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.4; }
+    .about-desc { font-family: var(--font-body); font-size: 14px; color: var(--text); line-height: 1.4; }
+    .about-desc a { color: var(--text); text-decoration: underline; }
+    .about-features { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-200); }
+    .about-feature-card { border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; display: flex; flex-direction: column; }
+    .about-feature-header { padding: 20px 20px 0; display: flex; flex-direction: column; gap: var(--space-100); }
+    .about-feature-top { display: flex; align-items: center; justify-content: space-between; }
+    .about-feature-title { font-family: var(--font-heading); font-size: 20px; font-weight: 600; color: var(--text); line-height: 1.4; }
+    .about-feature-icon { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: var(--primary); }
+    .about-feature-icon svg { width: 24px; height: 24px; }
+    .about-feature-desc { font-family: var(--font-body); font-size: 14px; color: var(--text); line-height: 1.4; }
+    .about-feature-img { margin-top: var(--space-200); width: 100%; aspect-ratio: 316 / 200; object-fit: cover; display: block; }
+    .about-admin-card { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: var(--space-150) var(--space-200); display: flex; flex-direction: column; gap: var(--space-150); max-width: 340px; }
+    .about-admin-card-title { font-family: var(--font-body); font-size: 12px; font-weight: 600; color: var(--text); line-height: 1; }
+    .about-admin-card-desc { font-family: var(--font-body); font-size: 14px; color: var(--text); line-height: 1.4; }
+
+    @media (max-width: 900px) {
+      .about-layout { flex-direction: column; }
+      .about-sidebar { width: 100%; }
+      .about-features { grid-template-columns: 1fr; }
+    }
+
+    /* ===== SIDE PANEL ===== */
+    .side-panel-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(5,0,56,0.3); z-index: 200; justify-content: flex-end;
+    }
+    .side-panel-overlay.open { display: flex; }
+    .side-panel {
+      width: 920px; max-width: 100%; height: 100%; background: var(--white);
+      display: flex; flex-direction: column;
+      box-shadow: -4px 0 24px rgba(5,0,56,0.12);
+      animation: slideInRight 0.25s ease;
+    }
+    @keyframes slideInRight { from { transform: translateX(100%); } to { transform: translateX(0); } }
+    .side-panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-300); flex-shrink: 0;
+    }
+    .side-panel-title { font-family: var(--font-heading); font-size: 24px; font-weight: 500; color: var(--text); line-height: 1.35; }
+    .side-panel-close {
+      width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+      border: none; background: none; border-radius: var(--radius-xs); cursor: pointer; color: var(--text);
+    }
+    .side-panel-close:hover { background: var(--bg-subtle); }
+    .side-panel-body { flex: 1; overflow-y: auto; padding: 0 var(--space-300); display: flex; flex-direction: column; gap: var(--space-150); }
+    .side-panel-desc { font-family: var(--font-body); font-size: 14px; color: var(--text); line-height: 1.7; }
+    .side-panel-filters { display: flex; gap: var(--space-100); margin-top: var(--space-150); }
+    .side-panel-table { width: 100%; border-collapse: collapse; margin-top: var(--space-150); }
+    .side-panel-table th {
+      height: 48px; padding: var(--space-50) var(--space-150); font-family: var(--font-body); font-size: 14px;
+      font-weight: 600; color: var(--text-subtle); text-align: left;
+      border-bottom: 1px solid var(--border-subtle); white-space: nowrap; vertical-align: middle;
+    }
+    .side-panel-table th:first-child { width: 38px; padding-left: 2px; }
+    .side-panel-table td {
+      height: 68px; padding: var(--space-150); font-family: var(--font-body); font-size: 14px;
+      color: var(--text); border-bottom: 1px solid var(--border-subtle); vertical-align: middle; line-height: 1.4;
+    }
+    .side-panel-table td:first-child { width: 38px; padding-left: 2px; }
+    .side-panel-table tr.hidden-row { display: none; }
+    .side-panel-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-300) var(--space-400); border-top: 1px solid var(--bg-subtle); flex-shrink: 0;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1100px) { .right-panel { display: none; } }
+    @media (max-width: 800px) {
+      .sidebar { display: none; }
+      .main-wrapper { margin-left: 0 !important; }
+      .analytics-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ===== HEADER ===== -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="mds-icon-btn" id="hamburger-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/></svg>
+      </button>
+      <img src="Logotype.svg" alt="Miro" class="topbar-logo">
+    </div>
+    <div class="topbar-right">
+      <button class="mds-icon-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8Zm-1-5h2v2h-2v-2Zm0-8h2v6h-2V7Z"/></svg>
+      </button>
+      <button class="mds-icon-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Zm0 14H5.172L4 17.172V4h16v12Z"/></svg>
+      </button>
+      <div class="topbar-avatar">T</div>
+    </div>
+  </header>
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-org-container">
+      <div class="sidebar-org">
+        <div class="sidebar-org-icon">A</div>
+        <div class="sidebar-org-info">
+          <div class="sidebar-org-name">Acme</div>
+          <div class="sidebar-org-tag">Company admin</div>
+        </div>
+        <div class="sidebar-org-chevron">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414L12 17.414l-6.707-6.707 1.414-1.414Z"/></svg>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-nav-container">
+      <nav class="sidebar-nav">
+        <!-- Home -->
+        <a href="#" class="active" data-route="home">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3 3 11v10h7v-6h4v6h7V11L12 3Zm0 2.828 7 6.172v7H15v-6H9v6H5V12l7-6.172Z"/></svg></span>
+          <span class="nav-label">Home</span>
+        </a>
+        <!-- Teams -->
+        <a href="#">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm0-6a2 2 0 1 1 0 4 2 2 0 0 1 0-6Zm6 6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0-4a1 1 0 1 1 0 2 1 1 0 0 1 0-2ZM2 20v1h14v-1a5 5 0 0 0-5-5H7a5 5 0 0 0-5 5Zm2 0a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3H4Zm17 1h-3v-2h3a2 2 0 0 0-2-2h-2v-2h2a4 4 0 0 1 4 4v2Z"/></svg></span>
+          <span class="nav-label">Teams</span>
+        </a>
+        <!-- Users (with chevron) -->
+        <a href="#">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm0-6a2 2 0 1 1 0 4 2 2 0 0 1 0-6ZM4 20v1h16v-1a6 6 0 0 0-6-6h-4a6 6 0 0 0-6 6Zm2 0a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4H6Z"/><path fill="currentColor" d="m17 16 2.5 2.5L22 16"/></svg></span>
+          <span class="nav-label">Users</span>
+          <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414L12 17.414l-6.707-6.707 1.414-1.414Z"/></svg></span>
+        </a>
+        <!-- Insights -->
+        <a href="#">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M4 4v16h16v-2H6V4H4Zm4 10v2h2v-2H8Zm4-4v6h2v-6h-2Zm4-3v9h2V7h-2Z"/></svg></span>
+          <span class="nav-label">Insights</span>
+        </a>
+        <!-- Security (with chevron) -->
+        <a href="#">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10V7a5 5 0 0 1 10 0v3h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h1Zm2 0h6V7a3 3 0 0 0-6 0v3ZM6 12v8h12v-8H6Z"/></svg></span>
+          <span class="nav-label">Security</span>
+          <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414L12 17.414l-6.707-6.707 1.414-1.414Z"/></svg></span>
+        </a>
+        <!-- Miro AI (with chevron) -->
+        <a href="#">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2c.5 0 .9.3 1 .8l1.6 5.2 5.2 1.6c.4.1.7.5.8 1 0 .5-.2.9-.6 1.1l-4.6 3 .8 5.4c.1.5-.1 1-.5 1.2-.4.3-.9.3-1.3 0L12 19l-2.4 2.3c-.4.3-.9.3-1.3 0-.4-.3-.6-.7-.5-1.2l.8-5.4-4.6-3c-.4-.3-.6-.7-.6-1.1.1-.5.4-.9.8-1l5.2-1.6L11 2.8c.1-.5.5-.8 1-.8Z"/></svg></span>
+          <span class="nav-label">Miro AI</span>
+          <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414L12 17.414l-6.707-6.707 1.414-1.414Z"/></svg></span>
+        </a>
+        <!-- Products -->
+        <a href="#" data-route="products">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h8v8H3V3Zm2 2v4h4V5H5Zm8-2h8v3h-8V3Zm0 5h8v3h-8V8ZM5 13l4 7H1l4-7Zm0 3.5L3.5 19h3L5 16.5ZM18 13a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm0 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4Z"/><path fill="currentColor" d="M20 3v2h-1V3h-2v1h2v2h1V4h2V3h-2Z"/></svg></span>
+          <span class="nav-label">Products</span>
+        </a>
+        <!-- Apps and integrations (with chevron) -->
+        <a href="#">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M15 2v3h2V2h2v3a2 2 0 0 1 2 2v3h-2v2.59l-2.29 2.29 1.42 1.41L21 13.42V11h2v3a1 1 0 0 1-.29.71l-4 4A1 1 0 0 1 18 19h-1v3h-2v-3h-1a1 1 0 0 1-.71-.29l-4-4A1 1 0 0 1 9 14v-3H7V7a2 2 0 0 1 2-2V2h2v3h2V2h2Zm-4 5v4.59l3.71 3.7.29.3.29-.3L19 11.58V7H11Z"/></svg></span>
+          <span class="nav-label">Apps and integrations</span>
+          <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414L12 17.414l-6.707-6.707 1.414-1.414Z"/></svg></span>
+        </a>
+        <!-- Billing (with chevron) -->
+        <a href="#">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6Zm2 0v2h14V6H5Zm0 4v8h14v-8H5Zm2 2h4v2H7v-2Z"/></svg></span>
+          <span class="nav-label">Billing</span>
+          <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414L12 17.414l-6.707-6.707 1.414-1.414Z"/></svg></span>
+        </a>
+        <!-- Organization (with chevron) -->
+        <a href="#">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M4 3h16v18H4V3Zm2 2v14h12V5H6Zm2 2h3v3H8V7Zm5 0h3v3h-3V7ZM8 12h3v3H8v-3Zm5 0h3v3h-3v-3Zm-3 5h4v3h-4v-3Z"/></svg></span>
+          <span class="nav-label">Organization</span>
+          <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414L12 17.414l-6.707-6.707 1.414-1.414Z"/></svg></span>
+        </a>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN WRAPPER ===== -->
+  <div class="main-wrapper">
+    <!-- ===== HOME PAGE ===== -->
+    <div id="page-home" class="page-section active">
+      <section class="main-content">
+        <h1 class="greeting" id="greeting">Good morning, Taylor</h1>
+
+        <!-- Needs Attention -->
+        <div class="card card--attention">
+          <div class="card-title">Needs attention</div>
+          <div class="attention-items">
+            <div class="attention-item attention-item--license">
+              <div class="attention-item-header">
+                <!-- IconUserAdd -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm0-6a2 2 0 1 1 0 4 2 2 0 0 1 0-6ZM4 20v1h16v-1a6 6 0 0 0-6-6h-4a6 6 0 0 0-6 6Zm2 0a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4H6Zm15-11h2v2h-2v2h-2v-2h-2V9h2V7h2v2Z"/></svg>
+                License requests
+              </div>
+              <div class="attention-count">21</div>
+            </div>
+            <div class="attention-item attention-item--app">
+              <div class="attention-item-header">
+                <!-- IconPlug -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M15 2v3h2V2h2v3a2 2 0 0 1 2 2v3h-2v2.59l-2.29 2.29 1.42 1.41L21 13.42V11h2v3a1 1 0 0 1-.29.71l-4 4A1 1 0 0 1 18 19h-1v3h-2v-3h-1a1 1 0 0 1-.71-.29l-4-4A1 1 0 0 1 9 14v-3H7V7a2 2 0 0 1 2-2V2h2v3h2V2h2Zm-4 5v4.59l3.71 3.7.29.3.29-.3L19 11.58V7H11Z"/></svg>
+                App requests
+              </div>
+              <div class="attention-count">4</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Setup Guide -->
+        <div class="card card--setup">
+          <div class="card-title-row">
+            <div class="card-title-left">
+              <div class="card-title">Setup guide</div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Zm-9-1v6h-2v-4H9.5v-2H13Zm.5-2.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/></svg>
+            </div>
+          </div>
+          <div class="setup-content">
+            <div class="setup-ring-wrapper">
+              <div class="setup-ring">
+                <svg width="80" height="80" viewBox="0 0 80 80"><circle cx="40" cy="40" r="34" stroke="var(--border-subtle)" stroke-width="5" fill="none"/><circle cx="40" cy="40" r="34" stroke="#f24726" stroke-width="5" fill="none" stroke-dasharray="214" stroke-dashoffset="53" stroke-linecap="round" transform="rotate(-90 40 40)"/></svg>
+                <span class="setup-ring-number">23</span>
+              </div>
+              <span class="setup-ring-label">Unclaimed Teams</span>
+            </div>
+            <div class="setup-info">
+              <div class="setup-title">Set up domain control for flexfund.com</div>
+              <div class="setup-desc">23 teams using the flexfund.com domain that aren't currently managed by your Enterprise plan. Add and verify your organization's domain to control how people from this email domain can join and use Miro.</div>
+              <div class="setup-actions">
+                <button class="mds-btn mds-btn--primary mds-btn--small">Add domain</button>
+                <button class="mds-btn mds-btn--secondary mds-btn--small">Not now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Analytics -->
+        <div class="card card--analytics">
+          <div class="card-title-row">
+            <div class="card-title-left">
+              <div class="card-title">Analytics</div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Zm-9-1v6h-2v-4H9.5v-2H13Zm.5-2.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/></svg>
+            </div>
+            <a href="#" class="card-title-link">View all</a>
+          </div>
+          <div class="analytics-grid">
+            <div class="analytics-item">
+              <div class="analytics-label">Active boards</div>
+              <div class="analytics-value">340</div>
+              <div class="analytics-chart"><canvas id="chart-boards"></canvas></div>
+              <div class="analytics-x-labels"><span>Jul 2024</span><span>Oct 2024</span><span>Apr 2025</span><span>Jul 2025</span></div>
+            </div>
+            <div class="analytics-item">
+              <div class="analytics-label">Active teams</div>
+              <div class="analytics-value">80</div>
+              <div class="analytics-chart"><canvas id="chart-teams"></canvas></div>
+              <div class="analytics-x-labels"><span>Jul 2024</span><span>Oct 2024</span><span>Apr 2025</span><span>Jul 2025</span></div>
+            </div>
+            <div class="analytics-item">
+              <div class="analytics-label">Active users</div>
+              <div class="analytics-value">126</div>
+              <div class="analytics-chart"><canvas id="chart-users"></canvas></div>
+              <div class="analytics-x-labels"><span>Jul 2024</span><span>Oct 2024</span><span>Apr 2025</span><span>Jul 2025</span></div>
+            </div>
+            <div class="analytics-item">
+              <div class="analytics-label">Licenses</div>
+              <div class="analytics-value">208</div>
+              <div class="analytics-chart"><canvas id="chart-licenses"></canvas></div>
+              <div class="analytics-x-labels"><span>Jul 2024</span><span>Oct 2024</span><span>Apr 2025</span><span>Jul 2025</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- What's New -->
+        <div class="card card--whatsnew">
+          <div class="card-title-row">
+            <div class="card-title-left">
+              <div class="card-title">What's new in Miro</div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Zm-9-1v6h-2v-4H9.5v-2H13Zm.5-2.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/></svg>
+            </div>
+            <div style="display:flex; gap:16px;">
+              <a href="#" class="card-title-link">View all <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M5 3h6v2H7v14h14v-4h2v6H5V3Zm9 0h7v7h-2V6.414l-7.293 7.293-1.414-1.414L17.586 5H14V3Z"/></svg></a>
+              <a href="#" class="card-title-link">View all <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M5 3h6v2H7v14h14v-4h2v6H5V3Zm9 0h7v7h-2V6.414l-7.293 7.293-1.414-1.414L17.586 5H14V3Z"/></svg></a>
+            </div>
+          </div>
+          <div class="whatsnew-items">
+            <div class="whatsnew-item">
+              <div class="whatsnew-img" style="background: linear-gradient(135deg, #e8f0ff 0%, #d5e3ff 100%);"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" viewBox="0 0 24 24" style="color:#4262ff;opacity:0.5;"><path fill="currentColor" d="M10 2L6 8l4 6-4 6h2l4-6-4-6 4-6h-2Zm6 0l-4 6 4 6-4 6h2l4-6-4-6 4-6h-2Z"/></svg></div>
+              <div class="whatsnew-body">
+                <div class="whatsnew-title">Create with AI</div>
+                <div class="whatsnew-desc">Users can leverage the canvas as the prompt to create docs, images, sticky notes, diagrams, tables, and prototypes.</div>
+                <a href="#" class="whatsnew-link">Learn more</a>
+                <div class="whatsnew-actions">
+                  <button class="mds-btn mds-btn--secondary mds-btn--small"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"/></svg> Announce</button>
+                  <button class="mds-btn mds-btn--ghost mds-btn--small"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1Zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Zm0 16H8V7h11v14Z"/></svg> Copy</button>
+                </div>
+              </div>
+            </div>
+            <div class="whatsnew-item">
+              <div class="whatsnew-img" style="background: linear-gradient(135deg, #e4f3ed 0%, #c8e6d7 100%);"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" viewBox="0 0 24 24" style="color:#16a34a;opacity:0.5;"><path fill="currentColor" d="M21 3H3v18h18V3ZM5 19V5h14v14H5Zm4-6h2v4H9v-4Zm4-4h2v8h-2V9Zm-8 6h2v2H5v-2Z"/></svg></div>
+              <div class="whatsnew-body">
+                <div class="whatsnew-title">Adobe Express image editing</div>
+                <div class="whatsnew-desc">Users can crop, edit, and polish images directly on Miro boards with this built-in integration.</div>
+                <a href="#" class="whatsnew-link">Learn more</a>
+                <div class="whatsnew-actions">
+                  <button class="mds-btn mds-btn--secondary mds-btn--small"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"/></svg> Announce</button>
+                  <button class="mds-btn mds-btn--ghost mds-btn--small"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1Zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Zm0 16H8V7h11v14Z"/></svg> Copy</button>
+                </div>
+              </div>
+            </div>
+            <div class="whatsnew-item">
+              <div class="whatsnew-img" style="background: linear-gradient(135deg, #e8eaf0 0%, #d1d5e0 100%);"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" viewBox="0 0 24 24" style="color:#6366f1;opacity:0.5;"><path fill="currentColor" d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4Z"/></svg></div>
+              <div class="whatsnew-body">
+                <div class="whatsnew-title">Record video calls</div>
+                <div class="whatsnew-desc">Your users can now record and get transcripts of Miro video calls to track and share important context and decisions.</div>
+                <a href="#" class="whatsnew-link">Learn more</a>
+                <div class="whatsnew-actions">
+                  <button class="mds-btn mds-btn--secondary mds-btn--small"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"/></svg> Announce</button>
+                  <button class="mds-btn mds-btn--ghost mds-btn--small"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1Zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Zm0 16H8V7h11v14Z"/></svg> Copy</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Panel -->
+      <aside class="right-panel" id="right-panel">
+        <!-- Quick Actions -->
+        <div class="rp-card">
+          <div class="rp-card-header">
+            <div class="rp-card-title">Quick actions</div>
+            <a href="#" class="rp-card-action">Edit</a>
+          </div>
+          <div class="rp-item">
+            <div class="rp-item-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"/></svg></div>
+            <span class="rp-item-label">Create announcement</span>
+          </div>
+          <div class="rp-item">
+            <div class="rp-item-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm6 10H6v-1c0-3.31 2.69-6 6-6s6 2.69 6 6v1Z"/></svg></div>
+            <span class="rp-item-label">Show non-private teams</span>
+          </div>
+          <div class="rp-item">
+            <div class="rp-item-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M10 2L6 8l4 6-4 6h2l4-6-4-6 4-6h-2Zm6 0l-4 6 4 6-4 6h2l4-6-4-6 4-6h-2Z"/></svg></div>
+            <span class="rp-item-label">Edit Miro AI settings</span>
+          </div>
+          <div class="rp-item">
+            <div class="rp-item-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M18 8h-1V6A5 5 0 0 0 7 6v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2ZM9 6a3 3 0 1 1 6 0v2H9V6Zm9 14H6V10h12v10Z"/></svg></div>
+            <span class="rp-item-label">Edit sharing settings</span>
+          </div>
+        </div>
+
+        <!-- Admin Releases -->
+        <div class="rp-card">
+          <div class="rp-card-header">
+            <div class="rp-card-title">Admin releases</div>
+            <a href="#" class="rp-card-action">View all <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M5 3h6v2H7v14h14v-4h2v6H5V3Zm9 0h7v7h-2V6.414l-7.293 7.293-1.414-1.414L17.586 5H14V3Z"/></svg></a>
+          </div>
+          <div class="release-item">
+            <span class="release-title">Smarter clean-up with new disposition policy criteria</span>
+            <span class="release-date">Dec 8, 2025</span>
+          </div>
+          <div class="release-item">
+            <span class="release-title">EKM configuration status</span>
+            <span class="release-date">Nov 27, 2025</span>
+          </div>
+          <div class="release-item">
+            <span class="release-title">Amazon Q integration</span>
+            <span class="release-date">Nov 25, 2025</span>
+          </div>
+        </div>
+
+        <!-- Available Add-ons -->
+        <div class="addon-card">
+          <button class="addon-card-close" id="addon-close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m13.414 12 5.293-5.293-1.414-1.414L12 10.586 6.707 5.293 5.293 6.707 10.586 12l-5.293 5.293 1.414 1.414L12 13.414l5.293 5.293 1.414-1.414L13.414 12Z"/></svg>
+          </button>
+          <div class="addon-card-img">
+            <div style="width:120px; height:120px; background: #2a2b32; border-radius: 12px; display:flex; align-items:center; justify-content:center;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" viewBox="0 0 24 24" style="color:#8b8b99;"><path fill="currentColor" d="M17 1.01 7 1a2 2 0 0 0-2 2v18a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm0 20H7V3h10v18Z"/></svg>
+            </div>
+          </div>
+          <div class="addon-card-body">
+            <div class="addon-card-tag"><span class="mds-tag mds-tag--primary">Add-on</span></div>
+            <div class="addon-card-title">Miro Prototypes</div>
+            <div class="addon-card-desc">Empower teams to bring ideas to life faster. Miro's AI-powered prototyping add-on allows users to create interactive, clickable prototypes from screenshots, diagrams, or docs in just a few minutes.</div>
+            <a href="#" class="card-title-link">Learn more <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M5 3h6v2H7v14h14v-4h2v6H5V3Zm9 0h7v7h-2V6.414l-7.293 7.293-1.414-1.414L17.586 5H14V3Z"/></svg></a>
+          </div>
+        </div>
+      </aside>
+    </div><!-- /page-home -->
+
+    <!-- ===== PRODUCTS PAGE ===== -->
+    <div id="page-products" class="page-section">
+      <section class="main-content">
+        <h1 class="page-title">Products</h1>
+        <div class="products-card">
+          <div class="products-tabs">
+            <button class="products-tab active" data-tab="tab-active">Active</button>
+            <button class="products-tab" data-tab="tab-explore">Explore more</button>
+          </div>
+          <div id="tab-active" class="tab-panel active">
+            <table class="products-table">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Status</th>
+                  <th>Seats</th>
+                  <th>AI Credits</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="product-name-value"><img src="integration-insights.svg" class="product-icon" alt="Prototyping"><span>Prototyping</span></div></td>
+                  <td><span class="mds-tag mds-tag--warning">Trial</span> <span class="trial-days">14 days left</span></td>
+                  <td>50 / 100</td>
+                  <td class="text-disabled">—</td>
+                  <td><a class="text-link">Manage</a></td>
+                </tr>
+                <tr>
+                  <td><div class="product-name-value"><img src="integration-insights.svg" class="product-icon" alt="Insights"><span>Insights</span></div></td>
+                  <td><span class="mds-tag mds-tag--primary">Beta</span></td>
+                  <td>30 / 50</td>
+                  <td class="text-disabled">—</td>
+                  <td><a class="text-link">Manage</a></td>
+                </tr>
+                <tr>
+                  <td><div class="product-name-value"><img src="icon-miro.svg" class="product-icon" alt="Engage"><span>Engage</span></div></td>
+                  <td><span class="mds-tag mds-tag--success">Active</span></td>
+                  <td>80 / 100</td>
+                  <td class="text-disabled">—</td>
+                  <td><a class="text-link">Manage</a></td>
+                </tr>
+                <tr class="product-row-clickable" data-route="aiworkflow">
+                  <td><div class="product-name-value"><img src="icon-miro.svg" class="product-icon" alt="AI Workflows"><span>AI Workflows</span></div></td>
+                  <td><span class="mds-tag mds-tag--warning">Trial</span> <span class="trial-days">30 days left</span></td>
+                  <td>90 / 100</td>
+                  <td>1,200</td>
+                  <td><a class="text-link">Manage</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="tab-explore" class="tab-panel">
+            <div class="explore-grid">
+              <div class="explore-card">
+                <div class="explore-card-img"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" style="color:var(--text-muted)"><path fill="currentColor" d="M21 3H3v18h18V3ZM5 19V5h14v14H5Z"/></svg></div>
+                <div class="explore-card-body">
+                  <div class="explore-card-title">Whiteboard</div>
+                  <div class="explore-card-desc">Collaborate visually with your team using infinite canvas and templates.</div>
+                  <div class="explore-card-actions"><button class="mds-btn mds-btn--secondary mds-btn--small">Learn more</button></div>
+                </div>
+              </div>
+              <div class="explore-card">
+                <div class="explore-card-img"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" style="color:var(--text-muted)"><path fill="currentColor" d="M3 3h8v8H3V3Zm2 2v4h4V5H5Zm8-2h8v8h-8V3Zm2 2v4h4V5h-4ZM3 13h8v8H3v-8Zm2 2v4h4v-4H5Z"/></svg></div>
+                <div class="explore-card-body">
+                  <div class="explore-card-title">Diagramming</div>
+                  <div class="explore-card-desc">Create flowcharts, org charts, and technical diagrams with ease.</div>
+                  <div class="explore-card-actions"><button class="mds-btn mds-btn--secondary mds-btn--small">Learn more</button></div>
+                </div>
+              </div>
+              <div class="explore-card">
+                <div class="explore-card-img"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" style="color:var(--text-muted)"><path fill="currentColor" d="M16 3H8v2h3v4.38l-4.83 4.07A3 3 0 0 0 5 15.9V21h14v-5.1a3 3 0 0 0-1.17-2.38L13 9.38V5h3V3Z"/></svg></div>
+                <div class="explore-card-body">
+                  <div class="explore-card-title">Design</div>
+                  <div class="explore-card-desc">Design and prototype user interfaces and experiences.</div>
+                  <div class="explore-card-actions"><button class="mds-btn mds-btn--secondary mds-btn--small">Learn more</button></div>
+                </div>
+              </div>
+              <div class="explore-card">
+                <div class="explore-card-img"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" style="color:var(--text-muted)"><path fill="currentColor" d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Zm0 16H5V5h14v14Zm-7-2h2v-4h4v-2h-4V7h-2v4H8v2h4v4Z"/></svg></div>
+                <div class="explore-card-body">
+                  <div class="explore-card-title">Project Management</div>
+                  <div class="explore-card-desc">Plan, track, and manage projects visually with your team.</div>
+                  <div class="explore-card-actions"><button class="mds-btn mds-btn--secondary mds-btn--small">Learn more</button></div>
+                </div>
+              </div>
+              <div class="explore-card">
+                <div class="explore-card-img"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" style="color:var(--text-muted)"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm1 15h-2v-2h2v2Zm0-4h-2V7h2v6Z"/></svg></div>
+                <div class="explore-card-body">
+                  <div class="explore-card-title">Innovation Workspace</div>
+                  <div class="explore-card-desc">Ideate, brainstorm, and innovate with powerful workshop tools.</div>
+                  <div class="explore-card-actions"><button class="mds-btn mds-btn--secondary mds-btn--small">Learn more</button></div>
+                </div>
+              </div>
+              <div class="explore-card">
+                <div class="explore-card-img"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" style="color:var(--text-muted)"><path fill="currentColor" d="M12 2a5 5 0 0 0-4 7.9 5 5 0 1 0 6.33-6.33A4.97 4.97 0 0 0 12 2Zm0 8a3 3 0 1 1 0-6 3 3 0 0 1 0 6ZM4 20c0-3.87 3.13-7 7-7h2c3.87 0 7 3.13 7 7v2H4v-2Zm2 0h12a5 5 0 0 0-5-5h-2a5 5 0 0 0-5 5Z"/></svg></div>
+                <div class="explore-card-body">
+                  <div class="explore-card-title">Meeting Toolkit</div>
+                  <div class="explore-card-desc">Run effective meetings with agendas, timers, and voting tools.</div>
+                  <div class="explore-card-actions"><button class="mds-btn mds-btn--secondary mds-btn--small">Learn more</button></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div><!-- /page-products -->
+
+    <!-- ===== AI WORKFLOWS PAGE ===== -->
+    <div id="page-aiworkflow" class="page-section">
+      <section class="main-content">
+        <div class="page-header-group">
+          <div class="breadcrumb">
+            <a href="#" data-route="products">Products</a>
+            <span class="breadcrumb-sep">/</span>
+            <span class="breadcrumb-current">AI Workflows</span>
+          </div>
+          <h1 class="page-title">AI Workflows</h1>
+        </div>
+
+        <!-- Overview Card -->
+        <div class="overview-card">
+          <div class="overview-title">Overview</div>
+          <div class="overview-metrics">
+            <div class="overview-metric">
+              <span class="mds-tag mds-tag--neutral-prominent metric-tag">Seats</span>
+              <div class="metric-value-row">
+                <span class="metric-value">90</span>
+                <span class="metric-value-total">/ 100</span>
+              </div>
+              <div class="metric-action">
+                <a href="#" class="metric-link">
+                  Contact Sales
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm1 15h-2v-2h2Zm0-4h-2V7h2Z"/></svg>
+                </a>
+              </div>
+            </div>
+            <div class="overview-metric">
+              <span class="mds-tag mds-tag--neutral-prominent metric-tag">AI Credit usage</span>
+              <div class="metric-value-row">
+                <span class="metric-value">1,200</span>
+              </div>
+              <div class="metric-action">
+                <a href="#" class="metric-link">
+                  View in Analytics
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M5 3h6v2H7v14h14v-4h2v6H5V3Zm9 0h7v7h-2V6.414l-7.293 7.293-1.414-1.414L17.586 5H14V3Z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabs Section -->
+        <div class="aiw-section">
+          <div class="aiw-tabs">
+            <button class="aiw-tab active" data-aiw-tab="users">Users</button>
+            <button class="aiw-tab" data-aiw-tab="settings">Settings</button>
+            <button class="aiw-tab" data-aiw-tab="about">About</button>
+          </div>
+
+          <!-- Users Panel -->
+          <div id="aiw-panel-users" class="aiw-panel active">
+            <div class="aiw-toolbar">
+              <div>
+                <input type="text" class="aiw-search" placeholder="Search users by name or email">
+                <div class="mds-select-wrapper">
+                  <button class="mds-select-trigger" data-placeholder="User groups" data-value="">
+                    <span class="mds-select-label">User groups</span>
+                    <svg class="mds-select-chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg>
+                  </button>
+                  <div class="mds-select-dropdown">
+                    <input type="text" class="mds-select-dropdown-search" placeholder="Search">
+                    <div class="mds-select-option" data-value="ug1">Engineering team 1</div>
+                    <div class="mds-select-option" data-value="ug2">EMEA Designers</div>
+                    <div class="mds-select-option" data-value="ug3">APAC Designers</div>
+                  </div>
+                </div>
+                <div class="mds-select-wrapper">
+                  <button class="mds-select-trigger" data-placeholder="Teams" data-value="">
+                    <span class="mds-select-label">Teams</span>
+                    <svg class="mds-select-chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg>
+                  </button>
+                  <div class="mds-select-dropdown">
+                    <input type="text" class="mds-select-dropdown-search" placeholder="Search">
+                    <div class="mds-select-option" data-value="t1">Design team</div>
+                    <div class="mds-select-option" data-value="t2">Engineering team</div>
+                    <div class="mds-select-option" data-value="t3">Marketing team</div>
+                  </div>
+                </div>
+              </div>
+              <button class="mds-btn mds-btn--secondary mds-btn--medium" id="btn-assign-seats">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M9.45 7.5a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0Zm-2 0a4.5 4.5 0 1 0 9 0 4.5 4.5 0 0 0-9 0Zm4.5 5.5a7.077 7.077 0 0 0-7.042 6.373L4.755 20.9l1.99.2.153-1.528A5.077 5.077 0 0 1 11.95 15v-2ZM19 13v3h3v2h-3v3h-2v-3h-3v-2h3v-3h2Z"/></svg>
+                Assign seats
+              </button>
+            </div>
+            <table class="users-table">
+              <thead>
+                <tr>
+                  <th><span class="th-label">Users <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4l-6 8h12l-6-8Z"/></svg></span></th>
+                  <th><span class="th-label">License <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Zm-9-1v6h-2v-4H9.5v-2H13Zm.5-2.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/></svg></span></th>
+                  <th><span class="th-label">User groups</span></th>
+                  <th><span class="th-label">Teams</span></th>
+                  <th><span class="th-label">Last active <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Zm-9-1v6h-2v-4H9.5v-2H13Zm.5-2.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/></svg></span></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=emily" alt="EC"></div><div class="user-info"><span class="user-name">Emily Carter</span><span class="user-email">emily.carter@samplemail.com</span></div></div></td>
+                  <td><span class="mds-tag mds-tag--lime">Full</span></td>
+                  <td><span class="cell-link">1 User group</span></td>
+                  <td><span class="cell-link">2 teams</span></td>
+                  <td>2 days ago</td>
+                  <td><button class="mds-icon-btn" style="width:32px;height:32px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg></button></td>
+                </tr>
+                <tr>
+                  <td><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=michael" alt="MJ"></div><div class="user-info"><span class="user-name">Michael Johnson</span><span class="user-email">michael.j@webmail.com</span></div></div></td>
+                  <td><span class="mds-tag mds-tag--sunshine">Basic</span></td>
+                  <td><span class="cell-link">1 User group</span></td>
+                  <td><span class="cell-link">2 teams</span></td>
+                  <td>5 days ago</td>
+                  <td><button class="mds-icon-btn" style="width:32px;height:32px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg></button></td>
+                </tr>
+                <tr>
+                  <td><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=sophia" alt="SD"></div><div class="user-info"><span class="user-name">Sophia Davis</span><span class="user-email">sophia.d@domainmail.com</span></div></div></td>
+                  <td><span class="mds-tag mds-tag--lime">Full</span></td>
+                  <td><span class="cell-link">1 User group</span></td>
+                  <td><span class="cell-link">2 teams</span></td>
+                  <td>1 day ago</td>
+                  <td><button class="mds-icon-btn" style="width:32px;height:32px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg></button></td>
+                </tr>
+                <tr>
+                  <td><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=daniel" alt="DS"></div><div class="user-info"><span class="user-name">Daniel Smith</span><span class="user-email">daniel.smith@customemail.co...</span></div></div></td>
+                  <td><span class="mds-tag mds-tag--lime">Full</span></td>
+                  <td><span class="cell-link">2 User groups</span></td>
+                  <td><span class="cell-link">1 team</span></td>
+                  <td>3 days ago</td>
+                  <td><button class="mds-icon-btn" style="width:32px;height:32px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg></button></td>
+                </tr>
+                <tr>
+                  <td><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=olivia" alt="OB"></div><div class="user-info"><span class="user-name">Olivia Brown</span><span class="user-email">olivia.b@personalmail.com</span></div></div></td>
+                  <td><span class="mds-tag mds-tag--sunshine">Basic</span></td>
+                  <td><span class="cell-link">1 User group</span></td>
+                  <td><span class="cell-link">2 teams</span></td>
+                  <td>7 days ago</td>
+                  <td><button class="mds-icon-btn" style="width:32px;height:32px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg></button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Settings Panel -->
+          <div id="aiw-panel-settings" class="aiw-panel">
+            <div class="settings-content">
+              <div class="settings-section">
+                <div class="settings-section-header">
+                  <div class="settings-section-title">AI Workflow access</div>
+                  <div class="settings-section-desc">Control how users can access AI Workflows features within your organization.</div>
+                </div>
+                <div class="settings-toggle-group">
+                  <div class="settings-toggle-row">
+                    <span class="settings-toggle-label">Allow users to create AI Workflows</span>
+                    <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                  </div>
+                  <div class="settings-toggle-row">
+                    <span class="settings-toggle-label">Allow users to share AI Workflows externally</span>
+                    <div class="mds-switch" role="switch" aria-checked="false"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="settings-section">
+                <div class="settings-section-header">
+                  <div class="settings-section-title">Default permissions</div>
+                  <div class="settings-section-desc">Set the default permission level for new AI Workflow users.</div>
+                </div>
+                <div class="settings-radio-group">
+                  <div class="settings-radio-row"><div class="mds-radio checked"></div><span class="settings-radio-label">Full access</span></div>
+                  <div class="settings-radio-row"><div class="mds-radio"></div><span class="settings-radio-label">Limited access</span></div>
+                  <div class="settings-radio-row"><div class="mds-radio"></div><span class="settings-radio-label">View only</span></div>
+                </div>
+              </div>
+              <div class="settings-section">
+                <div class="settings-section-header">
+                  <div class="settings-section-title">Credit allocation</div>
+                  <div class="settings-section-desc">Choose how AI credits are allocated across your organization.</div>
+                </div>
+                <div class="mds-select-wrapper">
+                  <button class="mds-select-trigger" style="width:230px;" data-placeholder="Select an option" data-value="">
+                    <span class="mds-select-label">Select an option</span>
+                    <svg class="mds-select-chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg>
+                  </button>
+                  <div class="mds-select-dropdown" style="min-width:230px;">
+                    <div class="mds-select-option" data-value="option-1">Option 1</div>
+                    <div class="mds-select-option" data-value="option-2">Option 2</div>
+                    <div class="mds-select-option" data-value="option-3">Option 3</div>
+                    <div class="mds-select-option" data-value="option-4">Option 4</div>
+                    <div class="mds-select-option" data-value="option-5">Option 5</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- About Panel -->
+          <div id="aiw-panel-about" class="aiw-panel">
+            <div class="about-layout">
+              <div class="about-main">
+                <div class="about-section-title">About AI Workflow</div>
+                <p class="about-desc">Manage AI workflow seats to give access for Sidekicks and Flows. <a href="#">Learn more</a></p>
+                <div class="about-features">
+                  <div class="about-feature-card">
+                    <div class="about-feature-header">
+                      <div class="about-feature-top">
+                        <span class="about-feature-title">Flows</span>
+                        <span class="about-feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M5 3h6v2H7v14h14v-4h2v6H5V3Zm9 0h7v7h-2V6.414l-7.293 7.293-1.414-1.414L17.586 5H14V3Z"/></svg></span>
+                      </div>
+                      <p class="about-feature-desc">Build visual AI workflows that handle repetitive tasks and speed up every step of a process</p>
+                    </div>
+                    <div style="background: linear-gradient(135deg, var(--bg-subtle) 0%, #e4e6ec 100%); aspect-ratio: 316/200; display:flex; align-items:center; justify-content:center; margin-top:16px;">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" viewBox="0 0 24 24" style="color:var(--text-muted);"><path fill="currentColor" d="M16 3H8v2h3v4.38l-4.83 4.07A3 3 0 0 0 5 15.9V21h14v-5.1a3 3 0 0 0-1.17-2.38L13 9.38V5h3V3Z"/></svg>
+                    </div>
+                  </div>
+                  <div class="about-feature-card">
+                    <div class="about-feature-header">
+                      <div class="about-feature-top">
+                        <span class="about-feature-title">Sidekicks</span>
+                        <span class="about-feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M5 3h6v2H7v14h14v-4h2v6H5V3Zm9 0h7v7h-2V6.414l-7.293 7.293-1.414-1.414L17.586 5H14V3Z"/></svg></span>
+                      </div>
+                      <p class="about-feature-desc">Build and work with AI agents that bring specific expertise to your projects.</p>
+                    </div>
+                    <div style="background: linear-gradient(135deg, var(--bg-subtle) 0%, #e4e6ec 100%); aspect-ratio: 316/200; display:flex; align-items:center; justify-content:center; margin-top:16px;">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" viewBox="0 0 24 24" style="color:var(--text-muted);"><path fill="currentColor" d="M15 2a5 5 0 0 0-4 7.998 5 5 0 1 0 6.33-6.33A4.98 4.98 0 0 0 15 2Zm0 8a3 3 0 1 1 0-6 3 3 0 0 1 0 6ZM4 20c0-3.87 3.13-7 7-7h2c3.87 0 7 3.13 7 7v2H4v-2Zm2 0h12a5 5 0 0 0-5-5h-2a5 5 0 0 0-5 5Z"/></svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="about-sidebar">
+                <div class="about-section-title">Admin control for AI workflow</div>
+                <div class="about-admin-card">
+                  <div class="about-admin-card-title">Manage AI credit</div>
+                  <p class="about-admin-card-desc">Manage AI credit and billing</p>
+                  <button class="mds-btn mds-btn--secondary mds-btn--medium" style="align-self:flex-start;">View in Billing <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" style="margin-left:4px;"><path fill="currentColor" d="M5 3h6v2H7v14h14v-4h2v6H5V3Zm9 0h7v7h-2V6.414l-7.293 7.293-1.414-1.414L17.586 5H14V3Z"/></svg></button>
+                </div>
+                <div class="about-admin-card">
+                  <div class="about-admin-card-title">Onboard End users</div>
+                  <p class="about-admin-card-desc">Create an announcement to educate new users on AI Workflow, share guidelines, or invite them to a workshop.</p>
+                  <button class="mds-btn mds-btn--secondary mds-btn--medium" style="align-self:flex-start;">Create announcement <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" style="margin-left:4px;"><path fill="currentColor" d="M5 3h6v2H7v14h14v-4h2v6H5V3Zm9 0h7v7h-2V6.414l-7.293 7.293-1.414-1.414L17.586 5H14V3Z"/></svg></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div><!-- /page-aiworkflow -->
+  </div><!-- /main-wrapper -->
+
+  <!-- ===== ASSIGN SEATS SIDE PANEL ===== -->
+  <div class="side-panel-overlay" id="assign-seats-panel">
+    <div class="side-panel">
+      <div class="side-panel-header">
+        <span class="side-panel-title">Assign seats</span>
+        <button class="side-panel-close" id="assign-seats-close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m13.414 12 5.293-5.293-1.414-1.414L12 10.586 6.707 5.293 5.293 6.707 10.586 12l-5.293 5.293 1.414 1.414L12 13.414l5.293 5.293 1.414-1.414L13.414 12Z"/></svg>
+        </button>
+      </div>
+      <div class="side-panel-body">
+        <p class="side-panel-desc">Search users by user groups, teams, or name and email</p>
+        <div class="side-panel-filters">
+          <input type="text" class="aiw-search" id="sp-search" placeholder="Search users by name or email" style="flex:1; min-width:0;">
+          <div class="mds-select-wrapper">
+            <button class="mds-select-trigger" data-placeholder="User groups" data-value="">
+              <span class="mds-select-label">User groups</span>
+              <svg class="mds-select-chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg>
+            </button>
+            <div class="mds-select-dropdown" id="sp-ug-dropdown">
+              <input type="text" class="mds-select-dropdown-search" placeholder="Search user group">
+              <div class="mds-select-option" data-value="Engineering team 1">Engineering team 1</div>
+              <div class="mds-select-option" data-value="EMEA Designers group">EMEA Designers group</div>
+              <div class="mds-select-option" data-value="APAC Designers group">APAC Designers group</div>
+            </div>
+          </div>
+          <div class="mds-select-wrapper">
+            <button class="mds-select-trigger" data-placeholder="Teams" data-value="">
+              <span class="mds-select-label">Teams</span>
+              <svg class="mds-select-chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg>
+            </button>
+            <div class="mds-select-dropdown" id="sp-teams-dropdown">
+              <input type="text" class="mds-select-dropdown-search" placeholder="Search team">
+              <div class="mds-select-option" data-value="Design team">Design team</div>
+              <div class="mds-select-option" data-value="Engineering team">Engineering team</div>
+              <div class="mds-select-option" data-value="Marketing team">Marketing team</div>
+            </div>
+          </div>
+        </div>
+        <table class="side-panel-table" id="sp-table">
+          <thead>
+            <tr>
+              <th><input type="checkbox" id="sp-select-all" style="width:16px; height:16px;"></th>
+              <th><span class="th-label">Users <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4l-6 8h12l-6-8Z"/></svg></span></th>
+              <th><span class="th-label">License <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Zm-9-1v6h-2v-4H9.5v-2H13Zm.5-2.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/></svg></span></th>
+              <th><span class="th-label">Status <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Zm-9-1v6h-2v-4H9.5v-2H13Zm.5-2.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/></svg></span></th>
+              <th><span class="th-label">User group <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Zm-9-1v6h-2v-4H9.5v-2H13Zm.5-2.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/></svg></span></th>
+              <th><span class="th-label">Teams <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Zm-9-1v6h-2v-4H9.5v-2H13Zm.5-2.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/></svg></span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-name="Emily Carter" data-email="emily.carter@samplemail.com" data-usergroup="Engineering team 1" data-team="Design team">
+              <td><input type="checkbox" class="sp-row-cb" style="width:16px; height:16px;"></td>
+              <td><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=emily" alt="Emily Carter"></div><div class="user-info"><span class="user-name">Emily Carter</span><span class="user-email">emily.carter@samplemail.com</span></div></div></td>
+              <td><span class="mds-tag mds-tag--lime">Full</span></td>
+              <td><span class="mds-tag mds-tag--neutral-prominent">Not assigned</span></td>
+              <td><span class="cell-link">1 User group</span></td>
+              <td><span class="cell-link">2 teams</span></td>
+            </tr>
+            <tr data-name="Michael Johnson" data-email="michael.j@webmail.com" data-usergroup="EMEA Designers group" data-team="Engineering team">
+              <td><input type="checkbox" class="sp-row-cb" style="width:16px; height:16px;"></td>
+              <td><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=michael" alt="Michael Johnson"></div><div class="user-info"><span class="user-name">Michael Johnson</span><span class="user-email">michael.j@webmail.com</span></div></div></td>
+              <td><span class="mds-tag mds-tag--lime">Full</span></td>
+              <td><span class="mds-tag mds-tag--neutral-prominent">Not assigned</span></td>
+              <td><span class="cell-link">1 User group</span></td>
+              <td><span class="cell-link">2 teams</span></td>
+            </tr>
+            <tr data-name="Sophia Davis" data-email="sophia.d@domainmail.com" data-usergroup="Engineering team 1" data-team="Design team">
+              <td><input type="checkbox" class="sp-row-cb" style="width:16px; height:16px;"></td>
+              <td><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=sophia" alt="Sophia Davis"></div><div class="user-info"><span class="user-name">Sophia Davis</span><span class="user-email">sophia.d@domainmail.com</span></div></div></td>
+              <td><span class="mds-tag mds-tag--lime">Full</span></td>
+              <td><span class="mds-tag mds-tag--neutral-prominent">Not assigned</span></td>
+              <td><span class="cell-link">1 User group</span></td>
+              <td><span class="cell-link">2 teams</span></td>
+            </tr>
+            <tr data-name="Daniel Smith" data-email="daniel.smith@customemail.com" data-usergroup="EMEA Designers group" data-team="Marketing team">
+              <td><input type="checkbox" class="sp-row-cb" style="width:16px; height:16px;"></td>
+              <td><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=daniel" alt="Daniel Smith"></div><div class="user-info"><span class="user-name">Daniel Smith</span><span class="user-email">daniel.smith@customemail.co...</span></div></div></td>
+              <td><span class="mds-tag mds-tag--lime">Full</span></td>
+              <td><span class="mds-tag mds-tag--neutral-prominent">Not assigned</span></td>
+              <td><span class="cell-link">1 User group</span></td>
+              <td><span class="cell-link">2 teams</span></td>
+            </tr>
+            <tr data-name="Olivia Brown" data-email="olivia.b@personalmail.com" data-usergroup="APAC Designers group" data-team="Design team">
+              <td><input type="checkbox" class="sp-row-cb" style="width:16px; height:16px;"></td>
+              <td><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=olivia" alt="Olivia Brown"></div><div class="user-info"><span class="user-name">Olivia Brown</span><span class="user-email">olivia.b@personalmail.com</span></div></div></td>
+              <td><span class="mds-tag mds-tag--lime">Full</span></td>
+              <td><span class="mds-tag mds-tag--neutral-prominent">Not assigned</span></td>
+              <td><span class="cell-link">1 User group</span></td>
+              <td><span class="cell-link">2 teams</span></td>
+            </tr>
+            <tr data-name="James Wilson" data-email="james.w@myemail.com" data-usergroup="APAC Designers group" data-team="Engineering team">
+              <td><input type="checkbox" class="sp-row-cb" style="width:16px; height:16px;"></td>
+              <td><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=james" alt="James Wilson"></div><div class="user-info"><span class="user-name">James Wilson</span><span class="user-email">james.w@myemail.com</span></div></div></td>
+              <td><span class="mds-tag mds-tag--lime">Full</span></td>
+              <td><span class="mds-tag mds-tag--neutral-prominent">Not assigned</span></td>
+              <td><span class="cell-link">1 User group</span></td>
+              <td><span class="cell-link">2 teams</span></td>
+            </tr>
+            <tr data-name="Ava Miller" data-email="ava.miller@mailbox.com" data-usergroup="Engineering team 1" data-team="Marketing team">
+              <td><input type="checkbox" class="sp-row-cb" style="width:16px; height:16px;"></td>
+              <td><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=ava" alt="Ava Miller"></div><div class="user-info"><span class="user-name">Ava Miller</span><span class="user-email">ava.miller@mailbox.com</span></div></div></td>
+              <td><span class="mds-tag mds-tag--lime">Full</span></td>
+              <td><span class="mds-tag mds-tag--neutral-prominent">Not assigned</span></td>
+              <td><span class="cell-link">1 User group</span></td>
+              <td><span class="cell-link">2 teams</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="side-panel-footer">
+        <button class="mds-btn mds-btn--ghost mds-btn--large" id="assign-seats-cancel">Cancel</button>
+        <button class="mds-btn mds-btn--primary mds-btn--large" id="assign-seats-submit" disabled>Assign seats</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    // Charts
+    function drawChart(canvasId, data, color) {
+      var canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+      var ctx = canvas.getContext('2d');
+      var rect = canvas.parentElement.getBoundingClientRect();
+      canvas.width = rect.width * 2;
+      canvas.height = rect.height * 2;
+      canvas.style.width = rect.width + 'px';
+      canvas.style.height = rect.height + 'px';
+      ctx.scale(2, 2);
+      var w = rect.width, h = rect.height;
+      var max = Math.max.apply(null, data);
+      var min = Math.min.apply(null, data);
+      var range = max - min || 1;
+      var pad = 4;
+      ctx.clearRect(0, 0, w, h);
+      ctx.beginPath();
+      for (var i = 0; i < data.length; i++) {
+        var x = pad + (i / (data.length - 1)) * (w - pad * 2);
+        var y = h - pad - ((data[i] - min) / range) * (h - pad * 2);
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2;
+      ctx.lineJoin = 'round';
+      ctx.stroke();
+      ctx.lineTo(pad + (w - pad * 2), h);
+      ctx.lineTo(pad, h);
+      ctx.closePath();
+      ctx.fillStyle = color.replace('1)', '0.08)').replace('rgb', 'rgba');
+      ctx.fill();
+    }
+
+    function initCharts() {
+      drawChart('chart-boards', [280, 295, 310, 300, 320, 315, 330, 340], 'rgb(66,98,255)');
+      drawChart('chart-teams', [65, 70, 68, 72, 75, 73, 78, 80], 'rgb(16,185,129)');
+      drawChart('chart-users', [100, 108, 105, 112, 115, 118, 122, 126], 'rgb(139,92,246)');
+      drawChart('chart-licenses', [180, 185, 190, 192, 195, 200, 204, 208], 'rgb(245,158,11)');
+    }
+
+    // Greeting
+    (function() {
+      var h = new Date().getHours();
+      var greet = h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening';
+      var el = document.getElementById('greeting');
+      if (el) el.textContent = greet + ', Taylor';
+    })();
+
+    // Routing
+    function navigateTo(route) {
+      document.querySelectorAll('.page-section').forEach(function(s) { s.classList.remove('active'); });
+      var page = document.getElementById('page-' + route);
+      if (page) page.classList.add('active');
+
+      document.querySelectorAll('.sidebar-nav a[data-route]').forEach(function(a) { a.classList.remove('active'); });
+      var activeRoute = route === 'aiworkflow' ? 'products' : route;
+      var navLink = document.querySelector('.sidebar-nav a[data-route="' + activeRoute + '"]');
+      if (navLink) navLink.classList.add('active');
+
+      var rp = document.getElementById('right-panel');
+      if (rp) rp.style.display = route === 'home' ? '' : 'none';
+
+      if (route === 'home') setTimeout(initCharts, 50);
+
+      var hashMap = { home: '#/Home', products: '#/Product', aiworkflow: '#/Product/AIworkflow' };
+      var hash = hashMap[route] || '#/' + route;
+      if (location.hash !== hash) history.pushState(null, '', hash);
+    }
+
+    function routeFromHash() {
+      var hash = location.hash || '';
+      if (hash.indexOf('/Product/AIworkflow') !== -1) return 'aiworkflow';
+      if (hash.indexOf('/Product') !== -1) return 'products';
+      if (hash.indexOf('/Home') !== -1) return 'home';
+      return 'home';
+    }
+
+    // Sidebar nav clicks
+    document.querySelectorAll('.sidebar-nav a[data-route]').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        navigateTo(this.getAttribute('data-route'));
+      });
+    });
+
+    // Products tab switching
+    document.querySelectorAll('.products-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.products-tab').forEach(function(t) { t.classList.remove('active'); });
+        document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+        this.classList.add('active');
+        var panel = document.getElementById(this.getAttribute('data-tab'));
+        if (panel) panel.classList.add('active');
+      });
+    });
+
+    // Product row click
+    document.querySelectorAll('.product-row-clickable').forEach(function(row) {
+      row.addEventListener('click', function() {
+        navigateTo(this.getAttribute('data-route'));
+      });
+    });
+
+    // Breadcrumb clicks
+    document.querySelectorAll('.breadcrumb a[data-route]').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        navigateTo(this.getAttribute('data-route'));
+      });
+    });
+
+    // Hamburger sidebar toggle
+    document.getElementById('hamburger-btn').addEventListener('click', function() {
+      var sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('collapsed');
+      document.body.classList.toggle('sidebar-collapsed');
+      setTimeout(initCharts, 300);
+    });
+
+    // Popstate
+    window.addEventListener('popstate', function() { navigateTo(routeFromHash()); });
+
+    // Initial route
+    navigateTo(routeFromHash());
+
+    // AI Workflows sub-tabs
+    document.querySelectorAll('.aiw-tab[data-aiw-tab]').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.aiw-tab').forEach(function(t) { t.classList.remove('active'); });
+        document.querySelectorAll('.aiw-panel').forEach(function(p) { p.classList.remove('active'); });
+        this.classList.add('active');
+        var panel = document.getElementById('aiw-panel-' + this.getAttribute('data-aiw-tab'));
+        if (panel) panel.classList.add('active');
+      });
+    });
+
+    // MDS Select Dropdown (event delegation)
+    document.addEventListener('click', function(e) {
+      var trigger = e.target.closest('.mds-select-trigger');
+      if (trigger) {
+        e.stopPropagation();
+        var wrapper = trigger.closest('.mds-select-wrapper');
+        var dropdown = wrapper.querySelector('.mds-select-dropdown');
+        var isOpen = dropdown.classList.contains('open');
+        document.querySelectorAll('.mds-select-dropdown.open').forEach(function(d) { d.classList.remove('open'); });
+        document.querySelectorAll('.mds-select-trigger.open').forEach(function(t) { t.classList.remove('open'); });
+        if (!isOpen) {
+          dropdown.classList.add('open');
+          trigger.classList.add('open');
+          var si = dropdown.querySelector('.mds-select-dropdown-search');
+          if (si) { si.value = ''; si.focus(); }
+          dropdown.querySelectorAll('.mds-select-option').forEach(function(o) { o.style.display = ''; });
+        }
+        return;
+      }
+      if (e.target.closest('.mds-select-dropdown-search')) return;
+      var option = e.target.closest('.mds-select-option');
+      if (option) {
+        e.stopPropagation();
+        var isSelected = option.classList.toggle('selected');
+        var checkSvg = '<svg class="mds-select-option-check" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4 9.55 18Z"/></svg>';
+        if (isSelected) { if (!option.querySelector('.mds-select-option-check')) option.insertAdjacentHTML('afterbegin', checkSvg); }
+        else { var ck = option.querySelector('.mds-select-option-check'); if (ck) ck.remove(); }
+        var wrapper = option.closest('.mds-select-wrapper');
+        var selected = wrapper.querySelectorAll('.mds-select-option.selected');
+        var trig = wrapper.querySelector('.mds-select-trigger');
+        var label = trig.querySelector('.mds-select-label');
+        if (selected.length > 0) {
+          var names = []; selected.forEach(function(s) { names.push(s.textContent.trim()); });
+          label.textContent = names.length === 1 ? names[0] : names.length + ' selected';
+          trig.classList.add('filled');
+        } else {
+          label.textContent = trig.getAttribute('data-placeholder') || 'Select an option';
+          trig.classList.remove('filled');
+        }
+        filterSidePanelRows();
+        return;
+      }
+      document.querySelectorAll('.mds-select-dropdown.open').forEach(function(d) { d.classList.remove('open'); });
+      document.querySelectorAll('.mds-select-trigger.open').forEach(function(t) { t.classList.remove('open'); });
+    });
+
+    document.addEventListener('input', function(e) {
+      if (e.target.classList.contains('mds-select-dropdown-search')) {
+        var query = e.target.value.toLowerCase();
+        var dropdown = e.target.closest('.mds-select-dropdown');
+        dropdown.querySelectorAll('.mds-select-option').forEach(function(opt) {
+          var text = opt.textContent.trim().toLowerCase();
+          opt.style.display = text.indexOf(query) !== -1 ? '' : 'none';
+        });
+      }
+    });
+
+    // Add-on close button
+    var addonClose = document.getElementById('addon-close');
+    if (addonClose) {
+      addonClose.addEventListener('click', function() {
+        this.closest('.addon-card').style.display = 'none';
+      });
+    }
+
+    // MDS Switch toggle
+    document.querySelectorAll('.mds-switch').forEach(function(sw) {
+      sw.addEventListener('click', function() {
+        var isChecked = this.classList.toggle('checked');
+        this.setAttribute('aria-checked', isChecked ? 'true' : 'false');
+      });
+    });
+
+    // MDS Radio
+    document.querySelectorAll('.settings-radio-row').forEach(function(row) {
+      row.addEventListener('click', function() {
+        var group = this.closest('.settings-radio-group');
+        group.querySelectorAll('.mds-radio').forEach(function(r) { r.classList.remove('checked'); });
+        this.querySelector('.mds-radio').classList.add('checked');
+      });
+    });
+
+    // ===== ASSIGN SEATS SIDE PANEL =====
+    (function() {
+      var panel = document.getElementById('assign-seats-panel');
+      var btnOpen = document.getElementById('btn-assign-seats');
+      var btnClose = document.getElementById('assign-seats-close');
+      var btnCancel = document.getElementById('assign-seats-cancel');
+      var assignBtn = document.getElementById('assign-seats-submit');
+      var headerCb = document.getElementById('sp-select-all');
+      var searchInput = document.getElementById('sp-search');
+      var table = document.getElementById('sp-table');
+
+      function getVisibleRows() {
+        return Array.prototype.filter.call(table.querySelectorAll('tbody tr'), function(tr) {
+          return tr.style.display !== 'none';
+        });
+      }
+
+      function getCheckedCount() {
+        var count = 0;
+        getVisibleRows().forEach(function(tr) {
+          if (tr.querySelector('.sp-row-cb').checked) count++;
+        });
+        return count;
+      }
+
+      function updateAssignBtn() {
+        var count = getCheckedCount();
+        if (count > 0) {
+          assignBtn.disabled = false;
+          assignBtn.textContent = 'Assign ' + count + ' seat' + (count > 1 ? 's' : '');
+        } else {
+          assignBtn.disabled = true;
+          assignBtn.textContent = 'Assign seats';
+        }
+      }
+
+      function updateHeaderCb() {
+        var visible = getVisibleRows();
+        if (visible.length === 0) { headerCb.checked = false; return; }
+        var allChecked = visible.every(function(tr) { return tr.querySelector('.sp-row-cb').checked; });
+        headerCb.checked = allChecked;
+      }
+
+      function openPanel() {
+        panel.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        resetPanel();
+      }
+
+      function closePanel() {
+        panel.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      function resetPanel() {
+        searchInput.value = '';
+        headerCb.checked = false;
+        table.querySelectorAll('.sp-row-cb').forEach(function(cb) { cb.checked = false; });
+        table.querySelectorAll('tbody tr').forEach(function(tr) { tr.style.display = ''; });
+        // Reset dropdowns in panel
+        panel.querySelectorAll('.mds-select-option.selected').forEach(function(opt) {
+          opt.classList.remove('selected');
+          var ck = opt.querySelector('.mds-select-option-check');
+          if (ck) ck.remove();
+        });
+        panel.querySelectorAll('.mds-select-trigger').forEach(function(trig) {
+          trig.classList.remove('filled');
+          trig.querySelector('.mds-select-label').textContent = trig.getAttribute('data-placeholder');
+        });
+        updateAssignBtn();
+      }
+
+      btnOpen.addEventListener('click', openPanel);
+      btnClose.addEventListener('click', closePanel);
+      btnCancel.addEventListener('click', closePanel);
+      panel.addEventListener('click', function(e) { if (e.target === panel) closePanel(); });
+
+      headerCb.addEventListener('change', function() {
+        var checked = this.checked;
+        getVisibleRows().forEach(function(tr) { tr.querySelector('.sp-row-cb').checked = checked; });
+        updateAssignBtn();
+      });
+
+      table.addEventListener('change', function(e) {
+        if (e.target.classList.contains('sp-row-cb')) {
+          updateHeaderCb();
+          updateAssignBtn();
+        }
+      });
+
+      // Search filter
+      searchInput.addEventListener('input', function() {
+        filterSidePanelRows();
+      });
+
+      window.filterSidePanelRows = function() {
+        var query = searchInput.value.toLowerCase().trim();
+
+        var ugDropdown = document.getElementById('sp-ug-dropdown');
+        var teamsDropdown = document.getElementById('sp-teams-dropdown');
+        var selectedUGs = [];
+        var selectedTeams = [];
+        if (ugDropdown) ugDropdown.querySelectorAll('.mds-select-option.selected').forEach(function(o) { selectedUGs.push(o.getAttribute('data-value')); });
+        if (teamsDropdown) teamsDropdown.querySelectorAll('.mds-select-option.selected').forEach(function(o) { selectedTeams.push(o.getAttribute('data-value')); });
+
+        table.querySelectorAll('tbody tr').forEach(function(tr) {
+          var name = (tr.getAttribute('data-name') || '').toLowerCase();
+          var email = (tr.getAttribute('data-email') || '').toLowerCase();
+          var usergroup = tr.getAttribute('data-usergroup') || '';
+          var team = tr.getAttribute('data-team') || '';
+
+          var matchSearch = !query || name.indexOf(query) !== -1 || email.indexOf(query) !== -1;
+          var matchUG = selectedUGs.length === 0 || selectedUGs.indexOf(usergroup) !== -1;
+          var matchTeam = selectedTeams.length === 0 || selectedTeams.indexOf(team) !== -1;
+
+          tr.style.display = (matchSearch && matchUG && matchTeam) ? '' : 'none';
+        });
+
+        updateHeaderCb();
+        updateAssignBtn();
+      };
+    })();
+  </script>
+</body>
+</html>
