@@ -2444,7 +2444,7 @@
           <div class="allusers-tabs">
             <div class="allusers-tab active" data-au-tab="members">Members (346)</div>
             <div class="allusers-tab" data-au-tab="guests">Guests (12)</div>
-            <div class="allusers-tab" data-au-tab="deactivated" style="color:#3859ff;">Deactivated (8)</div>
+            <div class="allusers-tab" data-au-tab="deactivated">Deactivated (8)</div>
             <div class="allusers-tab" data-au-tab="invitations">Invitations (6)</div>
           </div>
 
@@ -3141,13 +3141,27 @@
         if (targetPanel) targetPanel.classList.add('active');
       }
 
-      var hashMap = { home: '#/Home', products: '#/Product', allusers: '#/Users/AllUsers' };
+      if (route === 'products') {
+        var pTab = productTabFromHash();
+        document.querySelectorAll('.products-tab').forEach(function(t) { t.classList.remove('active'); });
+        document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+        var targetProdTab = document.querySelector('.products-tab[data-tab="' + pTab + '"]');
+        if (targetProdTab) targetProdTab.classList.add('active');
+        var targetProdPanel = document.getElementById(pTab);
+        if (targetProdPanel) targetProdPanel.classList.add('active');
+      }
+
+      var hashMap = { home: '#/Home', allusers: '#/Users/AllUsers' };
       var hash;
       if (route === 'aiworkflow') {
         var activeAiwTab = document.querySelector('.aiw-tab.active');
         var tabName = activeAiwTab ? activeAiwTab.getAttribute('data-aiw-tab') : 'users';
         var tabLabel = tabName.charAt(0).toUpperCase() + tabName.slice(1);
         hash = '#/Product/AIworkflow/' + tabLabel;
+      } else if (route === 'products') {
+        var activeProdTab = document.querySelector('.products-tab.active');
+        var prodTabId = activeProdTab ? activeProdTab.getAttribute('data-tab') : 'tab-active';
+        hash = prodTabId === 'tab-explore' ? '#/Product/Explore' : '#/Product/Active';
       } else {
         hash = hashMap[route] || '#/' + route;
       }
@@ -3158,6 +3172,8 @@
       var hash = location.hash || '';
       if (hash.indexOf('/Users/AllUsers') !== -1) return 'allusers';
       if (hash.indexOf('/Product/AIworkflow') !== -1) return 'aiworkflow';
+      if (hash.indexOf('/Product/Explore') !== -1) return 'products';
+      if (hash.indexOf('/Product/Active') !== -1) return 'products';
       if (hash.indexOf('/Product') !== -1) return 'products';
       if (hash.indexOf('/Home') !== -1) return 'home';
       return 'home';
@@ -3168,6 +3184,12 @@
       var m = hash.match(/\/Product\/AIworkflow\/(\w+)/i);
       if (m) return m[1].toLowerCase();
       return 'users';
+    }
+
+    function productTabFromHash() {
+      var hash = location.hash || '';
+      if (hash.indexOf('/Product/Explore') !== -1) return 'tab-explore';
+      return 'tab-active';
     }
 
     // Sidebar sub-nav toggle
@@ -3212,8 +3234,11 @@
         document.querySelectorAll('.products-tab').forEach(function(t) { t.classList.remove('active'); });
         document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
         this.classList.add('active');
-        var panel = document.getElementById(this.getAttribute('data-tab'));
+        var tabId = this.getAttribute('data-tab');
+        var panel = document.getElementById(tabId);
         if (panel) panel.classList.add('active');
+        var newHash = tabId === 'tab-explore' ? '#/Product/Explore' : '#/Product/Active';
+        if (location.hash !== newHash) history.pushState(null, '', newHash);
       });
     });
 
