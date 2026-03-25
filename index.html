@@ -131,8 +131,8 @@
     .mds-btn--primary { background: var(--primary); color: #fff; }
     .mds-btn--primary:hover { background: var(--primary-hover); }
     .mds-btn--primary:disabled { background: var(--border-strong); color: #fff; cursor: not-allowed; }
-    .mds-btn--secondary { background: #fff; color: var(--text); border: 1.5px solid var(--border); }
-    .mds-btn--secondary:hover { background: var(--bg-subtle); }
+    .mds-btn--secondary { background: #f1f2f5; color: #222428; border: none; }
+    .mds-btn--secondary:hover { background: #e0e2e8; }
     .mds-btn--outline { background: #fff; color: #3859ff; border: 1.5px solid #3859ff; }
     .mds-btn--outline:hover { background: #f0f3ff; }
     .mds-btn--tertiary { background: transparent; color: #3859ff; border: 1px solid #3859ff; }
@@ -1129,6 +1129,190 @@
       padding: 24px 32px; border-top: 1px solid #f1f2f5; flex-shrink: 0;
     }
 
+    /* ===== TEAMS PAGE ===== */
+    .teams-header { display: flex; align-items: center; justify-content: space-between; }
+    .teams-header h1 { font-family: var(--font-heading); font-size: 32px; font-weight: 600; color: var(--text-primary); line-height: 1.2; margin: 0; }
+    .teams-header .mds-btn svg { margin-right: 6px; }
+
+    .teams-card {
+      background: var(--white); border-radius: 8px;
+      box-shadow: 0 0 10px rgba(5,0,56,0.08);
+      overflow: hidden;
+    }
+    .teams-tabs {
+      display: flex; gap: 24px; border-bottom: 1px solid #e9eaef; padding: 0 24px;
+    }
+    .teams-tab {
+      font-family: var(--font-heading); font-size: 16px; font-weight: 500;
+      color: #222428; height: 60px; display: flex; align-items: center;
+      cursor: pointer; border-bottom: 2px solid transparent;
+    }
+    .teams-tab:hover { color: #3859ff; }
+    .teams-tab.active { color: #3859ff; border-bottom-color: #3859ff; }
+
+    .teams-toolbar {
+      display: flex; align-items: center; justify-content: space-between; padding: 12px 24px 0;
+    }
+    .teams-toolbar-left { display: flex; align-items: center; gap: 8px; }
+    .teams-search {
+      height: 40px; width: 335px; border: none; border-radius: 4px;
+      padding: 0 12px 0 32px; font-family: var(--font-body); font-size: 14px;
+      color: var(--text-primary); outline: none;
+      background: #f1f2f5 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'%3E%3Cpath fill='%236f7489' d='M15 10a5 5 0 1 0-10 0 5 5 0 0 0 10 0Zm2 0c0 1.572-.52 3.023-1.395 4.191l5.102 5.102-1.414 1.414-5.102-5.102A7 7 0 1 1 17 10Z'/%3E%3C/svg%3E") no-repeat 8px center;
+      background-size: 16px;
+    }
+    .teams-search:focus { box-shadow: 0 0 0 2px #3859ff; }
+    .teams-search::placeholder { color: #6f7489; }
+
+    .teams-filter-btn {
+      display: flex; align-items: center; gap: 4px; height: 40px;
+      padding: 0 8px; border: 1px solid #e0e2e8; border-radius: 4px;
+      background: var(--white); font-family: var(--font-body); font-size: 14px;
+      font-weight: 600; color: #222428; cursor: pointer;
+    }
+    .teams-filter-btn:hover { border-color: #b3b7c2; }
+    .teams-filter-btn.active { border-color: #3859ff; color: #3859ff; }
+    .teams-filter-btn svg { width: 20px; height: 20px; color: #656b81; }
+    .teams-filter-btn.active svg { color: #3859ff; }
+
+    .col-picker {
+      display: none; position: absolute; top: 100%; left: 0; margin-top: 4px;
+      width: 366px; background: #fff; border-radius: 4px;
+      box-shadow: 0 0 12px rgba(34,36,40,0.04), 0 2px 8px rgba(34,36,40,0.12);
+      z-index: 200; font-family: var(--font-body); overflow: hidden;
+    }
+    .col-picker.open { display: flex; flex-direction: column; }
+    .col-picker-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px; min-height: 56px; box-sizing: border-box;
+    }
+    .col-picker-header span {
+      font-family: var(--font-heading); font-size: 16px; font-weight: 600; color: #000;
+    }
+    .col-picker-close {
+      width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+      background: none; border: none; cursor: pointer; border-radius: 4px; color: #656b81;
+    }
+    .col-picker-close:hover { background: #f1f2f5; }
+    .col-picker-divider { height: 1px; background: #e0e2e8; flex-shrink: 0; }
+    .col-picker-body { padding: 16px 12px; }
+    .col-picker-row {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 40px;
+    }
+    .col-picker-label {
+      font-family: var(--font-body); font-size: 16px; font-weight: 400; color: #222428;
+    }
+    .col-picker-row.disabled .col-picker-label { color: #aeb2c0; }
+    .col-picker-footer {
+      padding: 12px 8px 24px; display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .col-switch {
+      width: 32px; height: 16px; border-radius: 8px; background: #b3b7c2;
+      position: relative; cursor: pointer; transition: background 0.2s; flex-shrink: 0;
+    }
+    .col-switch::after {
+      content: ''; position: absolute; top: 2px; left: 2px;
+      width: 12px; height: 12px; border-radius: 50%; background: #fff;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.12); transition: transform 0.2s;
+    }
+    .col-switch.on { background: var(--primary); }
+    .col-switch.on::after { transform: translateX(16px); }
+    .col-switch.disabled { opacity: 0.5; cursor: default; pointer-events: none; }
+
+    /* ===== TEAMS FILTER PANEL ===== */
+    .filter-panel {
+      display: none; position: absolute; top: 100%; left: 0; margin-top: 4px;
+      width: 366px; background: #fff; border-radius: 4px;
+      box-shadow: 0 0 12px rgba(34,36,40,0.04), 0 2px 8px rgba(34,36,40,0.12);
+      z-index: 200; font-family: var(--font-body); overflow: hidden;
+      flex-direction: column;
+    }
+    .filter-panel.open { display: flex; }
+    .filter-panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px; min-height: 56px; box-sizing: border-box; flex-shrink: 0;
+    }
+    .filter-panel-header span {
+      font-family: var(--font-heading); font-size: 16px; font-weight: 600; color: #000;
+    }
+    .filter-panel-close {
+      width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+      background: none; border: none; cursor: pointer; border-radius: 4px; color: #656b81;
+    }
+    .filter-panel-close:hover { background: #f1f2f5; }
+    .filter-panel-divider { height: 1px; background: #e0e2e8; flex-shrink: 0; }
+    .filter-panel-body {
+      padding: 16px 12px; height: 460px; overflow-y: auto; box-sizing: border-box;
+    }
+    .filter-section-title {
+      font-size: 13px; font-weight: 400; color: #656b81; margin: 0 0 8px;
+    }
+    .filter-section-title:not(:first-child) { margin-top: 16px; }
+    .filter-check-row {
+      display: flex; align-items: center; gap: 12px; height: 40px;
+      font-size: 16px; color: #222428; cursor: pointer;
+    }
+    .filter-check-row .mds-checkbox { width: 20px; height: 20px; flex-shrink: 0; }
+    .filter-range-row {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 4px;
+    }
+    .filter-range-col { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+    .filter-range-col label {
+      font-size: 13px; font-weight: 400; color: #656b81;
+    }
+    .filter-range-col input {
+      height: 40px; border: 1px solid #e0e2e8; border-radius: 4px;
+      padding: 0 12px; font-family: var(--font-body); font-size: 14px;
+      color: #222428; outline: none; width: 100%; box-sizing: border-box;
+    }
+    .filter-range-col input:focus { border-color: #3859ff; }
+    .filter-range-dash {
+      font-size: 14px; color: #656b81; margin-top: 20px;
+    }
+    .filter-panel-footer {
+      padding: 12px 8px 24px; display: flex; align-items: center; justify-content: flex-end;
+      gap: 8px; flex-shrink: 0;
+    }
+
+    .teams-table { width: 100%; border-collapse: collapse; }
+    .teams-table thead th {
+      font-family: var(--font-body); font-size: 14px; font-weight: 600;
+      color: #656b81; text-align: left; padding: 0 12px;
+      border-bottom: 1px solid #e9eaef; white-space: nowrap; height: 60px;
+    }
+    .teams-table thead th:first-child { padding-left: 24px; width: 38px; }
+    .teams-table tbody tr { border-bottom: 1px solid #e9eaef; }
+    .teams-table tbody tr:last-child { border-bottom: none; }
+    .teams-table tbody td {
+      font-family: var(--font-body); font-size: 14px; color: #222428;
+      padding: 0 12px; vertical-align: middle; height: 59px; white-space: nowrap;
+    }
+    .teams-table tbody td:first-child { padding-left: 24px; width: 38px; }
+    .teams-table .th-sort {
+      display: inline-flex; align-items: center; gap: 4px; cursor: pointer;
+    }
+    .teams-table .th-sort svg { width: 16px; height: 16px; }
+    .teams-table .th-help {
+      display: inline-flex; align-items: center; margin-left: 4px;
+      color: #656b81; cursor: help;
+    }
+    .teams-table .th-help svg { width: 16px; height: 16px; }
+
+    .team-name-cell { display: flex; align-items: center; gap: 12px; }
+    .team-avatar {
+      width: 32px; height: 32px; border-radius: 8px; display: flex;
+      align-items: center; justify-content: center; font-family: var(--font-heading);
+      font-size: 14px; font-weight: 600; color: #222428; flex-shrink: 0;
+    }
+    .team-avatar--purple { background: #e8d5ff; }
+    .team-avatar--pink { background: #ffd5e5; }
+    .team-avatar--green { background: #c8f7d5; }
+    .team-avatar--yellow { background: #ffe9a0; }
+    .team-avatar--red { background: #ffcaca; }
+    .team-avatar--lavender { background: #d5d5ff; }
+
     /* ===== ALL USERS PAGE ===== */
     .allusers-header { display: flex; align-items: center; justify-content: space-between; }
     .allusers-header h1 { font-family: var(--font-heading); font-size: 32px; font-weight: 600; color: var(--text-primary); line-height: 1.2; margin: 0; }
@@ -1657,7 +1841,7 @@
           <span class="nav-label">Home</span>
         </a>
         <!-- Teams (IconUsers) -->
-        <a href="#">
+        <a href="#" data-route="teams">
           <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M11 7c0-1.153-.847-2-2-2s-2 .847-2 2 .847 2 2 2 2-.847 2-2Zm2 0c0 2.258-1.742 4-4 4S5 9.258 5 7s1.742-4 4-4 4 1.742 4 4Zm-4 5a6.37 6.37 0 0 1 6.354 5.916l.143 2.013-1.994.142-.145-2.012a4.37 4.37 0 0 0-8.716 0l-.145 2.012-1.994-.142.143-2.013A6.37 6.37 0 0 1 9 12Zm9-2a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-3 4a4.315 4.315 0 0 1 4.294 3.886l.201 2.014-1.99.2-.201-2.015A2.315 2.315 0 0 0 17 16v-2Z"/></svg></span>
           <span class="nav-label">Teams</span>
         </a>
@@ -2633,6 +2817,250 @@
       </section>
     </div><!-- /page-allusers -->
 
+    <!-- ===== TEAMS PAGE ===== -->
+    <div id="page-teams" class="page-section">
+      <section class="main-content">
+        <div class="teams-header">
+          <h1>Teams</h1>
+          <button class="mds-btn mds-btn--tertiary mds-btn--large">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M9.45 7.5a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0Zm-2 0a4.5 4.5 0 1 0 9 0 4.5 4.5 0 0 0-9 0Zm4.5 5.5a7.077 7.077 0 0 0-7.042 6.373L4.755 20.9l1.99.2.153-1.528A5.077 5.077 0 0 1 11.95 15v-2ZM19 13v3h3v2h-3v3h-2v-3h-3v-2h3v-3h2Z"/></svg>
+            Create team
+          </button>
+        </div>
+
+        <div class="teams-card">
+          <div class="teams-tabs">
+            <div class="teams-tab active" data-teams-tab="active">Active</div>
+            <div class="teams-tab" data-teams-tab="deleted">Deleted</div>
+          </div>
+
+          <div class="teams-toolbar">
+            <div class="teams-toolbar-left">
+              <input type="text" class="teams-search" placeholder="Search by team name">
+              <div style="position:relative;">
+                <button class="teams-filter-btn" id="teams-col-btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M18.5 13a2.5 2.5 0 0 1 2.5 2.5v1a2.5 2.5 0 0 1-2.5 2.5h-1a2.501 2.501 0 0 1-2.45-2H3v-2h12.05a2.5 2.5 0 0 1 2.45-2h1Zm-1 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm-5-10a2.5 2.5 0 0 1 2.45 2H21v2h-6.05a2.501 2.501 0 0 1-2.45 2h-1a2.501 2.501 0 0 1-2.45-2H3V7h6.05a2.5 2.5 0 0 1 2.45-2h1Zm-1 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Z" clip-rule="evenodd"/></svg>
+                  <span id="teams-col-label">Columns (5/6)</span>
+                </button>
+                <div class="col-picker" id="teams-col-picker">
+                  <div class="col-picker-header">
+                    <span>Show columns for team settings</span>
+                    <button class="col-picker-close" id="teams-col-close"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M19.707 5.707 13.414 12l6.293 6.293-1.414 1.414L12 13.414l-6.293 6.293-1.414-1.414L10.586 12 4.293 5.707l1.414-1.414L12 10.586l6.293-6.293 1.414 1.414Z"/></svg></button>
+                  </div>
+                  <div class="col-picker-divider"></div>
+                  <div class="col-picker-body">
+                    <div class="col-picker-row disabled">
+                      <span class="col-picker-label">Name</span>
+                      <div class="col-switch on disabled"></div>
+                    </div>
+                    <div class="col-picker-row" data-col="2">
+                      <span class="col-picker-label">Users</span>
+                      <div class="col-switch on" data-col="2"></div>
+                    </div>
+                    <div class="col-picker-row" data-col="3">
+                      <span class="col-picker-label">Boards</span>
+                      <div class="col-switch on" data-col="3"></div>
+                    </div>
+                    <div class="col-picker-row" data-col="4">
+                      <span class="col-picker-label">Boards created in 30, 60, 90days</span>
+                      <div class="col-switch on" data-col="4"></div>
+                    </div>
+                    <div class="col-picker-row" data-col="5">
+                      <span class="col-picker-label">Team discovery</span>
+                      <div class="col-switch on" data-col="5"></div>
+                    </div>
+                    <div class="col-picker-row" data-col="6">
+                      <span class="col-picker-label">Team invitation</span>
+                      <div class="col-switch on" data-col="6"></div>
+                    </div>
+                    <div class="col-picker-row" data-col="7">
+                      <span class="col-picker-label">Board sharing by public link</span>
+                      <div class="col-switch" data-col="7"></div>
+                    </div>
+                  </div>
+                  <div class="col-picker-divider"></div>
+                  <div class="col-picker-footer">
+                    <button class="mds-btn mds-btn--ghost mds-btn--medium" id="teams-col-cancel">Cancel</button>
+                    <button class="mds-btn mds-btn--primary mds-btn--medium" id="teams-col-confirm">Confirm</button>
+                  </div>
+                </div>
+              </div>
+              <div style="position:relative;">
+                <button class="teams-filter-btn" id="teams-filter-btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M19 5H5v1.14a2 2 0 0 0 .304 1.06l4.544 7.27.152.243v4.9l4-1.334v-3.566l.152-.243 4.544-7.27A2 2 0 0 0 19 6.14V5Zm2 1.14c0 .75-.211 1.484-.608 2.12L16 15.286V19l-.684.948-6 2L8 21v-5.714L3.608 8.26A4.001 4.001 0 0 1 3 6.14V3h18v3.14Z"/></svg>
+                  Filters
+                </button>
+                <div class="filter-panel" id="teams-filter-panel">
+                  <div class="filter-panel-header">
+                    <span>Filter</span>
+                    <button class="filter-panel-close" id="teams-filter-close"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M19.707 5.707 13.414 12l6.293 6.293-1.414 1.414L12 13.414l-6.293 6.293-1.414-1.414L10.586 12 4.293 5.707l1.414-1.414L12 10.586l6.293-6.293 1.414 1.414Z"/></svg></button>
+                  </div>
+                  <div class="filter-panel-divider"></div>
+                  <div class="filter-panel-body">
+                    <div class="filter-section-title">Quick filters</div>
+                    <label class="filter-check-row"><input type="checkbox" class="mds-checkbox"> Teams with no user</label>
+                    <label class="filter-check-row"><input type="checkbox" class="mds-checkbox"> Teams with no board</label>
+
+                    <div class="filter-section-title">Number of users</div>
+                    <div class="filter-range-row">
+                      <div class="filter-range-col"><label>From</label><input type="number" value="0"></div>
+                      <span class="filter-range-dash">—</span>
+                      <div class="filter-range-col"><label>To</label><input type="number" value="24"></div>
+                    </div>
+
+                    <div class="filter-section-title">Number of boards</div>
+                    <div class="filter-range-row">
+                      <div class="filter-range-col"><label>From</label><input type="number" value="0"></div>
+                      <span class="filter-range-dash">—</span>
+                      <div class="filter-range-col"><label>To</label><input type="number" value="-24"></div>
+                    </div>
+
+                    <div class="filter-section-title">Team discovery</div>
+                    <label class="filter-check-row"><input type="checkbox" class="mds-checkbox"> Hidden</label>
+                    <label class="filter-check-row"><input type="checkbox" class="mds-checkbox"> Members can join after approval</label>
+                    <label class="filter-check-row"><input type="checkbox" class="mds-checkbox" checked> Open to members</label>
+
+                    <div class="filter-section-title">Team invitation</div>
+                    <label class="filter-check-row"><input type="checkbox" class="mds-checkbox"> Company Admins only</label>
+                    <label class="filter-check-row"><input type="checkbox" class="mds-checkbox"> Company Admins and Team admins</label>
+                    <label class="filter-check-row"><input type="checkbox" class="mds-checkbox" checked> All team members</label>
+                  </div>
+                  <div class="filter-panel-divider"></div>
+                  <div class="filter-panel-footer">
+                    <button class="mds-btn mds-btn--ghost mds-btn--medium" id="teams-filter-clear">Clear</button>
+                    <button class="mds-btn mds-btn--primary mds-btn--medium" id="teams-filter-confirm">Confirm</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="mds-btn mds-btn--secondary mds-btn--large">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M13 3v9.586l4.293-4.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414L11 12.586V3h2ZM5 17v4h14v-4h2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4h2Z"/></svg>
+              Download CSV
+            </button>
+          </div>
+
+          <div style="padding: 0 24px; overflow-x: auto;">
+            <table class="teams-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" class="mds-checkbox"></th>
+                  <th>Team name</th>
+                  <th>Members</th>
+                  <th>Boards</th>
+                  <th>Boards created<br><span style="font-weight:400; color:#656b81; font-size:11px; text-transform:uppercase;">Last 30 / 60 / 90 days</span></th>
+                  <th>Team discovery <span class="th-help"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M11 16h2v2h-2v-2Zm3-6a2 2 0 1 0-4 0H8a4 4 0 1 1 5 3.874v1.122h-2V13l1-1a2 2 0 0 0 2-2Zm6 2a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Z"/></svg></span></th>
+                  <th>Team invitation <span class="th-help"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M11 16h2v2h-2v-2Zm3-6a2 2 0 1 0-4 0H8a4 4 0 1 1 5 3.874v1.122h-2V13l1-1a2 2 0 0 0 2-2Zm6 2a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Z"/></svg></span></th>
+                  <th>Board sharing by public link <span class="th-help"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M11 16h2v2h-2v-2Zm3-6a2 2 0 1 0-4 0H8a4 4 0 1 1 5 3.874v1.122h-2V13l1-1a2 2 0 0 0 2-2Zm6 2a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Z"/></svg></span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="checkbox" class="mds-checkbox"></td>
+                  <td><div class="team-name-cell"><div class="team-avatar team-avatar--green">...</div><strong>...</strong></div></td>
+                  <td>201</td>
+                  <td>7</td>
+                  <td>0 / 0 / 0</td>
+                  <td>Visible – open to join</td>
+                  <td>Company Admins only</td>
+                  <td>Not allowed</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class="mds-checkbox"></td>
+                  <td><div class="team-name-cell"><div class="team-avatar team-avatar--green">1</div><strong>1</strong></div></td>
+                  <td>26</td>
+                  <td>33</td>
+                  <td>0 / 5 / 5</td>
+                  <td>Visible – approval needed to join</td>
+                  <td>Company Admins and Team Admins</td>
+                  <td>Anyone can view and comment</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class="mds-checkbox"></td>
+                  <td><div class="team-name-cell"><div class="team-avatar team-avatar--green">1</div><strong>111FERNANDO</strong></div></td>
+                  <td>4</td>
+                  <td>11</td>
+                  <td>2 / 6 / 7</td>
+                  <td>Visible – approval needed to join</td>
+                  <td>Anyone in this team</td>
+                  <td>Anyone can view and comment</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class="mds-checkbox"></td>
+                  <td><div class="team-name-cell"><div class="team-avatar team-avatar--red">1</div><div><strong>11Trash</strong><br><span style="font-size:12px; color:#656b81;">11Trash</span></div></div></td>
+                  <td>6</td>
+                  <td>2</td>
+                  <td>0 / 2 / 2</td>
+                  <td>Visible – approval needed to join</td>
+                  <td>Anyone in this team</td>
+                  <td>Anyone can view and comment</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class="mds-checkbox"></td>
+                  <td><div class="team-name-cell"><div class="team-avatar team-avatar--lavender">I</div><strong>I1234</strong></div></td>
+                  <td>6</td>
+                  <td>4</td>
+                  <td>0 / 0 / 1</td>
+                  <td>Visible – approval needed to join</td>
+                  <td>Company Admins and Team Admins</td>
+                  <td>Anyone can view and comment</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class="mds-checkbox"></td>
+                  <td><div class="team-name-cell"><div class="team-avatar team-avatar--green">2</div><strong>2</strong></div></td>
+                  <td>25</td>
+                  <td>0</td>
+                  <td>0 / 0 / 0</td>
+                  <td>Visible – approval needed to join</td>
+                  <td>Anyone in this team</td>
+                  <td>Not allowed</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class="mds-checkbox"></td>
+                  <td><div class="team-name-cell"><div class="team-avatar team-avatar--purple">AT</div><strong>Alan's test team 1</strong></div></td>
+                  <td>4</td>
+                  <td>1</td>
+                  <td>0 / 0 / 0</td>
+                  <td>Visible – open to join</td>
+                  <td>Anyone in this team</td>
+                  <td>Anyone can view and comment</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class="mds-checkbox"></td>
+                  <td><div class="team-name-cell"><div class="team-avatar team-avatar--pink">AT</div><div><strong>Alan trashed team 2</strong><br><span style="font-size:12px; color:#656b81;">Alan trashed team 2</span></div></div></td>
+                  <td>4</td>
+                  <td>2</td>
+                  <td>2 / 2 / 2</td>
+                  <td>Visible – approval needed to join</td>
+                  <td>Anyone in this team</td>
+                  <td>Anyone can view and comment</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class="mds-checkbox"></td>
+                  <td><div class="team-name-cell"><div class="team-avatar team-avatar--red">AD</div><strong>Aleksandr Dorogush test</strong></div></td>
+                  <td>46</td>
+                  <td>12</td>
+                  <td>0 / 0 / 0</td>
+                  <td>Private</td>
+                  <td>Company Admins only</td>
+                  <td>Not allowed</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class="mds-checkbox"></td>
+                  <td><div class="team-name-cell"><div class="team-avatar team-avatar--purple">AT</div><strong>Ales Test Team</strong></div></td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0 / 0 / 0</td>
+                  <td>Visible – approval needed to join</td>
+                  <td>Anyone in this team</td>
+                  <td>Anyone can view and comment</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div><!-- /page-teams -->
+
   </div><!-- /main-wrapper -->
 
   <!-- ===== ASSIGN SEATS SIDE PANEL ===== -->
@@ -3151,6 +3579,13 @@
         if (targetProdPanel) targetProdPanel.classList.add('active');
       }
 
+      if (route === 'teams') {
+        var tTab = teamsTabFromHash();
+        document.querySelectorAll('.teams-tab').forEach(function(t) { t.classList.remove('active'); });
+        var targetTeamsTab = document.querySelector('.teams-tab[data-teams-tab="' + tTab + '"]');
+        if (targetTeamsTab) targetTeamsTab.classList.add('active');
+      }
+
       var hashMap = { home: '#/Home', allusers: '#/Users/AllUsers' };
       var hash;
       if (route === 'aiworkflow') {
@@ -3162,6 +3597,10 @@
         var activeProdTab = document.querySelector('.products-tab.active');
         var prodTabId = activeProdTab ? activeProdTab.getAttribute('data-tab') : 'tab-active';
         hash = prodTabId === 'tab-explore' ? '#/Product/Explore' : '#/Product/Active';
+      } else if (route === 'teams') {
+        var activeTeamsTab = document.querySelector('.teams-tab.active');
+        var teamsTabName = activeTeamsTab ? activeTeamsTab.getAttribute('data-teams-tab') : 'active';
+        hash = teamsTabName === 'deleted' ? '#/Teams/Deleted' : '#/Teams/Active';
       } else {
         hash = hashMap[route] || '#/' + route;
       }
@@ -3171,6 +3610,7 @@
     function routeFromHash() {
       var hash = location.hash || '';
       if (hash.indexOf('/Users/AllUsers') !== -1) return 'allusers';
+      if (hash.indexOf('/Teams') !== -1) return 'teams';
       if (hash.indexOf('/Product/AIworkflow') !== -1) return 'aiworkflow';
       if (hash.indexOf('/Product/Explore') !== -1) return 'products';
       if (hash.indexOf('/Product/Active') !== -1) return 'products';
@@ -3190,6 +3630,12 @@
       var hash = location.hash || '';
       if (hash.indexOf('/Product/Explore') !== -1) return 'tab-explore';
       return 'tab-active';
+    }
+
+    function teamsTabFromHash() {
+      var hash = location.hash || '';
+      if (hash.indexOf('/Teams/Deleted') !== -1) return 'deleted';
+      return 'active';
     }
 
     // Sidebar sub-nav toggle
@@ -3412,6 +3858,142 @@
 
     // Initial route
     navigateTo(routeFromHash());
+
+    // Teams tabs
+    document.querySelectorAll('.teams-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.teams-tab').forEach(function(t) { t.classList.remove('active'); });
+        this.classList.add('active');
+        var tabName = this.getAttribute('data-teams-tab');
+        var newHash = tabName === 'deleted' ? '#/Teams/Deleted' : '#/Teams/Active';
+        if (location.hash !== newHash) history.pushState(null, '', newHash);
+      });
+    });
+
+    // Teams column picker
+    (function() {
+      var btn = document.getElementById('teams-col-btn');
+      var picker = document.getElementById('teams-col-picker');
+      var closeBtn = document.getElementById('teams-col-close');
+      var confirmBtn = document.getElementById('teams-col-confirm');
+      var cancelBtn = document.getElementById('teams-col-cancel');
+      var label = document.getElementById('teams-col-label');
+      var table = document.querySelector('.teams-table');
+
+      if (!btn || !picker || !table) return;
+
+      function applyVisibility() {
+        var onCount = 0;
+        var total = 0;
+        var switches = picker.querySelectorAll('.col-switch[data-col]');
+        switches.forEach(function(sw) {
+          total++;
+          var col = parseInt(sw.getAttribute('data-col'), 10);
+          var isOn = sw.classList.contains('on');
+          if (isOn) onCount++;
+          var nthIdx = col + 1;
+          var ths = table.querySelectorAll('thead tr th');
+          var trs = table.querySelectorAll('tbody tr');
+          if (ths[nthIdx - 1]) ths[nthIdx - 1].style.display = isOn ? '' : 'none';
+          trs.forEach(function(tr) {
+            var tds = tr.querySelectorAll('td');
+            if (tds[nthIdx - 1]) tds[nthIdx - 1].style.display = isOn ? '' : 'none';
+          });
+        });
+        label.textContent = 'Columns (' + onCount + '/' + total + ')';
+      }
+
+      picker.addEventListener('click', function(e) {
+        var sw = e.target;
+        while (sw && sw !== picker) {
+          if (sw.classList && sw.classList.contains('col-switch') && !sw.classList.contains('disabled') && sw.hasAttribute('data-col')) {
+            e.stopPropagation();
+            sw.classList.toggle('on');
+            applyVisibility();
+            return;
+          }
+          sw = sw.parentElement;
+        }
+      });
+
+      function closePicker() {
+        picker.classList.remove('open');
+        btn.classList.remove('active');
+      }
+
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var isOpen = picker.classList.contains('open');
+        picker.classList.toggle('open');
+        btn.classList.toggle('active', !isOpen);
+      });
+
+      closeBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        closePicker();
+      });
+
+      cancelBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        closePicker();
+      });
+
+      confirmBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        closePicker();
+      });
+
+      document.addEventListener('click', function(e) {
+        if (!picker.contains(e.target) && e.target !== btn && !btn.contains(e.target)) {
+          closePicker();
+        }
+      });
+
+      applyVisibility();
+    })();
+
+    // Teams filter panel
+    (function() {
+      var btn = document.getElementById('teams-filter-btn');
+      var panel = document.getElementById('teams-filter-panel');
+      var closeBtn = document.getElementById('teams-filter-close');
+      var clearBtn = document.getElementById('teams-filter-clear');
+      var confirmBtn = document.getElementById('teams-filter-confirm');
+
+      function closePanel() {
+        panel.classList.remove('open');
+        btn.classList.remove('active');
+      }
+
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var isOpen = panel.classList.contains('open');
+        panel.classList.toggle('open');
+        btn.classList.toggle('active', !isOpen);
+      });
+
+      closeBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        closePanel();
+      });
+
+      clearBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        panel.querySelectorAll('.mds-checkbox').forEach(function(cb) { cb.checked = false; });
+        panel.querySelectorAll('input[type="number"]').forEach(function(inp) { inp.value = ''; });
+      });
+
+      confirmBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        closePanel();
+      });
+
+      document.addEventListener('click', function(e) {
+        if (!panel.contains(e.target) && e.target !== btn && !btn.contains(e.target)) {
+          closePanel();
+        }
+      });
+    })();
 
     // AI Workflows sub-tabs
     document.querySelectorAll('.aiw-tab[data-aiw-tab]').forEach(function(tab) {
@@ -3691,11 +4273,12 @@
           };
 
           var rect = this.getBoundingClientRect();
-          var menuH = 395;
-          var top = rect.bottom + 4;
-          if (top + menuH > window.innerHeight) {
-            top = rect.top - menuH - 4;
-          }
+          ctxMenu.style.visibility = 'hidden';
+          ctxMenu.classList.add('open');
+          var menuH = ctxMenu.offsetHeight;
+          ctxMenu.style.visibility = '';
+          var top = rect.top - menuH - 6;
+          if (top < 0) top = rect.bottom + 6;
           ctxMenu.style.top = top + 'px';
           ctxMenu.style.left = (rect.right - 240) + 'px';
           ctxMenu.classList.add('open');
