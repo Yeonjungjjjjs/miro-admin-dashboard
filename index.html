@@ -1002,6 +1002,75 @@
       color: #222428; line-height: 1.4; padding-left: 48px;
     }
     .settings-toggle-desc--subtle { color: #656b81; }
+
+    /* ===== CAPABILITIES PAGE ===== */
+    .cap-card {
+      background: #fff; border-radius: 8px;
+      box-shadow: 0 0 10px rgba(5,0,56,0.08);
+      padding: 0 24px 24px;
+    }
+    .cap-section { padding-top: 24px; }
+    .cap-section-title {
+      font-family: var(--font-heading); font-size: 20px; font-weight: 600;
+      color: #000; line-height: 1.4; margin: 0;
+    }
+    .cap-section-desc {
+      font-family: var(--font-body); font-size: 14px; font-weight: 400;
+      color: #222428; line-height: 1.4; margin: 4px 0 0;
+    }
+    .cap-section .settings-toggle-group {
+      padding: 24px 0; gap: 32px;
+    }
+    .cap-section .settings-toggle-item { padding: 0; }
+    .cap-section .settings-toggle-desc { padding-left: 0; }
+    .cap-divider { height: 1px; background: #e0e2e8; }
+    .cap-capability-item {
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .cap-detail-link {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .cap-detail-link svg { width: 16px; height: 16px; color: #656b81; flex-shrink: 0; }
+    .cap-detail-link a {
+      font-family: var(--font-body); font-size: 14px; font-weight: 600;
+      color: #656b81; text-decoration: none;
+    }
+    .cap-detail-link a:hover { text-decoration: underline; }
+
+    .cap-tag-wrap { position: relative; cursor: default; }
+    .cap-models-tooltip {
+      display: none; position: fixed; z-index: 9999;
+      width: 260px; max-height: 480px; overflow-y: auto;
+      background: #1a1b1e; color: #fff; border-radius: 8px;
+      padding: 16px; font-family: var(--font-body);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.24);
+    }
+    .cap-models-tooltip.visible { display: block; }
+    .cap-models-tooltip-title {
+      font-size: 14px; font-weight: 600; margin: 0 0 12px; color: #fff;
+    }
+    .cap-models-tooltip h4 {
+      font-size: 13px; font-weight: 700; color: #fff; margin: 12px 0 4px;
+    }
+    .cap-models-tooltip h4:first-child { margin-top: 0; }
+    .cap-models-tooltip ul {
+      list-style: disc; margin: 0; padding-left: 16px;
+    }
+    .cap-models-tooltip li {
+      font-size: 13px; font-weight: 400; color: #d0d1d6; line-height: 1.6;
+    }
+
+    .settings-toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background: #1a1b1e; color: #fff; border-radius: 8px; padding: 12px 20px;
+      font-family: var(--font-body); font-size: 14px; font-weight: 400;
+      line-height: 1.4; z-index: 9999; display: flex; align-items: center; gap: 8px;
+      opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+    .settings-toast.visible { opacity: 1; visibility: visible; }
+    .settings-toast svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .settings-toast-text strong { font-weight: 600; }
     .settings-radio-group { display: flex; flex-direction: column; gap: 16px; }
     .settings-radio-row { display: flex; align-items: center; gap: 4px; cursor: pointer; }
     .settings-radio-label {
@@ -1879,12 +1948,17 @@
           <span class="nav-label">Security</span>
           <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></span>
         </a>
-        <!-- Miro AI (IconSparksFilled + chevron) -->
-        <a href="#">
+        <!-- Miro AI (IconSparksFilled + chevron + sub-nav) -->
+        <a href="#" class="has-subnav" data-route="miroai-capabilities" data-subnav="miroai-subnav">
           <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M5.5 16A2.5 2.5 0 0 0 8 18.5v1A2.5 2.5 0 0 0 5.5 22h-1A2.5 2.5 0 0 0 2 19.5v-1A2.5 2.5 0 0 0 4.5 16h1Zm5.178-10.793c.325-1.368 2.319-1.37 2.644 0l.027.142.042.255a6.26 6.26 0 0 0 5.26 5.046c1.553.224 1.561 2.473 0 2.699a6.26 6.26 0 0 0-5.302 5.301c-.225 1.563-2.475 1.554-2.699 0a6.26 6.26 0 0 0-5.3-5.3c-1.56-.225-1.557-2.474 0-2.699l.255-.042a6.26 6.26 0 0 0 5.046-5.26l.028-.141ZM19.5 2A2.5 2.5 0 0 0 22 4.5v1A2.5 2.5 0 0 0 19.5 8h-1A2.5 2.5 0 0 0 16 5.5v-1A2.5 2.5 0 0 0 18.5 2h1Z"/></svg></span>
           <span class="nav-label">Miro AI</span>
           <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></span>
         </a>
+        <div class="sidebar-subnav" id="miroai-subnav">
+          <a href="#" class="subnav-item" data-route="miroai-capabilities">Capabilities</a>
+          <a href="#" class="subnav-item" data-route="miroai-datausage">Data usage</a>
+          <a href="#" class="subnav-item" data-route="miroai-moderation">Moderation</a>
+        </div>
         <!-- Products (IconSquareTriangleCirclePlus) -->
         <a href="#" data-route="products">
           <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m10 2 1 1v7l-1 1H3l-1-1V3l1-1h7ZM4 9h5V4H4v5Zm15 5v3h3v2h-3v3h-2v-3h-3v-2h3v-3h2ZM9 17.75a2.75 2.75 0 1 0-5.5 0 2.75 2.75 0 0 0 5.5 0Zm2 0a4.75 4.75 0 1 1-9.5 0 4.75 4.75 0 0 1 9.5 0Zm7.888-15.71 3.9 7.5L21.9 11H14l-.883-1.47 4-7.5 1.77.01ZM15.667 9h4.586l-2.265-4.354L15.667 9Z"/></svg></span>
@@ -3060,6 +3134,110 @@
       </section>
     </div><!-- /page-teams -->
 
+    <!-- ===== MIRO AI PAGES ===== -->
+    <div id="page-miroai-capabilities" class="page-section">
+      <section class="main-content">
+        <h1 style="font-family:var(--font-heading);font-size:32px;font-weight:600;color:#222428;margin:0;">Capabilities</h1>
+
+        <div class="cap-card">
+          <!-- Feature enablement -->
+          <div class="cap-section">
+            <div class="cap-section-title">Feature enablement</div>
+            <div class="settings-toggle-group">
+              <div class="settings-toggle-item">
+                <div class="settings-toggle-top">
+                  <div class="mds-switch" role="switch" aria-checked="false"></div>
+                  <span class="settings-toggle-top-label">Sidekicks</span>
+                  <span class="mds-tag mds-tag--neutral-prominent cap-tag-wrap">12 AI models</span>
+                </div>
+                <div class="settings-toggle-desc">Custom AI partners that collaborate on exploring ideas, building solutions, and moving work forward. <a href="#" style="color:#3859ff;text-decoration:none;">Learn more</a></div>
+              </div>
+              <div class="settings-toggle-item">
+                <div class="settings-toggle-top">
+                  <div class="mds-switch" role="switch" aria-checked="false"></div>
+                  <span class="settings-toggle-top-label">AI search</span>
+                  <span class="mds-tag mds-tag--neutral-prominent cap-tag-wrap">12 AI models</span>
+                </div>
+                <div class="settings-toggle-desc">Enable AI Search to search for content within a team.</div>
+              </div>
+              <div class="settings-toggle-item">
+                <div class="settings-toggle-top">
+                  <div class="mds-switch" role="switch" aria-checked="false"></div>
+                  <span class="settings-toggle-top-label">Summarize activity</span>
+                  <span class="mds-tag mds-tag--neutral-prominent cap-tag-wrap">12 AI models</span>
+                </div>
+                <div class="settings-toggle-desc">Use AI to create and edit canvas content like sticky notes, Docs, Tables, Timelines, and more.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cap-divider"></div>
+
+          <!-- AI capabilities -->
+          <div class="cap-section">
+            <div class="cap-section-title">AI capabilities</div>
+            <div class="cap-section-desc">Custom AI partners that collaborate on exploring ideas, building solutions, and moving work forward.</div>
+            <div class="settings-toggle-group">
+              <div class="cap-capability-item">
+                <div class="settings-toggle-item">
+                  <div class="settings-toggle-top">
+                    <div class="mds-switch" role="switch" aria-checked="false"></div>
+                    <span class="settings-toggle-top-label">Images</span>
+                    <span class="mds-tag mds-tag--neutral-prominent cap-tag-wrap">12 AI models</span>
+                  </div>
+                  <div class="settings-toggle-desc">Create and edit images with AI on the canvas.</div>
+                </div>
+                <div class="cap-detail-link">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M9.293 6.293 14.586 12l-5.293 5.293 1.414 1.414 6-6v-1.414l-6-6-1.414 1.414Z"/></svg>
+                  <a href="#">View detailed Images availability</a>
+                </div>
+              </div>
+              <div class="cap-capability-item">
+                <div class="settings-toggle-item">
+                  <div class="settings-toggle-top">
+                    <div class="mds-switch" role="switch" aria-checked="false"></div>
+                    <span class="settings-toggle-top-label">Formats</span>
+                    <span class="mds-tag mds-tag--neutral-prominent cap-tag-wrap">12 AI models</span>
+                  </div>
+                  <div class="settings-toggle-desc">Use AI to create and edit canvas content like sticky notes, Docs, Tables, Timelines, and more.</div>
+                </div>
+                <div class="cap-detail-link">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M9.293 6.293 14.586 12l-5.293 5.293 1.414 1.414 6-6v-1.414l-6-6-1.414 1.414Z"/></svg>
+                  <a href="#">View detailed Format availability</a>
+                </div>
+              </div>
+              <div class="cap-capability-item">
+                <div class="settings-toggle-item">
+                  <div class="settings-toggle-top">
+                    <div class="mds-switch" role="switch" aria-checked="false"></div>
+                    <span class="settings-toggle-top-label">Slides</span>
+                    <span class="mds-tag mds-tag--neutral-prominent cap-tag-wrap">12 AI models</span>
+                  </div>
+                  <div class="settings-toggle-desc">Use AI to create and edit canvas content like sticky notes, Docs, Tables, Timelines, and more.</div>
+                </div>
+                <div class="cap-detail-link">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M9.293 6.293 14.586 12l-5.293 5.293 1.414 1.414 6-6v-1.414l-6-6-1.414 1.414Z"/></svg>
+                  <a href="#">View detailed Slide availability</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div id="page-miroai-datausage" class="page-section">
+      <section class="main-content">
+        <h1 style="font-family:var(--font-heading);font-size:32px;font-weight:600;color:#222428;margin:0;">Data usage</h1>
+        <p style="font-family:var(--font-body);font-size:14px;color:#656b81;margin:8px 0 0;">Monitor and manage AI data usage across your organization.</p>
+      </section>
+    </div>
+    <div id="page-miroai-moderation" class="page-section">
+      <section class="main-content">
+        <h1 style="font-family:var(--font-heading);font-size:32px;font-weight:600;color:#222428;margin:0;">Moderation</h1>
+        <p style="font-family:var(--font-body);font-size:14px;color:#656b81;margin:8px 0 0;">Configure AI content moderation settings for your organization.</p>
+      </section>
+    </div>
+
   </div><!-- /main-wrapper -->
 
   <!-- ===== ASSIGN SEATS SIDE PANEL ===== -->
@@ -3200,6 +3378,46 @@
       </div>
     </div>
     <div class="bulk-toast-footer">You may navigate away or close this browser window. The operation will continue in the background.</div>
+  </div>
+
+  <!-- AI Models Tooltip -->
+  <div class="cap-models-tooltip" id="cap-models-tooltip">
+    <div class="cap-models-tooltip-title">18 AI models</div>
+    <h4>GPT</h4>
+    <ul>
+      <li>GPT 4o (New)</li>
+      <li>GPT-4o (New)</li>
+      <li>GPT-4o Mini</li>
+      <li>GPT-5</li>
+      <li>GPT-5 Mini O3</li>
+      <li>O4-Mini</li>
+      <li>GPT-4.1</li>
+      <li>GPT-4.1 Mini</li>
+      <li>GPT 40 Mini</li>
+    </ul>
+    <h4>Claude</h4>
+    <ul>
+      <li>Claude Sonnet 3.7 (AWS Bedrock)</li>
+      <li>Claude Haiku 3.5 (AWS Bedrock)</li>
+      <li>Claude 3.7 Sonnet</li>
+      <li>Claude Sonnet 4</li>
+      <li>Claude Sonnet 4.5</li>
+      <li>Claude Sonnet 4.6</li>
+      <li>Claude Opus 4.5</li>
+      <li>Claude Opus 4.6</li>
+    </ul>
+    <h4>Gemini</h4>
+    <ul>
+      <li>Gemini 2.5 Flash</li>
+      <li>Gemini 2.5 Pro</li>
+      <li>Gemini 2.5 Flash Lite</li>
+    </ul>
+  </div>
+
+  <!-- Settings Toast -->
+  <div class="settings-toast" id="settings-toast">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="#17b169" d="m9.55 17.575-4.975-4.95 1.425-1.4 3.55 3.525 7.575-7.55 1.425 1.425-9 8.95Z"/></svg>
+    <span class="settings-toast-text" id="settings-toast-text"></span>
   </div>
 
   <!-- ===== ROW CONTEXT MENU (shared, body-appended) ===== -->
@@ -3538,7 +3756,8 @@
 
       document.querySelectorAll('.sidebar-nav a[data-route]').forEach(function(a) { a.classList.remove('active'); a.classList.remove('parent-active'); });
       document.querySelectorAll('.subnav-item').forEach(function(a) { a.classList.remove('active'); });
-      var activeRoute = route === 'aiworkflow' ? 'products' : route;
+      var miroaiRoutes = ['miroai-capabilities', 'miroai-datausage', 'miroai-moderation'];
+      var activeRoute = route === 'aiworkflow' ? 'products' : (miroaiRoutes.indexOf(route) !== -1 ? 'miroai-capabilities' : route);
       var navLink = document.querySelector('.sidebar-nav > a[data-route="' + activeRoute + '"]');
       if (navLink && !navLink.classList.contains('has-subnav')) navLink.classList.add('active');
 
@@ -3585,7 +3804,7 @@
         if (targetTeamsTab) targetTeamsTab.classList.add('active');
       }
 
-      var hashMap = { home: '#/Home', allusers: '#/Users/AllUsers' };
+      var hashMap = { home: '#/Home', allusers: '#/Users/AllUsers', 'miroai-capabilities': '#/MiroAI/Capabilities', 'miroai-datausage': '#/MiroAI/DataUsage', 'miroai-moderation': '#/MiroAI/Moderation' };
       var hash;
       if (route === 'aiworkflow') {
         var activeAiwTab = document.querySelector('.aiw-tab.active');
@@ -3610,6 +3829,9 @@
       var hash = location.hash || '';
       if (hash.indexOf('/Users/AllUsers') !== -1) return 'allusers';
       if (hash.indexOf('/Teams') !== -1) return 'teams';
+      if (hash.indexOf('/MiroAI/DataUsage') !== -1) return 'miroai-datausage';
+      if (hash.indexOf('/MiroAI/Moderation') !== -1) return 'miroai-moderation';
+      if (hash.indexOf('/MiroAI') !== -1) return 'miroai-capabilities';
       if (hash.indexOf('/Product/AIworkflow') !== -1) return 'aiworkflow';
       if (hash.indexOf('/Product/Explore') !== -1) return 'products';
       if (hash.indexOf('/Product/Active') !== -1) return 'products';
@@ -3994,6 +4216,36 @@
       });
     })();
 
+    // AI models tooltip on cap-tag-wrap hover
+    (function() {
+      var tooltip = document.getElementById('cap-models-tooltip');
+      document.addEventListener('mouseover', function(e) {
+        var tag = e.target.closest('.cap-tag-wrap');
+        if (!tag) return;
+        var rect = tag.getBoundingClientRect();
+        var tipW = 260;
+        var tipH = tooltip.offsetHeight || 480;
+        var left = rect.right + 8;
+        if (left + tipW > window.innerWidth) left = rect.left - tipW - 8;
+        var top = rect.top;
+        if (top + tipH > window.innerHeight) top = window.innerHeight - tipH - 8;
+        if (top < 8) top = 8;
+        tooltip.style.top = top + 'px';
+        tooltip.style.left = left + 'px';
+        tooltip.classList.add('visible');
+      });
+      document.addEventListener('mouseout', function(e) {
+        var tag = e.target.closest('.cap-tag-wrap');
+        if (!tag) return;
+        var related = e.relatedTarget;
+        if (related && (related.closest('.cap-tag-wrap') || related.closest('.cap-models-tooltip'))) return;
+        tooltip.classList.remove('visible');
+      });
+      tooltip.addEventListener('mouseleave', function() {
+        tooltip.classList.remove('visible');
+      });
+    })();
+
     // AI Workflows sub-tabs
     document.querySelectorAll('.aiw-tab[data-aiw-tab]').forEach(function(tab) {
       tab.addEventListener('click', function() {
@@ -4093,6 +4345,21 @@
       sw.addEventListener('click', function() {
         var isChecked = this.classList.toggle('checked');
         this.setAttribute('aria-checked', isChecked ? 'true' : 'false');
+
+        if (this.closest('#aiw-panel-settings')) {
+          var item = this.closest('.settings-toggle-item');
+          if (!item) return;
+          var labelEl = item.querySelector('.settings-toggle-top-label');
+          if (!labelEl) return;
+          var name = labelEl.textContent.trim();
+          var state = isChecked ? 'turned on' : 'turned off';
+          var toast = document.getElementById('settings-toast');
+          var textEl = document.getElementById('settings-toast-text');
+          textEl.innerHTML = '<strong>' + name + '</strong> ' + state;
+          toast.classList.add('visible');
+          clearTimeout(toast._timer);
+          toast._timer = setTimeout(function() { toast.classList.remove('visible'); }, 3000);
+        }
       });
     });
 
