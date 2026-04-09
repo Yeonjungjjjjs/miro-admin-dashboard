@@ -4209,6 +4209,25 @@
     </div>
   </div>
 
+  <!-- ===== LAST CAPABILITY CONFIRM MODAL ===== -->
+  <div class="assign-modal-overlay" id="lastcap-confirm-overlay">
+    <div class="assign-modal">
+      <div class="assign-modal-header">
+        <h2 style="font-size:20px;">Disable Sidekicks?</h2>
+        <button class="assign-modal-close" id="lastcap-confirm-close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M19.707 5.707 13.414 12l6.293 6.293-1.414 1.414L12 13.414l-6.293 6.293-1.414-1.414L10.586 12 4.293 5.707l1.414-1.414L12 10.586l6.293-6.293 1.414 1.414Z"/></svg>
+        </button>
+      </div>
+      <div class="assign-modal-body">
+        <p class="assign-modal-desc">Turning off all Content and Image capabilities will disable <strong>Sidekicks</strong>. Keep at least one capability enabled to continue using Sidekicks.</p>
+      </div>
+      <div class="assign-modal-footer">
+        <button class="mds-btn mds-btn--secondary mds-btn--large" id="lastcap-confirm-cancel">Cancel</button>
+        <button class="mds-btn mds-btn--primary mds-btn--large" id="lastcap-confirm-ok" style="background:#d93b3b;border-color:#d93b3b;">Turn off</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ===== JAVASCRIPT ===== -->
   <script>
     // ===== CENTRALIZED DATA STORE =====
@@ -5307,6 +5326,61 @@
 
 
     var sidekicksDisabledCallout = document.getElementById('sidekicks-disabled-callout');
+    var lastcapConfirmOverlay = document.getElementById('lastcap-confirm-overlay');
+    var pendingLastCapSwitch = null;
+
+    function wouldAllBeOff(switchToTurnOff) {
+      var allSwitches = [];
+      [contentGroup, imagesGroup].forEach(function(g) {
+        if (!g) return;
+        g.querySelectorAll('.aicap-item .mds-switch').forEach(function(sw) {
+          allSwitches.push(sw);
+        });
+      });
+      return allSwitches.every(function(sw) {
+        if (sw === switchToTurnOff) return true;
+        return !sw.classList.contains('checked');
+      });
+    }
+
+    function disableSidekicksFromCapabilities() {
+      sidekicksToggle.classList.remove('checked');
+      sidekicksToggle.setAttribute('aria-checked', 'false');
+      sidekicksToggle.style.pointerEvents = 'none';
+      sidekicksToggle.style.opacity = '0.4';
+      if (sidekicksDisabledCallout) sidekicksDisabledCallout.style.display = 'flex';
+      if (sidekicksSubSettings) sidekicksSubSettings.style.display = 'none';
+      var featRow = sidekicksToggle.closest('.feat-item-row');
+      if (featRow) {
+        var trig = featRow.querySelector('.feat-select-trigger');
+        if (trig) {
+          if (!trig._prevValue) trig._prevValue = trig.getAttribute('data-value');
+          trig.classList.add('disabled');
+          trig.childNodes[0].textContent = 'No one';
+          trig.setAttribute('data-value', 'No one');
+        }
+      }
+    }
+
+    function reEnableSidekicksFromCapabilities() {
+      sidekicksToggle.classList.add('checked');
+      sidekicksToggle.setAttribute('aria-checked', 'true');
+      sidekicksToggle.style.pointerEvents = '';
+      sidekicksToggle.style.opacity = '';
+      if (sidekicksDisabledCallout) sidekicksDisabledCallout.style.display = 'none';
+      if (sidekicksSubSettings) sidekicksSubSettings.style.display = '';
+      var featRow = sidekicksToggle.closest('.feat-item-row');
+      if (featRow) {
+        var trig = featRow.querySelector('.feat-select-trigger');
+        if (trig && trig.classList.contains('disabled')) {
+          trig.classList.remove('disabled');
+          if (trig._prevValue) {
+            trig.childNodes[0].textContent = trig._prevValue;
+            trig.setAttribute('data-value', trig._prevValue);
+          }
+        }
+      }
+    }
 
     function checkAllCapabilitiesOff() {
       var allSwitches = [];
@@ -5319,41 +5393,10 @@
       if (allSwitches.length === 0) return;
       var allOff = allSwitches.every(function(sw) { return !sw.classList.contains('checked'); });
       if (allOff) {
-        sidekicksToggle.classList.remove('checked');
-        sidekicksToggle.setAttribute('aria-checked', 'false');
-        sidekicksToggle.style.pointerEvents = 'none';
-        sidekicksToggle.style.opacity = '0.4';
-        if (sidekicksDisabledCallout) sidekicksDisabledCallout.style.display = 'flex';
-        if (sidekicksSubSettings) sidekicksSubSettings.style.display = 'none';
-        var featRow = sidekicksToggle.closest('.feat-item-row');
-        if (featRow) {
-          var trig = featRow.querySelector('.feat-select-trigger');
-          if (trig) {
-            if (!trig._prevValue) trig._prevValue = trig.getAttribute('data-value');
-            trig.classList.add('disabled');
-            trig.childNodes[0].textContent = 'No one';
-            trig.setAttribute('data-value', 'No one');
-          }
-        }
+        disableSidekicksFromCapabilities();
       } else {
         if (sidekicksToggle.style.pointerEvents === 'none') {
-          sidekicksToggle.classList.add('checked');
-          sidekicksToggle.setAttribute('aria-checked', 'true');
-          sidekicksToggle.style.pointerEvents = '';
-          sidekicksToggle.style.opacity = '';
-          if (sidekicksDisabledCallout) sidekicksDisabledCallout.style.display = 'none';
-          if (sidekicksSubSettings) sidekicksSubSettings.style.display = '';
-          var featRow = sidekicksToggle.closest('.feat-item-row');
-          if (featRow) {
-            var trig = featRow.querySelector('.feat-select-trigger');
-            if (trig && trig.classList.contains('disabled')) {
-              trig.classList.remove('disabled');
-              if (trig._prevValue) {
-                trig.childNodes[0].textContent = trig._prevValue;
-                trig.setAttribute('data-value', trig._prevValue);
-              }
-            }
-          }
+          reEnableSidekicksFromCapabilities();
         }
       }
     }
@@ -5376,6 +5419,24 @@
       disableContentAndImages();
     });
 
+    document.getElementById('lastcap-confirm-close').addEventListener('click', function() {
+      lastcapConfirmOverlay.classList.remove('visible');
+      pendingLastCapSwitch = null;
+    });
+    document.getElementById('lastcap-confirm-cancel').addEventListener('click', function() {
+      lastcapConfirmOverlay.classList.remove('visible');
+      pendingLastCapSwitch = null;
+    });
+    document.getElementById('lastcap-confirm-ok').addEventListener('click', function() {
+      lastcapConfirmOverlay.classList.remove('visible');
+      if (pendingLastCapSwitch) {
+        pendingLastCapSwitch.classList.remove('checked');
+        pendingLastCapSwitch.setAttribute('aria-checked', 'false');
+        pendingLastCapSwitch = null;
+        checkAllCapabilitiesOff();
+      }
+    });
+
     // MDS Switch toggle
     document.querySelectorAll('.mds-switch').forEach(function(sw) {
       sw.addEventListener('click', function() {
@@ -5392,10 +5453,16 @@
         }
         var isChecked = this.classList.contains('checked');
         if (this.id !== 'sidekicks-toggle') {
+          var inCapGroup = this.closest('#aicap-group-content') || this.closest('#aicap-group-images');
+          if (inCapGroup && this.classList.contains('checked') && wouldAllBeOff(this)) {
+            pendingLastCapSwitch = this;
+            lastcapConfirmOverlay.classList.add('visible');
+            return;
+          }
           var alreadyToggled = this.classList.toggle('checked');
           isChecked = alreadyToggled;
           this.setAttribute('aria-checked', isChecked ? 'true' : 'false');
-          if (this.closest('#aicap-group-content') || this.closest('#aicap-group-images')) {
+          if (inCapGroup) {
             checkAllCapabilitiesOff();
           }
         }
