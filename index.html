@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Miro Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <style>
     @font-face { font-family: 'Roobert PRO'; src: url('fonts/RoobertPRO-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
     @font-face { font-family: 'Roobert PRO'; src: url('fonts/RoobertPRO-Medium.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
@@ -17,10 +20,10 @@
       /* MDS Layout */
       --sidebar-width: 260px;
       --right-panel-width: 352px;
-      /* MDS Colors - Primary */
-      --primary: #4262ff;
-      --primary-hover: #314cd9;
-      --primary-subtle: #eff0ff;
+      /* MDS Colors - Primary (blue-500, blue-550, blue-150) */
+      --primary: #3859FF;
+      --primary-hover: #314CD9;
+      --primary-subtle: #E8ECFC;
       --primary-prominent: #2b3ea0;
       /* MDS Colors - Neutrals */
       --bg: #f5f5f5;
@@ -39,7 +42,7 @@
       --success-bg: #d4f5e2;
       --warning: #e5a100;
       --warning-bg: #fff3d1;
-      --danger: #f24726;
+      --danger: #D8182C;
       --danger-bg: #ffe0db;
       /* MDS Radii */
       --radius: 12px;
@@ -96,78 +99,80 @@
 
     /* ===== MDS ICON BUTTON ===== */
     .mds-icon-btn {
-      width: 40px; height: 40px; border: none; background: none; border-radius: var(--radius-xs);
+      width: 40px; height: 40px; border: none; background: none; border-radius: 4px;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; color: var(--text); flex-shrink: 0;
     }
-    .mds-icon-btn:hover { background: var(--bg-subtle); }
+    .mds-icon-btn:hover { background: #E9EAEF; }
     .mds-icon-btn svg { width: 24px; height: 24px; }
-    .mds-icon-btn--medium { width: 36px; height: 36px; }
-    .mds-icon-btn--medium svg { width: 20px; height: 20px; }
+    .mds-icon-btn--medium { width: 32px; height: 32px; }
+    .mds-icon-btn--medium svg { width: 16px; height: 16px; }
     .mds-icon-btn--xlarge { width: 48px; height: 48px; }
     .mds-icon-btn--xlarge svg { width: 24px; height: 24px; }
     .mds-icon-btn--primary { background: var(--primary); color: #fff; }
     .mds-icon-btn--primary:hover { background: var(--primary-hover); }
-    .mds-icon-btn--secondary { background: #fff; color: var(--text); border: 1.5px solid var(--border); }
-    .mds-icon-btn--secondary:hover { background: var(--bg-subtle); }
+    .mds-icon-btn--secondary { background: #fff; color: var(--text); border: 1.5px solid var(--border); border-radius: 4px; }
+    .mds-icon-btn--secondary:hover { background: #E9EAEF; }
 
     /* ===== MDS BUTTONS ===== */
     .mds-btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: var(--space-50);
-      font-family: var(--font-body); font-weight: 600; border: none; border-radius: var(--radius-xs);
-      cursor: pointer; white-space: nowrap; transition: background 0.15s, color 0.15s, border-color 0.15s;
-      line-height: 1; text-decoration: none;
+      display: inline-flex; align-items: center; justify-content: center; gap: 4px;
+      font-family: var(--font-body); font-weight: 600;
+      border: 1px solid transparent; border-radius: 4px;
+      cursor: pointer; white-space: nowrap;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      line-height: 1; text-decoration: none; box-sizing: border-box;
     }
     .mds-btn svg { flex-shrink: 0; }
-    .mds-btn--small { height: 32px; padding: 0 12px; font-size: 13px; }
-    .mds-btn--small svg { width: 14px; height: 14px; }
-    .mds-btn--medium { height: 32px; padding: 0 12px; font-size: 14px; }
+    .mds-btn--small { height: 24px; padding: 0 10px; font-size: 14px; }
+    .mds-btn--small svg { width: 16px; height: 16px; }
+    .mds-btn--medium { height: 32px; padding: 0 10px; font-size: 14px; }
     .mds-btn--medium svg { width: 16px; height: 16px; }
-    .mds-btn--large { height: 40px; padding: 0 16px; font-size: 16px; }
+    .mds-btn--large { height: 40px; padding: 0 14px; font-size: 16px; }
     .mds-btn--large svg { width: 20px; height: 20px; }
-    .mds-btn--xlarge { height: 48px; padding: 0 20px; font-size: 16px; }
+    .mds-btn--xlarge { height: 48px; padding: 0 18px; font-size: 16px; border-radius: 9999px; }
     .mds-btn--xlarge svg { width: 20px; height: 20px; }
 
-    .mds-btn--primary { background: var(--primary); color: #fff; }
-    .mds-btn--primary:hover { background: var(--primary-hover); }
-    .mds-btn--primary:disabled { background: var(--border-strong); color: #fff; cursor: not-allowed; }
-    .mds-btn--secondary { background: #f1f2f5; color: #222428; border: none; }
-    .mds-btn--secondary:hover { background: #e0e2e8; }
-    .mds-btn--outline { background: #fff; color: #3859ff; border: 1.5px solid #3859ff; }
-    .mds-btn--outline:hover { background: #f0f3ff; }
-    .mds-btn--tertiary { background: transparent; color: #3859ff; border: 1px solid #3859ff; }
-    .mds-btn--tertiary:hover { background: #f0f1ff; }
-    .mds-btn--ghost { background: none; color: var(--text); }
-    .mds-btn--ghost:hover { background: var(--bg-subtle); }
-    .mds-btn--ghost-prominent { background: none; color: var(--primary); }
-    .mds-btn--ghost-prominent:hover { background: var(--primary-subtle); }
-    .mds-btn--danger { background: var(--danger); color: #fff; }
-    .mds-btn--danger:hover { background: #d93a1d; }
-    .mds-btn--danger-secondary { background: #fff; color: var(--danger); border: 1.5px solid var(--danger); }
+    .mds-btn--primary { background: #3859FF; color: #fff; border-color: transparent; }
+    .mds-btn--primary:hover { background: #314CD9; }
+    .mds-btn--primary:disabled { background: #E9EAEF; color: #AEB2C0; cursor: not-allowed; }
+    .mds-btn--secondary { background: #E9EAEF; color: #222428; border-color: #E9EAEF; }
+    .mds-btn--secondary:hover { background: #E0E2E8; border-color: #E0E2E8; }
+    .mds-btn--outline { background: #fff; color: #3859FF; border: 1.5px solid #3859FF; }
+    .mds-btn--outline:hover { background: #E8ECFC; }
+    .mds-btn--tertiary { background: transparent; color: #3859FF; border: 1.5px solid #3859FF; }
+    .mds-btn--tertiary:hover { background: #E8ECFC; }
+    .mds-btn--ghost { background: transparent; color: var(--text); border-color: transparent; }
+    .mds-btn--ghost:hover { background: #E9EAEF; }
+    .mds-btn--ghost-prominent { background: transparent; color: #3859FF; border-color: transparent; }
+    .mds-btn--ghost-prominent:hover { background: #E8ECFC; }
+    .mds-btn--danger { background: #D8182C; color: #fff; border-color: transparent; }
+    .mds-btn--danger:hover { background: #b31524; }
+    .mds-btn--danger-secondary { background: #fff; color: #D8182C; border: 1.5px solid #D8182C; }
     .mds-btn--danger-secondary:hover { background: var(--danger-bg); }
 
     /* ===== MDS TAGS ===== */
     .mds-tag {
       display: inline-flex; align-items: center; justify-content: center;
-      height: 24px; padding: 2px 8px; width: auto;
-      border-radius: 4px; font-family: var(--font-body); font-size: 14px; font-weight: 600;
-      line-height: 1; white-space: nowrap; border: none; outline: none; gap: var(--space-50);
-      box-sizing: border-box; flex-shrink: 0;
+      height: 20px; padding: 0 4px; width: auto;
+      border-radius: 4px; font-family: var(--font-body); font-size: 12px; font-weight: 600;
+      line-height: 1; white-space: nowrap; border: none; outline: none; gap: 2px;
+      box-sizing: border-box; flex-shrink: 0; letter-spacing: 0;
     }
-    .mds-tag svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .mds-tag svg { width: 12px; height: 12px; flex-shrink: 0; }
     /* Neutral */
     .mds-tag--neutral { background: #f1f2f5; color: #656b81; }
     .mds-tag--neutral-prominent { background: #e9eaef; color: #222428; }
     /* Primary */
     .mds-tag--primary { background: #dfe3ff; color: #2b3ea0; }
-    .mds-tag--primary-prominent { background: #4262ff; color: #fff; }
-    .mds-tag--primary-subtle { background: #f0f1ff; color: #4262ff; }
+    .mds-tag--primary-prominent { background: #3859FF; color: #fff; }
+    .mds-tag--primary-subtle { background: #f0f1ff; color: #3859FF; }
     /* Success — MDS default is solid green */
     .mds-tag--success { background: #17b169; color: #fff; }
     /* Warning */
     .mds-tag--warning { background: #fff3d1; color: #8a6500; }
     /* Danger — MDS default is solid red */
-    .mds-tag--danger { background: #f24726; color: #fff; }
+    .mds-tag--danger { background: #D8182C; color: #fff; }
     /* Lime */
     .mds-tag--lime { background: #dbfaad; color: #21370b; }
     /* Sunshine */
@@ -195,20 +200,35 @@
     /* Ghost */
     .mds-tag--ghost { background: transparent; color: #656b81; border: 1px solid #e0e2e8; }
 
-    /* ===== MDS SWITCH ===== */
+    /* ===== MDS SWITCH (medium – 28×16, from @mirohq/design-system-switch) ===== */
     .mds-switch {
-      width: 40px; height: 24px; border-radius: 12px; background: var(--border-strong);
-      position: relative; cursor: pointer; transition: background 0.2s; flex-shrink: 0;
+      width: 28px; height: 16px; border-radius: 9999px;
+      background: #7D8297;
+      position: relative; cursor: pointer;
+      transition: background 100ms;
+      flex-shrink: 0; padding: 0; border: none;
+      box-sizing: border-box; display: inline-flex;
     }
     .mds-switch::after {
-      content: ''; position: absolute; top: 2px; left: 2px;
-      width: 20px; height: 20px; border-radius: 50%; background: var(--white);
-      box-shadow: 0 1px 2px rgba(0,0,0,0.12);
-      transition: transform 0.2s;
+      content: ''; position: absolute;
+      top: 3px; left: 3px;
+      width: 10px; height: 10px;
+      border-radius: 9999px; background: #fff;
+      transition: left 100ms, top 100ms, width 100ms, height 100ms;
     }
-    .mds-switch.checked { background: var(--primary); }
-    .mds-switch.checked::after { transform: translateX(16px); }
-    .mds-switch:hover { opacity: 0.9; }
+    .mds-switch.checked { background: #3859FF; }
+    .mds-switch.checked::after { left: 15px; }
+    .mds-switch:hover { background: #AEB2C0; }
+    .mds-switch:hover::after { top: 2px; left: 2px; width: 12px; height: 12px; }
+    .mds-switch.checked:hover { background: #314CD9; }
+    .mds-switch.checked:hover::after { left: 14px; top: 2px; width: 12px; height: 12px; }
+
+    /* MDS Switch small variant (20×12) */
+    .mds-switch--small { width: 20px; height: 12px; }
+    .mds-switch--small::after { top: 2px; left: 2px; width: 8px; height: 8px; }
+    .mds-switch--small.checked::after { left: 10px; }
+    .mds-switch--small:hover::after { top: 1px; left: 1px; width: 10px; height: 10px; }
+    .mds-switch--small.checked:hover::after { left: 9px; top: 1px; width: 10px; height: 10px; }
 
     /* ===== MDS RADIO ===== */
     .mds-radio {
@@ -626,10 +646,10 @@
       line-height: 1.4; color: #1c1c1c;
     }
     .whatsnew-link {
-      font-family: var(--font-body); font-size: 14px; color: #1c1c1c;
-      text-decoration: underline; font-weight: 400;
+      font-family: var(--font-body); font-size: 14px; color: #3859ff;
+      text-decoration: underline; text-decoration-skip-ink: none; font-weight: 400;
     }
-    .whatsnew-link:hover { color: var(--primary); }
+    .whatsnew-link:hover { color: #314CD9; }
     .whatsnew-actions {
       display: flex; gap: var(--space-100); margin-top: var(--space-200);
       border-top: none; padding-top: 0;
@@ -821,7 +841,7 @@
     }
     .explore-card-actions { display: flex; gap: 12px; align-items: center; }
     .explore-card-actions .mds-btn {
-      height: 32px; padding: 0 8px; font-size: 14px; border-radius: 4px;
+      height: 32px; padding: 0 10px; font-size: 14px; border-radius: 4px;
     }
     .explore-card-actions .mds-btn--ghost {
       color: #222428; font-weight: 600;
@@ -1038,11 +1058,12 @@
       display: flex; gap: 12px; padding: 24px;
     }
     .cap-provider-icon {
-      width: 40px; height: 40px; border-radius: 8px;
-      background: #f0f0ff; display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
+      width: 40px; height: 40px; border-radius: 4px;
+      border: 1px solid #e0e2e8; background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; box-sizing: border-box;
     }
-    .cap-provider-icon svg { width: 24px; height: 24px; color: #3859ff; }
+    .cap-provider-icon svg { width: 24px; height: 24px; color: #222428; }
     .cap-provider-content { flex: 1; min-width: 0; }
     .cap-provider-title {
       font-family: var(--font-heading); font-size: 20px; font-weight: 600;
@@ -1073,24 +1094,180 @@
     .cap-models-tooltip {
       display: none; position: fixed; z-index: 9999;
       width: 260px; max-height: 480px; overflow-y: auto;
-      background: #1a1b1e; color: #fff; border-radius: 8px;
-      padding: 16px; font-family: var(--font-body);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.24);
+      background: #1A1B1E; color: #FAFAFC; border-radius: 8px;
+      padding: 12px 16px; font-family: var(--font-body);
     }
     .cap-models-tooltip.visible { display: block; }
     .cap-models-tooltip-title {
-      font-size: 14px; font-weight: 600; margin: 0 0 12px; color: #fff;
+      font-size: 14px; font-weight: 700; margin: 0 0 12px; color: #FAFAFC;
     }
     .cap-models-tooltip h4 {
-      font-size: 13px; font-weight: 700; color: #fff; margin: 12px 0 4px;
+      font-size: 14px; font-weight: 700; color: #FAFAFC; margin: 12px 0 4px;
     }
     .cap-models-tooltip h4:first-child { margin-top: 0; }
     .cap-models-tooltip ul {
-      list-style: disc; margin: 0; padding-left: 16px;
+      list-style: disc; margin: 0; padding-left: 18px;
     }
     .cap-models-tooltip li {
-      font-size: 13px; font-weight: 400; color: #d0d1d6; line-height: 1.6;
+      font-size: 14px; font-weight: 400; color: #C7CAD5; line-height: 1.4;
     }
+    /* Features tab */
+    .feat-section { padding: 24px; }
+    .feat-section-title {
+      font-family: var(--font-heading); font-size: 20px; font-weight: 600;
+      color: #222428; line-height: 1.4; margin: 0;
+    }
+    .feat-section-desc {
+      font-family: var(--font-body); font-size: 14px; color: #656b81;
+      line-height: 1.4; margin: 4px 0 0;
+    }
+    .feat-list { display: flex; flex-direction: column; gap: 0; margin-top: 24px; }
+
+    /* Feature row: switch+label+tag left, dropdown right */
+    .feat-item { padding: 12px 0; }
+    .feat-item-row {
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+    .feat-item-row .mds-switch { flex-shrink: 0; margin-top: 2px; }
+    .feat-item-left { flex: 1; min-width: 0; }
+    .feat-item-top { display: flex; align-items: center; gap: 8px; }
+    .feat-item-label {
+      font-family: var(--font-body); font-size: 16px; font-weight: 600;
+      color: #222428; line-height: 1.2;
+    }
+    .feat-item-desc {
+      font-family: var(--font-body); font-size: 14px; color: #222428;
+      line-height: 1.4; margin-top: 4px;
+    }
+    .mds-text-link {
+      color: #3859ff; text-decoration: underline; text-decoration-skip-ink: none;
+      font-family: var(--font-body); font-weight: 400; cursor: pointer;
+    }
+    .mds-text-link:hover { color: #314CD9; }
+    .feat-item-desc a { color: #3859ff; text-decoration: underline; text-decoration-skip-ink: none; }
+    .feat-item-desc a:hover { color: #314CD9; }
+    .feat-select-wrapper {
+      position: relative; display: inline-block; flex-shrink: 0;
+    }
+    .feat-select-trigger {
+      height: 40px; width: 230px;
+      border: 1.5px solid #E0E2E8; border-radius: 4px;
+      padding: 0 32px 0 8px;
+      font-family: var(--font-body); font-size: 14px; font-weight: 400;
+      line-height: 1.4; color: #222428; background: #fff;
+      cursor: pointer; display: flex; align-items: center;
+      white-space: nowrap; position: relative;
+      box-sizing: border-box;
+    }
+    .feat-select-trigger:hover { border-color: #314CD9; }
+    .feat-select-trigger.open { border-color: #314CD9; }
+    .feat-select-trigger.disabled {
+      background: #E9EAEF; color: #AEB2C0; border-color: transparent;
+      cursor: not-allowed; pointer-events: none;
+    }
+    .feat-select-trigger.disabled .feat-select-chevron { color: #AEB2C0; }
+    .feat-select-chevron {
+      position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
+      width: 20px; height: 20px; color: #6F7489; pointer-events: none;
+      transition: transform 0.15s ease;
+    }
+    .feat-select-trigger.open .feat-select-chevron { transform: translateY(-50%) rotate(180deg); }
+    .feat-select-dropdown {
+      display: none; position: absolute; top: calc(100% + 4px); right: 0;
+      min-width: 220px; background: #fff; border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(34,36,40,0.12), 0 0 12px rgba(34,36,40,0.04);
+      padding: 8px; z-index: 200; flex-direction: column; gap: 0;
+    }
+    .feat-select-dropdown.open { display: flex; }
+    .feat-select-option {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 40px; padding: 0 12px; border-radius: 4px;
+      font-family: var(--font-body); font-size: 14px; color: #222428;
+      cursor: pointer; flex-shrink: 0;
+    }
+    .feat-select-option:hover { background: #f1f2f5; }
+    .feat-select-option.selected { color: #222428; }
+    .feat-select-radio {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 2px solid #c2c4cc; box-sizing: border-box;
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.15s;
+    }
+    .feat-select-option.selected .feat-select-radio {
+      border-color: #3859FF;
+    }
+    .feat-select-radio-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: transparent; transition: background 0.15s;
+    }
+    .feat-select-option.selected .feat-select-radio-dot {
+      background: #3859FF;
+    }
+
+    /* Restrictions expandable */
+    .feat-restrictions { padding-left: 40px; margin-top: 8px; }
+    .feat-restrictions-toggle {
+      display: flex; align-items: center; gap: 4px; cursor: pointer;
+      font-family: var(--font-body); font-size: 14px; font-weight: 600;
+      color: #222428; user-select: none; padding: 4px 0;
+    }
+    .feat-restrictions-chevron {
+      width: 16px; height: 16px; color: #656b81;
+      transition: transform 0.15s ease;
+      transform: rotate(-90deg);
+    }
+    .feat-restrictions.expanded .feat-restrictions-chevron { transform: rotate(0deg); }
+    .feat-restrictions-body { display: none; padding: 8px 0 0 24px; }
+    .feat-restrictions.expanded .feat-restrictions-body { display: block; }
+    .feat-restrict-item { display: flex; align-items: flex-start; gap: 8px; padding: 10px 0; }
+    .feat-restrict-item .mds-switch { flex-shrink: 0; margin-top: 2px; }
+    .feat-restrict-label {
+      font-family: var(--font-body); font-size: 14px; font-weight: 400;
+      color: #222428; line-height: 1.2;
+    }
+    .feat-restrict-desc {
+      font-family: var(--font-body); font-size: 14px; color: #656b81;
+      line-height: 1.4; margin-top: 2px;
+    }
+
+    /* AI capabilities flat list */
+    .aicap-list { display: flex; flex-direction: column; gap: 0; margin-top: 24px; }
+    .aicap-group-title {
+      font-family: var(--font-heading); font-size: 14px; font-weight: 600;
+      color: #222428; line-height: 1.4; padding: 8px 0 4px; margin-top: 8px;
+    }
+    .aicap-group-title:first-child { margin-top: 0; }
+    .aicap-item { display: flex; flex-direction: column; gap: 0; padding: 10px 0; }
+    .aicap-item-top { display: flex; align-items: center; gap: 8px; }
+    .aicap-item-top .mds-switch { flex-shrink: 0; }
+    .aicap-label {
+      font-family: var(--font-body); font-size: 14px; font-weight: 400;
+      color: #222428; line-height: 1.2;
+    }
+    .aicap-desc {
+      font-family: var(--font-body); font-size: 14px; color: #656b81;
+      line-height: 1.4; padding-left: 40px; margin-top: 2px;
+    }
+    .aicap-group.disabled .mds-switch { pointer-events: none; opacity: 0.4; }
+    .aicap-group.disabled .aicap-label { opacity: 0.4; }
+    .aicap-group.disabled .ai-models-tag { opacity: 0.4; }
+    .aicap-group.disabled .aicap-desc { opacity: 0.4; }
+    .mds-callout {
+      display: none;
+      align-items: flex-start; gap: 8px;
+      background: #FFF8E6; border: 1px solid #E8C861; border-radius: 8px;
+      padding: 16px; margin-bottom: 12px;
+    }
+    .mds-callout.visible { display: flex; }
+    .aicap-group.disabled .mds-callout { display: flex; }
+    .mds-callout-icon {
+      flex-shrink: 0; width: 20px; height: 20px; color: #C47D00; margin-top: 1px;
+    }
+    .mds-callout-body {
+      font-family: var(--font-body); font-size: 14px; color: #222428;
+      line-height: 1.4; flex: 1; min-width: 0;
+    }
+
     .cap-placeholder {
       padding: 48px 24px; text-align: center;
       font-family: var(--font-body); font-size: 14px; color: #656b81;
@@ -1151,7 +1328,7 @@
       color: #222428; line-height: 1.4;
     }
     .about-admin-card .mds-btn--medium {
-      height: 32px; padding: 0 12px; font-size: 14px;
+      height: 32px; padding: 0 10px; font-size: 14px;
     }
 
     @media (max-width: 900px) {
@@ -1243,6 +1420,92 @@
     .side-panel-footer {
       display: flex; align-items: center; justify-content: space-between;
       padding: 24px 32px; border-top: 1px solid #f1f2f5; flex-shrink: 0;
+    }
+
+    /* ===== TEAM SELECTION SIDE PANEL ===== */
+    .team-panel-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(5,0,56,0.3); z-index: 300; justify-content: flex-end;
+    }
+    .team-panel-overlay.open { display: flex; }
+    .team-panel {
+      width: 550px; max-width: 100%; height: 100%; background: #fff;
+      display: flex; flex-direction: column;
+      box-shadow: 0 8px 32px rgba(5,0,56,0.08);
+      animation: slideInRight 0.25s ease;
+    }
+    .team-panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px; flex-shrink: 0;
+    }
+    .team-panel-title {
+      font-family: var(--font-heading); font-size: 24px; font-weight: 400;
+      color: #1a1b1e; line-height: 1.35;
+    }
+    .team-panel-close {
+      width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+      border: none; background: none; border-radius: 4px; cursor: pointer; color: #222428;
+    }
+    .team-panel-close:hover { background: #f1f2f5; }
+    .team-panel-body {
+      flex: 1; overflow: hidden; padding: 0 24px;
+      display: flex; flex-direction: column; gap: 0; min-height: 0;
+    }
+    .team-panel-search {
+      display: flex; align-items: center; gap: 8px;
+      height: 40px; border: none; border-radius: 4px;
+      padding: 0 8px 0 12px; background: #f3f4f6; margin-bottom: 8px; box-sizing: border-box;
+      flex-shrink: 0;
+    }
+    .team-panel-search svg { width: 20px; height: 20px; color: #646B81; flex-shrink: 0; }
+    .team-panel-search input {
+      flex: 1; border: none; outline: none; font-family: var(--font-body);
+      font-size: 14px; color: #222428; background: transparent; line-height: 1.5;
+    }
+    .team-panel-search input::placeholder { color: #656b81; }
+    .team-panel-list-header {
+      display: flex; align-items: center; gap: 8px;
+      height: 40px; padding: 0; flex-shrink: 0;
+    }
+    #team-panel-list {
+      flex: 1; overflow-y: auto; min-height: 0;
+    }
+    .team-panel-list-header span {
+      font-family: var(--font-body); font-size: 14px; font-weight: 600;
+      color: #222428;
+    }
+    .team-panel-row-checkbox.indeterminate {
+      background: #3859FF; border-color: #3859FF;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='2' fill='none'%3E%3Crect width='10' height='2' rx='1' fill='%23fff'/%3E%3C/svg%3E");
+      background-size: 10px 2px; background-position: center; background-repeat: no-repeat;
+    }
+    .team-panel-row {
+      display: flex; align-items: center; gap: 8px;
+      height: 48px; border-bottom: 1px solid #e9eaef; padding: 0;
+    }
+    .team-panel-row-checkbox {
+      width: 16px; height: 16px; border: 1.5px solid #c2c4cc; border-radius: 3px;
+      flex-shrink: 0; cursor: pointer; appearance: none; margin: 0;
+      background: #fff; box-sizing: border-box;
+    }
+    .team-panel-row-checkbox:checked {
+      background: #3859FF; border-color: #3859FF;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='m9.5 16.5-4-4 1.414-1.414L9.5 13.672l7.586-7.586L18.5 7.5l-9 9Z'/%3E%3C/svg%3E");
+      background-size: 12px; background-position: center; background-repeat: no-repeat;
+    }
+    .team-panel-icon {
+      width: 24px; height: 24px; border-radius: 4px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-body); font-size: 10px; font-weight: 400;
+      line-height: 1; box-sizing: border-box;
+    }
+    .team-panel-name {
+      font-family: var(--font-body); font-size: 14px; color: #222428;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .team-panel-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 32px; border-top: 1px solid #e9eaef; flex-shrink: 0;
     }
 
     /* ===== TEAMS PAGE ===== */
@@ -1515,7 +1778,7 @@
     }
     .allusers-search {
       display: flex; align-items: center; gap: 8px; border: none;
-      border-radius: 8px; padding: 0 12px; width: 280px; height: 40px;
+      border-radius: 4px; padding: 0 12px; width: 280px; height: 40px;
       box-sizing: border-box; background: #f1f2f5;
     }
     .allusers-search svg { width: 20px; height: 20px; flex-shrink: 0; color: #656b81; }
@@ -1705,17 +1968,18 @@
     .mds-tooltip-wrap { cursor: default; }
     .mds-tooltip-body {
       position: fixed; z-index: 9999;
-      background: #050038; color: #fff; border-radius: 8px;
-      padding: 8px 12px; white-space: nowrap;
+      background: #1A1B1E; color: #FAFAFC; border-radius: 8px;
+      padding: 6px 8px; white-space: nowrap;
       font-family: var(--font-body); font-size: 14px; font-weight: 400;
-      line-height: 1.5; pointer-events: none;
+      line-height: 1.4; pointer-events: none;
       opacity: 0; visibility: hidden;
       transition: opacity 0.15s, visibility 0.15s;
     }
     .mds-tooltip-body::after {
       content: ''; position: absolute; top: 100%; left: 50%;
       transform: translateX(-50%);
-      border: 6px solid transparent; border-top-color: #050038;
+      border-width: 6px 4px 0 4px; border-style: solid;
+      border-color: #1A1B1E transparent transparent transparent;
     }
     .mds-tooltip-body.visible { opacity: 1; visibility: visible; }
     .mds-tooltip-body ul {
@@ -1723,7 +1987,41 @@
     }
     .mds-tooltip-body ul li {
       font-family: var(--font-body); font-size: 14px; font-weight: 400;
-      line-height: 1.6; color: #fff;
+      line-height: 1.4; color: #FAFAFC;
+    }
+
+    .ai-models-tag { cursor: default; }
+
+    /* AI Models tooltip (right-aligned, arrow on left) */
+    .ai-models-tooltip {
+      position: fixed; z-index: 9999;
+      background: #1A1B1E; color: #FAFAFC; border-radius: 8px;
+      padding: 12px 16px; white-space: normal; width: 280px;
+      font-family: var(--font-body); font-size: 14px; font-weight: 400;
+      line-height: 1.4; pointer-events: none;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.15s, visibility 0.15s;
+    }
+    .ai-models-tooltip.visible { opacity: 1; visibility: visible; }
+    .ai-models-tooltip::after {
+      content: ''; position: absolute; top: 50%; left: -6px;
+      transform: translateY(-50%);
+      border-width: 4px 6px 4px 0; border-style: solid;
+      border-color: transparent #1A1B1E transparent transparent;
+    }
+    .ai-models-tooltip.arrow-right::after {
+      left: auto; right: -6px;
+      border-width: 4px 0 4px 6px;
+      border-color: transparent transparent transparent #1A1B1E;
+    }
+    .ai-models-tooltip-title {
+      font-weight: 700; font-size: 14px; margin-bottom: 8px; color: #FAFAFC;
+    }
+    .ai-models-tooltip > ul {
+      list-style: disc; margin: 0; padding: 0 0 0 18px;
+    }
+    .ai-models-tooltip > ul li {
+      font-size: 14px; font-weight: 400; line-height: 1.4; color: #C7CAD5;
     }
 
     /* ===== ROW CONTEXT MENU ===== */
@@ -1993,7 +2291,7 @@
         <div class="sidebar-subnav" id="miroai-subnav">
           <a href="#" class="subnav-item" data-route="miroai-capabilities">Capabilities</a>
           <a href="#" class="subnav-item" data-route="miroai-datausage">Data usage</a>
-          <a href="#" class="subnav-item" data-route="miroai-moderation">Moderations</a>
+          <a href="#" class="subnav-item" data-route="miroai-moderation">Moderation</a>
         </div>
         <!-- Products (IconSquareTriangleCirclePlus) -->
         <a href="#" data-route="products">
@@ -2614,7 +2912,7 @@
                     <span class="settings-toggle-top-label">Turn on Custom Sidekicks and Flow</span>
                     <span class="mds-tag mds-tag--neutral-prominent">3 AI models</span>
                   </div>
-                  <div class="settings-toggle-desc">Custom AI partners that collaborate on exploring ideas, building solutions, and moving work forward. <a href="#" style="color:#3859ff; text-decoration:none;">Learn more</a></div>
+                  <div class="settings-toggle-desc">Custom AI partners that collaborate on exploring ideas, building solutions, and moving work forward. <a href="#" class="mds-text-link">Learn more</a></div>
                 </div>
               </div>
               <div class="settings-section">
@@ -2651,7 +2949,7 @@
             <div class="about-layout">
               <div class="about-main">
                 <div class="about-section-title">About AI Workflow</div>
-                <p class="about-desc">Manage AI workflow seats to give access for Side kicks and Flows. <a href="#">Learn more</a></p>
+                <p class="about-desc">Manage AI workflow seats to give access for Side kicks and Flows. <a href="#" class="mds-text-link">Learn more</a></p>
                 <img class="about-screenshot" src="https://www.figma.com/api/mcp/asset/f0a5d077-654c-4f74-b99e-85fb0753014e" alt="AI Workflows - Flows and Sidekicks">
               </div>
               <div class="about-sidebar">
@@ -3177,18 +3475,284 @@
 
         <div class="cap-card">
           <div class="cap-tabs">
-            <div class="cap-tab" data-cap-tab="features">Features</div>
-            <div class="cap-tab active" data-cap-tab="ai-providers">AI providers</div>
+            <div class="cap-tab active" data-cap-tab="features">Features</div>
+            <div class="cap-tab" data-cap-tab="ai-providers">AI providers</div>
             <div class="cap-tab" data-cap-tab="api-keys">Your API Keys</div>
           </div>
 
-          <!-- Features tab (placeholder) -->
-          <div class="cap-panel" id="cap-panel-features">
-            <div class="cap-placeholder">Features settings will appear here.</div>
+          <!-- Features tab -->
+          <div class="cap-panel active" id="cap-panel-features">
+            <!-- Features -->
+            <div class="feat-section">
+              <div class="feat-section-title">Features</div>
+              <div class="feat-section-desc">Enable AI features for your users to get the most from Miro. <a href="https://help.miro.com/hc/en-us/articles/28765406244498-Miro-AI-overview" class="mds-text-link">Learn more</a></div>
+              <div class="feat-list">
+
+                <!-- Sidekicks -->
+                <div class="feat-item" id="feat-sidekicks">
+                  <div class="feat-item-row">
+                    <div class="mds-switch checked" role="switch" aria-checked="true" id="sidekicks-toggle"></div>
+                    <div class="feat-item-left">
+                      <div class="feat-item-top">
+                        <span class="feat-item-label">Sidekicks</span>
+                        <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Miro,GPT 4o,GPT 4o Mini,Claude 3.5 Haiku,Claude 3.5 Sonnet,Claude 3.0 Opus,Claude 3.7 Sonnet,Claude Sonnet 3.5 (AWS Bedrock),Claude Sonnet 3.7 (AWS Bedrock),Claude Sonnet 4 (AWS Bedrock),Claude Sonnet 4.5 (AWS Bedrock),Claude Haiku 3.5 (AWS Bedrock),Claude Haiku 4.5 (AWS Bedrock),Bedrock Stability SD3.5 Large V1,Bedrock Stability Image Core,Bedrock Amazon Titan V2,Bedrock Amazon Nova Micro,Bedrock Amazon Nova Lite">18 AI models</span>
+                      </div>
+                      <div class="feat-item-desc">Custom AI partners that collaborate on exploring ideas, building solutions, and moving work forward. <a href="#" class="mds-text-link">Learn more</a></div>
+                    </div>
+                    <div class="feat-select-wrapper">
+                      <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
+                      <div class="feat-select-dropdown">
+                        <div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Callout when all capabilities are off -->
+                  <div class="mds-callout" id="sidekicks-disabled-callout" style="margin-top:12px;">
+                    <svg class="mds-callout-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12.866 3.002a1 1 0 0 0-1.732 0l-9 15.598A1 1 0 0 0 3 20h18a1 1 0 0 0 .866-1.4l-9-15.598ZM11 10h2v5h-2v-5Zm0 7h2v2h-2v-2Z"/></svg>
+                    <div class="mds-callout-body">Sidekicks is disabled because all Content and Image capabilities are turned off. Enable at least one capability to use Sidekicks.</div>
+                  </div>
+                  <!-- Sub settings (always visible, indented) -->
+                  <div id="sidekicks-sub-settings" style="padding-left:24px; margin-top:8px;">
+                    <div class="feat-restrict-item">
+                      <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                      <div>
+                        <div class="feat-restrict-label">Custom Sidekicks</div>
+                        <div class="feat-restrict-desc">Custom AI partners that collaborate on exploring ideas, building solutions, and moving work forward.</div>
+                      </div>
+                    </div>
+                    <div class="feat-restrict-item">
+                      <div class="mds-switch" role="switch" aria-checked="false"></div>
+                      <div>
+                        <div class="feat-restrict-label">Restrict sharing of company Sidekicks</div>
+                        <div class="feat-restrict-desc">Only admins with content management privileges can share company Sidekicks with everyone in the organization.</div>
+                      </div>
+                    </div>
+                    <div class="feat-restrict-item">
+                      <div class="mds-switch" role="switch" aria-checked="false"></div>
+                      <div>
+                        <div class="feat-restrict-label">Restrict publishing to Miroverse</div>
+                        <div class="feat-restrict-desc">Only admins with content management privileges can publish Sidekicks to Miroverse.</div>
+                      </div>
+                    </div>
+                    <div class="feat-restrict-item">
+                      <div class="mds-switch" role="switch" aria-checked="false"></div>
+                      <div>
+                        <div class="feat-restrict-label">Restrict use of community Sidekicks from Miroverse</div>
+                        <div class="feat-restrict-desc">Users can only use Sidekicks created by Miro or your organization.</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Flows -->
+                <div class="feat-item">
+                  <div class="feat-item-row">
+                    <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                    <div class="feat-item-left">
+                      <div class="feat-item-top">
+                        <span class="feat-item-label">Flows</span>
+                        <span class="mds-tag mds-tag--neutral ai-models-tag">12 AI models</span>
+                      </div>
+                      <div class="feat-item-desc">Connect AI prompts to canvas content to create automated workflows. <a href="#" class="mds-text-link">Learn more</a></div>
+                    </div>
+                    <div class="feat-select-wrapper">
+                      <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
+                      <div class="feat-select-dropdown">
+                        <div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- AI search -->
+                <div class="feat-item">
+                  <div class="feat-item-row">
+                    <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                    <div class="feat-item-left">
+                      <div class="feat-item-top">
+                        <span class="feat-item-label">AI search</span>
+                        <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Claude Sonnet 3.7 (AWS Bedrock),Claude Sonnet 4 (AWS Bedrock),Claude Sonnet 4.5 (AWS Bedrock),Claude Haiku 4.5 (AWS Bedrock),Bedrock Amazon Nova Micro,Bedrock Amazon Nova Lite">6 AI models</span>
+                      </div>
+                      <div class="feat-item-desc">Enable AI Search to search for content within a team.</div>
+                    </div>
+                    <div class="feat-select-wrapper">
+                      <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
+                      <div class="feat-select-dropdown">
+                        <div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Summarize activity -->
+                <div class="feat-item">
+                  <div class="feat-item-row">
+                    <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                    <div class="feat-item-left">
+                      <div class="feat-item-top">
+                        <span class="feat-item-label">Summarize activity</span>
+                        <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="GPT 4o Mini,GPT 4o">2 AI models</span>
+                      </div>
+                      <div class="feat-item-desc">Create a summary of board activity and comment threads</div>
+                    </div>
+                    <div class="feat-select-wrapper">
+                      <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
+                      <div class="feat-select-dropdown">
+                        <div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Beta features -->
+                <div class="feat-item">
+                  <div class="feat-item-row">
+                    <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                    <div class="feat-item-left">
+                      <div class="feat-item-top">
+                        <span class="feat-item-label">Beta features</span>
+                      </div>
+                      <div class="feat-item-desc">Give users access to new features as soon as they're available.</div>
+                    </div>
+                    <div class="feat-select-wrapper">
+                      <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
+                      <div class="feat-select-dropdown">
+                        <div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Prototypes -->
+                <div class="feat-item">
+                  <div class="feat-item-row">
+                    <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                    <div class="feat-item-left">
+                      <div class="feat-item-top">
+                        <span class="feat-item-label">Prototypes</span>
+                        <span class="mds-tag mds-tag--neutral ai-models-tag">12 AI models</span>
+                      </div>
+                      <div class="feat-item-desc">Give users access to new features as soon as they're available.</div>
+                    </div>
+                    <div class="feat-select-wrapper">
+                      <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
+                      <div class="feat-select-dropdown">
+                        <div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="cap-divider"></div>
+
+            <!-- Capabilities -->
+            <div class="feat-section">
+              <div class="feat-section-title">Capabilities</div>
+              <div class="feat-section-desc">Manage AI capabilities used in Miro AI features. Turning off capabilities limits end user availability. <a href="https://help.miro.com/hc/en-us/articles/20164358139794-Create-with-AI" class="mds-text-link">Learn more</a></div>
+              <div class="aicap-list">
+                <div class="aicap-group" id="aicap-group-content">
+                  <div class="mds-callout">
+                    <svg class="mds-callout-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12.866 3.002a1 1 0 0 0-1.732 0l-9 15.598A1 1 0 0 0 3 20h18a1 1 0 0 0 .866-1.4l-9-15.598ZM11 10h2v5h-2v-5Zm0 7h2v2h-2v-2Z"/></svg>
+                    <div class="mds-callout-body">This setting is disabled because Sidekicks is turned off. Turn on Sidekicks to enable content creation capabilities.</div>
+                  </div>
+                  <div class="aicap-group-title">Content</div>
+                  <div class="aicap-item">
+                    <div class="aicap-item-top">
+                      <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                      <span class="aicap-label">Create sticky notes</span>
+                      <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="GPT 4o,Claude Sonnet 3.7 (AWS Bedrock)">2 AI models</span>
+                    </div>
+                  </div>
+                  <div class="aicap-item">
+                    <div class="aicap-item-top">
+                      <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                      <span class="aicap-label">Cluster sticky notes</span>
+                      <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Claude Haiku 3.5 (AWS Bedrock)">1 AI model</span>
+                    </div>
+                  </div>
+                  <div class="aicap-item">
+                    <div class="aicap-item-top">
+                      <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                      <span class="aicap-label">Docs</span>
+                      <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Claude 3.7 Sonnet,Claude Sonnet 4,Claude Sonnet 4.5,Claude Sonnet 4.6,Claude Opus 4.5,o3,o4-Mini,GPT-4.1,GPT-4.1 Mini,Gemini 2.5 Flash,Gemini 2.5 Pro,Gemini 2.5 Flash Lite,Claude Opus 4.6,GPT-4o,GPT-4o Mini,GPT-5,GPT-5 Mini">17 AI models</span>
+                    </div>
+                  </div>
+                  <div class="aicap-item">
+                    <div class="aicap-item-top">
+                      <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                      <span class="aicap-label">Tables</span>
+                      <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Claude Sonnet 3.7 (AWS Bedrock)">1 AI model</span>
+                    </div>
+                  </div>
+                  <div class="aicap-item">
+                    <div class="aicap-item-top">
+                      <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                      <span class="aicap-label">Diagrams</span>
+                      <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="GPT 4o Mini,GPT 4o,Claude Sonnet 3.7 (AWS Bedrock)">3 AI models</span>
+                    </div>
+                  </div>
+                  <div class="aicap-item">
+                    <div class="aicap-item-top">
+                      <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                      <span class="aicap-label">Text</span>
+                      <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="GPT 4o Mini">1 AI model</span>
+                    </div>
+                    <div class="aicap-desc">Corrects, rewrites, and translates text to improve clarity, tone, and readability</div>
+                  </div>
+                </div>
+
+                <div class="aicap-group" id="aicap-group-images">
+                  <div class="mds-callout">
+                    <svg class="mds-callout-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12.866 3.002a1 1 0 0 0-1.732 0l-9 15.598A1 1 0 0 0 3 20h18a1 1 0 0 0 .866-1.4l-9-15.598ZM11 10h2v5h-2v-5Zm0 7h2v2h-2v-2Z"/></svg>
+                    <div class="mds-callout-body">This setting is disabled because Sidekicks is turned off. Turn on Sidekicks to enable image creation capabilities.</div>
+                  </div>
+                  <div class="aicap-group-title">Images</div>
+                  <div class="aicap-item">
+                    <div class="aicap-item-top">
+                      <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                      <span class="aicap-label">Create images</span>
+                      <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Vertex AI Imagen 3,Vertex AI Imagen 3 Fast,Vertex AI Imagen 4,Gemini 2.5 Flash Image (Nano Banana),Stable Diffusion 3.5 Large,Stable Image Core 1.0,Stable Image Ultra 1.0,Titan Image Generator G1 V2,Nova Canvas">9 AI models</span>
+                    </div>
+                  </div>
+                  <div class="aicap-item">
+                    <div class="aicap-item-top">
+                      <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                      <span class="aicap-label">Remove background</span>
+                      <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Miro">1 AI model</span>
+                    </div>
+                  </div>
+                  <div class="aicap-item">
+                    <div class="aicap-item-top">
+                      <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                      <span class="aicap-label">Add captions to images</span>
+                      <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Claude Sonnet 3.7 (AWS Bedrock)">1 AI model</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="aicap-group-title">Slides</div>
+                <div class="aicap-item">
+                  <div class="aicap-item-top">
+                    <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                    <span class="aicap-label">Slides</span>
+                    <span class="mds-tag mds-tag--neutral ai-models-tag">12 AI models</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- AI providers tab -->
-          <div class="cap-panel active" id="cap-panel-ai-providers">
+          <div class="cap-panel" id="cap-panel-ai-providers">
             <div class="cap-header-row">
               <div class="cap-header-title">Manage AI providers</div>
               <div class="cap-header-desc">For some features, users can select the AI model they want to use. Manage which AI providers and models will be available for them to choose from. <a href="#">Learn about AI model selection</a></div>
@@ -3198,7 +3762,7 @@
             <!-- Docs -->
             <div class="cap-provider-row">
               <div class="cap-provider-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 20 20"><path d="M11 2H3a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9h2v8a3 3 0 0 1-3 3H3a3 3 0 0 1-3-3V3a3 3 0 0 1 3-3h8v2Z" fill="currentColor"/><path d="M5.743 11.144c.125-.525.89-.526 1.015 0l.01.054.016.098a6.26 6.26 0 0 0 2.018 1.936 6.26 6.26 0 0 0-2.018 1.035c-.225 1.563-2.475 1.554-2.699 0a6.26 6.26 0 0 0-2.034-1.035c-1.562-.224-1.56-2.474 0-2.699a6.26 6.26 0 0 0 2.034-2.034l.01-.054Z" fill="currentColor"/><path d="M15.222.646a2.21 2.21 0 0 1 3.12 0l1.012 1.012a2.21 2.21 0 0 1 0 3.12l-6.705 6.705-3.616.517-.967-1.033.517-3.616L15.222.646Zm-4.82 7.647-.218 1.522 1.521-.218 3.74-3.74-1.304-1.303-3.74 3.74Zm6.526-5.536a.312.312 0 0 0-.292 0l-1.081 1.08 1.304 1.304 1.08-1.08a.313.313 0 0 0 0-.293l-1.011-1.011Z" fill="currentColor"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 20 20"><path d="M11 2H3C2.448 2 2 2.448 2 3v14c0 .552.448 1 1 1h14c.552 0 1-.448 1-1V9h2v8c0 1.657-1.343 3-3 3H3c-1.657 0-3-1.343-3-3V3c0-1.657 1.343-3 3-3h8v2Z" fill="currentColor"/><path d="M5.743 11.144c.125-.525.89-.526 1.015 0l.01.054.016.098c.188 1.007.997 1.789 2.018 1.936.596.086.6.949 0 1.035-1.054.152-1.882.98-2.034 2.034-.087.6-.95.596-1.035 0-.152-1.054-.98-1.882-2.034-2.034-.598-.087-.597-.95 0-1.035l.098-.016c1.007-.188 1.789-.997 1.936-2.018l.01-.054Z" fill="currentColor"/><path d="M15.222.646c.861-.861 2.258-.861 3.12 0l1.012 1.012c.861.861.861 2.258 0 3.12l-6.705 6.705-3.616.517-.967-1.033.517-3.616L15.222.646Zm-4.82 7.647-.218 1.522 1.521-.218 3.74-3.74-1.304-1.303-3.74 3.74Zm6.526-5.536a.312.312 0 0 0-.292 0l-1.081 1.08 1.304 1.304 1.08-1.08a.313.313 0 0 0 0-.293l-1.011-1.011Z" fill="currentColor"/></svg>
               </div>
               <div class="cap-provider-content">
                 <div class="cap-provider-title">Docs</div>
@@ -3224,7 +3788,7 @@
             <!-- Images -->
             <div class="cap-provider-row">
               <div class="cap-provider-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 20 20"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 0v2H3a1 1 0 0 0-1 1v9.148l2.219-2.773L5 9h2l.747.336L15.448 18H17a1 1 0 0 0 1-1v-7h2v8a3 3 0 0 1-3 3H3a3 3 0 0 1-3-3V3a3 3 0 0 1 3-3h7ZM2 15.352V17a1 1 0 0 0 1 1h9.773L6.552 11H5.481L2 15.352Z" fill="currentColor"/><path d="M13.79 1.599c.19-.798 1.353-.799 1.543 0l.015.083.025.15a5.26 5.26 0 0 0 3.068 2.943c.906.131.911 1.443 0 1.574a5.26 5.26 0 0 0-3.093 3.093c-.131.911-1.443.907-1.574 0a5.26 5.26 0 0 0-3.093-3.093c-.909-.131-.908-1.443 0-1.574l.15-.025a5.26 5.26 0 0 0 2.943-3.068l.016-.083Z" fill="currentColor"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 20 20"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 0v2H3c-.552 0-1 .448-1 1v9.148l2.219-2.773L5 9h2l.747.336L15.448 18H17c.552 0 1-.448 1-1v-7h2v8c0 1.657-1.343 3-3 3H3c-1.657 0-3-1.343-3-3V3c0-1.657 1.343-3 3-3h7Zm-8 15.352V17c0 .552.448 1 1 1h9.773L6.552 11H5.481L2 15.352Z" fill="currentColor"/><path d="M13.79 1.599c.19-.798 1.353-.799 1.543 0l.015.083.025.15c.188 1.007.997 1.789 2.018 1.936.596.086.6.949 0 1.035-1.054.152-1.882.98-2.034 2.034-.087.6-.95.596-1.035 0-.152-1.054-.98-1.882-2.034-2.034-.598-.087-.597-.95 0-1.035l.098-.016c1.007-.188 1.789-.997 1.936-2.018l.016-.083Z" fill="currentColor"/></svg>
               </div>
               <div class="cap-provider-content">
                 <div class="cap-provider-title">Images</div>
@@ -3250,7 +3814,7 @@
             <!-- Flows instruction blocks -->
             <div class="cap-provider-row">
               <div class="cap-provider-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 21 21"><path d="M12.75 11H4.75c-1.001 0-1.669.343-2.088.783A2.5 2.5 0 0 0 2 13.5c0 .642.23 1.263.662 1.717.42.44 1.087.783 2.088.783h11.586l-1.293-1.293 1.414-1.414 3 3v1.414l-3 3-1.414-1.414L16.336 18H4.75c-1.498 0-2.706-.532-3.537-1.404A4.5 4.5 0 0 1 0 13.5c0-1.107.395-2.237 1.213-3.096C2.044 9.532 3.252 9 4.75 9h8v2Z" fill="currentColor"/><path d="M9.75 4h-7V2h7v2Z" fill="currentColor"/><path d="M17 0c0 2.071 1.679 3.75 3.75 3.75v1.5C18.679 5.25 17 6.929 17 9h-1.5c0-2.071-1.679-3.75-3.75-3.75v-1.5c2.071 0 3.75-1.679 3.75-3.75H17Z" fill="currentColor"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 21 21"><path d="M12.75 11h-8c-1.002 0-1.669.343-2.088.783A2.5 2.5 0 0 0 2 13.5c0 .642.23 1.263.662 1.717.42.44 1.087.783 2.088.783h11.586l-1.293-1.293 1.414-1.414 3 3v1.414l-3 3-1.414-1.414L16.336 18H4.75c-1.498 0-2.706-.532-3.537-1.404A4.5 4.5 0 0 1 0 13.5c0-1.108.395-2.237 1.213-3.096C2.044 9.532 3.252 9 4.75 9h8v2Z" fill="currentColor"/><path d="M9.75 4h-7V2h7v2Z" fill="currentColor"/><path d="M17 0c0 2.071 1.679 3.75 3.75 3.75v1.5C18.679 5.25 17 6.929 17 9h-1.5c0-2.071-1.679-3.75-3.75-3.75v-1.5C13.821 3.75 15.5 2.071 15.5 0H17Z" fill="currentColor"/></svg>
               </div>
               <div class="cap-provider-content">
                 <div class="cap-provider-title">Flows instruction blocks</div>
@@ -3276,7 +3840,7 @@
             <!-- Sidekick responses and tasks -->
             <div class="cap-provider-row">
               <div class="cap-provider-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 20 22"><path d="M16.204 0c0 2.071 1.679 3.75 3.75 3.75v1.5c-2.071 0-3.75 1.679-3.75 3.75h-1.5c0-2.071-1.679-3.75-3.75-3.75v-1.5c2.071 0 3.75-1.679 3.75-3.75h1.5Z" fill="currentColor"/><path d="M1.616 21.607l2.025.574c2.482-4.35 7.222-7 12.228-6.834l.598-2.108L2.092 2.822 0 3.99l1.616 17.617ZM13.387 13.475c-3.907.52-7.496 2.516-9.998 5.559L2.13 5.319l11.257 8.156Z" fill="currentColor"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 20 23"><path d="M16.204 0c0 2.071 1.679 3.75 3.75 3.75v1.5c-2.071 0-3.75 1.679-3.75 3.75h-1.5c0-2.071-1.679-3.75-3.75-3.75v-1.5c2.071 0 3.75-1.679 3.75-3.75h1.5Z" fill="currentColor"/><path d="m1.616 21.607 2.025.574c2.483-4.351 7.222-7 12.228-6.834l.598-2.108L2.092 2.822 0 3.99l1.616 17.617Zm11.771-8.132c-3.907.52-7.496 2.515-9.998 5.559L2.13 5.319l11.257 8.156Z" fill="currentColor"/></svg>
               </div>
               <div class="cap-provider-content">
                 <div class="cap-provider-title">Sidekick responses and tasks</div>
@@ -3299,6 +3863,7 @@
             </div>
           </div>
 
+
           <!-- Your API Keys tab (placeholder) -->
           <div class="cap-panel" id="cap-panel-api-keys">
             <div class="cap-placeholder">Your API Keys settings will appear here.</div>
@@ -3314,7 +3879,7 @@
     </div>
     <div id="page-miroai-moderation" class="page-section">
       <section class="main-content">
-        <h1 style="font-family:var(--font-heading);font-size:32px;font-weight:600;color:#222428;margin:0;">Moderations</h1>
+        <h1 style="font-family:var(--font-heading);font-size:32px;font-weight:600;color:#222428;margin:0;">Moderation</h1>
         <p style="font-family:var(--font-body);font-size:14px;color:#656b81;margin:8px 0 0;">Configure AI content moderation settings for your organization.</p>
       </section>
     </div>
@@ -3463,11 +4028,9 @@
 
   <!-- AI Models Tooltip -->
   <div class="cap-models-tooltip" id="cap-models-tooltip">
-    <div class="cap-models-tooltip-title">18 AI models</div>
+    <div class="cap-models-tooltip-title">12 AI models</div>
     <h4>GPT</h4>
     <ul>
-      <li>GPT 4o (New)</li>
-      <li>GPT-4o (New)</li>
       <li>GPT-4o Mini</li>
       <li>GPT-5</li>
       <li>GPT-5 Mini O3</li>
@@ -3581,6 +4144,67 @@
       <div class="assign-modal-footer">
         <button class="mds-btn mds-btn--danger mds-btn--large" id="unassign-modal-confirm">Unassign 0 seats</button>
         <button class="mds-btn mds-btn--ghost mds-btn--large" id="unassign-modal-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team Selection Side Panel -->
+  <div class="team-panel-overlay" id="team-panel-overlay">
+    <div class="team-panel">
+      <div class="team-panel-header">
+        <span class="team-panel-title" id="team-panel-title">Custom Sidekicks</span>
+        <button class="team-panel-close" id="team-panel-close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M18.707 6.707 13.414 12l5.293 5.293-1.414 1.414L12 13.414l-5.293 5.293-1.414-1.414L10.586 12 5.293 6.707l1.414-1.414L12 10.586l5.293-5.293 1.414 1.414Z"/></svg>
+        </button>
+      </div>
+      <div class="team-panel-body">
+        <div class="team-panel-search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M10 2a8 8 0 1 0 4.906 14.32l4.387 4.387 1.414-1.414-4.387-4.387A8 8 0 0 0 10 2Zm0 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12Z"/></svg>
+          <input type="text" placeholder="Search by name" id="team-panel-search-input">
+        </div>
+        <div class="team-panel-list-header">
+          <input type="checkbox" class="team-panel-row-checkbox" id="team-panel-select-all">
+          <span id="team-panel-list-label">Teams</span>
+        </div>
+        <div id="team-panel-list">
+          <div class="team-panel-row" data-team="Alpha"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#e9fdc8;border:1px solid #a3cf61;color:#2f5500;">A</div><span class="team-panel-name">Alpha</span></div>
+          <div class="team-panel-row" data-team="Beta"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#d4e4ff;border:1px solid #7ba3f0;color:#1a3470;">B</div><span class="team-panel-name">Beta</span></div>
+          <div class="team-panel-row" data-team="Chi"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#d3f5f7;border:1px solid #69c5cb;color:#0d6b6b;">C</div><span class="team-panel-name">Chi</span></div>
+          <div class="team-panel-row" data-team="Delta"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#ffe6c8;border:1px solid #f0a86e;color:#7a4a10;">D</div><span class="team-panel-name">Delta</span></div>
+          <div class="team-panel-row" data-team="Epsilon"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#ffe0df;border:1px solid #f08786;color:#7a1110;">E</div><span class="team-panel-name">Epsilon</span></div>
+          <div class="team-panel-row" data-team="Eta"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#e9fdc8;border:1px solid #a3cf61;color:#2f5500;">E</div><span class="team-panel-name">Eta</span></div>
+          <div class="team-panel-row" data-team="Gamma"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#d3f5f7;border:1px solid #69c5cb;color:#0d6b6b;">G</div><span class="team-panel-name">Gamma</span></div>
+          <div class="team-panel-row" data-team="Iota"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#e9fdc8;border:1px solid #a3cf61;color:#2f5500;">I</div><span class="team-panel-name">Iota</span></div>
+          <div class="team-panel-row" data-team="Kappa"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#ffe6c8;border:1px solid #f0a86e;color:#7a4a10;">K</div><span class="team-panel-name">Kappa</span></div>
+          <div class="team-panel-row" data-team="Lambda"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#ffe0df;border:1px solid #f08786;color:#7a1110;">L</div><span class="team-panel-name">Lambda</span></div>
+          <div class="team-panel-row" data-team="Mu"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#d4e4ff;border:1px solid #7ba3f0;color:#1a3470;">M</div><span class="team-panel-name">Mu</span></div>
+          <div class="team-panel-row" data-team="Nu"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#d4e4ff;border:1px solid #7ba3f0;color:#1a3470;">N</div><span class="team-panel-name">Nu</span></div>
+          <div class="team-panel-row" data-team="Omega"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#d4e4ff;border:1px solid #7ba3f0;color:#1a3470;">O</div><span class="team-panel-name">Omega</span></div>
+          <div class="team-panel-row" data-team="Omicron"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#ffe0df;border:1px solid #f08786;color:#7a1110;">O</div><span class="team-panel-name">Omicron</span></div>
+        </div>
+      </div>
+      <div class="team-panel-footer">
+        <button class="mds-btn mds-btn--secondary mds-btn--large" id="team-panel-cancel">Cancel</button>
+        <button class="mds-btn mds-btn--primary mds-btn--large" id="team-panel-save" disabled>Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SIDEKICKS DISABLE CONFIRM MODAL ===== -->
+  <div class="assign-modal-overlay" id="sidekick-confirm-overlay">
+    <div class="assign-modal">
+      <div class="assign-modal-header">
+        <h2 style="font-size:20px;">Turn off Sidekicks?</h2>
+        <button class="assign-modal-close" id="sidekick-confirm-close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M19.707 5.707 13.414 12l6.293 6.293-1.414 1.414L12 13.414l-6.293 6.293-1.414-1.414L10.586 12 4.293 5.707l1.414-1.414L12 10.586l6.293-6.293 1.414 1.414Z"/></svg>
+        </button>
+      </div>
+      <div class="assign-modal-body">
+        <p class="assign-modal-desc">Are you sure? This will disable AI capabilities for content creation and image creation in Miro. All <strong>Content</strong> and <strong>Images</strong> capabilities will be turned off.</p>
+      </div>
+      <div class="assign-modal-footer">
+        <button class="mds-btn mds-btn--secondary mds-btn--large" id="sidekick-confirm-cancel">Cancel</button>
+        <button class="mds-btn mds-btn--primary mds-btn--large" id="sidekick-confirm-ok" style="background:#d93b3b;border-color:#d93b3b;">Turn off</button>
       </div>
     </div>
   </div>
@@ -3885,7 +4509,7 @@
         if (targetTeamsTab) targetTeamsTab.classList.add('active');
       }
 
-      var hashMap = { home: '#/Home', allusers: '#/Users/AllUsers', 'miroai-capabilities': '#/MiroAI/Capabilities', 'miroai-datausage': '#/MiroAI/DataUsage', 'miroai-moderation': '#/MiroAI/Moderations' };
+      var hashMap = { home: '#/Home', allusers: '#/Users/AllUsers', 'miroai-capabilities': '#/MiroAI/Capabilities', 'miroai-datausage': '#/MiroAI/DataUsage', 'miroai-moderation': '#/MiroAI/Moderation' };
       var hash;
       if (route === 'aiworkflow') {
         var activeAiwTab = document.querySelector('.aiw-tab.active');
@@ -3911,7 +4535,7 @@
       if (hash.indexOf('/Users/AllUsers') !== -1) return 'allusers';
       if (hash.indexOf('/Teams') !== -1) return 'teams';
       if (hash.indexOf('/MiroAI/DataUsage') !== -1) return 'miroai-datausage';
-      if (hash.indexOf('/MiroAI/Moderations') !== -1) return 'miroai-moderation';
+      if (hash.indexOf('/MiroAI/Moderation') !== -1) return 'miroai-moderation';
       if (hash.indexOf('/MiroAI') !== -1) return 'miroai-capabilities';
       if (hash.indexOf('/Product/AIworkflow') !== -1) return 'aiworkflow';
       if (hash.indexOf('/Product/Explore') !== -1) return 'products';
@@ -4147,6 +4771,40 @@
       });
     });
 
+    // AI Models tag tooltip (dynamic per-tag, reads data-models)
+    var aiModelsTooltip = document.createElement('div');
+    aiModelsTooltip.className = 'ai-models-tooltip';
+    document.body.appendChild(aiModelsTooltip);
+
+    document.querySelectorAll('.ai-models-tag').forEach(function(tag) {
+      tag.addEventListener('mouseenter', function() {
+        var modelsAttr = tag.getAttribute('data-models');
+        if (!modelsAttr) return;
+        var models = modelsAttr.split(',');
+        var title = tag.textContent.trim();
+        var html = '<div class="ai-models-tooltip-title">' + title + '</div><ul>';
+        models.forEach(function(m) { html += '<li>' + m.trim() + '</li>'; });
+        html += '</ul>';
+        aiModelsTooltip.innerHTML = html;
+        aiModelsTooltip.classList.add('visible');
+        var rect = tag.getBoundingClientRect();
+        aiModelsTooltip.style.left = (rect.right + 8) + 'px';
+        aiModelsTooltip.style.top = (rect.top + rect.height / 2 - aiModelsTooltip.offsetHeight / 2) + 'px';
+        var ttRect = aiModelsTooltip.getBoundingClientRect();
+        if (ttRect.top < 8) aiModelsTooltip.style.top = '8px';
+        if (ttRect.bottom > window.innerHeight - 8) aiModelsTooltip.style.top = (window.innerHeight - 8 - aiModelsTooltip.offsetHeight) + 'px';
+        if (ttRect.right > window.innerWidth - 8) {
+          aiModelsTooltip.style.left = (rect.left - aiModelsTooltip.offsetWidth - 8) + 'px';
+          aiModelsTooltip.classList.add('arrow-right');
+        } else {
+          aiModelsTooltip.classList.remove('arrow-right');
+        }
+      });
+      tag.addEventListener('mouseleave', function() {
+        aiModelsTooltip.classList.remove('visible');
+      });
+    });
+
     // Hamburger sidebar toggle
     document.getElementById('hamburger-btn').addEventListener('click', function() {
       var sidebar = document.getElementById('sidebar');
@@ -4338,6 +4996,185 @@
       });
     });
 
+    // Restrictions expand/collapse
+    document.querySelectorAll('.feat-restrictions-toggle').forEach(function(toggle) {
+      toggle.addEventListener('click', function() {
+        var wrap = toggle.closest('.feat-restrictions');
+        if (wrap) wrap.classList.toggle('expanded');
+      });
+    });
+
+    // Feature MDS select dropdowns
+    (function() {
+      document.addEventListener('click', function(e) {
+        var trigger = e.target.closest('.feat-select-trigger');
+        if (trigger) {
+          if (trigger.classList.contains('disabled')) return;
+          var wrapper = trigger.closest('.feat-select-wrapper');
+          var dd = wrapper.querySelector('.feat-select-dropdown');
+          var isOpen = trigger.classList.contains('open');
+          document.querySelectorAll('.feat-select-trigger.open').forEach(function(t) {
+            t.classList.remove('open');
+            t.closest('.feat-select-wrapper').querySelector('.feat-select-dropdown').classList.remove('open');
+          });
+          if (!isOpen) {
+            trigger.classList.add('open');
+            dd.classList.add('open');
+          }
+          return;
+        }
+        var opt = e.target.closest('.feat-select-option');
+        if (opt) {
+          var wrapper = opt.closest('.feat-select-wrapper');
+          var trig = wrapper.querySelector('.feat-select-trigger');
+          var dd = wrapper.querySelector('.feat-select-dropdown');
+          var val = opt.getAttribute('data-val');
+          wrapper.querySelectorAll('.feat-select-option').forEach(function(o) { o.classList.remove('selected'); });
+          opt.classList.add('selected');
+          trig.childNodes[0].textContent = val;
+          trig.setAttribute('data-value', val);
+          trig.classList.remove('open');
+          dd.classList.remove('open');
+          if (val === 'Specific teams') {
+            var featItem = opt.closest('.feat-item');
+            var featName = featItem ? featItem.querySelector('.feat-item-label').textContent.trim() : 'Feature';
+            openTeamPanel(featName, wrapper);
+          }
+          return;
+        }
+        document.querySelectorAll('.feat-select-trigger.open').forEach(function(t) {
+          t.classList.remove('open');
+          t.closest('.feat-select-wrapper').querySelector('.feat-select-dropdown').classList.remove('open');
+        });
+      });
+    })();
+
+    // Team selection side panel
+    var teamPanelOverlay = document.getElementById('team-panel-overlay');
+    var teamPanelTitle = document.getElementById('team-panel-title');
+    var teamPanelClose = document.getElementById('team-panel-close');
+    var teamPanelCancel = document.getElementById('team-panel-cancel');
+    var teamPanelSave = document.getElementById('team-panel-save');
+    var teamPanelSearchInput = document.getElementById('team-panel-search-input');
+    var teamPanelActiveWrapper = null;
+
+    function openTeamPanel(featureName, selectWrapper) {
+      teamPanelTitle.textContent = featureName;
+      teamPanelActiveWrapper = selectWrapper;
+      teamPanelSearchInput.value = '';
+      document.querySelectorAll('#team-panel-list .team-panel-row').forEach(function(row) {
+        row.style.display = '';
+      });
+      document.querySelectorAll('#team-panel-list .team-panel-row-checkbox').forEach(function(cb) {
+        cb.checked = false;
+      });
+      teamPanelSave.textContent = 'Save';
+      teamPanelSave.disabled = true;
+      var selectAllCb = document.getElementById('team-panel-select-all');
+      selectAllCb.checked = false;
+      selectAllCb.classList.remove('indeterminate');
+      updateTeamPanelHeader();
+      teamPanelOverlay.classList.add('open');
+    }
+
+    function updateTeamPanelHeader() {
+      var total = document.querySelectorAll('#team-panel-list .team-panel-row-checkbox').length;
+      var checked = document.querySelectorAll('#team-panel-list .team-panel-row-checkbox:checked').length;
+      var label = document.getElementById('team-panel-list-label');
+      var selectAllCb = document.getElementById('team-panel-select-all');
+      if (checked === 0) {
+        label.textContent = 'Teams';
+        selectAllCb.checked = false;
+        selectAllCb.classList.remove('indeterminate');
+      } else if (checked === total) {
+        label.textContent = 'Teams (' + checked + ' selected)';
+        selectAllCb.checked = true;
+        selectAllCb.classList.remove('indeterminate');
+      } else {
+        label.textContent = 'Teams (' + checked + ' selected)';
+        selectAllCb.checked = false;
+        selectAllCb.classList.add('indeterminate');
+      }
+      teamPanelSave.textContent = checked > 0 ? 'Save (' + checked + ')' : 'Save';
+      teamPanelSave.disabled = checked === 0;
+    }
+
+    document.getElementById('team-panel-list').addEventListener('change', updateTeamPanelHeader);
+
+    document.getElementById('team-panel-select-all').addEventListener('change', function() {
+      var shouldCheck = this.checked;
+      this.classList.remove('indeterminate');
+      document.querySelectorAll('#team-panel-list .team-panel-row').forEach(function(row) {
+        if (row.style.display !== 'none') {
+          row.querySelector('.team-panel-row-checkbox').checked = shouldCheck;
+        }
+      });
+      updateTeamPanelHeader();
+    });
+
+    function closeTeamPanel() {
+      teamPanelOverlay.classList.remove('open');
+      teamPanelActiveWrapper = null;
+    }
+
+    teamPanelClose.addEventListener('click', closeTeamPanel);
+    teamPanelCancel.addEventListener('click', function() {
+      if (teamPanelActiveWrapper) {
+        var trig = teamPanelActiveWrapper.querySelector('.feat-select-trigger');
+        var currentVal = trig.getAttribute('data-value');
+        if (currentVal !== 'Specific teams') {
+          trig.childNodes[0].textContent = 'Everyone';
+          trig.setAttribute('data-value', 'Everyone');
+          teamPanelActiveWrapper.querySelectorAll('.feat-select-option').forEach(function(o) { o.classList.remove('selected'); });
+          var everyoneOpt = teamPanelActiveWrapper.querySelector('.feat-select-option[data-val="Everyone"]');
+          if (everyoneOpt) everyoneOpt.classList.add('selected');
+        }
+      }
+      closeTeamPanel();
+    });
+
+    teamPanelSave.addEventListener('click', function() {
+      var featureName = teamPanelTitle.textContent.trim();
+      var checked = 0;
+      if (teamPanelActiveWrapper) {
+        checked = document.querySelectorAll('#team-panel-list .team-panel-row-checkbox:checked').length;
+        var trig = teamPanelActiveWrapper.querySelector('.feat-select-trigger');
+        if (checked > 0) {
+          trig.childNodes[0].textContent = 'Specific teams (' + checked + ')';
+          trig.setAttribute('data-value', 'Specific teams');
+        } else {
+          trig.childNodes[0].textContent = 'Everyone';
+          trig.setAttribute('data-value', 'Everyone');
+          teamPanelActiveWrapper.querySelectorAll('.feat-select-option').forEach(function(o) { o.classList.remove('selected'); });
+          var evOpt = teamPanelActiveWrapper.querySelector('.feat-select-option[data-val="Everyone"]');
+          if (evOpt) evOpt.classList.add('selected');
+        }
+      }
+      closeTeamPanel();
+      if (checked > 0) {
+        var toast = document.getElementById('settings-toast');
+        var textEl = document.getElementById('settings-toast-text');
+        textEl.innerHTML = '<strong>' + featureName + '</strong> updated — ' + checked + ' team' + (checked > 1 ? 's' : '') + ' selected';
+        toast.classList.add('visible');
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(function() { toast.classList.remove('visible'); }, 3000);
+      }
+    });
+
+    teamPanelOverlay.addEventListener('click', function(e) {
+      if (e.target === teamPanelOverlay) {
+        closeTeamPanel();
+      }
+    });
+
+    teamPanelSearchInput.addEventListener('input', function() {
+      var query = this.value.toLowerCase();
+      document.querySelectorAll('#team-panel-list .team-panel-row').forEach(function(row) {
+        var name = row.getAttribute('data-team').toLowerCase();
+        row.style.display = name.indexOf(query) !== -1 ? '' : 'none';
+      });
+    });
+
     // AI Workflows sub-tabs
     document.querySelectorAll('.aiw-tab[data-aiw-tab]').forEach(function(tab) {
       tab.addEventListener('click', function() {
@@ -4432,11 +5269,136 @@
       });
     }
 
+    // ===== SIDEKICKS DEPENDENCY LOGIC =====
+    var sidekicksToggle = document.getElementById('sidekicks-toggle');
+    var sidekickConfirmOverlay = document.getElementById('sidekick-confirm-overlay');
+    var contentGroup = document.getElementById('aicap-group-content');
+    var imagesGroup = document.getElementById('aicap-group-images');
+
+    var sidekicksSubSettings = document.getElementById('sidekicks-sub-settings');
+
+    function disableContentAndImages() {
+      if (contentGroup) contentGroup.classList.add('disabled');
+      if (imagesGroup) imagesGroup.classList.add('disabled');
+      [contentGroup, imagesGroup].forEach(function(g) {
+        if (!g) return;
+        g.querySelectorAll('.mds-switch').forEach(function(sw) {
+          sw.classList.remove('checked');
+          sw.setAttribute('aria-checked', 'false');
+        });
+      });
+      if (sidekicksSubSettings) sidekicksSubSettings.style.display = 'none';
+    }
+
+    function enableContentAndImages() {
+      if (contentGroup) contentGroup.classList.remove('disabled');
+      if (imagesGroup) imagesGroup.classList.remove('disabled');
+      [contentGroup, imagesGroup].forEach(function(g) {
+        if (!g) return;
+        g.querySelectorAll('.mds-switch').forEach(function(sw) {
+          sw.classList.add('checked');
+          sw.setAttribute('aria-checked', 'true');
+        });
+      });
+      if (sidekicksSubSettings) sidekicksSubSettings.style.display = '';
+    }
+
+
+
+
+    var sidekicksDisabledCallout = document.getElementById('sidekicks-disabled-callout');
+
+    function checkAllCapabilitiesOff() {
+      var allSwitches = [];
+      [contentGroup, imagesGroup].forEach(function(g) {
+        if (!g) return;
+        g.querySelectorAll('.aicap-item .mds-switch').forEach(function(sw) {
+          allSwitches.push(sw);
+        });
+      });
+      if (allSwitches.length === 0) return;
+      var allOff = allSwitches.every(function(sw) { return !sw.classList.contains('checked'); });
+      if (allOff) {
+        sidekicksToggle.classList.remove('checked');
+        sidekicksToggle.setAttribute('aria-checked', 'false');
+        sidekicksToggle.style.pointerEvents = 'none';
+        sidekicksToggle.style.opacity = '0.4';
+        if (sidekicksDisabledCallout) sidekicksDisabledCallout.style.display = 'flex';
+        if (sidekicksSubSettings) sidekicksSubSettings.style.display = 'none';
+        var featRow = sidekicksToggle.closest('.feat-item-row');
+        if (featRow) {
+          var trig = featRow.querySelector('.feat-select-trigger');
+          if (trig) {
+            if (!trig._prevValue) trig._prevValue = trig.getAttribute('data-value');
+            trig.classList.add('disabled');
+            trig.childNodes[0].textContent = 'No one';
+            trig.setAttribute('data-value', 'No one');
+          }
+        }
+      } else {
+        if (sidekicksToggle.style.pointerEvents === 'none') {
+          sidekicksToggle.classList.add('checked');
+          sidekicksToggle.setAttribute('aria-checked', 'true');
+          sidekicksToggle.style.pointerEvents = '';
+          sidekicksToggle.style.opacity = '';
+          if (sidekicksDisabledCallout) sidekicksDisabledCallout.style.display = 'none';
+          if (sidekicksSubSettings) sidekicksSubSettings.style.display = '';
+          var featRow = sidekicksToggle.closest('.feat-item-row');
+          if (featRow) {
+            var trig = featRow.querySelector('.feat-select-trigger');
+            if (trig && trig.classList.contains('disabled')) {
+              trig.classList.remove('disabled');
+              if (trig._prevValue) {
+                trig.childNodes[0].textContent = trig._prevValue;
+                trig.setAttribute('data-value', trig._prevValue);
+              }
+            }
+          }
+        }
+      }
+    }
+
+
+
+
+    document.getElementById('sidekick-confirm-close').addEventListener('click', function() {
+      sidekicksToggle.classList.add('checked');
+      sidekicksToggle.setAttribute('aria-checked', 'true');
+      sidekickConfirmOverlay.classList.remove('visible');
+    });
+    document.getElementById('sidekick-confirm-cancel').addEventListener('click', function() {
+      sidekicksToggle.classList.add('checked');
+      sidekicksToggle.setAttribute('aria-checked', 'true');
+      sidekickConfirmOverlay.classList.remove('visible');
+    });
+    document.getElementById('sidekick-confirm-ok').addEventListener('click', function() {
+      sidekickConfirmOverlay.classList.remove('visible');
+      disableContentAndImages();
+    });
+
     // MDS Switch toggle
     document.querySelectorAll('.mds-switch').forEach(function(sw) {
       sw.addEventListener('click', function() {
-        var isChecked = this.classList.toggle('checked');
-        this.setAttribute('aria-checked', isChecked ? 'true' : 'false');
+        if (this.id === 'sidekicks-toggle') {
+          var wasChecked = this.classList.contains('checked');
+          this.classList.toggle('checked');
+          this.setAttribute('aria-checked', this.classList.contains('checked') ? 'true' : 'false');
+          if (wasChecked) {
+            sidekickConfirmOverlay.classList.add('visible');
+            return;
+          } else {
+            enableContentAndImages();
+          }
+        }
+        var isChecked = this.classList.contains('checked');
+        if (this.id !== 'sidekicks-toggle') {
+          var alreadyToggled = this.classList.toggle('checked');
+          isChecked = alreadyToggled;
+          this.setAttribute('aria-checked', isChecked ? 'true' : 'false');
+          if (this.closest('#aicap-group-content') || this.closest('#aicap-group-images')) {
+            checkAllCapabilitiesOff();
+          }
+        }
 
         if (this.closest('#aiw-panel-settings')) {
           var item = this.closest('.settings-toggle-item');
@@ -4451,6 +5413,37 @@
           toast.classList.add('visible');
           clearTimeout(toast._timer);
           toast._timer = setTimeout(function() { toast.classList.remove('visible'); }, 3000);
+        }
+
+        var featRow = this.closest('.feat-item-row');
+        if (featRow) {
+          var selWrapper = featRow.querySelector('.feat-select-wrapper');
+          if (!selWrapper) return;
+          var trig = selWrapper.querySelector('.feat-select-trigger');
+          var dd = selWrapper.querySelector('.feat-select-dropdown');
+          if (!isChecked) {
+            if (!trig._prevValue) trig._prevValue = trig.getAttribute('data-value');
+            trig.classList.add('disabled');
+            trig.classList.remove('open', 'filled');
+            dd.classList.remove('open');
+            selWrapper.querySelectorAll('.feat-select-option').forEach(function(o) { o.classList.remove('selected'); });
+            trig.childNodes[0].textContent = 'No one';
+            trig.setAttribute('data-value', 'No one');
+            var restrictions = this.closest('.feat-item').querySelector('.feat-restrictions');
+            if (restrictions) restrictions.style.display = 'none';
+          } else {
+            trig.classList.remove('disabled');
+            var restoreVal = trig._prevValue || 'Everyone';
+            trig._prevValue = null;
+            trig.classList.add('filled');
+            selWrapper.querySelectorAll('.feat-select-option').forEach(function(o) { o.classList.remove('selected'); });
+            var targetOpt = selWrapper.querySelector('.feat-select-option[data-val="' + restoreVal + '"]');
+            if (targetOpt) targetOpt.classList.add('selected');
+            trig.childNodes[0].textContent = restoreVal;
+            trig.setAttribute('data-value', restoreVal);
+            var restrictions = this.closest('.feat-item').querySelector('.feat-restrictions');
+            if (restrictions) restrictions.style.display = '';
+          }
         }
       });
     });
