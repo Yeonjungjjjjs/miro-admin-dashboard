@@ -1019,9 +1019,10 @@
     .settings-toggle-top-label--regular {
       font-size: 14px; font-weight: 400;
     }
+    /* Align with label text: switch (28px) + gap (8px) = 36px */
     .settings-toggle-desc {
       font-family: var(--font-body); font-size: 14px; font-weight: 400;
-      color: #222428; line-height: 1.4; padding-left: 48px;
+      color: #222428; line-height: 1.4; padding-left: 36px;
     }
     .settings-toggle-desc--subtle { color: #656b81; }
 
@@ -1162,6 +1163,16 @@
     }
     .feat-item-desc span { margin-right: 0; }
     .feat-item-desc a { display: block; }
+    .feat-item-desc.feat-item-desc--inline-link a { display: inline; margin-left: 0.25em; }
+    /* Content row: cap description to two lines on narrow viewports (inline Learn more flows with body copy). */
+    @media (max-width: 640px) {
+      .feat-item-desc.feat-item-desc--clamp-2-sm {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+      }
+    }
     .mds-text-link {
       color: #3859FF; text-decoration: underline; text-underline-offset: 2px;
       font-family: var(--font-body); font-size: 14px; font-weight: 400;
@@ -3019,10 +3030,10 @@
                 <div class="settings-toggle-item" style="padding-bottom:16px;">
                   <div class="settings-toggle-top">
                     <div class="mds-switch checked" role="switch" aria-checked="true"></div>
-                    <span class="settings-toggle-top-label">Turn on Custom Sidekicks and Flow</span>
+                    <span class="settings-toggle-top-label">Custom Sidekicks</span>
                     <span class="mds-tag mds-tag--neutral-prominent">3 AI models</span>
                   </div>
-                  <div class="settings-toggle-desc">Custom AI partners that collaborate on exploring ideas, building solutions, and moving work forward. <a href="#" class="mds-text-link">Learn more</a></div>
+                  <div class="settings-toggle-desc">Create specialized Sidekicks with custom instructions and company knowledge.</div>
                 </div>
               </div>
               <div class="settings-section">
@@ -3598,6 +3609,12 @@
               <div class="feat-section-desc">Enable AI features for your users to get the most from Miro. <a href="https://help.miro.com/hc/en-us/articles/28765406244498-Miro-AI-overview" class="mds-text-link">Learn more</a></div>
               <div class="feat-list">
 
+                <div class="mds-callout mds-callout--warning ai-cap-all-off-callout" style="display:none; margin:0 24px 16px 0;">
+                  <svg class="mds-callout-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12.866 3.002a1 1 0 0 0-1.732 0l-9 15.598A1 1 0 0 0 3 20h18a1 1 0 0 0 .866-1.4l-9-15.598ZM11 10h2v5h-2v-5Zm0 7h2v2h-2v-2Z"/></svg>
+                  <div class="mds-callout-content">
+                    <div class="mds-callout-body">AI capabilities are currently set to &lsquo;No one&rsquo;. To enable Sidekick, change the access settings.</div>
+                  </div>
+                </div>
                 <!-- Sidekicks -->
                 <div class="feat-item" id="feat-sidekicks">
                   <div class="feat-item-row">
@@ -3667,7 +3684,7 @@
                         <span class="feat-item-label">Flows</span>
                         <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Claude 3.7 Sonnet,Claude Sonnet 4,Claude Sonnet 4.5,Claude Sonnet 4.6,Claude Opus 4.5,Claude Opus 4.6,GPT-4o,GPT-4o Mini,GPT-5,GPT-5 Mini,O3,O4-Mini,GPT-4.1,GPT-4.1 Mini,Gemini 2.5 Flash,Gemini 2.5 Pro,Gemini 2.5 Flash Lite">17 AI models</span>
                       </div>
-                      <div class="feat-item-desc"><span>Connect AI prompts to canvas content to create automated workflows.</span><a href="https://help.miro.com/hc/en-us/articles/28765406244498-Miro-AI-overview" class="mds-text-link">Learn more</a></div>
+                      <div class="feat-item-desc">Connect AI prompts to canvas content to create automated workflows.</div>
                     </div>
                     <div class="feat-select-wrapper">
                       <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
@@ -3720,7 +3737,7 @@
                         <span class="feat-item-label">Summarize activity</span>
                         <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="GPT 4o,GPT 4o Mini,Claude Sonnet 3.7 (AWS Bedrock),Claude Haiku 3.5 (AWS Bedrock),Claude 3.7 Sonnet,Claude Sonnet 4,Gemini 2.5 Flash,Gemini 2.5 Pro,o4-Mini,GPT-4.1,GPT-4.1 Mini,GPT-5">12 AI models</span>
                       </div>
-                      <div class="feat-item-desc"><span>Create a summary of board activity and comment threads.</span><a href="https://help.miro.com/hc/en-us/articles/28765406244498-Miro-AI-overview" class="mds-text-link">Learn more</a></div>
+                      <div class="feat-item-desc feat-item-desc--inline-link"><span>Create a summary of board activity and comment threads.</span><a href="https://help.miro.com/hc/en-us/articles/20657859587858-Conversation-summaries" class="mds-text-link">Learn more</a></div>
                     </div>
                     <div class="feat-select-wrapper">
                       <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
@@ -3778,8 +3795,7 @@
               <div class="mds-callout mds-callout--warning" id="sidekicks-disabled-callout" style="display:none; margin-top:16px;">
                 <svg class="mds-callout-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12.866 3.002a1 1 0 0 0-1.732 0l-9 15.598A1 1 0 0 0 3 20h18a1 1 0 0 0 .866-1.4l-9-15.598ZM11 10h2v5h-2v-5Zm0 7h2v2h-2v-2Z"/></svg>
                 <div class="mds-callout-content">
-                  <div class="mds-callout-heading">Sidekicks</div>
-                  <div class="mds-callout-body">This is text used within a callout and it should be a maximum of 2 sentences because people usually don't read them.</div>
+                  <div class="mds-callout-body">AI capabilities are off because Sidekicks access is set to &lsquo;No one&rsquo;. Change access to turn on AI capabilities.</div>
                 </div>
               </div>
               <div class="aicap-list">
@@ -3798,7 +3814,7 @@
                         <span class="feat-item-label">Content</span>
                         <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="GPT 4o,GPT 4o Mini,Claude Sonnet 3.7 (AWS Bedrock),Claude Haiku 3.5 (AWS Bedrock),Claude 3.7 Sonnet,Claude Sonnet 4,Claude Sonnet 4.5,Claude Sonnet 4.6,Claude Opus 4.5,Claude Opus 4.6,o3,o4-Mini,GPT-4.1,GPT-4.1 Mini,Gemini 2.5 Flash,Gemini 2.5 Pro,Gemini 2.5 Flash Lite,GPT-5,GPT-5 Mini">19 AI models</span>
                       </div>
-                      <div class="feat-item-desc"><span>Use AI to create and edit canvas content like sticky notes, Docs, Tables, Timelines, and more.</span><a href="https://help.miro.com/hc/en-us/articles/20164358139794-Create-with-AI" class="mds-text-link">Learn more</a></div>
+                      <div class="feat-item-desc feat-item-desc--inline-link feat-item-desc--clamp-2-sm"><span>Use AI to create and edit canvas content like sticky notes, Docs, Tables, Timelines, and more.</span><a href="https://help.miro.com/hc/en-us/articles/20164358139794-Create-with-AI" class="mds-text-link">Learn more</a></div>
                     </div>
                     <div class="feat-select-wrapper">
                       <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
@@ -3834,7 +3850,7 @@
                         <span class="feat-item-label">Images</span>
                         <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Vertex AI Imagen 3,Vertex AI Imagen 3 Fast,Vertex AI Imagen 4,Gemini 2.5 Flash Image (Nano Banana),Stable Diffusion 3.5 Large,Stable Image Core 1.0,Stable Image Ultra 1.0,Titan Image Generator G1 V2,Nova Canvas,Miro,Claude Sonnet 3.7 (AWS Bedrock)">11 AI models</span>
                       </div>
-                      <div class="feat-item-desc"><span>Create and edit images with AI on the canvas. <a href="https://help.miro.com/hc/en-us/articles/20164358139794-Create-with-AI" class="mds-text-link" style="display:inline;">Learn more</a></span></div>
+                      <div class="feat-item-desc">Create and edit images with AI on the canvas.</div>
                     </div>
                     <div class="feat-select-wrapper">
                       <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
@@ -4048,11 +4064,22 @@
               <div class="feat-section-desc">Enable AI features for your users to get the most from Miro. <a href="https://help.miro.com/hc/en-us/articles/28765406244498-Miro-AI-overview" class="mds-text-link">Learn more</a></div>
               <div class="feat-list">
 
+                <div class="mds-callout mds-callout--warning ai-cap-all-off-callout" style="display:none; margin:0 24px 16px 0;">
+                  <svg class="mds-callout-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12.866 3.002a1 1 0 0 0-1.732 0l-9 15.598A1 1 0 0 0 3 20h18a1 1 0 0 0 .866-1.4l-9-15.598ZM11 10h2v5h-2v-5Zm0 7h2v2h-2v-2Z"/></svg>
+                  <div class="mds-callout-content">
+                    <div class="mds-callout-body">AI capabilities are currently set to &lsquo;No one&rsquo;. To enable Sidekick, change the access settings.</div>
+                  </div>
+                </div>
+                <div class="mds-callout mds-callout--warning sidekick-off-callout" style="display:none; margin:0 24px 16px 0;">
+                  <svg class="mds-callout-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12.866 3.002a1 1 0 0 0-1.732 0l-9 15.598A1 1 0 0 0 3 20h18a1 1 0 0 0 .866-1.4l-9-15.598ZM11 10h2v5h-2v-5Zm0 7h2v2h-2v-2Z"/></svg>
+                  <div class="mds-callout-content">
+                    <div class="mds-callout-body">All AI capabilities are disabled because Sidekicks and Custom Sidekicks turned off. Enable Sidekicks to enable Miro AI capabilities for your users.</div>
+                  </div>
+                </div>
                 <!-- Sidekicks -->
                 <div class="feat-item" id="feat-sidekicks-cs">
                   <div class="feat-item-row">
-                    <div class="feat-icon-area">
-                      <svg class="aicap-accordion-chevron open" data-accordion="sidekicks-restrictions-cs" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg>
+                    <div class="feat-icon-area feat-icon-area--no-chevron">
                       <div class="feat-icon-box">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M19.25 1A3.75 3.75 0 0 0 23 4.75v1.5A3.75 3.75 0 0 0 19.25 10h-1.5A3.75 3.75 0 0 0 14 6.25v-1.5A3.75 3.75 0 0 0 17.75 1h1.5ZM4.662 22.607l2.025.574c2.482-4.35 7.221-7 12.228-6.834l.598-2.108L5.138 3.822 3.046 4.99l1.616 17.617Zm11.771-8.132a15.648 15.648 0 0 0-9.998 5.559L5.176 6.319l11.257 8.156Z"/></svg>
                       </div>
@@ -4073,26 +4100,34 @@
                       </div>
                     </div>
                   </div>
-                  <div id="sidekicks-restrictions-cs" class="aicap-sub-items">
-                    <div class="feat-item-row" id="custom-sidekick-toggle-cs" style="padding:16px 24px 16px 0;">
-                      <div style="display:flex; align-items:flex-start; gap:12px; flex:1; min-width:0;">
-                        <div class="mds-switch checked" role="switch" aria-checked="true" id="custom-sidekick-switch-cs"></div>
-                        <div>
-                          <div class="feat-restrict-label">Custom Sidekicks</div>
-                          <div class="feat-restrict-desc">Create specialized Sidekicks with custom instructions and company knowledge.</div>
-                        </div>
-                      </div>
-                      <div class="custom-sidekick-selector-cs">
-                        <div class="feat-select-wrapper">
-                          <button class="feat-select-trigger filled" data-value="Everyone" id="custom-sidekick-select-cs">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
-                          <div class="feat-select-dropdown">
-                            <div class="feat-select-option" data-val="No one"><span>No one</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
-                            <div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
-                            <div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
-                          </div>
-                        </div>
+                </div>
+
+                <!-- Custom Sidekick -->
+                <div class="feat-item" id="feat-custom-sidekick-cs">
+                  <div class="feat-item-row">
+                    <div class="feat-icon-area">
+                      <svg class="aicap-accordion-chevron open" data-accordion="sidekicks-restrictions-cs" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg>
+                      <div class="feat-icon-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M19.25 1A3.75 3.75 0 0 0 23 4.75v1.5A3.75 3.75 0 0 0 19.25 10h-1.5A3.75 3.75 0 0 0 14 6.25v-1.5A3.75 3.75 0 0 0 17.75 1h1.5ZM4.662 22.607l2.025.574c2.482-4.35 7.221-7 12.228-6.834l.598-2.108L5.138 3.822 3.046 4.99l1.616 17.617Zm11.771-8.132a15.648 15.648 0 0 0-9.998 5.559L5.176 6.319l11.257 8.156Z"/></svg>
                       </div>
                     </div>
+                    <div class="feat-item-left">
+                      <div class="feat-item-top">
+                        <span class="feat-item-label">Custom Sidekick</span>
+                        <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Miro,GPT 4o,GPT 4o Mini,Claude 3.5 Haiku,Claude 3.5 Sonnet,Claude 3.0 Opus,Claude 3.7 Sonnet,Claude Sonnet 3.5 (AWS Bedrock),Claude Sonnet 3.7 (AWS Bedrock),Claude Sonnet 4 (AWS Bedrock),Claude Sonnet 4.5 (AWS Bedrock),Claude Haiku 3.5 (AWS Bedrock),Claude Haiku 4.5 (AWS Bedrock),Bedrock Stability SD3.5 Large V1,Bedrock Stability Image Core,Bedrock Amazon Titan V2,Bedrock Amazon Nova Micro,Bedrock Amazon Nova Lite">18 AI models</span>
+                      </div>
+                      <div class="feat-item-desc">Create specialized Sidekicks with custom instructions and company knowledge.</div>
+                    </div>
+                    <div class="feat-select-wrapper">
+                      <button class="feat-select-trigger filled" data-value="Everyone" id="custom-sidekick-select-cs">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
+                      <div class="feat-select-dropdown">
+                        <div class="feat-select-option" data-val="No one"><span>No one</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="sidekicks-restrictions-cs" class="aicap-sub-items">
                     <div class="feat-restrict-item">
                       <div class="mds-switch" role="switch" aria-checked="false"></div>
                       <div>
@@ -4117,12 +4152,6 @@
                   </div>
                 </div>
 
-                <div class="mds-callout mds-callout--warning sidekick-off-callout" style="display:none; margin:0 24px 0 0;">
-                  <svg class="mds-callout-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12.866 3.002a1 1 0 0 0-1.732 0l-9 15.598A1 1 0 0 0 3 20h18a1 1 0 0 0 .866-1.4l-9-15.598ZM11 10h2v5h-2v-5Zm0 7h2v2h-2v-2Z"/></svg>
-                  <div class="mds-callout-content">
-                    <div class="mds-callout-body">All AI capabilities are disabled because Sidekicks is turned off. Enable Sidekicks to enable Miro AI capabilities for your users.</div>
-                  </div>
-                </div>
                 <!-- Flows -->
                 <div class="feat-item">
                   <div class="feat-item-row">
@@ -4136,7 +4165,7 @@
                         <span class="feat-item-label">Flows</span>
                         <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Claude 3.7 Sonnet,Claude Sonnet 4,Claude Sonnet 4.5,Claude Sonnet 4.6,Claude Opus 4.5,Claude Opus 4.6,GPT-4o,GPT-4o Mini,GPT-5,GPT-5 Mini,O3,O4-Mini,GPT-4.1,GPT-4.1 Mini,Gemini 2.5 Flash,Gemini 2.5 Pro,Gemini 2.5 Flash Lite">17 AI models</span>
                       </div>
-                      <div class="feat-item-desc"><span>Connect AI prompts to canvas content to create automated workflows.</span><a href="https://help.miro.com/hc/en-us/articles/28765406244498-Miro-AI-overview" class="mds-text-link">Learn more</a></div>
+                      <div class="feat-item-desc">Connect AI prompts to canvas content to create automated workflows.</div>
                     </div>
                     <div class="feat-select-wrapper">
                       <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
@@ -4189,7 +4218,7 @@
                         <span class="feat-item-label">Summarize activity</span>
                         <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="GPT 4o,GPT 4o Mini,Claude Sonnet 3.7 (AWS Bedrock),Claude Haiku 3.5 (AWS Bedrock),Claude 3.7 Sonnet,Claude Sonnet 4,Gemini 2.5 Flash,Gemini 2.5 Pro,o4-Mini,GPT-4.1,GPT-4.1 Mini,GPT-5">12 AI models</span>
                       </div>
-                      <div class="feat-item-desc"><span>Create a summary of board activity and comment threads.</span><a href="https://help.miro.com/hc/en-us/articles/28765406244498-Miro-AI-overview" class="mds-text-link">Learn more</a></div>
+                      <div class="feat-item-desc feat-item-desc--inline-link"><span>Create a summary of board activity and comment threads.</span><a href="https://help.miro.com/hc/en-us/articles/20657859587858-Conversation-summaries" class="mds-text-link">Learn more</a></div>
                     </div>
                     <div class="feat-select-wrapper">
                       <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
@@ -4247,8 +4276,7 @@
               <div class="mds-callout mds-callout--warning" id="sidekicks-disabled-callout-cs" style="display:none; margin-top:16px;">
                 <svg class="mds-callout-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12.866 3.002a1 1 0 0 0-1.732 0l-9 15.598A1 1 0 0 0 3 20h18a1 1 0 0 0 .866-1.4l-9-15.598ZM11 10h2v5h-2v-5Zm0 7h2v2h-2v-2Z"/></svg>
                 <div class="mds-callout-content">
-                  <div class="mds-callout-heading">Sidekicks</div>
-                  <div class="mds-callout-body">This is text used within a callout and it should be a maximum of 2 sentences because people usually don't read them.</div>
+                  <div class="mds-callout-body">AI capabilities are off because Sidekicks and Custom Sidekicks access is set to &lsquo;No one&rsquo;. Change access to turn on AI capabilities.</div>
                 </div>
               </div>
               <div class="aicap-list">
@@ -4267,7 +4295,7 @@
                         <span class="feat-item-label">Content</span>
                         <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="GPT 4o,GPT 4o Mini,Claude Sonnet 3.7 (AWS Bedrock),Claude Haiku 3.5 (AWS Bedrock),Claude 3.7 Sonnet,Claude Sonnet 4,Claude Sonnet 4.5,Claude Sonnet 4.6,Claude Opus 4.5,Claude Opus 4.6,o3,o4-Mini,GPT-4.1,GPT-4.1 Mini,Gemini 2.5 Flash,Gemini 2.5 Pro,Gemini 2.5 Flash Lite,GPT-5,GPT-5 Mini">19 AI models</span>
                       </div>
-                      <div class="feat-item-desc"><span>Use AI to create and edit canvas content like sticky notes, Docs, Tables, Timelines, and more.</span><a href="https://help.miro.com/hc/en-us/articles/20164358139794-Create-with-AI" class="mds-text-link">Learn more</a></div>
+                      <div class="feat-item-desc feat-item-desc--inline-link feat-item-desc--clamp-2-sm"><span>Use AI to create and edit canvas content like sticky notes, Docs, Tables, Timelines, and more.</span><a href="https://help.miro.com/hc/en-us/articles/20164358139794-Create-with-AI" class="mds-text-link">Learn more</a></div>
                     </div>
                     <div class="feat-select-wrapper">
                       <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
@@ -4303,7 +4331,7 @@
                         <span class="feat-item-label">Images</span>
                         <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Vertex AI Imagen 3,Vertex AI Imagen 3 Fast,Vertex AI Imagen 4,Gemini 2.5 Flash Image (Nano Banana),Stable Diffusion 3.5 Large,Stable Image Core 1.0,Stable Image Ultra 1.0,Titan Image Generator G1 V2,Nova Canvas,Miro,Claude Sonnet 3.7 (AWS Bedrock)">11 AI models</span>
                       </div>
-                      <div class="feat-item-desc"><span>Create and edit images with AI on the canvas. <a href="https://help.miro.com/hc/en-us/articles/20164358139794-Create-with-AI" class="mds-text-link" style="display:inline;">Learn more</a></span></div>
+                      <div class="feat-item-desc">Create and edit images with AI on the canvas.</div>
                     </div>
                     <div class="feat-select-wrapper">
                       <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
@@ -4517,6 +4545,12 @@
               <div class="feat-section-desc">Enable AI features for your users to get the most from Miro. <a href="https://help.miro.com/hc/en-us/articles/28765406244498-Miro-AI-overview" class="mds-text-link">Learn more</a></div>
               <div class="feat-list">
 
+                <div class="mds-callout mds-callout--warning ai-cap-all-off-callout" style="display:none; margin:0 24px 16px 0;">
+                  <svg class="mds-callout-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12.866 3.002a1 1 0 0 0-1.732 0l-9 15.598A1 1 0 0 0 3 20h18a1 1 0 0 0 .866-1.4l-9-15.598ZM11 10h2v5h-2v-5Zm0 7h2v2h-2v-2Z"/></svg>
+                  <div class="mds-callout-content">
+                    <div class="mds-callout-body">AI capabilities are currently set to &lsquo;No one&rsquo;. To enable Sidekick, change the access settings.</div>
+                  </div>
+                </div>
                 <!-- Sidekicks -->
                 <div class="feat-item" id="feat-sidekicks-eg">
                   <div class="feat-item-row">
@@ -4586,7 +4620,7 @@
                         <span class="feat-item-label">Flows</span>
                         <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Claude 3.7 Sonnet,Claude Sonnet 4,Claude Sonnet 4.5,Claude Sonnet 4.6,Claude Opus 4.5,Claude Opus 4.6,GPT-4o,GPT-4o Mini,GPT-5,GPT-5 Mini,O3,O4-Mini,GPT-4.1,GPT-4.1 Mini,Gemini 2.5 Flash,Gemini 2.5 Pro,Gemini 2.5 Flash Lite">17 AI models</span>
                       </div>
-                      <div class="feat-item-desc"><span>Connect AI prompts to canvas content to create automated workflows.</span><a href="https://help.miro.com/hc/en-us/articles/28765406244498-Miro-AI-overview" class="mds-text-link">Learn more</a></div>
+                      <div class="feat-item-desc">Connect AI prompts to canvas content to create automated workflows.</div>
                     </div>
                     <div class="feat-select-wrapper">
                       <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
@@ -4639,7 +4673,7 @@
                         <span class="feat-item-label">Summarize activity</span>
                         <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="GPT 4o,GPT 4o Mini,Claude Sonnet 3.7 (AWS Bedrock),Claude Haiku 3.5 (AWS Bedrock),Claude 3.7 Sonnet,Claude Sonnet 4,Gemini 2.5 Flash,Gemini 2.5 Pro,o4-Mini,GPT-4.1,GPT-4.1 Mini,GPT-5">12 AI models</span>
                       </div>
-                      <div class="feat-item-desc"><span>Create a summary of board activity and comment threads.</span><a href="https://help.miro.com/hc/en-us/articles/28765406244498-Miro-AI-overview" class="mds-text-link">Learn more</a></div>
+                      <div class="feat-item-desc feat-item-desc--inline-link"><span>Create a summary of board activity and comment threads.</span><a href="https://help.miro.com/hc/en-us/articles/20657859587858-Conversation-summaries" class="mds-text-link">Learn more</a></div>
                     </div>
                     <div class="feat-select-wrapper">
                       <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
@@ -4697,8 +4731,7 @@
               <div class="mds-callout mds-callout--warning" id="sidekicks-disabled-callout-eg" style="display:none; margin-top:16px;">
                 <svg class="mds-callout-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12.866 3.002a1 1 0 0 0-1.732 0l-9 15.598A1 1 0 0 0 3 20h18a1 1 0 0 0 .866-1.4l-9-15.598ZM11 10h2v5h-2v-5Zm0 7h2v2h-2v-2Z"/></svg>
                 <div class="mds-callout-content">
-                  <div class="mds-callout-heading">Sidekicks</div>
-                  <div class="mds-callout-body">This is text used within a callout and it should be a maximum of 2 sentences because people usually don't read them.</div>
+                  <div class="mds-callout-body">AI capabilities are off because Sidekicks access is set to &lsquo;No one&rsquo;. Change access to turn on AI capabilities.</div>
                 </div>
               </div>
               <div class="aicap-list">
@@ -4717,7 +4750,7 @@
                         <span class="feat-item-label">Content</span>
                         <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="GPT 4o,GPT 4o Mini,Claude Sonnet 3.7 (AWS Bedrock),Claude Haiku 3.5 (AWS Bedrock),Claude 3.7 Sonnet,Claude Sonnet 4,Claude Sonnet 4.5,Claude Sonnet 4.6,Claude Opus 4.5,Claude Opus 4.6,o3,o4-Mini,GPT-4.1,GPT-4.1 Mini,Gemini 2.5 Flash,Gemini 2.5 Pro,Gemini 2.5 Flash Lite,GPT-5,GPT-5 Mini">19 AI models</span>
                       </div>
-                      <div class="feat-item-desc"><span>Use AI to create and edit canvas content like sticky notes, Docs, Tables, Timelines, and more.</span><a href="https://help.miro.com/hc/en-us/articles/20164358139794-Create-with-AI" class="mds-text-link">Learn more</a></div>
+                      <div class="feat-item-desc feat-item-desc--inline-link feat-item-desc--clamp-2-sm"><span>Use AI to create and edit canvas content like sticky notes, Docs, Tables, Timelines, and more.</span><a href="https://help.miro.com/hc/en-us/articles/20164358139794-Create-with-AI" class="mds-text-link">Learn more</a></div>
                     </div>
                     <div class="feat-select-wrapper">
                       <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
@@ -4753,7 +4786,7 @@
                         <span class="feat-item-label">Images</span>
                         <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Vertex AI Imagen 3,Vertex AI Imagen 3 Fast,Vertex AI Imagen 4,Gemini 2.5 Flash Image (Nano Banana),Stable Diffusion 3.5 Large,Stable Image Core 1.0,Stable Image Ultra 1.0,Titan Image Generator G1 V2,Nova Canvas,Miro,Claude Sonnet 3.7 (AWS Bedrock)">11 AI models</span>
                       </div>
-                      <div class="feat-item-desc"><span>Create and edit images with AI on the canvas. <a href="https://help.miro.com/hc/en-us/articles/20164358139794-Create-with-AI" class="mds-text-link" style="display:inline;">Learn more</a></span></div>
+                      <div class="feat-item-desc">Create and edit images with AI on the canvas.</div>
                     </div>
                     <div class="feat-select-wrapper">
                       <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
@@ -4967,6 +5000,12 @@
               <div class="feat-section-desc">Enable AI features for your users to get the most from Miro. <a href="https://help.miro.com/hc/en-us/articles/28765406244498-Miro-AI-overview" class="mds-text-link">Learn more</a></div>
               <div class="feat-list">
 
+                <div class="mds-callout mds-callout--warning ai-cap-all-off-callout" style="display:none; margin:0 24px 16px 0;">
+                  <svg class="mds-callout-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12.866 3.002a1 1 0 0 0-1.732 0l-9 15.598A1 1 0 0 0 3 20h18a1 1 0 0 0 .866-1.4l-9-15.598ZM11 10h2v5h-2v-5Zm0 7h2v2h-2v-2Z"/></svg>
+                  <div class="mds-callout-content">
+                    <div class="mds-callout-body">AI capabilities are currently set to &lsquo;No one&rsquo;. To enable Sidekick, change the access settings.</div>
+                  </div>
+                </div>
                 <!-- Sidekicks -->
                 <div class="feat-item" id="feat-sidekicks-na">
                   <div class="feat-item-row">
@@ -5040,7 +5079,7 @@
                         <span class="feat-item-label">Summarize activity</span>
                         <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="GPT 4o,GPT 4o Mini,Claude Sonnet 3.7 (AWS Bedrock),Claude Haiku 3.5 (AWS Bedrock),Claude 3.7 Sonnet,Claude Sonnet 4,Gemini 2.5 Flash,Gemini 2.5 Pro,o4-Mini,GPT-4.1,GPT-4.1 Mini,GPT-5">12 AI models</span>
                       </div>
-                      <div class="feat-item-desc"><span>Create a summary of board activity and comment threads.</span><a href="https://help.miro.com/hc/en-us/articles/28765406244498-Miro-AI-overview" class="mds-text-link">Learn more</a></div>
+                      <div class="feat-item-desc feat-item-desc--inline-link"><span>Create a summary of board activity and comment threads.</span><a href="https://help.miro.com/hc/en-us/articles/20657859587858-Conversation-summaries" class="mds-text-link">Learn more</a></div>
                     </div>
                     <div class="feat-select-wrapper">
                       <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
@@ -5098,8 +5137,7 @@
               <div class="mds-callout mds-callout--warning" id="sidekicks-disabled-callout-na" style="display:none; margin-top:16px;">
                 <svg class="mds-callout-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12.866 3.002a1 1 0 0 0-1.732 0l-9 15.598A1 1 0 0 0 3 20h18a1 1 0 0 0 .866-1.4l-9-15.598ZM11 10h2v5h-2v-5Zm0 7h2v2h-2v-2Z"/></svg>
                 <div class="mds-callout-content">
-                  <div class="mds-callout-heading">Sidekicks</div>
-                  <div class="mds-callout-body">This is text used within a callout and it should be a maximum of 2 sentences because people usually don't read them.</div>
+                  <div class="mds-callout-body">AI capabilities are off because Sidekicks access is set to &lsquo;No one&rsquo;. Change access to turn on AI capabilities.</div>
                 </div>
               </div>
               <div class="aicap-list">
@@ -5118,7 +5156,7 @@
                         <span class="feat-item-label">Content</span>
                         <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="GPT 4o,GPT 4o Mini,Claude Sonnet 3.7 (AWS Bedrock),Claude Haiku 3.5 (AWS Bedrock),Claude 3.7 Sonnet,Claude Sonnet 4,Claude Sonnet 4.5,Claude Sonnet 4.6,Claude Opus 4.5,Claude Opus 4.6,o3,o4-Mini,GPT-4.1,GPT-4.1 Mini,Gemini 2.5 Flash,Gemini 2.5 Pro,Gemini 2.5 Flash Lite,GPT-5,GPT-5 Mini">19 AI models</span>
                       </div>
-                      <div class="feat-item-desc"><span>Use AI to create and edit canvas content like sticky notes, Docs, Tables, Timelines, and more.</span><a href="https://help.miro.com/hc/en-us/articles/20164358139794-Create-with-AI" class="mds-text-link">Learn more</a></div>
+                      <div class="feat-item-desc feat-item-desc--inline-link feat-item-desc--clamp-2-sm"><span>Use AI to create and edit canvas content like sticky notes, Docs, Tables, Timelines, and more.</span><a href="https://help.miro.com/hc/en-us/articles/20164358139794-Create-with-AI" class="mds-text-link">Learn more</a></div>
                     </div>
                     <div class="feat-select-wrapper">
                       <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
@@ -5154,7 +5192,7 @@
                         <span class="feat-item-label">Images</span>
                         <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Vertex AI Imagen 3,Vertex AI Imagen 3 Fast,Vertex AI Imagen 4,Gemini 2.5 Flash Image (Nano Banana),Stable Diffusion 3.5 Large,Stable Image Core 1.0,Stable Image Ultra 1.0,Titan Image Generator G1 V2,Nova Canvas,Miro,Claude Sonnet 3.7 (AWS Bedrock)">11 AI models</span>
                       </div>
-                      <div class="feat-item-desc"><span>Create and edit images with AI on the canvas. <a href="https://help.miro.com/hc/en-us/articles/20164358139794-Create-with-AI" class="mds-text-link" style="display:inline;">Learn more</a></span></div>
+                      <div class="feat-item-desc">Create and edit images with AI on the canvas.</div>
                     </div>
                     <div class="feat-select-wrapper">
                       <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
@@ -5343,6 +5381,12 @@
               <div class="feat-section-desc">Enable AI features for your users to get the most from Miro. <a href="https://help.miro.com/hc/en-us/articles/28765406244498-Miro-AI-overview" class="mds-text-link">Learn more</a></div>
               <div class="feat-list">
 
+                <div class="mds-callout mds-callout--warning ai-cap-all-off-callout" style="display:none; margin:0 24px 16px 0;">
+                  <svg class="mds-callout-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12.866 3.002a1 1 0 0 0-1.732 0l-9 15.598A1 1 0 0 0 3 20h18a1 1 0 0 0 .866-1.4l-9-15.598ZM11 10h2v5h-2v-5Zm0 7h2v2h-2v-2Z"/></svg>
+                  <div class="mds-callout-content">
+                    <div class="mds-callout-body">AI capabilities are currently set to &lsquo;No one&rsquo;. To enable Sidekick, change the access settings.</div>
+                  </div>
+                </div>
                 <!-- Sidekicks -->
                 <div class="feat-item" id="feat-sidekicks-nn">
                   <div class="feat-item-row">
@@ -5416,7 +5460,7 @@
                         <span class="feat-item-label">Summarize activity</span>
                         <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="GPT 4o,GPT 4o Mini,Claude Sonnet 3.7 (AWS Bedrock),Claude Haiku 3.5 (AWS Bedrock),Claude 3.7 Sonnet,Claude Sonnet 4,Gemini 2.5 Flash,Gemini 2.5 Pro,o4-Mini,GPT-4.1,GPT-4.1 Mini,GPT-5">12 AI models</span>
                       </div>
-                      <div class="feat-item-desc"><span>Create a summary of board activity and comment threads.</span><a href="https://help.miro.com/hc/en-us/articles/28765406244498-Miro-AI-overview" class="mds-text-link">Learn more</a></div>
+                      <div class="feat-item-desc feat-item-desc--inline-link"><span>Create a summary of board activity and comment threads.</span><a href="https://help.miro.com/hc/en-us/articles/20657859587858-Conversation-summaries" class="mds-text-link">Learn more</a></div>
                     </div>
                     <div class="feat-select-wrapper">
                       <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
@@ -5474,8 +5518,7 @@
               <div class="mds-callout mds-callout--warning" id="sidekicks-disabled-callout-nn" style="display:none; margin-top:16px;">
                 <svg class="mds-callout-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12.866 3.002a1 1 0 0 0-1.732 0l-9 15.598A1 1 0 0 0 3 20h18a1 1 0 0 0 .866-1.4l-9-15.598ZM11 10h2v5h-2v-5Zm0 7h2v2h-2v-2Z"/></svg>
                 <div class="mds-callout-content">
-                  <div class="mds-callout-heading">Sidekicks</div>
-                  <div class="mds-callout-body">This is text used within a callout and it should be a maximum of 2 sentences because people usually don't read them.</div>
+                  <div class="mds-callout-body">AI capabilities are off because Sidekicks access is set to &lsquo;No one&rsquo;. Change access to turn on AI capabilities.</div>
                 </div>
               </div>
               <div class="aicap-list">
@@ -5494,7 +5537,7 @@
                         <span class="feat-item-label">Content</span>
                         <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="GPT 4o,GPT 4o Mini,Claude Sonnet 3.7 (AWS Bedrock),Claude Haiku 3.5 (AWS Bedrock),Claude 3.7 Sonnet,Claude Sonnet 4,Claude Sonnet 4.5,Claude Sonnet 4.6,Claude Opus 4.5,Claude Opus 4.6,o3,o4-Mini,GPT-4.1,GPT-4.1 Mini,Gemini 2.5 Flash,Gemini 2.5 Pro,Gemini 2.5 Flash Lite,GPT-5,GPT-5 Mini">19 AI models</span>
                       </div>
-                      <div class="feat-item-desc"><span>Use AI to create and edit canvas content like sticky notes, Docs, Tables, Timelines, and more.</span><a href="https://help.miro.com/hc/en-us/articles/20164358139794-Create-with-AI" class="mds-text-link">Learn more</a></div>
+                      <div class="feat-item-desc feat-item-desc--inline-link feat-item-desc--clamp-2-sm"><span>Use AI to create and edit canvas content like sticky notes, Docs, Tables, Timelines, and more.</span><a href="https://help.miro.com/hc/en-us/articles/20164358139794-Create-with-AI" class="mds-text-link">Learn more</a></div>
                     </div>
                     <div class="feat-select-wrapper">
                       <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
@@ -5530,7 +5573,7 @@
                         <span class="feat-item-label">Images</span>
                         <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Vertex AI Imagen 3,Vertex AI Imagen 3 Fast,Vertex AI Imagen 4,Gemini 2.5 Flash Image (Nano Banana),Stable Diffusion 3.5 Large,Stable Image Core 1.0,Stable Image Ultra 1.0,Titan Image Generator G1 V2,Nova Canvas,Miro,Claude Sonnet 3.7 (AWS Bedrock)">11 AI models</span>
                       </div>
-                      <div class="feat-item-desc"><span>Create and edit images with AI on the canvas. <a href="https://help.miro.com/hc/en-us/articles/20164358139794-Create-with-AI" class="mds-text-link" style="display:inline;">Learn more</a></span></div>
+                      <div class="feat-item-desc">Create and edit images with AI on the canvas.</div>
                     </div>
                     <div class="feat-select-wrapper">
                       <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
@@ -6023,13 +6066,13 @@
   <div class="assign-modal-overlay" id="sidekick-confirm-overlay">
     <div class="assign-modal">
       <div class="assign-modal-header">
-        <h2>Are you sure you want to disable Sidekick?</h2>
+        <h2 id="sidekick-confirm-title">Are you sure you want to disable Sidekick?</h2>
         <button class="assign-modal-close" id="sidekick-confirm-close">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M19.707 5.707 13.414 12l6.293 6.293-1.414 1.414L12 13.414l-6.293 6.293-1.414-1.414L10.586 12 4.293 5.707l1.414-1.414L12 10.586l6.293-6.293 1.414 1.414Z"/></svg>
         </button>
       </div>
       <div class="assign-modal-body">
-        <p class="assign-modal-desc">Setting Sidekicks to No one disables all AI capabilities for content creation, image creation, slides, and prototypes.</p>
+        <p class="assign-modal-desc" id="sidekick-confirm-desc">Setting Sidekicks to No one disables all AI capabilities for content creation, image creation, slides, and prototypes.</p>
       </div>
       <div class="assign-modal-footer">
         <button class="mds-btn mds-btn--danger mds-btn--large" id="sidekick-confirm-ok">Disable</button>
@@ -6358,6 +6401,10 @@
         hash = hashMap[route] || '#/' + route;
       }
       if (location.hash !== hash) history.pushState(null, '', hash);
+
+      if (route.indexOf('miroai-cap') === 0) {
+        setTimeout(function() { syncAiCapabilitiesWarnings(); }, 0);
+      }
     }
 
     function routeFromHash() {
@@ -6921,26 +6968,52 @@
             }
           }
           var featItem = opt.closest('.feat-item');
-          var isCustomSidekickSelector = opt.closest('#custom-sidekick-toggle-cs');
-          if (!isCustomSidekickSelector && featItem && featItem.id && featItem.id.indexOf('feat-sidekicks') === 0) {
+          var pgCap = getActiveCapPage();
+          var isCustomSidekickCapPage = pgCap && pgCap.id === 'page-miroai-cap-customsidekick';
+          if (isCustomSidekickCapPage && featItem && (featItem.id === 'feat-sidekicks-cs' || featItem.id === 'feat-custom-sidekick-cs')) {
             if (val === 'No one') {
-              var prevVal = trig._sidekickPrevVal || 'Everyone';
-              trig.childNodes[0].textContent = prevVal;
-              trig.setAttribute('data-value', prevVal);
-              wrapper.querySelectorAll('.feat-select-option').forEach(function(o) {
-                o.classList.toggle('selected', o.getAttribute('data-val') === prevVal);
-              });
-              window._pendingSidekickNoOne = { trig: trig, wrapper: wrapper };
-              sidekickConfirmOverlay.classList.add('visible');
+              var mainTrig = pgCap.querySelector('#feat-sidekicks-cs .feat-item-row .feat-select-wrapper > .feat-select-trigger');
+              var customTrig = pgCap.querySelector('#feat-custom-sidekick-cs .feat-item-row .feat-select-wrapper > .feat-select-trigger');
+              var otherTrig = featItem.id === 'feat-sidekicks-cs' ? customTrig : mainTrig;
+              if (otherTrig && otherTrig.getAttribute('data-value') === 'No one') {
+                var prevValCs = trig._sidekickPrevVal || 'Everyone';
+                trig.childNodes[0].textContent = prevValCs;
+                trig.setAttribute('data-value', prevValCs);
+                wrapper.querySelectorAll('.feat-select-option').forEach(function(o) {
+                  o.classList.toggle('selected', o.getAttribute('data-val') === prevValCs);
+                });
+                var modalVariant = featItem.id === 'feat-custom-sidekick-cs' ? 'customSidekick' : 'sidekick';
+                window._pendingSidekickNoOne = { trig: trig, wrapper: wrapper, modalVariant: modalVariant };
+                setSidekickConfirmModalContent(modalVariant);
+                sidekickConfirmOverlay.classList.add('visible');
+              } else {
+                trig._sidekickPrevVal = 'No one';
+              }
             } else {
-              var pg = getActiveCapPage();
-              var wasSidekickDisabled = pg && pg.querySelector('.aicap-list.sidekick-disabled');
               trig._sidekickPrevVal = val;
-              if (wasSidekickDisabled) {
+              if (pgCap.querySelector('.aicap-list.sidekick-disabled')) {
                 applySidekickEnabled();
               }
             }
+          } else if (featItem && featItem.id && featItem.id.indexOf('feat-sidekicks') === 0 && val === 'No one') {
+            var prevVal = trig._sidekickPrevVal || 'Everyone';
+            trig.childNodes[0].textContent = prevVal;
+            trig.setAttribute('data-value', prevVal);
+            wrapper.querySelectorAll('.feat-select-option').forEach(function(o) {
+              o.classList.toggle('selected', o.getAttribute('data-val') === prevVal);
+            });
+            window._pendingSidekickNoOne = { trig: trig, wrapper: wrapper, modalVariant: 'sidekick' };
+            setSidekickConfirmModalContent('sidekick');
+            sidekickConfirmOverlay.classList.add('visible');
+          } else if (featItem && featItem.id && featItem.id.indexOf('feat-sidekicks') === 0) {
+            var pg2 = getActiveCapPage();
+            var wasSidekickDisabled = pg2 && pg2.querySelector('.aicap-list.sidekick-disabled');
+            trig._sidekickPrevVal = val;
+            if (wasSidekickDisabled) {
+              applySidekickEnabled();
+            }
           }
+          syncAiCapabilitiesWarnings(getActiveCapPage());
           return;
         }
         document.querySelectorAll('.feat-select-trigger.open').forEach(function(t) {
@@ -7173,6 +7246,20 @@
     // ===== SIDEKICKS DEPENDENCY LOGIC =====
     var sidekickConfirmOverlay = document.getElementById('sidekick-confirm-overlay');
 
+    /** @param {'sidekick'|'customSidekick'} variant — which row triggered the confirm (custom-sidekick page only distinguishes Custom Sidekick vs Sidekicks). */
+    function setSidekickConfirmModalContent(variant) {
+      var titleEl = document.getElementById('sidekick-confirm-title');
+      var descEl = document.getElementById('sidekick-confirm-desc');
+      if (!titleEl || !descEl) return;
+      if (variant === 'customSidekick') {
+        titleEl.textContent = 'Are you sure you want to disable Custom Sidekick?';
+        descEl.textContent = 'Setting Custom Sidekicks to No one disables all AI capabilities for content creation, image creation, slides, and prototypes.';
+      } else {
+        titleEl.textContent = 'Are you sure you want to disable Sidekick?';
+        descEl.textContent = 'Setting Sidekicks to No one disables all AI capabilities for content creation, image creation, slides, and prototypes.';
+      }
+    }
+
     function getActiveCapPage() {
       var pages = document.querySelectorAll('[id^="page-miroai-cap"]');
       for (var i = 0; i < pages.length; i++) {
@@ -7181,20 +7268,87 @@
       return document.getElementById('page-miroai-capabilities');
     }
 
+    var AI_SIDEKICK_STRIP_SIDEKICK_OFF_COPY = "All AI capabilities are disabled because Sidekicks is turned off. Enable Sidekicks to enable Miro AI capabilities for your users.";
+    var AI_SIDEKICK_STRIP_SIDEKICK_OFF_COPY_CS = "All AI capabilities are disabled because Sidekicks and Custom Sidekicks turned off. Enable Sidekicks to enable Miro AI capabilities for your users.";
+    var AI_CAP_SECTION_SIDEKICK_OFF_COPY = "AI capabilities are off because Sidekicks access is set to 'No one'. Change access to turn on AI capabilities.";
+    var AI_CAP_SECTION_SIDEKICK_OFF_COPY_CS = "AI capabilities are off because Sidekicks and Custom Sidekicks access is set to 'No one'. Change access to turn on AI capabilities.";
+    var AI_CAP_OFF_MANUAL_COPY = "AI capabilities are off because every access control is set to 'No one'. Change access to turn on AI capabilities.";
+    var AI_CAP_ALL_OFF_SIDEKICK_NOTICE_COPY = "AI capabilities are currently set to 'No one'. To enable Sidekick, change the access settings.";
 
+    function allAiCapabilityGroupsNoOne(pg) {
+      if (!pg) return false;
+      var al = pg.querySelector('.aicap-list');
+      if (!al) return false;
+      var capTriggers = al.querySelectorAll('.feat-item > .feat-item-row > .feat-select-wrapper > .feat-select-trigger');
+      if (!capTriggers.length) return false;
+      for (var k = 0; k < capTriggers.length; k++) {
+        if (capTriggers[k].getAttribute('data-value') !== 'No one') return false;
+      }
+      return true;
+    }
 
+    function allTopLevelAiAccessNoOne(pg) {
+      if (!pg) return false;
+      var fp = pg.querySelector('[id^="cap-panel-features"]');
+      if (!fp) return false;
+      /* Includes Custom Sidekick row when present (Capabilities-custom-sidekick): both Sidekicks and Custom Sidekick must be No one, plus other feature rows, for full manual-off state. */
+      var featTriggers = fp.querySelectorAll('.feat-list > .feat-item > .feat-item-row > .feat-select-wrapper > .feat-select-trigger');
+      if (!featTriggers.length) return false;
+      for (var i = 0; i < featTriggers.length; i++) {
+        if (featTriggers[i].getAttribute('data-value') !== 'No one') return false;
+      }
+      var capTriggers = pg.querySelectorAll('.aicap-list > .feat-item > .feat-item-row > .feat-select-wrapper > .feat-select-trigger');
+      if (!capTriggers.length) return false;
+      for (var j = 0; j < capTriggers.length; j++) {
+        if (capTriggers[j].getAttribute('data-value') !== 'No one') return false;
+      }
+      return true;
+    }
 
+    function syncAiCapabilitiesWarnings(pg) {
+      pg = pg || getActiveCapPage();
+      if (!pg || pg.id.indexOf('page-miroai-cap') !== 0) return;
+      var capList = pg.querySelector('.aicap-list');
+      var sidekickDisabled = capList && capList.classList.contains('sidekick-disabled');
+      var show = false;
+      var stripText = '';
+      var capText = '';
+      if (sidekickDisabled) {
+        show = true;
+        stripText = pg.id === 'page-miroai-cap-customsidekick' ? AI_SIDEKICK_STRIP_SIDEKICK_OFF_COPY_CS : AI_SIDEKICK_STRIP_SIDEKICK_OFF_COPY;
+        capText = pg.id === 'page-miroai-cap-customsidekick' ? AI_CAP_SECTION_SIDEKICK_OFF_COPY_CS : AI_CAP_SECTION_SIDEKICK_OFF_COPY;
+      } else if (allTopLevelAiAccessNoOne(pg)) {
+        show = true;
+        stripText = AI_CAP_OFF_MANUAL_COPY;
+        capText = AI_CAP_OFF_MANUAL_COPY;
+      }
+      var strip = pg.querySelector('.sidekick-off-callout');
+      var capCallout = pg.querySelector('[id^="sidekicks-disabled-callout"]');
+      if (strip) {
+        var bs = strip.querySelector('.mds-callout-body');
+        if (bs) bs.textContent = stripText;
+        strip.style.display = show ? 'flex' : 'none';
+      }
+      if (capCallout) {
+        var bc = capCallout.querySelector('.mds-callout-body');
+        if (bc) bc.textContent = capText;
+        capCallout.style.display = show ? 'flex' : 'none';
+      }
+      var allOffNotice = pg.querySelector('.ai-cap-all-off-callout');
+      if (allOffNotice) {
+        var nb = allOffNotice.querySelector('.mds-callout-body');
+        if (nb) nb.textContent = AI_CAP_ALL_OFF_SIDEKICK_NOTICE_COPY;
+        var showAllOffNotice = allAiCapabilityGroupsNoOne(pg) && !sidekickDisabled;
+        allOffNotice.style.display = showAllOffNotice ? 'flex' : 'none';
+      }
+    }
 
     function applySidekickDisabled() {
       var pg = getActiveCapPage();
       var capSection = pg ? pg.querySelector('.aicap-list') : document.querySelector('.aicap-list');
       var restrictions = pg ? pg.querySelector('[id^="sidekicks-restrictions"]') : document.getElementById('sidekicks-restrictions');
-      var callout = pg ? pg.querySelector('[id^="sidekicks-disabled-callout"]') : document.getElementById('sidekicks-disabled-callout');
       if (capSection) capSection.classList.add('sidekick-disabled');
       if (restrictions) restrictions.style.display = 'none';
-      if (callout) callout.style.display = 'flex';
-      var sidekickOffCallout = pg ? pg.querySelector('.sidekick-off-callout') : document.querySelector('.sidekick-off-callout');
-      if (sidekickOffCallout) sidekickOffCallout.style.display = 'flex';
       if (capSection) {
         capSection.querySelectorAll('.feat-select-trigger').forEach(function(t) {
           if (!t._sidekickPrev) t._sidekickPrev = t.getAttribute('data-value');
@@ -7209,18 +7363,15 @@
       }
       var sidekicksSubSettings = pg ? pg.querySelector('[id^="sidekicks-sub-settings"]') : document.getElementById('sidekicks-sub-settings');
       if (sidekicksSubSettings) sidekicksSubSettings.style.display = 'none';
+      syncAiCapabilitiesWarnings(pg);
     }
 
     function applySidekickEnabled() {
       var pg = getActiveCapPage();
       var capSection = pg ? pg.querySelector('.aicap-list') : document.querySelector('.aicap-list');
       var restrictions = pg ? pg.querySelector('[id^="sidekicks-restrictions"]') : document.getElementById('sidekicks-restrictions');
-      var callout = pg ? pg.querySelector('[id^="sidekicks-disabled-callout"]') : document.getElementById('sidekicks-disabled-callout');
       if (capSection) capSection.classList.remove('sidekick-disabled');
       if (restrictions) restrictions.style.display = '';
-      if (callout) callout.style.display = 'none';
-      var sidekickOffCallout = pg ? pg.querySelector('.sidekick-off-callout') : document.querySelector('.sidekick-off-callout');
-      if (sidekickOffCallout) sidekickOffCallout.style.display = 'none';
       if (capSection) {
         capSection.querySelectorAll('.feat-select-trigger.disabled').forEach(function(t) {
           var prev = t._sidekickPrev || 'Everyone';
@@ -7245,6 +7396,7 @@
       }
       var sidekicksSubSettings = pg ? pg.querySelector('[id^="sidekicks-sub-settings"]') : document.getElementById('sidekicks-sub-settings');
       if (sidekicksSubSettings) sidekicksSubSettings.style.display = '';
+      syncAiCapabilitiesWarnings(pg);
     }
 
     document.getElementById('sidekick-confirm-close').addEventListener('click', function() {
@@ -7269,24 +7421,6 @@
         window._pendingSidekickNoOne = null;
       }
     });
-
-
-    // Custom Sidekicks toggle on Capabilities-custom-sidekick page
-    var customSidekickSwitch = document.getElementById('custom-sidekick-switch-cs');
-    if (customSidekickSwitch) {
-      customSidekickSwitch.addEventListener('click', function() {
-        var isOn = this.classList.toggle('checked');
-        this.setAttribute('aria-checked', isOn ? 'true' : 'false');
-        var selectorWrap = document.querySelector('.custom-sidekick-selector-cs');
-        if (selectorWrap) {
-          if (isOn) {
-            selectorWrap.style.display = '';
-          } else {
-            selectorWrap.style.display = 'none';
-          }
-        }
-      });
-    }
 
     // Accordion toggle for Content/Image sub-items
     document.querySelectorAll('.aicap-accordion-chevron').forEach(function(chevron) {
