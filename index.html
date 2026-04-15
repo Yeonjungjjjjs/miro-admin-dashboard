@@ -2377,16 +2377,18 @@
           <span class="nav-label">Teams</span>
         </a>
         <!-- Users (IconUserTickDown + right chevron + sub-nav) -->
-        <a href="#" class="has-subnav" data-route="allusers" data-subnav="users-subnav">
-          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M9.45 7.5a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0Zm-2 0a4.5 4.5 0 1 0 9 0 4.5 4.5 0 0 0-9 0Zm4.5 5.5a7.077 7.077 0 0 0-7.042 6.373L4.755 20.9l1.99.2.153-1.528A5.077 5.077 0 0 1 11.95 15v-2Zm9.843 1.61-5 6.5-1.552.04-3-3.5 1.518-1.3 2.198 2.564 4.25-5.523 1.586 1.218Z"/></svg></span>
-          <span class="nav-label">Users</span>
-          <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></span>
-        </a>
-        <div class="sidebar-subnav" id="users-subnav">
-          <a href="#" class="subnav-item active" data-route="allusers">All users</a>
-          <a href="#" class="subnav-item">User groups</a>
-          <a href="#" class="subnav-item">Access requests</a>
-          <a href="#" class="subnav-item">Admin roles</a>
+        <div class="nav-group">
+          <a href="#" class="has-subnav" data-route="allusers" data-subnav="users-subnav">
+            <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M9.45 7.5a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0Zm-2 0a4.5 4.5 0 1 0 9 0 4.5 4.5 0 0 0-9 0Zm4.5 5.5a7.077 7.077 0 0 0-7.042 6.373L4.755 20.9l1.99.2.153-1.528A5.077 5.077 0 0 1 11.95 15v-2Zm9.843 1.61-5 6.5-1.552.04-3-3.5 1.518-1.3 2.198 2.564 4.25-5.523 1.586 1.218Z"/></svg></span>
+            <span class="nav-label">Users</span>
+            <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></span>
+          </a>
+          <div class="sidebar-subnav" id="users-subnav">
+            <a href="#" class="subnav-item active" data-route="allusers">All users</a>
+            <a href="#" class="subnav-item">User groups</a>
+            <a href="#" class="subnav-item">Access requests</a>
+            <a href="#" class="subnav-item">Admin roles</a>
+          </div>
         </div>
         <!-- Insights (IconChartBarY) -->
         <a href="#">
@@ -2399,20 +2401,34 @@
           <span class="nav-label">Security</span>
           <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></span>
         </a>
+        <!-- Policies (IconCheckBoxLines) -->
+        <div class="nav-group">
+          <a href="#" data-route="pol-onboard" class="has-subnav" data-subnav="policies-subnav">
+            <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M10.586 13 7.293 9.707l1.414-1.414L12 11.586l6.293-6.293 1.414 1.414-7 7h-2.12ZM4 17h16v2H4v-2Z"/></svg></span>
+            <span class="nav-label">Policies</span>
+            <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></span>
+          </a>
+          <div class="sidebar-subnav" id="policies-subnav">
+            <a href="#" class="subnav-item" data-route="pol-onboard">Recommendation</a>
+            <a href="#" class="subnav-item" data-route="pol-list">Policy list</a>
+          </div>
+        </div>
         <!-- Miro AI (IconSparksFilled + chevron + sub-nav) -->
-        <a href="#" class="has-subnav" data-route="miroai-capabilities" data-subnav="miroai-subnav">
-          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M5.5 16A2.5 2.5 0 0 0 8 18.5v1A2.5 2.5 0 0 0 5.5 22h-1A2.5 2.5 0 0 0 2 19.5v-1A2.5 2.5 0 0 0 4.5 16h1Zm5.178-10.793c.325-1.368 2.319-1.37 2.644 0l.027.142.042.255a6.26 6.26 0 0 0 5.26 5.046c1.553.224 1.561 2.473 0 2.699a6.26 6.26 0 0 0-5.302 5.301c-.225 1.563-2.475 1.554-2.699 0a6.26 6.26 0 0 0-5.3-5.3c-1.56-.225-1.557-2.474 0-2.699l.255-.042a6.26 6.26 0 0 0 5.046-5.26l.028-.141ZM19.5 2A2.5 2.5 0 0 0 22 4.5v1A2.5 2.5 0 0 0 19.5 8h-1A2.5 2.5 0 0 0 16 5.5v-1A2.5 2.5 0 0 0 18.5 2h1Z"/></svg></span>
-          <span class="nav-label">Miro AI</span>
-          <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></span>
-        </a>
-        <div class="sidebar-subnav" id="miroai-subnav">
-          <a href="#" class="subnav-item" data-route="miroai-capabilities">Capabilities</a>
-          <a href="#" class="subnav-item" data-route="miroai-cap-entguard">Capabilities-ent.guard</a>
-          <a href="#" class="subnav-item" data-route="miroai-cap-noaddons">Capabilities-No-add-ons</a>
-          <a href="#" class="subnav-item" data-route="miroai-cap-none">Capabilities-none</a>
-          <a href="#" class="subnav-item" data-route="miroai-cap-customsidekick">Capabilities-custom-sidekick</a>
-          <a href="#" class="subnav-item" data-route="miroai-datausage">Data usage</a>
-          <a href="#" class="subnav-item" data-route="miroai-moderation">Moderation</a>
+        <div class="nav-group">
+          <a href="#" class="has-subnav" data-route="miroai-capabilities" data-subnav="miroai-subnav">
+            <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M5.5 16A2.5 2.5 0 0 0 8 18.5v1A2.5 2.5 0 0 0 5.5 22h-1A2.5 2.5 0 0 0 2 19.5v-1A2.5 2.5 0 0 0 4.5 16h1Zm5.178-10.793c.325-1.368 2.319-1.37 2.644 0l.027.142.042.255a6.26 6.26 0 0 0 5.26 5.046c1.553.224 1.561 2.473 0 2.699a6.26 6.26 0 0 0-5.302 5.301c-.225 1.563-2.475 1.554-2.699 0a6.26 6.26 0 0 0-5.3-5.3c-1.56-.225-1.557-2.474 0-2.699l.255-.042a6.26 6.26 0 0 0 5.046-5.26l.028-.141ZM19.5 2A2.5 2.5 0 0 0 22 4.5v1A2.5 2.5 0 0 0 19.5 8h-1A2.5 2.5 0 0 0 16 5.5v-1A2.5 2.5 0 0 0 18.5 2h1Z"/></svg></span>
+            <span class="nav-label">Miro AI</span>
+            <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></span>
+          </a>
+          <div class="sidebar-subnav" id="miroai-subnav">
+            <a href="#" class="subnav-item" data-route="miroai-capabilities">Capabilities</a>
+            <a href="#" class="subnav-item" data-route="miroai-cap-entguard">Capabilities-ent.guard</a>
+            <a href="#" class="subnav-item" data-route="miroai-cap-noaddons">Capabilities-No-add-ons</a>
+            <a href="#" class="subnav-item" data-route="miroai-cap-none">Capabilities-none</a>
+            <a href="#" class="subnav-item" data-route="miroai-cap-customsidekick">Capabilities-custom-sidekick</a>
+            <a href="#" class="subnav-item" data-route="miroai-datausage">Data usage</a>
+            <a href="#" class="subnav-item" data-route="miroai-moderation">Moderation</a>
+          </div>
         </div>
         <!-- Products (IconSquareTriangleCirclePlus) -->
         <a href="#" data-route="products">
@@ -2580,7 +2596,7 @@
                 </div>
                 <div class="whatsnew-actions">
                   <button class="mds-btn mds-btn--secondary mds-btn--medium"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="m11.71 5.026-4.843.537a5.47 5.47 0 0 0-.002 10.873L7 16.45V21l1 1h4a1 1 0 0 0 1-1v-3.382l4.555 2.279L19 19.002V2.998l-1.447-.894-5.843 2.922ZM11 16.895V20H9v-3.328l2 .223Zm6.002.489L13 15.382V6.617l4.002-2v12.767ZM11 14.882l-3.912-.434a3.47 3.47 0 0 1 0-6.897L11 7.117v7.765ZM21 13h1l1-1v-2l-1-1h-1v4Z" clip-rule="evenodd"/></svg> Announce</button>
-                  <button class="mds-btn mds-btn--tertiary mds-btn--medium"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M13.154 6.004A3 3 0 0 1 16 9v10a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V9a3 3 0 0 1 3-3h8l.154.004ZM5 8a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 0 0-.898-.995L13 8H5Zm14.154-5.996A3 3 0 0 1 22 5v10a3 3 0 0 1-3 3h-1v-2h1a1 1 0 0 0 1-1V5a1 1 0 0 0-.898-.995L19 4h-8a1 1 0 0 0-1 1H8a3 3 0 0 1 3-3h8l.154.004Z" clip-rule="evenodd"/></svg> Copy</button>
+                  <button class="mds-btn mds-btn--secondary mds-btn--medium"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M13.154 6.004A3 3 0 0 1 16 9v10a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V9a3 3 0 0 1 3-3h8l.154.004ZM5 8a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 0 0-.898-.995L13 8H5Zm14.154-5.996A3 3 0 0 1 22 5v10a3 3 0 0 1-3 3h-1v-2h1a1 1 0 0 0 1-1V5a1 1 0 0 0-.898-.995L19 4h-8a1 1 0 0 0-1 1H8a3 3 0 0 1 3-3h8l.154.004Z" clip-rule="evenodd"/></svg> Copy</button>
                 </div>
               </div>
             </div>
@@ -2593,7 +2609,7 @@
                 </div>
                 <div class="whatsnew-actions">
                   <button class="mds-btn mds-btn--secondary mds-btn--medium"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="m11.71 5.026-4.843.537a5.47 5.47 0 0 0-.002 10.873L7 16.45V21l1 1h4a1 1 0 0 0 1-1v-3.382l4.555 2.279L19 19.002V2.998l-1.447-.894-5.843 2.922ZM11 16.895V20H9v-3.328l2 .223Zm6.002.489L13 15.382V6.617l4.002-2v12.767ZM11 14.882l-3.912-.434a3.47 3.47 0 0 1 0-6.897L11 7.117v7.765ZM21 13h1l1-1v-2l-1-1h-1v4Z" clip-rule="evenodd"/></svg> Announce</button>
-                  <button class="mds-btn mds-btn--tertiary mds-btn--medium"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M13.154 6.004A3 3 0 0 1 16 9v10a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V9a3 3 0 0 1 3-3h8l.154.004ZM5 8a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 0 0-.898-.995L13 8H5Zm14.154-5.996A3 3 0 0 1 22 5v10a3 3 0 0 1-3 3h-1v-2h1a1 1 0 0 0 1-1V5a1 1 0 0 0-.898-.995L19 4h-8a1 1 0 0 0-1 1H8a3 3 0 0 1 3-3h8l.154.004Z" clip-rule="evenodd"/></svg> Copy</button>
+                  <button class="mds-btn mds-btn--secondary mds-btn--medium"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M13.154 6.004A3 3 0 0 1 16 9v10a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V9a3 3 0 0 1 3-3h8l.154.004ZM5 8a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 0 0-.898-.995L13 8H5Zm14.154-5.996A3 3 0 0 1 22 5v10a3 3 0 0 1-3 3h-1v-2h1a1 1 0 0 0 1-1V5a1 1 0 0 0-.898-.995L19 4h-8a1 1 0 0 0-1 1H8a3 3 0 0 1 3-3h8l.154.004Z" clip-rule="evenodd"/></svg> Copy</button>
                 </div>
               </div>
             </div>
@@ -2606,7 +2622,7 @@
                 </div>
                 <div class="whatsnew-actions">
                   <button class="mds-btn mds-btn--secondary mds-btn--medium"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="m11.71 5.026-4.843.537a5.47 5.47 0 0 0-.002 10.873L7 16.45V21l1 1h4a1 1 0 0 0 1-1v-3.382l4.555 2.279L19 19.002V2.998l-1.447-.894-5.843 2.922ZM11 16.895V20H9v-3.328l2 .223Zm6.002.489L13 15.382V6.617l4.002-2v12.767ZM11 14.882l-3.912-.434a3.47 3.47 0 0 1 0-6.897L11 7.117v7.765ZM21 13h1l1-1v-2l-1-1h-1v4Z" clip-rule="evenodd"/></svg> Announce</button>
-                  <button class="mds-btn mds-btn--tertiary mds-btn--medium"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M13.154 6.004A3 3 0 0 1 16 9v10a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V9a3 3 0 0 1 3-3h8l.154.004ZM5 8a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 0 0-.898-.995L13 8H5Zm14.154-5.996A3 3 0 0 1 22 5v10a3 3 0 0 1-3 3h-1v-2h1a1 1 0 0 0 1-1V5a1 1 0 0 0-.898-.995L19 4h-8a1 1 0 0 0-1 1H8a3 3 0 0 1 3-3h8l.154.004Z" clip-rule="evenodd"/></svg> Copy</button>
+                  <button class="mds-btn mds-btn--secondary mds-btn--medium"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M13.154 6.004A3 3 0 0 1 16 9v10a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V9a3 3 0 0 1 3-3h8l.154.004ZM5 8a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 0 0-.898-.995L13 8H5Zm14.154-5.996A3 3 0 0 1 22 5v10a3 3 0 0 1-3 3h-1v-2h1a1 1 0 0 0 1-1V5a1 1 0 0 0-.898-.995L19 4h-8a1 1 0 0 0-1 1H8a3 3 0 0 1 3-3h8l.154.004Z" clip-rule="evenodd"/></svg> Copy</button>
                 </div>
               </div>
             </div>
@@ -2686,7 +2702,7 @@
               <div class="addon-card-title">Miro Prototypes</div>
             </div>
             <div class="addon-card-desc">Empower teams to bring ideas to life faster. Miro's AI-powered prototyping add-on allows users to create interactive, clickable prototypes from screenshots, diagrams, or docs in just a few minutes.</div>
-            <button class="mds-btn mds-btn--tertiary mds-btn--medium" style="align-self: flex-start;">
+            <button class="mds-btn mds-btn--secondary mds-btn--medium" style="align-self: flex-start;">
               Learn more
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M10 7H5a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-5h2v5a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h5v2Zm11.992-3.876-1 8-1.984-.248.637-5.108-7.938 7.939-1.414-1.414 7.94-7.94-5.109.64-.248-1.985 8-1 1.116 1.116Z"/></svg>
             </button>

@@ -271,7 +271,7 @@ function navigateTo(route) {
   var miroaiRoutes = ['miroai-capabilities', 'miroai-cap-entguard', 'miroai-cap-noaddons', 'miroai-cap-none', 'miroai-datausage', 'miroai-moderation'];
   var polRoutes = ['pol-onboard', 'pol-list'];
   var activeRoute = route === 'aiworkflow' ? 'products' : (miroaiRoutes.indexOf(route) !== -1 ? 'miroai-capabilities' : (polRoutes.indexOf(route) !== -1 ? 'pol-onboard' : route));
-  var navLink = document.querySelector('.sidebar-nav > a[data-route="' + activeRoute + '"]');
+  var navLink = document.querySelector('.sidebar-nav a[data-route="' + activeRoute + '"]:not(.subnav-item)');
   if (navLink && !navLink.classList.contains('has-subnav')) navLink.classList.add('active');
 
   var subnavItem = document.querySelector('.subnav-item[data-route="' + route + '"]');
@@ -410,7 +410,7 @@ document.querySelectorAll('.subnav-item[data-route]').forEach(function(a) {
 });
 
 // Sidebar nav clicks
-document.querySelectorAll('.sidebar-nav > a[data-route]:not(.has-subnav)').forEach(function(a) {
+document.querySelectorAll('.sidebar-nav a[data-route]:not(.has-subnav):not(.subnav-item)').forEach(function(a) {
   a.addEventListener('click', function(e) {
     e.preventDefault();
     navigateTo(this.getAttribute('data-route'));
@@ -2127,12 +2127,12 @@ document.querySelectorAll('.settings-radio-row').forEach(function(row) {
         {
           ai: [
             "I've analyzed your organization's license usage. Here's what I found:",
-            { type: 'data-card', title: 'License Analysis', rows: [
+            { type: 'data-card', title: 'License Analysis', subtitle: 'Estimated impact based on current license usage', rows: [
               { label: 'Total licenses', value: '340', cls: '' },
               { label: 'Active (last 30 days)', value: '293', cls: 'ok' },
               { label: 'Inactive 60+ days', value: '28', cls: 'warn' },
               { label: 'Inactive 90+ days', value: '19', cls: 'danger' },
-              { label: 'Est. annual savings', value: '$14,100', cls: 'ok' }
+              { label: 'Est. annual savings', value: '$14,100', cls: 'ok', total: true }
             ]},
             "I recommend recycling <strong>47 unused licenses</strong> (inactive 60+ days). Shall we proceed with the default scope, or would you like to customize?"
           ],
@@ -2220,11 +2220,11 @@ document.querySelectorAll('.settings-radio-row').forEach(function(row) {
         {
           ai: [
             "I've identified inactive users in your organization who need attention:",
-            { type: 'data-card', title: 'Inactive User Segments', rows: [
+            { type: 'data-card', title: 'Inactive User Segments', subtitle: 'Estimated impact based on current org activity', rows: [
               { label: 'Invited 90+ days ago, never logged in', value: '68 users', cls: 'danger' },
               { label: 'Logged in once, inactive 60+ days', value: '34 users', cls: 'warn' },
               { label: 'Recently invited, within 30-day window', value: '25 users', cls: '' },
-              { label: 'Total affected', value: '127 users', cls: '' }
+              { label: 'Total affected', value: '127 users', cls: '', total: true }
             ]},
             "Which user segments should be included in this reactivation campaign?"
           ],
@@ -2309,12 +2309,12 @@ document.querySelectorAll('.settings-radio-row').forEach(function(row) {
         {
           ai: [
             "I've scanned your organization's spaces and found consolidation opportunities:",
-            { type: 'data-card', title: 'Space Analysis', rows: [
+            { type: 'data-card', title: 'Space Analysis', subtitle: 'Estimated impact based on current space activity', rows: [
               { label: 'Total spaces', value: '42', cls: '' },
               { label: 'Active spaces (updated last 30d)', value: '34', cls: 'ok' },
               { label: 'Empty spaces (0 boards)', value: '3', cls: 'warn' },
               { label: 'Stale spaces (no activity 90+ days)', value: '5', cls: 'danger' },
-              { label: 'Duplicate/overlapping spaces', value: '2 pairs', cls: 'warn' }
+              { label: 'Duplicate/overlapping spaces', value: '2 pairs', cls: 'warn', total: true }
             ]},
             "What should we do with inactive spaces?"
           ],
@@ -2385,12 +2385,12 @@ document.querySelectorAll('.settings-radio-row').forEach(function(row) {
         {
           ai: [
             "I've analyzed feature usage patterns across your teams:",
-            { type: 'data-card', title: 'Add-on Usage Insights', rows: [
+            { type: 'data-card', title: 'Add-on Usage Insights', subtitle: 'Estimated impact based on current add-on activity', rows: [
               { label: 'Teams using diagramming heavily', value: '3 teams', cls: 'ok' },
               { label: 'Avg. diagramming sessions/week', value: '47', cls: '' },
               { label: 'Teams that would benefit from prototyping', value: '2 teams', cls: '' },
               { label: 'Est. productivity gain', value: '+30%', cls: 'ok' },
-              { label: 'Monthly add-on cost', value: '$450/mo', cls: 'warn' }
+              { label: 'Monthly add-on cost', value: '$450/mo', cls: 'warn', total: true }
             ]},
             "Would you like to proceed with the add-on recommendation for these teams?"
           ],
@@ -2460,12 +2460,12 @@ document.querySelectorAll('.settings-radio-row').forEach(function(row) {
         {
           ai: [
             "I've audited sharing permissions across your organization:",
-            { type: 'data-card', title: 'Access Audit Results', rows: [
+            { type: 'data-card', title: 'Access Audit Results', subtitle: 'Estimated impact based on current access patterns', rows: [
               { label: 'External guests with board access', value: '23', cls: '' },
               { label: 'Guests with access expiring in 7 days', value: '15', cls: 'danger' },
               { label: 'Boards shared publicly', value: '4', cls: 'warn' },
               { label: 'Orphaned sharing links', value: '12', cls: 'warn' },
-              { label: 'Teams with external guest access', value: '6', cls: '' }
+              { label: 'Teams with external guest access', value: '6', cls: '', total: true }
             ]},
             "How would you like to handle expiring guest access?"
           ],
@@ -2535,12 +2535,12 @@ document.querySelectorAll('.settings-radio-row').forEach(function(row) {
         {
           ai: [
             "I've scanned your organization's content sharing and security settings:",
-            { type: 'data-card', title: 'Compliance Scan Results', rows: [
+            { type: 'data-card', title: 'Compliance Scan Results', subtitle: 'Estimated impact based on current compliance posture', rows: [
               { label: 'Teams audited', value: '18', cls: '' },
               { label: 'Non-compliant teams', value: '4', cls: 'danger' },
               { label: 'Public boards with sensitive content', value: '2', cls: 'danger' },
               { label: 'Missing data classification labels', value: '31 boards', cls: 'warn' },
-              { label: 'Overall compliance score', value: '72%', cls: 'warn' }
+              { label: 'Overall compliance score', value: '72%', cls: 'warn', total: true }
             ]},
             "How would you like to handle non-compliant teams?"
           ],
@@ -2659,17 +2659,30 @@ document.querySelectorAll('.settings-radio-row').forEach(function(row) {
     messagesEl.appendChild(s);
   }
 
-  function renderDataCard(card) {
+  function renderInfoTable(opts) {
     var el = document.createElement('div');
-    el.className = 'pol-chat-data-card';
-    var title = '<div class="pol-chat-data-card-title"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>' + card.title + '</div>';
-    var rows = '';
-    card.rows.forEach(function(r) {
-      var cls = r.cls ? ' pol-chat-data-val--' + r.cls : '';
-      rows += '<div class="pol-chat-data-row"><span>' + r.label + '</span><span class="pol-chat-data-val' + cls + '">' + r.value + '</span></div>';
+    el.className = 'mds-info-table' + (opts.accent ? ' mds-info-table--accent' : '');
+    var iconSvg = opts.icon || '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Zm-9-1v6h-2v-4H9.5v-2H13Zm.5-2.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/></svg>';
+    var html = '<div class="mds-info-table__header">' + iconSvg + opts.title + '</div>';
+    if (opts.subtitle) {
+      html += '<div class="mds-info-table__subtitle">' + opts.subtitle + '</div>';
+    }
+    opts.rows.forEach(function(r) {
+      var valCls = r.cls ? ' mds-info-table__value--' + r.cls : '';
+      var rowCls = r.total ? ' mds-info-table__row--total' : '';
+      html += '<div class="mds-info-table__row' + rowCls + '"><span class="mds-info-table__label">' + r.label + '</span><span class="mds-info-table__value' + valCls + '">' + r.value + '</span></div>';
     });
-    el.innerHTML = title + rows;
+    el.innerHTML = html;
     return el;
+  }
+
+  function renderDataCard(card) {
+    return renderInfoTable({
+      title: card.title,
+      subtitle: card.subtitle,
+      rows: card.rows,
+      accent: false
+    });
   }
 
   function renderForm(form) {
@@ -2681,7 +2694,7 @@ document.querySelectorAll('.settings-radio-row').forEach(function(row) {
         row.className = 'pol-chat-switch-row';
         row.innerHTML = '<span class="pol-chat-switch-label">' + f.label + '</span>';
         var sw = document.createElement('div');
-        sw.className = 'mds-switch' + (f.defaultOn ? ' checked' : '');
+        sw.className = 'mds-switch mds-switch--large' + (f.defaultOn ? ' checked' : '');
         sw.setAttribute('data-chat-field', f.id);
         sw.setAttribute('role', 'switch');
         sw.setAttribute('aria-checked', f.defaultOn ? 'true' : 'false');
@@ -2739,25 +2752,28 @@ document.querySelectorAll('.settings-radio-row').forEach(function(row) {
   function renderSummary() {
     var flow = policyFlows[currentPolicy];
     if (!flow) return document.createElement('div');
-    var el = document.createElement('div');
-    el.className = 'pol-chat-summary';
-    var title = '<div class="pol-chat-summary-title"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M10.586 13 7.293 9.707l1.414-1.414L12 11.586l6.293-6.293 1.414 1.414-7 7h-2.12ZM4 17h16v2H4v-2Z"/></svg>' + flow.title + '</div>';
-    var rows = '';
+
     var scopeChip = '';
     var flow0 = flow.steps[0];
     if (flow0 && flow0.chips) {
       flow0.chips.forEach(function(c) { if (c.value === collectedData.scope) scopeChip = c.label; });
     }
-    rows += '<div class="pol-chat-summary-row"><span>Scope</span><span class="pol-chat-summary-val">' + (scopeChip || collectedData.scope || 'Default') + '</span></div>';
     var cadenceVal = collectedData.schedule_cadence || 'quarterly';
     var cadenceMap = { once: 'One-time only', monthly: 'Every month', quarterly: 'Every 3 months', biannual: 'Every 6 months', annual: 'Every 12 months' };
-    rows += '<div class="pol-chat-summary-row"><span>Recurrence</span><span class="pol-chat-summary-val">' + (cadenceMap[cadenceVal] || cadenceVal) + '</span></div>';
-    rows += '<div class="pol-chat-summary-row"><span>Approval required</span><span class="pol-chat-summary-val">' + (collectedData.schedule_requireApproval !== false ? 'Yes' : 'No') + '</span></div>';
     var configCount = 0;
     Object.keys(collectedData).forEach(function(k) { if (k.indexOf('config_') === 0 && collectedData[k] === true) configCount++; });
-    rows += '<div class="pol-chat-summary-row"><span>Active settings</span><span class="pol-chat-summary-val">' + configCount + ' enabled</span></div>';
-    el.innerHTML = title + rows;
-    return el;
+
+    return renderInfoTable({
+      title: flow.title,
+      accent: true,
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M10.586 13 7.293 9.707l1.414-1.414L12 11.586l6.293-6.293 1.414 1.414-7 7h-2.12ZM4 17h16v2H4v-2Z"/></svg>',
+      rows: [
+        { label: 'Scope', value: scopeChip || collectedData.scope || 'Default' },
+        { label: 'Recurrence', value: cadenceMap[cadenceVal] || cadenceVal },
+        { label: 'Approval required', value: collectedData.schedule_requireApproval !== false ? 'Yes' : 'No' },
+        { label: 'Active settings', value: configCount + ' enabled' }
+      ]
+    });
   }
 
   function collectFormData(stepField) {
