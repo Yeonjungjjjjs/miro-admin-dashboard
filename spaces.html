@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spaces — Miro Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- ===== HEADER ===== -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="mds-icon-btn" id="hamburger-btn" aria-label="Toggle sidebar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 18v2H4v-2h16Zm0-7v2H4v-2h16Zm0-7v2H4V4h16Z"/></svg>
+      </button>
+      <img src="images/Logotype.svg" alt="Miro" class="topbar-logo">
+    </div>
+    <div class="topbar-right">
+      <button class="mds-icon-btn" aria-label="Help">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M11 16h2v2h-2v-2Zm3-6a2 2 0 1 0-4 0H8a4 4 0 1 1 5 3.874v1.122h-2V13l1-1a2 2 0 0 0 2-2Zm6 2a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Z"/></svg>
+      </button>
+      <button class="mds-icon-btn" aria-label="Feedback">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 0-14.816 4.19l.103.82-.764 2.458 2.431-.77.83.103A7.976 7.976 0 0 0 12 20a8 8 0 0 0 8-8Zm2 0c0 5.523-4.477 10-10 10a9.973 9.973 0 0 1-4.864-1.263l-3.833 1.216-1.258-1.25 1.201-3.867A9.958 9.958 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10ZM7.95 8h2v2h-2V8Zm6 0h2v2h-2V8Zm2.949 5a5 5 0 0 1-9.797 0H9.17a2.998 2.998 0 0 0 5.655 0H16.9Z"/></svg>
+      </button>
+      <div class="topbar-avatar">
+        <img src="https://i.pravatar.cc/60?u=tyler" alt="Tyler">
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-org-container">
+      <div class="sidebar-org">
+        <div class="sidebar-org-icon">A</div>
+        <div class="sidebar-org-info">
+          <div class="sidebar-org-name">Acme</div>
+          <div class="sidebar-org-tag">Company admin</div>
+        </div>
+        <div class="sidebar-org-chevron">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-nav-container">
+      <nav class="sidebar-nav">
+        <!-- Home -->
+        <a href="index.html">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m12.53 2.152 8 5L21 8v13l-1 1h-5.5l-1-1v-4h-3v4l-1 1H4l-1-1V8l.47-.848 8-5h1.06ZM5 8.554V20h3.5v-4l1-1h5l1 1v4H19V8.554l-7-4.375-7 4.375Z"/></svg></span>
+          <span class="nav-label">Home</span>
+        </a>
+        <!-- Teams -->
+        <a href="teams.html">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M11 7c0-1.153-.847-2-2-2s-2 .847-2 2 .847 2 2 2 2-.847 2-2Zm2 0c0 2.258-1.742 4-4 4S5 9.258 5 7s1.742-4 4-4 4 1.742 4 4Zm-4 5a6.37 6.37 0 0 1 6.354 5.916l.143 2.013-1.994.142-.145-2.012a4.37 4.37 0 0 0-8.716 0l-.145 2.012-1.994-.142.143-2.013A6.37 6.37 0 0 1 9 12Zm9-2a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-3 4a4.315 4.315 0 0 1 4.294 3.886l.201 2.014-1.99.2-.201-2.015A2.315 2.315 0 0 0 17 16v-2Z"/></svg></span>
+          <span class="nav-label">Teams</span>
+        </a>
+        <!-- Users -->
+        <a href="allusers.html" class="has-subnav" data-subnav="users-subnav">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M9.45 7.5a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0Zm-2 0a4.5 4.5 0 1 0 9 0 4.5 4.5 0 0 0-9 0Zm4.5 5.5a7.077 7.077 0 0 0-7.042 6.373L4.755 20.9l1.99.2.153-1.528A5.077 5.077 0 0 1 11.95 15v-2Zm9.843 1.61-5 6.5-1.552.04-3-3.5 1.518-1.3 2.198 2.564 4.25-5.523 1.586 1.218Z"/></svg></span>
+          <span class="nav-label">Users</span>
+          <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></span>
+        </a>
+        <div class="sidebar-subnav" id="users-subnav">
+          <a href="allusers.html" class="subnav-item">All users</a>
+          <a href="#" class="subnav-item">User groups</a>
+          <a href="#" class="subnav-item">Access requests</a>
+          <a href="#" class="subnav-item">Admin roles</a>
+        </div>
+        <!-- Insights -->
+        <a href="#">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 5v12h-2V5h2Zm-4 12a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v12Zm-3-8v8h-2V9h2Zm-4 8a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v8Zm-3-4v4H4v-4h2Zm-4 4a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v4Zm20 3v2H2v-2h20Z"/></svg></span>
+          <span class="nav-label">Insights</span>
+        </a>
+        <!-- Security -->
+        <a href="#">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M4.5 17a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm5 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm5 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm5 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM7 4a5.001 5.001 0 0 1 4.9 4H21l1 1v5h-2v-4h-2v4h-2v-4h-4.1A5.001 5.001 0 1 1 7 4Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" clip-rule="evenodd"/></svg></span>
+          <span class="nav-label">Security</span>
+          <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></span>
+        </a>
+        <!-- Miro AI -->
+        <a href="miroai-capabilities.html" class="has-subnav" data-subnav="miroai-subnav">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M5.5 16A2.5 2.5 0 0 0 8 18.5v1A2.5 2.5 0 0 0 5.5 22h-1A2.5 2.5 0 0 0 2 19.5v-1A2.5 2.5 0 0 0 4.5 16h1Zm5.178-10.793c.325-1.368 2.319-1.37 2.644 0l.027.142.042.255a6.26 6.26 0 0 0 5.26 5.046c1.553.224 1.561 2.473 0 2.699a6.26 6.26 0 0 0-5.302 5.301c-.225 1.563-2.475 1.554-2.699 0a6.26 6.26 0 0 0-5.3-5.3c-1.56-.225-1.557-2.474 0-2.699l.255-.042a6.26 6.26 0 0 0 5.046-5.26l.028-.141ZM19.5 2A2.5 2.5 0 0 0 22 4.5v1A2.5 2.5 0 0 0 19.5 8h-1A2.5 2.5 0 0 0 16 5.5v-1A2.5 2.5 0 0 0 18.5 2h1Z"/></svg></span>
+          <span class="nav-label">Miro AI</span>
+          <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></span>
+        </a>
+        <div class="sidebar-subnav" id="miroai-subnav">
+          <a href="miroai-capabilities.html" class="subnav-item">Capabilities</a>
+          <a href="miroai-datausage.html" class="subnav-item">Data usage</a>
+          <a href="miroai-moderation.html" class="subnav-item">Moderation</a>
+        </div>
+        <!-- Products -->
+        <a href="products.html">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m10 2 1 1v7l-1 1H3l-1-1V3l1-1h7ZM4 9h5V4H4v5Zm15 5v3h3v2h-3v3h-2v-3h-3v-2h3v-3h2ZM9 17.75a2.75 2.75 0 1 0-5.5 0 2.75 2.75 0 0 0 5.5 0Zm2 0a4.75 4.75 0 1 1-9.5 0 4.75 4.75 0 0 1 9.5 0Zm7.888-15.71 3.9 7.5L21.9 11H14l-.883-1.47 4-7.5 1.77.01ZM15.667 9h4.586l-2.265-4.354L15.667 9Z"/></svg></span>
+          <span class="nav-label">Products</span>
+        </a>
+        <!-- Spaces -->
+        <a href="spaces.html" class="active">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h8v8H3V3Zm2 2v4h4V5H5Zm8-2h8v8h-8V3Zm2 2v4h4V5h-4ZM3 13h8v8H3v-8Zm2 2v4h4v-4H5Zm8-2h8v8h-8v-8Zm2 2v4h4v-4h-4Z"/></svg></span>
+          <span class="nav-label">Spaces</span>
+        </a>
+        <!-- Apps and integrations -->
+        <a href="#">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m16.79 3-2.83 2.828 4.243 4.243 2.828-2.829 1.414 1.415-2.828 2.828 1.222 1.222v1.414l-3.535 3.536c-2.31 2.31-6.1 2.153-8.427.048l-.22-.209-.368-.368-5.347 4.932-1.355-1.471 5.287-4.876-1.046-1.046a6 6 0 0 1 0-8.485l3.536-3.536h1.414l1.768 1.768 2.828-2.828L16.789 3ZM7.241 7.596a4 4 0 0 0 0 5.657l2.83 2.828.153.146c1.617 1.461 4.19 1.49 5.664.015l2.828-2.829-8.647-8.646-2.828 2.829Z"/></svg></span>
+          <span class="nav-label">Apps and integrations</span>
+          <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></span>
+        </a>
+        <!-- Billing -->
+        <a href="#">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M15 11a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm2-7a3 3 0 0 1 3 3v1h1l1 1v6l-1 1h-1v1a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h12ZM5 6a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1h-6l-1-1V9l1-1h6V7a1 1 0 0 0-1-1H5Zm8 8h7v-4h-7v4Z" clip-rule="evenodd"/></svg></span>
+          <span class="nav-label">Billing</span>
+          <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></span>
+        </a>
+        <!-- Organization -->
+        <a href="#">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M9 18H7v-2h2v2Zm4 0h-2v-2h2v2Zm-4-4H7v-2h2v2Zm4 0h-2v-2h2v2Zm-4-4H7V8h2v2Zm4 0h-2V8h2v2Zm4-7v6h3l1 1v11l-1 1H4l-1-1V5.5l.796-.979 12-2.5L17 3Zm0 17h2v-9h-2v9ZM5 6.312V20h10V4.229L5 6.312Z" clip-rule="evenodd"/></svg></span>
+          <span class="nav-label">Organization</span>
+          <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></span>
+        </a>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN WRAPPER ===== -->
+  <div class="main-wrapper">
+    <div id="page-spaces" class="page-section active">
+      <section class="main-content">
+        <h1 class="page-title">Spaces</h1>
+        <div class="upsell-callout" id="upsell-callout" style="display:none;">
+          <div class="upsell-callout-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M5.5 16A2.5 2.5 0 0 0 8 18.5v1A2.5 2.5 0 0 0 5.5 22h-1A2.5 2.5 0 0 0 2 19.5v-1A2.5 2.5 0 0 0 4.5 16h1Zm5.178-10.793c.325-1.368 2.319-1.37 2.644 0l.027.142.042.255a6.26 6.26 0 0 0 5.26 5.046c1.553.224 1.561 2.473 0 2.699a6.26 6.26 0 0 0-5.302 5.301c-.225 1.563-2.475 1.554-2.699 0a6.26 6.26 0 0 0-5.3-5.3c-1.56-.225-1.557-2.474 0-2.699l.255-.042a6.26 6.26 0 0 0 5.046-5.26l.028-.141ZM19.5 2A2.5 2.5 0 0 0 22 4.5v1A2.5 2.5 0 0 0 19.5 8h-1A2.5 2.5 0 0 0 16 5.5v-1A2.5 2.5 0 0 0 18.5 2h1Z"/></svg>
+          </div>
+          <div class="upsell-callout-body">
+            <div class="upsell-callout-text" id="upsell-callout-text"></div>
+            <div class="upsell-callout-spaces" id="upsell-callout-spaces"></div>
+          </div>
+          <button class="upsell-dismiss-btn" id="upsell-callout-dismiss" title="Dismiss">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M19.707 5.707 13.414 12l6.293 6.293-1.414 1.414L12 13.414l-6.293 6.293-1.414-1.414L10.586 12 4.293 5.707l1.414-1.414L12 10.586l6.293-6.293 1.414 1.414Z"/></svg>
+          </button>
+        </div>
+        <div class="products-card">
+          <table class="products-table spaces-table" id="spaces-table">
+            <thead>
+              <tr>
+                <th>
+                  <div class="th-content">
+                    <span>Space name</span>
+                    <svg class="th-sort" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m12.64 2.231 6 5-1.28 1.538L13 5.135V21h-2V5.135L6.64 8.769 5.36 7.23l6-5h1.28Z"/></svg>
+                  </div>
+                </th>
+                <th>
+                  <div class="th-content">
+                    <span>Type</span>
+                  </div>
+                </th>
+                <th>
+                  <div class="th-content">
+                    <span>Owner</span>
+                  </div>
+                </th>
+                <th>
+                  <div class="th-content">
+                    <span>Access</span>
+                    <svg class="th-help" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M11 16h2v2h-2v-2Zm3-6a2 2 0 1 0-4 0H8a4 4 0 1 1 5 3.874v1.122h-2V13l1-1a2 2 0 0 0 2-2Zm6 2a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Z"/></svg>
+                  </div>
+                </th>
+                <th>
+                  <div class="th-content">
+                    <span>Content</span>
+                    <svg class="th-help" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M11 16h2v2h-2v-2Zm3-6a2 2 0 1 0-4 0H8a4 4 0 1 1 5 3.874v1.122h-2V13l1-1a2 2 0 0 0 2-2Zm6 2a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Z"/></svg>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="spaces-table-body">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ===== SPACE DETAIL SIDE PANEL ===== -->
+  <div class="side-panel-overlay" id="space-detail-panel">
+    <div class="side-panel">
+      <div class="side-panel-header space-panel-header">
+        <div class="space-panel-header-left">
+          <div class="space-panel-icon" id="space-panel-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h8v8H3V3Zm2 2v4h4V5H5Zm8-2h8v8h-8V3Zm2 2v4h4V5h-4ZM3 13h8v8H3v-8Zm2 2v4h4v-4H5Zm8-2h8v8h-8v-8Zm2 2v4h4v-4h-4Z"/></svg>
+          </div>
+          <div class="space-panel-header-info">
+            <div class="space-panel-title-row">
+              <span class="side-panel-title" id="space-panel-name"></span>
+              <span class="mds-tag" id="space-panel-type-tag"></span>
+            </div>
+            <div class="space-panel-owner-row" id="space-panel-owner-row">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </div>
+        <div class="space-panel-header-right">
+          <div class="space-manage-wrapper">
+            <button class="mds-icon-btn space-manage-dots-btn" id="space-manage-btn" aria-label="Manage space">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg>
+            </button>
+            <div class="space-user-actions-menu space-manage-dropdown" id="space-manage-dropdown">
+              <div class="space-user-action-item" data-action="edit-space">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M16.293 2.293 17.707.879l4.414 4.414-1.414 1.414L19 5l-2.293 2.293.707.707-1.414 1.414-.707-.707L6 17.999l-1 1v-4.585l9.293-9.293-.707-.707 1.414-1.414.707.707L18 1.414l-1.707.879ZM7 15.828v1.172h1.172l8.414-8.414-1.172-1.172L7 15.828ZM4 21h16v2H4v-2Z"/></svg>
+                Edit space details
+              </div>
+              <div class="space-user-action-item" data-action="change-owner">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M11 7c0-1.153-.847-2-2-2s-2 .847-2 2 .847 2 2 2 2-.847 2-2Zm2 0c0 2.258-1.742 4-4 4S5 9.258 5 7s1.742-4 4-4 4 1.742 4 4Zm-4 5a6.37 6.37 0 0 1 6.354 5.916l.143 2.013-1.994.142-.145-2.012a4.37 4.37 0 0 0-8.716 0l-.145 2.012-1.994-.142.143-2.013A6.37 6.37 0 0 1 9 12Zm9-2a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-3 4a4.315 4.315 0 0 1 4.294 3.886l.201 2.014-1.99.2-.201-2.015A2.315 2.315 0 0 0 17 16v-2Z"/></svg>
+                Change owner
+              </div>
+              <div class="space-user-action-item" data-action="archive-space">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h18l1 1v4l-1 1h-1v11l-1 1H5l-1-1V9H3L2 8V4l1-1Zm1 5v10h14V8H4Zm16-2V5H4v1h16Zm-10 4h4v2h-4v-2Z"/></svg>
+                Archive space
+              </div>
+              <div class="space-user-action-item space-user-action-danger" data-action="delete-space">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M16 2v2H8V2h8ZM3 6h18v2h-2v13l-1 1H6l-1-1V8H3V6Zm4 2v11h10V8H7Zm3 2h2v7h-2v-7Zm4 0h2v7h-2v-7Z"/></svg>
+                Delete space
+              </div>
+            </div>
+          </div>
+          <button class="side-panel-close" id="space-panel-close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M19.707 5.707 13.414 12l6.293 6.293-1.414 1.414L12 13.414l-6.293 6.293-1.414-1.414L10.586 12 4.293 5.707l1.414-1.414L12 10.586l6.293-6.293 1.414 1.414Z"/></svg>
+          </button>
+        </div>
+      </div>
+      <!-- Tabs -->
+      <div class="space-panel-tabs">
+        <button class="space-panel-tab active" data-space-tab="access" id="space-tab-access">Access (0)</button>
+        <button class="space-panel-tab" data-space-tab="content" id="space-tab-content">Content (0)</button>
+      </div>
+      <!-- Upsell Banner -->
+      <div id="space-upsell-banner" style="display:none; flex-shrink:0;"></div>
+      <!-- Access Tab -->
+      <div class="side-panel-body space-tab-panel active" id="space-panel-access">
+        <div class="space-panel-toolbar">
+          <div class="space-panel-toolbar-left">
+            <input type="text" class="aiw-search" id="space-access-search" placeholder="Search by name...">
+            <div class="mds-select-wrapper">
+              <button class="mds-select-trigger" id="space-access-type-trigger" data-placeholder="Filter by type" data-value="">
+                <span class="mds-select-label">Filter by type</span>
+                <svg class="mds-select-chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg>
+              </button>
+              <div class="mds-select-dropdown" id="space-access-type-dropdown">
+                <div class="mds-select-option" data-value="">All</div>
+                <div class="mds-select-option" data-value="User">User</div>
+                <div class="mds-select-option" data-value="Team">Team</div>
+                <div class="mds-select-option" data-value="User group">User group</div>
+              </div>
+            </div>
+          </div>
+          <button class="mds-btn mds-btn--primary mds-btn--medium" id="space-add-users-btn">Add users</button>
+        </div>
+        <table class="side-panel-table space-access-table" id="space-access-table">
+          <thead>
+            <tr>
+              <th><span class="th-label">Name</span></th>
+              <th><span class="th-label">Type</span></th>
+              <th><span class="th-label">Role</span></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="space-access-tbody">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+      <!-- Content Tab -->
+      <div class="side-panel-body space-tab-panel" id="space-panel-content">
+        <div class="space-panel-toolbar">
+          <div class="space-panel-toolbar-left">
+            <input type="text" class="aiw-search" id="space-content-search" placeholder="Search content...">
+            <div class="mds-select-wrapper">
+              <button class="mds-select-trigger" id="space-content-type-trigger" data-placeholder="Filter by type" data-value="">
+                <span class="mds-select-label">Filter by type</span>
+                <svg class="mds-select-chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg>
+              </button>
+              <div class="mds-select-dropdown" id="space-content-type-dropdown">
+                <div class="mds-select-option" data-value="">All</div>
+                <div class="mds-select-option" data-value="Board">Board</div>
+                <div class="mds-select-option" data-value="Diagram">Diagram</div>
+                <div class="mds-select-option" data-value="Prototype">Prototype</div>
+                <div class="mds-select-option" data-value="Doc">Doc</div>
+                <div class="mds-select-option" data-value="Data Table">Data Table</div>
+              </div>
+            </div>
+          </div>
+          <button class="mds-btn mds-btn--secondary mds-btn--medium" id="space-manage-content-btn">Manage content</button>
+        </div>
+        <table class="side-panel-table space-content-table" id="space-content-table">
+          <thead>
+            <tr>
+              <th><span class="th-label">Name</span></th>
+              <th><span class="th-label">Type</span></th>
+              <th><span class="th-label">Owner</span></th>
+              <th><span class="th-label">Section</span></th>
+              <th><span class="th-label">Classification</span></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="space-content-tbody">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ADD USERS MODAL ===== -->
+  <div class="assign-modal-overlay" id="space-add-users-overlay">
+    <div class="assign-modal space-add-modal">
+      <div class="assign-modal-header">
+        <h2 id="space-add-users-title">Add users to space</h2>
+        <button class="assign-modal-close" id="space-add-users-close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M19.707 5.707 13.414 12l6.293 6.293-1.414 1.414L12 13.414l-6.293 6.293-1.414-1.414L10.586 12 4.293 5.707l1.414-1.414L12 10.586l6.293-6.293 1.414 1.414Z"/></svg>
+        </button>
+      </div>
+      <div class="assign-modal-body">
+        <div class="space-modal-filters">
+          <input type="text" class="aiw-search" id="space-add-users-search" placeholder="Search users by name or email">
+          <div class="mds-select-wrapper">
+            <button class="mds-select-trigger" id="space-add-role-trigger" data-placeholder="Role" data-value="Editor">
+              <span class="mds-select-label">Editor</span>
+              <svg class="mds-select-chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg>
+            </button>
+            <div class="mds-select-dropdown" id="space-add-role-dropdown">
+              <div class="mds-select-option selected" data-value="Editor">Editor</div>
+              <div class="mds-select-option" data-value="Viewer">Viewer</div>
+              <div class="mds-select-option" data-value="Commenter">Commenter</div>
+            </div>
+          </div>
+        </div>
+        <table class="side-panel-table" id="space-add-users-table">
+          <thead>
+            <tr>
+              <th style="width:38px;padding-left:2px;padding-right:12px;"><input type="checkbox" id="space-add-select-all" class="mds-checkbox"></th>
+              <th><span class="th-label">Name</span></th>
+              <th><span class="th-label">Email</span></th>
+              <th><span class="th-label">License</span></th>
+            </tr>
+          </thead>
+          <tbody id="space-add-users-tbody">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+      <div class="assign-modal-footer">
+        <button class="mds-btn mds-btn--primary mds-btn--large" id="space-add-users-submit" disabled>Add to space</button>
+        <button class="mds-btn mds-btn--ghost mds-btn--large" id="space-add-users-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MANAGE CONTENT MODAL ===== -->
+  <div class="assign-modal-overlay" id="space-manage-content-overlay">
+    <div class="assign-modal space-add-modal">
+      <div class="assign-modal-header">
+        <h2 id="space-manage-content-title">Add content to space</h2>
+        <button class="assign-modal-close" id="space-manage-content-close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M19.707 5.707 13.414 12l6.293 6.293-1.414 1.414L12 13.414l-6.293 6.293-1.414-1.414L10.586 12 4.293 5.707l1.414-1.414L12 10.586l6.293-6.293 1.414 1.414Z"/></svg>
+        </button>
+      </div>
+      <div class="assign-modal-body">
+        <div class="space-modal-filters">
+          <input type="text" class="aiw-search" id="space-manage-content-search" placeholder="Search content by name">
+          <div class="mds-select-wrapper">
+            <button class="mds-select-trigger" id="space-manage-content-type-trigger" data-placeholder="Filter by type" data-value="">
+              <span class="mds-select-label">Filter by type</span>
+              <svg class="mds-select-chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg>
+            </button>
+            <div class="mds-select-dropdown" id="space-manage-content-type-dropdown">
+              <div class="mds-select-option" data-value="">All</div>
+              <div class="mds-select-option" data-value="Board">Board</div>
+              <div class="mds-select-option" data-value="Diagram">Diagram</div>
+              <div class="mds-select-option" data-value="Prototype">Prototype</div>
+              <div class="mds-select-option" data-value="Doc">Doc</div>
+              <div class="mds-select-option" data-value="Data Table">Data Table</div>
+            </div>
+          </div>
+        </div>
+        <table class="side-panel-table" id="space-manage-content-table">
+          <thead>
+            <tr>
+              <th style="width:38px;padding-left:2px;padding-right:12px;"><input type="checkbox" id="space-content-select-all" class="mds-checkbox"></th>
+              <th><span class="th-label">Name</span></th>
+              <th><span class="th-label">Type</span></th>
+              <th><span class="th-label">Owner</span></th>
+              <th><span class="th-label">Classification</span></th>
+            </tr>
+          </thead>
+          <tbody id="space-manage-content-tbody">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+      <div class="assign-modal-footer">
+        <button class="mds-btn mds-btn--primary mds-btn--large" id="space-manage-content-submit" disabled>Add to space</button>
+        <button class="mds-btn mds-btn--ghost mds-btn--large" id="space-manage-content-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TRANSFER OWNERSHIP MODAL ===== -->
+  <div class="assign-modal-overlay" id="transfer-owner-overlay">
+    <div class="assign-modal" style="width:480px;">
+      <div class="assign-modal-header">
+        <h2>Transfer ownership</h2>
+        <button class="assign-modal-close" id="transfer-owner-close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M19.707 5.707 13.414 12l6.293 6.293-1.414 1.414L12 13.414l-6.293 6.293-1.414-1.414L10.586 12 4.293 5.707l1.414-1.414L12 10.586l6.293-6.293 1.414 1.414Z"/></svg>
+        </button>
+      </div>
+      <div class="assign-modal-body">
+        <p class="assign-modal-desc">Select a user to become the new owner of this space.</p>
+        <input type="text" class="aiw-search" id="transfer-owner-search" placeholder="Search users..." style="width:100%;margin-bottom:8px;">
+        <div class="transfer-owner-list" id="transfer-owner-list">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+      <div class="assign-modal-footer">
+        <button class="mds-btn mds-btn--primary mds-btn--large" id="transfer-owner-submit" disabled>Transfer ownership</button>
+        <button class="mds-btn mds-btn--ghost mds-btn--large" id="transfer-owner-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script src="app.js"></script>
+  <script src="spaces.js"></script>
+</body>
+</html>

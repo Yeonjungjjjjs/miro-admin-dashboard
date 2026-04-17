@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products — Miro Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- ===== HEADER ===== -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="mds-icon-btn" id="hamburger-btn" aria-label="Toggle sidebar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 18v2H4v-2h16Zm0-7v2H4v-2h16Zm0-7v2H4V4h16Z"/></svg>
+      </button>
+      <img src="images/Logotype.svg" alt="Miro" class="topbar-logo">
+    </div>
+    <div class="topbar-right">
+      <button class="mds-icon-btn" aria-label="Help">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M11 16h2v2h-2v-2Zm3-6a2 2 0 1 0-4 0H8a4 4 0 1 1 5 3.874v1.122h-2V13l1-1a2 2 0 0 0 2-2Zm6 2a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Z"/></svg>
+      </button>
+      <button class="mds-icon-btn" aria-label="Feedback">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 0-14.816 4.19l.103.82-.764 2.458 2.431-.77.83.103A7.976 7.976 0 0 0 12 20a8 8 0 0 0 8-8Zm2 0c0 5.523-4.477 10-10 10a9.973 9.973 0 0 1-4.864-1.263l-3.833 1.216-1.258-1.25 1.201-3.867A9.958 9.958 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10ZM7.95 8h2v2h-2V8Zm6 0h2v2h-2V8Zm2.949 5a5 5 0 0 1-9.797 0H9.17a2.998 2.998 0 0 0 5.655 0H16.9Z"/></svg>
+      </button>
+      <div class="topbar-avatar">
+        <img src="https://i.pravatar.cc/60?u=tyler" alt="Tyler">
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-org-container">
+      <div class="sidebar-org">
+        <div class="sidebar-org-icon">A</div>
+        <div class="sidebar-org-info">
+          <div class="sidebar-org-name">Acme</div>
+          <div class="sidebar-org-tag">Company admin</div>
+        </div>
+        <div class="sidebar-org-chevron">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-nav-container">
+      <nav class="sidebar-nav">
+        <!-- Home (IconHouse) -->
+        <a href="index.html">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m12.53 2.152 8 5L21 8v13l-1 1h-5.5l-1-1v-4h-3v4l-1 1H4l-1-1V8l.47-.848 8-5h1.06ZM5 8.554V20h3.5v-4l1-1h5l1 1v4H19V8.554l-7-4.375-7 4.375Z"/></svg></span>
+          <span class="nav-label">Home</span>
+        </a>
+        <!-- Teams (IconUsers) -->
+        <a href="teams.html">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M11 7c0-1.153-.847-2-2-2s-2 .847-2 2 .847 2 2 2 2-.847 2-2Zm2 0c0 2.258-1.742 4-4 4S5 9.258 5 7s1.742-4 4-4 4 1.742 4 4Zm-4 5a6.37 6.37 0 0 1 6.354 5.916l.143 2.013-1.994.142-.145-2.012a4.37 4.37 0 0 0-8.716 0l-.145 2.012-1.994-.142.143-2.013A6.37 6.37 0 0 1 9 12Zm9-2a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-3 4a4.315 4.315 0 0 1 4.294 3.886l.201 2.014-1.99.2-.201-2.015A2.315 2.315 0 0 0 17 16v-2Z"/></svg></span>
+          <span class="nav-label">Teams</span>
+        </a>
+        <!-- Users (IconUserTickDown + right chevron + sub-nav) -->
+        <a href="allusers.html" class="has-subnav" data-subnav="users-subnav">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M9.45 7.5a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0Zm-2 0a4.5 4.5 0 1 0 9 0 4.5 4.5 0 0 0-9 0Zm4.5 5.5a7.077 7.077 0 0 0-7.042 6.373L4.755 20.9l1.99.2.153-1.528A5.077 5.077 0 0 1 11.95 15v-2Zm9.843 1.61-5 6.5-1.552.04-3-3.5 1.518-1.3 2.198 2.564 4.25-5.523 1.586 1.218Z"/></svg></span>
+          <span class="nav-label">Users</span>
+          <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></span>
+        </a>
+        <div class="sidebar-subnav" id="users-subnav">
+          <a href="allusers.html" class="subnav-item">All users</a>
+          <a href="#" class="subnav-item">User groups</a>
+          <a href="#" class="subnav-item">Access requests</a>
+          <a href="#" class="subnav-item">Admin roles</a>
+        </div>
+        <!-- Insights (IconChartBarY) -->
+        <a href="#">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 5v12h-2V5h2Zm-4 12a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v12Zm-3-8v8h-2V9h2Zm-4 8a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v8Zm-3-4v4H4v-4h2Zm-4 4a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v4Zm20 3v2H2v-2h20Z"/></svg></span>
+          <span class="nav-label">Insights</span>
+        </a>
+        <!-- Security (IconKey + chevron) -->
+        <a href="#">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M4.5 17a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm5 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm5 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm5 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM7 4a5.001 5.001 0 0 1 4.9 4H21l1 1v5h-2v-4h-2v4h-2v-4h-4.1A5.001 5.001 0 1 1 7 4Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" clip-rule="evenodd"/></svg></span>
+          <span class="nav-label">Security</span>
+          <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></span>
+        </a>
+        <!-- Miro AI (IconSparksFilled + chevron + sub-nav) -->
+        <a href="miroai-capabilities.html" class="has-subnav" data-subnav="miroai-subnav">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M5.5 16A2.5 2.5 0 0 0 8 18.5v1A2.5 2.5 0 0 0 5.5 22h-1A2.5 2.5 0 0 0 2 19.5v-1A2.5 2.5 0 0 0 4.5 16h1Zm5.178-10.793c.325-1.368 2.319-1.37 2.644 0l.027.142.042.255a6.26 6.26 0 0 0 5.26 5.046c1.553.224 1.561 2.473 0 2.699a6.26 6.26 0 0 0-5.302 5.301c-.225 1.563-2.475 1.554-2.699 0a6.26 6.26 0 0 0-5.3-5.3c-1.56-.225-1.557-2.474 0-2.699l.255-.042a6.26 6.26 0 0 0 5.046-5.26l.028-.141ZM19.5 2A2.5 2.5 0 0 0 22 4.5v1A2.5 2.5 0 0 0 19.5 8h-1A2.5 2.5 0 0 0 16 5.5v-1A2.5 2.5 0 0 0 18.5 2h1Z"/></svg></span>
+          <span class="nav-label">Miro AI</span>
+          <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></span>
+        </a>
+        <div class="sidebar-subnav" id="miroai-subnav">
+          <a href="miroai-capabilities.html" class="subnav-item">Capabilities</a>
+          <a href="miroai-cap-entguard.html" class="subnav-item">Capabilities-ent.guard</a>
+          <a href="miroai-cap-noaddons.html" class="subnav-item">Capabilities-No-add-ons</a>
+          <a href="miroai-cap-none.html" class="subnav-item">Capabilities-none</a>
+          <a href="miroai-cap-customsidekick.html" class="subnav-item">Capabilities-custom-sidekick</a>
+          <a href="miroai-datausage.html" class="subnav-item">Data usage</a>
+          <a href="miroai-moderation.html" class="subnav-item">Moderation</a>
+        </div>
+        <!-- Products (IconSquareTriangleCirclePlus) -->
+        <a href="products.html" class="active">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m10 2 1 1v7l-1 1H3l-1-1V3l1-1h7ZM4 9h5V4H4v5Zm15 5v3h3v2h-3v3h-2v-3h-3v-2h3v-3h2ZM9 17.75a2.75 2.75 0 1 0-5.5 0 2.75 2.75 0 0 0 5.5 0Zm2 0a4.75 4.75 0 1 1-9.5 0 4.75 4.75 0 0 1 9.5 0Zm7.888-15.71 3.9 7.5L21.9 11H14l-.883-1.47 4-7.5 1.77.01ZM15.667 9h4.586l-2.265-4.354L15.667 9Z"/></svg></span>
+          <span class="nav-label">Products</span>
+        </a>
+        <!-- Spaces -->
+        <a href="spaces.html">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h8v8H3V3Zm2 2v4h4V5H5Zm8-2h8v8h-8V3Zm2 2v4h4V5h-4ZM3 13h8v8H3v-8Zm2 2v4h4v-4H5Zm8-2h8v8h-8v-8Zm2 2v4h4v-4h-4Z"/></svg></span>
+          <span class="nav-label">Spaces</span>
+        </a>
+        <!-- Apps and integrations (IconPlug + chevron) -->
+        <a href="#">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m16.79 3-2.83 2.828 4.243 4.243 2.828-2.829 1.414 1.415-2.828 2.828 1.222 1.222v1.414l-3.535 3.536c-2.31 2.31-6.1 2.153-8.427.048l-.22-.209-.368-.368-5.347 4.932-1.355-1.471 5.287-4.876-1.046-1.046a6 6 0 0 1 0-8.485l3.536-3.536h1.414l1.768 1.768 2.828-2.828L16.789 3ZM7.241 7.596a4 4 0 0 0 0 5.657l2.83 2.828.153.146c1.617 1.461 4.19 1.49 5.664.015l2.828-2.829-8.647-8.646-2.828 2.829Z"/></svg></span>
+          <span class="nav-label">Apps and integrations</span>
+          <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></span>
+        </a>
+        <!-- Billing (IconWallet + chevron) -->
+        <a href="#">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M15 11a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm2-7a3 3 0 0 1 3 3v1h1l1 1v6l-1 1h-1v1a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h12ZM5 6a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1h-6l-1-1V9l1-1h6V7a1 1 0 0 0-1-1H5Zm8 8h7v-4h-7v4Z" clip-rule="evenodd"/></svg></span>
+          <span class="nav-label">Billing</span>
+          <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></span>
+        </a>
+        <!-- Organization (IconOffice + chevron) -->
+        <a href="#">
+          <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M9 18H7v-2h2v2Zm4 0h-2v-2h2v2Zm-4-4H7v-2h2v2Zm4 0h-2v-2h2v2Zm-4-4H7V8h2v2Zm4 0h-2V8h2v2Zm4-7v6h3l1 1v11l-1 1H4l-1-1V5.5l.796-.979 12-2.5L17 3Zm0 17h2v-9h-2v9ZM5 6.312V20h10V4.229L5 6.312Z" clip-rule="evenodd"/></svg></span>
+          <span class="nav-label">Organization</span>
+          <span class="nav-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></span>
+        </a>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN WRAPPER ===== -->
+  <div class="main-wrapper">
+    <div id="page-products" class="page-section active">
+      <section class="main-content">
+        <h1 class="page-title">Products</h1>
+        <div class="products-card">
+          <div class="products-tabs">
+            <button class="products-tab active" data-tab="tab-active">Active (4)</button>
+            <button class="products-tab" data-tab="tab-explore">Explore more (6)</button>
+          </div>
+          <div id="tab-active" class="tab-panel active">
+            <table class="products-table">
+              <thead>
+                <tr>
+                  <th>
+                    <div class="th-content">
+                      <span>Products</span>
+                      <svg class="th-sort" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m12.64 2.231 6 5-1.28 1.538L13 5.135V21h-2V5.135L6.64 8.769 5.36 7.23l6-5h1.28Z"/></svg>
+                    </div>
+                  </th>
+                  <th>
+                    <div class="th-content">
+                      <span>Status</span>
+                      <svg class="th-help" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M11 16h2v2h-2v-2Zm3-6a2 2 0 1 0-4 0H8a4 4 0 1 1 5 3.874v1.122h-2V13l1-1a2 2 0 0 0 2-2Zm6 2a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Z"/></svg>
+                    </div>
+                  </th>
+                  <th>
+                    <div class="th-content">
+                      <span>Seats</span>
+                      <svg class="th-help" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M11 16h2v2h-2v-2Zm3-6a2 2 0 1 0-4 0H8a4 4 0 1 1 5 3.874v1.122h-2V13l1-1a2 2 0 0 0 2-2Zm6 2a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Z"/></svg>
+                    </div>
+                  </th>
+                  <th>
+                    <div class="th-content">
+                      <span>AI credits</span>
+                      <svg class="th-help" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M11 16h2v2h-2v-2Zm3-6a2 2 0 1 0-4 0H8a4 4 0 1 1 5 3.874v1.122h-2V13l1-1a2 2 0 0 0 2-2Zm6 2a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Z"/></svg>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="product-name-value"><div class="product-icon-wrap"><img src="images/icon-miro.svg" class="product-icon" alt="Prototyping"></div><div class="product-label">Prototyping</div></div></td>
+                  <td>Active</td>
+                  <td>45 / 50</td>
+                  <td><a class="text-link">View in Analytics</a></td>
+                </tr>
+                <tr>
+                  <td><div class="product-name-value"><div class="product-icon-wrap"><img src="images/integration-insights.svg" class="product-icon" alt="Insights"></div><div class="product-label">Insights</div></div></td>
+                  <td><div class="status-cell"><span class="mds-tag mds-tag--orange">Trial</span><span class="trial-days">15 days left</span></div></td>
+                  <td class="text-disabled">N/A</td>
+                  <td><a class="text-link">View in Analytics</a></td>
+                </tr>
+                <tr>
+                  <td><div class="product-name-value"><div class="product-icon-wrap"><img src="images/icon-miro.svg" class="product-icon" alt="Engage"></div><div class="product-label">Engage <span class="mds-tag mds-tag--neutral-prominent">Beta</span></div></div></td>
+                  <td>Active</td>
+                  <td class="text-disabled">N/A</td>
+                  <td class="text-disabled">N/A</td>
+                </tr>
+                <tr class="product-row-clickable" data-route="aiworkflow">
+                  <td><div class="product-name-value"><div class="product-icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" class="product-icon"><path fill="currentColor" d="M5.5 16A2.5 2.5 0 0 0 8 18.5v1A2.5 2.5 0 0 0 5.5 22h-1A2.5 2.5 0 0 0 2 19.5v-1A2.5 2.5 0 0 0 4.5 16h1Zm5.178-10.793c.325-1.368 2.319-1.37 2.644 0l.027.142.042.255a6.26 6.26 0 0 0 5.26 5.046c1.553.224 1.561 2.473 0 2.699a6.26 6.26 0 0 0-5.302 5.301c-.225 1.563-2.475 1.554-2.699 0a6.26 6.26 0 0 0-5.3-5.3c-1.56-.225-1.557-2.474 0-2.699l.255-.042a6.26 6.26 0 0 0 5.046-5.26l.028-.141ZM19.5 2A2.5 2.5 0 0 0 22 4.5v1A2.5 2.5 0 0 0 19.5 8h-1A2.5 2.5 0 0 0 16 5.5v-1A2.5 2.5 0 0 0 18.5 2h1Z"/></svg></div><div class="product-label">AI Workflows <span class="mds-tag mds-tag--neutral-prominent">Beta</span></div></div></td>
+                  <td>Active</td>
+                  <td>93 / 100</td>
+                  <td><a class="text-link">View in Analytics</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="tab-explore" class="tab-panel">
+            <div class="explore-grid">
+              <div class="explore-card">
+                <div class="explore-card-img"></div>
+                <div class="explore-card-body">
+                  <div class="explore-card-content">
+                    <div class="explore-card-meta">
+                      <div class="explore-card-title">Miro Insights</div>
+                    </div>
+                    <div class="explore-card-desc">Miro Insights transforms customer feedback into actionable product insights, helping teams prioritize what matters most.</div>
+                    <div class="explore-card-actions">
+                      <button class="mds-btn mds-btn--outline mds-btn--medium">Contact us</button>
+                      <button class="mds-btn mds-btn--ghost mds-btn--medium">Learn more</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="explore-card">
+                <div class="explore-card-img"></div>
+                <div class="explore-card-body">
+                  <div class="explore-card-content">
+                    <div class="explore-card-meta">
+                      <div class="explore-card-title">Miro Engage</div>
+                    </div>
+                    <div class="explore-card-desc">Miro Engage enables interactive presentations and workshops, keeping participants aligned and involved in real-time.</div>
+                    <div class="explore-card-actions">
+                      <button class="mds-btn mds-btn--outline mds-btn--medium">Contact us</button>
+                      <button class="mds-btn mds-btn--ghost mds-btn--medium">Learn more</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="explore-card">
+                <div class="explore-card-img"></div>
+                <div class="explore-card-body">
+                  <div class="explore-card-content">
+                    <div class="explore-card-meta">
+                      <div class="explore-card-title">Miro Prototypes</div>
+                    </div>
+                    <div class="explore-card-desc">Create interactive, clickable prototypes from screenshots, diagrams, or docs, powered by AI in just a few minutes.</div>
+                    <div class="explore-card-actions">
+                      <button class="mds-btn mds-btn--outline mds-btn--medium">Contact us</button>
+                      <button class="mds-btn mds-btn--ghost mds-btn--medium">Learn more</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="explore-card">
+                <div class="explore-card-img"></div>
+                <div class="explore-card-body">
+                  <div class="explore-card-content">
+                    <div class="explore-card-meta">
+                      <div class="explore-card-title">Miro Insights</div>
+                    </div>
+                    <div class="explore-card-desc">Miro Insights transforms customer feedback into actionable product insights, helping teams prioritize what matters most.</div>
+                    <div class="explore-card-actions">
+                      <button class="mds-btn mds-btn--tertiary mds-btn--medium">Contact us</button>
+                      <button class="mds-btn mds-btn--ghost mds-btn--medium">Learn more <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M10 7H5a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-5h2v5a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h5v2Zm11.992-3.876-1 8-1.984-.248.637-5.108-7.938 7.939-1.414-1.414 7.94-7.94-5.109.64-.248-1.985 8-1 1.116 1.116Z"/></svg></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="explore-card">
+                <div class="explore-card-img"></div>
+                <div class="explore-card-body">
+                  <div class="explore-card-content">
+                    <div class="explore-card-meta">
+                      <div class="explore-card-title">Miro Engage</div>
+                    </div>
+                    <div class="explore-card-desc">Miro Engage enables interactive presentations and workshops, keeping participants aligned and involved in real-time.</div>
+                    <div class="explore-card-actions">
+                      <button class="mds-btn mds-btn--tertiary mds-btn--medium">Start trial</button>
+                      <button class="mds-btn mds-btn--ghost mds-btn--medium">Learn more <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M10 7H5a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-5h2v5a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h5v2Zm11.992-3.876-1 8-1.984-.248.637-5.108-7.938 7.939-1.414-1.414 7.94-7.94-5.109.64-.248-1.985 8-1 1.116 1.116Z"/></svg></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="explore-card">
+                <div class="explore-card-img"></div>
+                <div class="explore-card-body">
+                  <div class="explore-card-content">
+                    <div class="explore-card-meta">
+                      <div class="explore-card-title">Miro Prototypes</div>
+                    </div>
+                    <div class="explore-card-desc">Create interactive, clickable prototypes from screenshots, diagrams, or docs, powered by AI in just a few minutes.</div>
+                    <div class="explore-card-actions">
+                      <button class="mds-btn mds-btn--tertiary mds-btn--medium">Contact us</button>
+                      <button class="mds-btn mds-btn--ghost mds-btn--medium">Learn more <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M10 7H5a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-5h2v5a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h5v2Zm11.992-3.876-1 8-1.984-.248.637-5.108-7.938 7.939-1.414-1.414 7.94-7.94-5.109.64-.248-1.985 8-1 1.116 1.116Z"/></svg></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div><!-- /page-products -->
+  </div><!-- /main-wrapper -->
+
+  <!-- ===== ASSIGN SEATS SIDE PANEL ===== -->
+  <div class="side-panel-overlay" id="assign-seats-panel">
+    <div class="side-panel">
+      <div class="side-panel-header">
+        <span class="side-panel-title">Assign seats</span>
+        <button class="side-panel-close" id="assign-seats-close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M19.707 5.707 13.414 12l6.293 6.293-1.414 1.414L12 13.414l-6.293 6.293-1.414-1.414L10.586 12 4.293 5.707l1.414-1.414L12 10.586l6.293-6.293 1.414 1.414Z"/></svg>
+        </button>
+      </div>
+      <div class="side-panel-body">
+        <p class="side-panel-desc">Search users by user groups, teams, or name and email</p>
+        <div class="side-panel-filters">
+          <input type="text" class="aiw-search" id="sp-search" placeholder="Search users by name or email">
+          <div class="mds-select-wrapper">
+            <button class="mds-select-trigger" data-placeholder="User groups" data-value="">
+              <span class="mds-select-label">User groups</span>
+              <svg class="mds-select-chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg>
+            </button>
+            <div class="mds-select-dropdown" id="sp-ug-dropdown" data-multiselect="true">
+              <input type="text" class="mds-select-dropdown-search" placeholder="Search user group">
+              <div class="mds-select-option" data-value="Engineering team 1">Engineering team 1</div>
+              <div class="mds-select-option" data-value="EMEA Designers group">EMEA Designers group</div>
+              <div class="mds-select-option" data-value="APAC Designers group">APAC Designers group</div>
+            </div>
+          </div>
+          <div class="mds-select-wrapper">
+            <button class="mds-select-trigger" data-placeholder="Teams" data-value="">
+              <span class="mds-select-label">Teams</span>
+              <svg class="mds-select-chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg>
+            </button>
+            <div class="mds-select-dropdown" id="sp-teams-dropdown" data-multiselect="true">
+              <input type="text" class="mds-select-dropdown-search" placeholder="Search team">
+              <div class="mds-select-option" data-value="Design team">Design team</div>
+              <div class="mds-select-option" data-value="Engineering team">Engineering team</div>
+              <div class="mds-select-option" data-value="Marketing team">Marketing team</div>
+            </div>
+          </div>
+        </div>
+        <table class="side-panel-table" id="sp-table">
+          <thead>
+            <tr>
+              <th><input type="checkbox" id="sp-select-all" class="mds-checkbox"></th>
+              <th><span class="th-label">Users <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M15.293 8.707 12 5.414 8.707 8.707 7.293 7.293l4-4h1.414l4 4-1.414 1.414Zm-6.586 6.586L12 18.586l3.293-3.293 1.414 1.414-4 4h-1.414l-4-4 1.414-1.414Z"/></svg></span></th>
+              <th><span class="th-label">License <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Zm-9-1v6h-2v-4H9.5v-2H13Zm.5-2.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/></svg></span></th>
+              <th><span class="th-label">Status <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Zm-9-1v6h-2v-4H9.5v-2H13Zm.5-2.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/></svg></span></th>
+              <th><span class="th-label">User group <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Zm-9-1v6h-2v-4H9.5v-2H13Zm.5-2.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/></svg></span></th>
+              <th><span class="th-label">Teams <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Zm-9-1v6h-2v-4H9.5v-2H13Zm.5-2.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/></svg></span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-name="Emily Carter" data-email="emily.carter@samplemail.com" data-usergroup="Engineering team 1" data-team="Design team">
+              <td><input type="checkbox" class="sp-row-cb mds-checkbox"></td>
+              <td><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=emily" alt="Emily Carter"></div><div class="user-info"><span class="user-name">Emily Carter</span><span class="user-email">emily.carter@samplemail.com</span></div></div></td>
+              <td><span class="mds-tag mds-tag--lime">Full</span></td>
+              <td><span class="mds-tag mds-tag--neutral-prominent">Not assigned</span></td>
+              <td><span class="cell-link">1 User group</span></td>
+              <td><span class="cell-link">2 teams</span></td>
+            </tr>
+            <tr data-name="Michael Johnson" data-email="michael.j@webmail.com" data-usergroup="EMEA Designers group" data-team="Engineering team">
+              <td><input type="checkbox" class="sp-row-cb mds-checkbox"></td>
+              <td><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=michael" alt="Michael Johnson"></div><div class="user-info"><span class="user-name">Michael Johnson</span><span class="user-email">michael.j@webmail.com</span></div></div></td>
+              <td><span class="mds-tag mds-tag--lime">Full</span></td>
+              <td><span class="mds-tag mds-tag--neutral-prominent">Not assigned</span></td>
+              <td><span class="cell-link">1 User group</span></td>
+              <td><span class="cell-link">2 teams</span></td>
+            </tr>
+            <tr data-name="Sophia Davis" data-email="sophia.d@domainmail.com" data-usergroup="Engineering team 1" data-team="Design team">
+              <td><input type="checkbox" class="sp-row-cb mds-checkbox"></td>
+              <td><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=sophia" alt="Sophia Davis"></div><div class="user-info"><span class="user-name">Sophia Davis</span><span class="user-email">sophia.d@domainmail.com</span></div></div></td>
+              <td><span class="mds-tag mds-tag--lime">Full</span></td>
+              <td><span class="mds-tag mds-tag--neutral-prominent">Not assigned</span></td>
+              <td><span class="cell-link">1 User group</span></td>
+              <td><span class="cell-link">2 teams</span></td>
+            </tr>
+            <tr data-name="Daniel Smith" data-email="daniel.smith@customemail.com" data-usergroup="EMEA Designers group" data-team="Marketing team">
+              <td><input type="checkbox" class="sp-row-cb mds-checkbox"></td>
+              <td><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=daniel" alt="Daniel Smith"></div><div class="user-info"><span class="user-name">Daniel Smith</span><span class="user-email">daniel.smith@customemail.co...</span></div></div></td>
+              <td><span class="mds-tag mds-tag--lime">Full</span></td>
+              <td><span class="mds-tag mds-tag--neutral-prominent">Not assigned</span></td>
+              <td><span class="cell-link">1 User group</span></td>
+              <td><span class="cell-link">2 teams</span></td>
+            </tr>
+            <tr data-name="Olivia Brown" data-email="olivia.b@personalmail.com" data-usergroup="APAC Designers group" data-team="Design team">
+              <td><input type="checkbox" class="sp-row-cb mds-checkbox"></td>
+              <td><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=olivia" alt="Olivia Brown"></div><div class="user-info"><span class="user-name">Olivia Brown</span><span class="user-email">olivia.b@personalmail.com</span></div></div></td>
+              <td><span class="mds-tag mds-tag--lime">Full</span></td>
+              <td><span class="mds-tag mds-tag--neutral-prominent">Not assigned</span></td>
+              <td><span class="cell-link">1 User group</span></td>
+              <td><span class="cell-link">2 teams</span></td>
+            </tr>
+            <tr data-name="James Wilson" data-email="james.w@myemail.com" data-usergroup="APAC Designers group" data-team="Engineering team">
+              <td><input type="checkbox" class="sp-row-cb mds-checkbox"></td>
+              <td><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=james" alt="James Wilson"></div><div class="user-info"><span class="user-name">James Wilson</span><span class="user-email">james.w@myemail.com</span></div></div></td>
+              <td><span class="mds-tag mds-tag--lime">Full</span></td>
+              <td><span class="mds-tag mds-tag--neutral-prominent">Not assigned</span></td>
+              <td><span class="cell-link">1 User group</span></td>
+              <td><span class="cell-link">2 teams</span></td>
+            </tr>
+            <tr data-name="Ava Miller" data-email="ava.miller@mailbox.com" data-usergroup="Engineering team 1" data-team="Marketing team">
+              <td><input type="checkbox" class="sp-row-cb mds-checkbox"></td>
+              <td><div class="user-cell"><div class="user-avatar"><img src="https://i.pravatar.cc/72?u=ava" alt="Ava Miller"></div><div class="user-info"><span class="user-name">Ava Miller</span><span class="user-email">ava.miller@mailbox.com</span></div></div></td>
+              <td><span class="mds-tag mds-tag--lime">Full</span></td>
+              <td><span class="mds-tag mds-tag--neutral-prominent">Not assigned</span></td>
+              <td><span class="cell-link">1 User group</span></td>
+              <td><span class="cell-link">2 teams</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="side-panel-footer">
+        <button class="mds-btn mds-btn--ghost mds-btn--large" id="assign-seats-cancel">Cancel</button>
+        <button class="mds-btn mds-btn--primary mds-btn--large" id="assign-seats-submit" disabled>Assign seats</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BULK RUNNER TOAST ===== -->
+  <div class="bulk-toast" id="bulk-toast">
+    <div class="bulk-toast-tail"></div>
+    <div class="bulk-toast-header">
+      <span class="bulk-toast-title">Actions in progress</span>
+      <button class="bulk-toast-close" id="bulk-toast-close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M19.707 5.707 13.414 12l6.293 6.293-1.414 1.414L12 13.414l-6.293 6.293-1.414-1.414L10.586 12 4.293 5.707l1.414-1.414L12 10.586l6.293-6.293 1.414 1.414Z"/></svg>
+      </button>
+    </div>
+    <div class="bulk-toast-items">
+      <div class="bulk-toast-item">
+        <div class="bulk-toast-item-info">
+          <div class="bulk-toast-item-heading">
+            <span class="bulk-toast-item-label" id="bulk-toast-label">Assign seats (0/0)</span>
+            <div class="bulk-toast-spinner" id="bulk-toast-spinner"></div>
+          </div>
+          <span class="bulk-toast-item-sub" id="bulk-toast-sub"></span>
+        </div>
+        <button class="bulk-toast-stop" id="bulk-toast-stop">Stop</button>
+      </div>
+    </div>
+    <div class="bulk-toast-footer">You may navigate away or close this browser window. The operation will continue in the background.</div>
+  </div>
+
+  <!-- AI Models Tooltip -->
+  <div class="cap-models-tooltip" id="cap-models-tooltip">
+    <div class="cap-models-tooltip-title">12 AI models</div>
+    <h4>GPT</h4>
+    <ul>
+      <li>GPT-4o Mini</li>
+      <li>GPT-5</li>
+      <li>GPT-5 Mini O3</li>
+      <li>O4-Mini</li>
+      <li>GPT-4.1</li>
+      <li>GPT-4.1 Mini</li>
+      <li>GPT 40 Mini</li>
+    </ul>
+    <h4>Claude</h4>
+    <ul>
+      <li>Claude Sonnet 3.7 (AWS Bedrock)</li>
+      <li>Claude Haiku 3.5 (AWS Bedrock)</li>
+      <li>Claude 3.7 Sonnet</li>
+      <li>Claude Sonnet 4</li>
+      <li>Claude Sonnet 4.5</li>
+      <li>Claude Sonnet 4.6</li>
+      <li>Claude Opus 4.5</li>
+      <li>Claude Opus 4.6</li>
+    </ul>
+    <h4>Gemini</h4>
+    <ul>
+      <li>Gemini 2.5 Flash</li>
+      <li>Gemini 2.5 Pro</li>
+      <li>Gemini 2.5 Flash Lite</li>
+    </ul>
+  </div>
+
+  <!-- Settings Toast -->
+  <div class="settings-toast" id="settings-toast">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="#17b169" d="m9.55 17.575-4.975-4.95 1.425-1.4 3.55 3.525 7.575-7.55 1.425 1.425-9 8.95Z"/></svg>
+    <span class="settings-toast-text" id="settings-toast-text"></span>
+  </div>
+
+  <!-- ===== ROW CONTEXT MENU (shared, body-appended) ===== -->
+  <div class="row-ctx-menu" id="row-ctx-menu">
+    <div class="row-ctx-item" data-action="user-details"><span>User details</span></div>
+    <div class="row-ctx-divider"></div>
+    <div class="row-ctx-item">
+      <span>Role</span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M9.293 6.293 14.586 12l-5.293 5.293 1.414 1.414 6-6v-1.414l-6-6-1.414 1.414Z"/></svg>
+    </div>
+    <div class="row-ctx-item">
+      <span>License</span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M9.293 6.293 14.586 12l-5.293 5.293 1.414 1.414 6-6v-1.414l-6-6-1.414 1.414Z"/></svg>
+    </div>
+    <div class="row-ctx-item" data-has-sub="products">
+      <span>Products</span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M9.293 6.293 14.586 12l-5.293 5.293 1.414 1.414 6-6v-1.414l-6-6-1.414 1.414Z"/></svg>
+      <div class="row-ctx-sub">
+        <div class="row-ctx-sub-item" data-has-sub="aiw">
+          <span>AI Workflows</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M9.293 6.293 14.586 12l-5.293 5.293 1.414 1.414 6-6v-1.414l-6-6-1.414 1.414Z"/></svg>
+          <div class="row-ctx-l3">
+            <div class="row-ctx-sub-item" data-action="assign-single">Assign seats</div>
+            <div class="row-ctx-sub-item" data-action="unassign-single">Unassign seats</div>
+          </div>
+        </div>
+        <div class="row-ctx-sub-item">Insights</div>
+        <div class="row-ctx-sub-item">Engage</div>
+      </div>
+    </div>
+    <div class="row-ctx-divider"></div>
+    <div class="row-ctx-item">
+      <span>Teams</span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M9.293 6.293 14.586 12l-5.293 5.293 1.414 1.414 6-6v-1.414l-6-6-1.414 1.414Z"/></svg>
+    </div>
+    <div class="row-ctx-item">
+      <span>User groups</span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M9.293 6.293 14.586 12l-5.293 5.293 1.414 1.414 6-6v-1.414l-6-6-1.414 1.414Z"/></svg>
+    </div>
+    <div class="row-ctx-item"><span>Change billing group</span></div>
+    <div class="row-ctx-divider"></div>
+    <div class="row-ctx-item"><span>Deactivate</span></div>
+  </div>
+
+  <!-- ===== ASSIGN CONFIRM MODAL ===== -->
+  <div class="assign-modal-overlay" id="assign-modal-overlay">
+    <div class="assign-modal">
+      <div class="assign-modal-header">
+        <h2 id="assign-modal-title">Assign 0 AI Workflow seats</h2>
+        <button class="assign-modal-close" id="assign-modal-close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M19.707 5.707 13.414 12l6.293 6.293-1.414 1.414L12 13.414l-6.293 6.293-1.414-1.414L10.586 12 4.293 5.707l1.414-1.414L12 10.586l6.293-6.293 1.414 1.414Z"/></svg>
+        </button>
+      </div>
+      <div class="assign-modal-body">
+        <p class="assign-modal-desc">AI workflow seat will be assigned to selected users:</p>
+        <span class="assign-modal-seats" id="assign-modal-seats">(90/100 seats)</span>
+      </div>
+      <div class="assign-modal-users" id="assign-modal-users"></div>
+      <div class="assign-modal-footer">
+        <button class="mds-btn mds-btn--primary mds-btn--large" id="assign-modal-confirm">Assign 0 seats</button>
+        <button class="mds-btn mds-btn--ghost mds-btn--large" id="assign-modal-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== UNASSIGN CONFIRM MODAL ===== -->
+  <div class="assign-modal-overlay" id="unassign-modal-overlay">
+    <div class="assign-modal">
+      <div class="assign-modal-header">
+        <h2 id="unassign-modal-title">Unassign 0 AI workflow seats</h2>
+        <button class="assign-modal-close" id="unassign-modal-close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M19.707 5.707 13.414 12l6.293 6.293-1.414 1.414L12 13.414l-6.293 6.293-1.414-1.414L10.586 12 4.293 5.707l1.414-1.414L12 10.586l6.293-6.293 1.414 1.414Z"/></svg>
+        </button>
+      </div>
+      <div class="assign-modal-body">
+        <p class="assign-modal-desc">Unassign AI workflow seat from selected users:</p>
+        <span class="assign-modal-seats" id="unassign-modal-seats">(93/100 seats)</span>
+      </div>
+      <div class="assign-modal-users" id="unassign-modal-users"></div>
+      <div class="assign-modal-footer">
+        <button class="mds-btn mds-btn--danger mds-btn--large" id="unassign-modal-confirm">Unassign 0 seats</button>
+        <button class="mds-btn mds-btn--ghost mds-btn--large" id="unassign-modal-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team Selection Side Panel -->
+  <div class="team-panel-overlay" id="team-panel-overlay">
+    <div class="team-panel">
+      <div class="team-panel-header">
+        <span class="team-panel-title" id="team-panel-title">Custom Sidekicks</span>
+        <button class="team-panel-close" id="team-panel-close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M18.707 6.707 13.414 12l5.293 5.293-1.414 1.414L12 13.414l-5.293 5.293-1.414-1.414L10.586 12 5.293 6.707l1.414-1.414L12 10.586l5.293-5.293 1.414 1.414Z"/></svg>
+        </button>
+      </div>
+      <div class="team-panel-body">
+        <div class="team-panel-search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M10 2a8 8 0 1 0 4.906 14.32l4.387 4.387 1.414-1.414-4.387-4.387A8 8 0 0 0 10 2Zm0 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12Z"/></svg>
+          <input type="text" placeholder="Search by name" id="team-panel-search-input">
+        </div>
+        <div class="team-panel-list-header">
+          <input type="checkbox" class="team-panel-row-checkbox" id="team-panel-select-all">
+          <span id="team-panel-list-label">Teams</span>
+        </div>
+        <div id="team-panel-list">
+          <div class="team-panel-row" data-team="Alpha"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#e9fdc8;border:1px solid #a3cf61;color:#2f5500;">A</div><span class="team-panel-name">Alpha</span></div>
+          <div class="team-panel-row" data-team="Beta"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#d4e4ff;border:1px solid #7ba3f0;color:#1a3470;">B</div><span class="team-panel-name">Beta</span></div>
+          <div class="team-panel-row" data-team="Chi"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#d3f5f7;border:1px solid #69c5cb;color:#0d6b6b;">C</div><span class="team-panel-name">Chi</span></div>
+          <div class="team-panel-row" data-team="Delta"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#ffe6c8;border:1px solid #f0a86e;color:#7a4a10;">D</div><span class="team-panel-name">Delta</span></div>
+          <div class="team-panel-row" data-team="Epsilon"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#ffe0df;border:1px solid #f08786;color:#7a1110;">E</div><span class="team-panel-name">Epsilon</span></div>
+          <div class="team-panel-row" data-team="Eta"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#e9fdc8;border:1px solid #a3cf61;color:#2f5500;">E</div><span class="team-panel-name">Eta</span></div>
+          <div class="team-panel-row" data-team="Gamma"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#d3f5f7;border:1px solid #69c5cb;color:#0d6b6b;">G</div><span class="team-panel-name">Gamma</span></div>
+          <div class="team-panel-row" data-team="Iota"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#e9fdc8;border:1px solid #a3cf61;color:#2f5500;">I</div><span class="team-panel-name">Iota</span></div>
+          <div class="team-panel-row" data-team="Kappa"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#ffe6c8;border:1px solid #f0a86e;color:#7a4a10;">K</div><span class="team-panel-name">Kappa</span></div>
+          <div class="team-panel-row" data-team="Lambda"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#ffe0df;border:1px solid #f08786;color:#7a1110;">L</div><span class="team-panel-name">Lambda</span></div>
+          <div class="team-panel-row" data-team="Mu"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#d4e4ff;border:1px solid #7ba3f0;color:#1a3470;">M</div><span class="team-panel-name">Mu</span></div>
+          <div class="team-panel-row" data-team="Nu"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#d4e4ff;border:1px solid #7ba3f0;color:#1a3470;">N</div><span class="team-panel-name">Nu</span></div>
+          <div class="team-panel-row" data-team="Omega"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#d4e4ff;border:1px solid #7ba3f0;color:#1a3470;">O</div><span class="team-panel-name">Omega</span></div>
+          <div class="team-panel-row" data-team="Omicron"><input type="checkbox" class="team-panel-row-checkbox"><div class="team-panel-icon" style="background:#ffe0df;border:1px solid #f08786;color:#7a1110;">O</div><span class="team-panel-name">Omicron</span></div>
+        </div>
+      </div>
+      <div class="team-panel-footer">
+        <button class="mds-btn mds-btn--secondary mds-btn--large" id="team-panel-cancel">Cancel</button>
+        <button class="mds-btn mds-btn--primary mds-btn--large" id="team-panel-save" disabled>Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SIDEKICKS DISABLE CONFIRM MODAL ===== -->
+  <div class="assign-modal-overlay" id="sidekick-confirm-overlay">
+    <div class="assign-modal">
+      <div class="assign-modal-header">
+        <h2>Are you sure you want to disable Sidekick?</h2>
+        <button class="assign-modal-close" id="sidekick-confirm-close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M19.707 5.707 13.414 12l6.293 6.293-1.414 1.414L12 13.414l-6.293 6.293-1.414-1.414L10.586 12 4.293 5.707l1.414-1.414L12 10.586l6.293-6.293 1.414 1.414Z"/></svg>
+        </button>
+      </div>
+      <div class="assign-modal-body">
+        <p class="assign-modal-desc">Setting Sidekicks to No one disables all AI capabilities for content creation, image creation, slides, and prototypes.</p>
+      </div>
+      <div class="assign-modal-footer">
+        <button class="mds-btn mds-btn--danger mds-btn--large" id="sidekick-confirm-ok">Disable</button>
+        <button class="mds-btn mds-btn--ghost mds-btn--large" id="sidekick-confirm-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script src="app.js"></script>
+</body>
+</html>
