@@ -225,7 +225,7 @@ function drawChart(canvasId, data, color) {
 }
 
 function initCharts() {
-  var blue = '#7b9eff';
+  var blue = '#97a8fe';
   drawChart('chart-boards', [280, 310, 300, 320, 340, 330, 335, 320], blue);
   drawChart('chart-teams', [60, 65, 62, 68, 72, 75, 78, 82], blue);
   drawChart('chart-users', [100, 108, 105, 112, 115, 118, 122, 126], blue);
@@ -687,6 +687,24 @@ document.getElementById('hamburger-btn').addEventListener('click', function() {
   document.body.classList.toggle('sidebar-collapsed');
   setTimeout(initCharts, 300);
 });
+
+// ===== PROFILE DROPDOWN =====
+(function() {
+  var trigger = document.getElementById('profile-trigger');
+  var dropdown = document.getElementById('profile-dropdown');
+  if (!trigger || !dropdown) return;
+  trigger.addEventListener('click', function(e) {
+    e.stopPropagation();
+    var isOpen = dropdown.classList.toggle('open');
+    trigger.classList.toggle('active', isOpen);
+  });
+  document.addEventListener('click', function(e) {
+    if (!trigger.contains(e.target)) {
+      dropdown.classList.remove('open');
+      trigger.classList.remove('active');
+    }
+  });
+})();
 
 // ===== PAGE-SPECIFIC BINDING INITIALIZATION =====
 function initPageBindings(route) {
