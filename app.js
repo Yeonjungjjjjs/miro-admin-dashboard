@@ -251,7 +251,8 @@ var fragmentRoutes = {
   'miroai-cap-entguard': 'pages/miroai-cap-entguard.html',
   'miroai-cap-noaddons': 'pages/miroai-cap-noaddons.html',
   'miroai-cap-none': 'pages/miroai-cap-none.html',
-  'miroai-datausage': 'pages/miroai-datausage.html'
+  'miroai-datausage': 'pages/miroai-datausage.html',
+  'profile': 'pages/profile.html'
 };
 var pageCache = {};
 
@@ -344,7 +345,7 @@ function updateNavState(route) {
     if (targetTeamsTab) targetTeamsTab.classList.add('active');
   }
 
-  var hashMap = { home: '#/Home', allusers: '#/Users/AllUsers', 'miroai-capabilities': '#/MiroAI/Capabilities', 'miroai-cap-entguard': '#/MiroAI/Capabilities-ent.guard', 'miroai-cap-noaddons': '#/MiroAI/Capabilities-No-add-ons', 'miroai-cap-none': '#/MiroAI/Capabilities-none', 'miroai-datausage': '#/MiroAI/DataUsage', 'miroai-moderation': '#/MiroAI/Moderation' };
+  var hashMap = { home: '#/Home', allusers: '#/Users/AllUsers', profile: '#/Profile', 'miroai-capabilities': '#/MiroAI/Capabilities', 'miroai-cap-entguard': '#/MiroAI/Capabilities-ent.guard', 'miroai-cap-noaddons': '#/MiroAI/Capabilities-No-add-ons', 'miroai-cap-none': '#/MiroAI/Capabilities-none', 'miroai-datausage': '#/MiroAI/DataUsage', 'miroai-moderation': '#/MiroAI/Moderation' };
   var hash;
   if (route === 'aiworkflow') {
     var activeAiwTab = document.querySelector('.aiw-tab.active');
@@ -376,6 +377,7 @@ function routeFromHash() {
   if (hash.indexOf('/MiroAI/Capabilities-none') !== -1) return 'miroai-cap-none';
   if (hash.indexOf('/MiroAI/Capabilities') !== -1) return 'miroai-capabilities';
   if (hash.indexOf('/MiroAI') !== -1) return 'miroai-capabilities';
+  if (hash.indexOf('/Profile') !== -1) return 'profile';
   if (hash.indexOf('/Product/AIworkflow') !== -1) return 'aiworkflow';
   if (hash.indexOf('/Product/Explore') !== -1) return 'products';
   if (hash.indexOf('/Product/Active') !== -1) return 'products';
@@ -706,6 +708,44 @@ document.getElementById('hamburger-btn').addEventListener('click', function() {
   });
 })();
 
+// ===== ORG PICKER =====
+(function() {
+  var orgTrigger = document.getElementById('org-trigger');
+  var orgPicker = document.getElementById('org-picker');
+  if (!orgTrigger || !orgPicker) return;
+
+  orgTrigger.addEventListener('click', function(e) {
+    e.stopPropagation();
+    var wasOpen = orgPicker.classList.contains('open');
+    orgPicker.classList.toggle('open');
+    orgTrigger.classList.toggle('picker-open', !wasOpen);
+  });
+
+  orgPicker.querySelectorAll('.org-picker-item').forEach(function(item) {
+    item.addEventListener('click', function() {
+      var name = item.querySelector('.org-picker-item-name').textContent;
+      var tag = item.querySelector('.org-picker-item-tag').textContent;
+      var color = item.querySelector('.org-picker-item-icon').style.background;
+      var orgIcon = orgTrigger.querySelector('.sidebar-org-icon');
+      var orgName = orgTrigger.querySelector('.sidebar-org-name');
+      var orgTag = orgTrigger.querySelector('.sidebar-org-tag');
+      orgName.textContent = name;
+      orgTag.textContent = tag;
+      orgIcon.textContent = name.charAt(0).toUpperCase();
+      orgIcon.style.background = color;
+      orgPicker.classList.remove('open');
+      orgTrigger.classList.remove('picker-open');
+    });
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!orgTrigger.contains(e.target) && !orgPicker.contains(e.target)) {
+      orgPicker.classList.remove('open');
+      orgTrigger.classList.remove('picker-open');
+    }
+  });
+})();
+
 // ===== PAGE-SPECIFIC BINDING INITIALIZATION =====
 function initPageBindings(route) {
   // Greeting (home page)
@@ -844,6 +884,57 @@ function initPageBindings(route) {
           navigateTo(route);
         }
       });
+    });
+  }
+
+  // Profile page tabs
+  if (route === 'profile') {
+    document.querySelectorAll('.profile-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.profile-tab').forEach(function(t) { t.classList.remove('active'); });
+        tab.classList.add('active');
+      });
+    });
+
+    document.querySelectorAll('.profile-dm-wrapper').forEach(function(wrapper) {
+      var trigger = wrapper.querySelector('.profile-dm-trigger');
+      var dropdown = wrapper.querySelector('.profile-dm');
+      var valueSpan = wrapper.querySelector('.profile-dm-value');
+      if (!trigger || !dropdown) return;
+
+      trigger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var wasOpen = trigger.classList.contains('open');
+        document.querySelectorAll('.profile-dm-trigger.open').forEach(function(t) {
+          t.classList.remove('open');
+          t.closest('.profile-dm-wrapper').querySelector('.profile-dm').classList.remove('open');
+        });
+        if (!wasOpen) {
+          trigger.classList.add('open');
+          dropdown.classList.add('open');
+          var sel = dropdown.querySelector('.profile-dm-item.selected');
+          if (sel) sel.scrollIntoView({ block: 'nearest' });
+        }
+      });
+
+      dropdown.querySelectorAll('.profile-dm-item').forEach(function(opt) {
+        opt.addEventListener('click', function() {
+          dropdown.querySelectorAll('.profile-dm-item').forEach(function(o) { o.classList.remove('selected'); });
+          opt.classList.add('selected');
+          valueSpan.textContent = opt.getAttribute('data-value');
+          trigger.classList.remove('open');
+          dropdown.classList.remove('open');
+        });
+      });
+    });
+
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.profile-dm-wrapper')) {
+        document.querySelectorAll('.profile-dm-trigger.open').forEach(function(t) {
+          t.classList.remove('open');
+          t.closest('.profile-dm-wrapper').querySelector('.profile-dm').classList.remove('open');
+        });
+      }
     });
   }
 
