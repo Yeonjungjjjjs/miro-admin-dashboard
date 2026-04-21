@@ -409,20 +409,23 @@ body {
 
 /* Org Picker Dropdown */
 .org-picker {
-  display: none; position: absolute; top: calc(100% + 4px); left: 0;
-  width: 284px; box-sizing: border-box; z-index: 200;
+  display: none; position: fixed; z-index: 9999;
+  width: 284px; box-sizing: border-box;
   background: var(--white); border-radius: 20px;
   border: 0.5px solid #f4f4f1; overflow: clip;
   box-shadow: 0 0 12px rgba(34,36,40,0.04), 0 2px 8px rgba(34,36,40,0.12);
   padding: 12px; flex-direction: column; gap: 16px;
 }
 .org-picker.open { display: flex; }
-.org-picker-list { display: flex; flex-direction: column; gap: 16px; }
+.org-picker-list { display: flex; flex-direction: column; gap: 4px; }
 .org-picker-item {
   display: flex; align-items: center; gap: 10px;
-  height: 43px; cursor: pointer; border-radius: var(--radius-xs);
+  padding: 8px; cursor: pointer; border-radius: 20px;
+  transition: background 0.1s ease;
 }
-.org-picker-item:hover { background: var(--bg-subtle); }
+.org-picker-item:hover { background: #f4f4f1; }
+.org-picker-item:active { background: #eeeeeb; }
+.org-picker-item.active { background: #f4f4f1; }
 .org-picker-item-icon {
   width: 40px; height: 40px; border-radius: 16px; flex-shrink: 0;
   box-shadow: 0 1px 2px rgba(0,0,0,0.05);

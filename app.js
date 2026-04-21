@@ -722,10 +722,17 @@ document.getElementById('hamburger-btn').addEventListener('click', function() {
     var wasOpen = orgPicker.classList.contains('open');
     orgPicker.classList.toggle('open');
     orgTrigger.classList.toggle('picker-open', !wasOpen);
+    if (!wasOpen) {
+      var rect = orgTrigger.getBoundingClientRect();
+      orgPicker.style.top = (rect.bottom + 4) + 'px';
+      orgPicker.style.left = rect.left + 'px';
+    }
   });
 
   orgPicker.querySelectorAll('.org-picker-item').forEach(function(item) {
     item.addEventListener('click', function() {
+      orgPicker.querySelectorAll('.org-picker-item').forEach(function(i) { i.classList.remove('active'); });
+      item.classList.add('active');
       var name = item.querySelector('.org-picker-item-name').textContent;
       var tag = item.querySelector('.org-picker-item-tag').textContent;
       var color = item.querySelector('.org-picker-item-icon').style.background;
