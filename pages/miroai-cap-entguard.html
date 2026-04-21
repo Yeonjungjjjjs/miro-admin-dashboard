@@ -1,0 +1,436 @@
+      <section class="main-content">
+        <div class="breadcrumb" style="margin-bottom:4px;"><span style="font-family:var(--font-body);font-size:14px;color:#656b81;">Miro AI</span><span class="breadcrumb-sep">/</span></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <h1 style="font-family:var(--font-heading);font-size:32px;font-weight:600;color:#222428;margin:0;line-height:1.2;">Capabilities</h1>
+          <div class="feat-select-wrapper" id="cap-variant-selector">
+            <button class="feat-select-trigger filled" id="cap-variant-trigger" data-value="miroai-cap-entguard" style="min-width:180px;">Enterprise Guard<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
+            <div class="feat-select-dropdown">
+              <div class="feat-select-option cap-nav-option" data-val="Default" data-route="miroai-capabilities"><span>Default</span></div>
+              <div class="feat-select-option cap-nav-option selected" data-val="Enterprise Guard" data-route="miroai-cap-entguard"><span>Enterprise Guard</span></div>
+              <div class="feat-select-option cap-nav-option" data-val="No Add-ons" data-route="miroai-cap-noaddons"><span>No Add-ons</span></div>
+              <div class="feat-select-option cap-nav-option" data-val="None" data-route="miroai-cap-none"><span>None</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cap-card">
+          <div class="cap-tabs">
+            <div class="cap-tab active" data-cap-tab="features-eg">Features</div>
+            <div class="cap-tab" data-cap-tab="ai-providers-eg">AI providers</div>
+            <div class="cap-tab" data-cap-tab="api-keys-eg">Your API Keys</div>
+          </div>
+
+          <!-- Features tab -->
+          <div class="cap-panel active" id="cap-panel-features-eg">
+            <!-- Features -->
+            <div class="feat-section">
+              <div class="feat-section-title">Features</div>
+              <div class="feat-section-desc">Enable AI features for your users to get the most from Miro. <a href="https://help.miro.com/hc/en-us/articles/28765406244498-Miro-AI-overview" class="mds-text-link">Learn more</a></div>
+              <div class="feat-list">
+
+                <!-- Sidekicks -->
+                <div class="feat-item" id="feat-sidekicks-eg">
+                  <div class="feat-item-row">
+                    <div class="feat-icon-area feat-icon-area--no-chevron">
+                      <div class="feat-icon-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M19.25 1A3.75 3.75 0 0 0 23 4.75v1.5A3.75 3.75 0 0 0 19.25 10h-1.5A3.75 3.75 0 0 0 14 6.25v-1.5A3.75 3.75 0 0 0 17.75 1h1.5ZM4.662 22.607l2.025.574c2.482-4.35 7.221-7 12.228-6.834l.598-2.108L5.138 3.822 3.046 4.99l1.616 17.617Zm11.771-8.132a15.648 15.648 0 0 0-9.998 5.559L5.176 6.319l11.257 8.156Z"/></svg>
+                      </div>
+                    </div>
+                    <div class="feat-item-left">
+                      <div class="feat-item-top">
+                        <span class="feat-item-label">Sidekicks</span>
+                        <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Miro,GPT 4o,GPT 4o Mini,Claude 3.5 Haiku,Claude 3.5 Sonnet,Claude 3.0 Opus,Claude 3.7 Sonnet,Claude Sonnet 3.5 (AWS Bedrock),Claude Sonnet 3.7 (AWS Bedrock),Claude Sonnet 4 (AWS Bedrock),Claude Sonnet 4.5 (AWS Bedrock),Claude Haiku 3.5 (AWS Bedrock),Claude Haiku 4.5 (AWS Bedrock),Bedrock Stability SD3.5 Large V1,Bedrock Stability Image Core,Bedrock Amazon Titan V2,Bedrock Amazon Nova Micro,Bedrock Amazon Nova Lite">18 AI models</span>
+                      </div>
+                      <div class="feat-item-desc"><span>Custom AI partners that collaborate on exploring ideas, building solutions, and moving work forward.</span><a href="https://help.miro.com/hc/en-us/articles/28765406244498-Miro-AI-overview" class="mds-text-link">Learn more</a></div>
+                    </div>
+                    <div class="feat-select-wrapper">
+                      <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
+                      <div class="feat-select-dropdown">
+                        <div class="feat-select-option" data-val="No one"><span>No one</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mds-callout mds-callout--warning sidekick-off-callout" style="display:none; margin:0 24px 0 0;">
+                  <svg class="mds-callout-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12.866 3.002a1 1 0 0 0-1.732 0l-9 15.598A1 1 0 0 0 3 20h18a1 1 0 0 0 .866-1.4l-9-15.598ZM11 10h2v5h-2v-5Zm0 7h2v2h-2v-2Z"/></svg>
+                  <div class="mds-callout-content">
+                    <div class="mds-callout-body">All AI capabilities are disabled because Sidekicks is turned off. Enable Sidekicks to enable Miro AI capabilities for your users.</div>
+                  </div>
+                </div>
+                <!-- Flows -->
+                <div class="feat-item">
+                  <div class="feat-item-row">
+                    <div class="feat-icon-area feat-icon-area--no-chevron">
+                      <div class="feat-icon-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M15 12H7c-1.002 0-1.668.343-2.088.783A2.485 2.485 0 0 0 4.25 14.5c0 .642.23 1.263.662 1.717.42.44 1.086.783 2.088.783h11.586l-1.293-1.293 1.414-1.414 3 3v1.414l-3 3-1.414-1.414L18.586 19H7c-1.498 0-2.706-.532-3.537-1.404-.818-.86-1.213-1.989-1.213-3.096s.395-2.237 1.213-3.096C4.293 10.532 5.502 10 7 10h8v2Zm-3-7H5V3h7v2Zm7.25-4A3.75 3.75 0 0 0 23 4.75v1.5A3.75 3.75 0 0 0 19.25 10h-1.5A3.75 3.75 0 0 0 14 6.25v-1.5A3.75 3.75 0 0 0 17.75 1h1.5Z"/></svg>
+                      </div>
+                    </div>
+                    <div class="feat-item-left">
+                      <div class="feat-item-top">
+                        <span class="feat-item-label">Flows</span>
+                        <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Claude 3.7 Sonnet,Claude Sonnet 4,Claude Sonnet 4.5,Claude Sonnet 4.6,Claude Opus 4.5,Claude Opus 4.6,GPT-4o,GPT-4o Mini,GPT-5,GPT-5 Mini,O3,O4-Mini,GPT-4.1,GPT-4.1 Mini,Gemini 2.5 Flash,Gemini 2.5 Pro,Gemini 2.5 Flash Lite">17 AI models</span>
+                      </div>
+                      <div class="feat-item-desc"><span>Connect AI prompts to canvas content to create automated workflows.</span><a href="https://help.miro.com/hc/en-us/articles/28765406244498-Miro-AI-overview" class="mds-text-link">Learn more</a></div>
+                    </div>
+                    <div class="feat-select-wrapper">
+                      <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
+                      <div class="feat-select-dropdown">
+                        <div class="feat-select-option" data-val="No one"><span>No one</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- AI search -->
+                <div class="feat-item">
+                  <div class="feat-item-row">
+                    <div class="feat-icon-area feat-icon-area--no-chevron">
+                      <div class="feat-icon-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M15.29 2.114 13.044 5H14l.8 1.6-3 4-1.6-1.2L12.001 7H11l-.79-1.614 3.5-4.5 1.58 1.228Zm-6.455.983c.054-.01.11-.018.165-.026V5.1a5 5 0 1 0 6 4.9h2a6.97 6.97 0 0 1-1.394 4.192l5.101 5.1-1.414 1.415-5.1-5.1a7 7 0 1 1-5.358-12.51Z" clip-rule="evenodd"/></svg>
+                      </div>
+                    </div>
+                    <div class="feat-item-left">
+                      <div class="feat-item-top">
+                        <span class="feat-item-label">AI search</span>
+                        <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Claude Sonnet 3.7 (AWS Bedrock),Claude Sonnet 4 (AWS Bedrock),Claude Sonnet 4.5 (AWS Bedrock),Claude Haiku 4.5 (AWS Bedrock),Bedrock Amazon Nova Micro,Bedrock Amazon Nova Lite">6 AI models</span>
+                      </div>
+                      <div class="feat-item-desc">Enable AI Search to search for content within a team.</div>
+                    </div>
+                    <div class="feat-select-wrapper">
+                      <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
+                      <div class="feat-select-dropdown">
+                        <div class="feat-select-option" data-val="No one"><span>No one</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Summarize activity -->
+                <div class="feat-item" id="feat-summarize-activity-eg">
+                  <div class="feat-item-row">
+                    <div class="feat-icon-area">
+                      <svg class="aicap-accordion-chevron" data-accordion="summarize-sub-eg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg>
+                      <div class="feat-icon-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4a8 8 0 0 0-6.953 11.959l.137.23.103.822-.764 2.457 2.431-.77.83.103.282.167A7.965 7.965 0 0 0 12 20a8 8 0 0 0 7.936-7h2.014c-.502 5.053-4.765 9-9.95 9a9.973 9.973 0 0 1-4.864-1.263l-3.833 1.216-1.258-1.25 1.201-3.867A9.958 9.958 0 0 1 2 12C2 6.477 6.477 2 12 2v2Zm-.08 8.923.616-1.232.09-.151a1.25 1.25 0 0 1 1.028-.54H15l-.882 2-1.223 2.447-1.752.068L9 11.943l-.643 1.072-1.714-1.03 1.5-2.5h1.714l2.063 3.438ZM19.25 1A3.75 3.75 0 0 0 23 4.75v1.5A3.75 3.75 0 0 0 19.25 10h-1.5A3.75 3.75 0 0 0 14 6.25v-1.5A3.75 3.75 0 0 0 17.75 1h1.5Z"/></svg>
+                      </div>
+                    </div>
+                    <div class="feat-item-left">
+                      <div class="feat-item-top">
+                        <span class="feat-item-label">Summarize activity</span>
+                        <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="GPT 4o,GPT 4o Mini,Claude Sonnet 3.7 (AWS Bedrock),Claude Haiku 3.5 (AWS Bedrock),Claude 3.7 Sonnet,Claude Sonnet 4,Gemini 2.5 Flash,Gemini 2.5 Pro,o4-Mini,GPT-4.1,GPT-4.1 Mini,GPT-5">12 AI models</span>
+                      </div>
+                      <div class="feat-item-desc"><span>Create a summary of board activity and comment threads.</span><a href="https://help.miro.com/hc/en-us/articles/28765406244498-Miro-AI-overview" class="mds-text-link">Learn more</a></div>
+                    </div>
+                    <div class="feat-select-wrapper">
+                      <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
+                      <div class="feat-select-dropdown">
+                        <div class="feat-select-apply-row"><span class="feat-select-apply-label">Apply to entire category</span><div class="mds-switch checked" role="switch" aria-checked="true" data-apply-toggle="summarize"></div></div>
+                        <div class="feat-select-option" data-val="No one"><span>No one</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="aicap-sub-items collapsed" id="summarize-sub-eg" style="max-height:0;">
+                    <div class="aicap-sub-item--rich"><div class="aicap-sub-item-info-col"><div class="aicap-sub-item-title-row"><span class="aicap-sub-item-title">Conversation summary</span><span class="mds-tag mds-tag--neutral ai-models-tag" data-models="GPT 4o">GPT-4o</span></div><div class="aicap-sub-item-desc">Get a summary of long comment threads on your Miro board</div></div><div class="feat-select-wrapper"><button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button><div class="feat-select-dropdown"><div class="feat-select-option" data-val="No one"><span>No one</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div><div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div><div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div></div></div></div>
+                    <div class="aicap-sub-item--rich"><div class="aicap-sub-item-info-col"><div class="aicap-sub-item-title-row"><span class="aicap-sub-item-title">Catch up</span><span class="mds-tag mds-tag--neutral ai-models-tag" data-models="GPT 4o Mini">GPT-4o Mini</span></div><div class="aicap-sub-item-desc">Get an overview of changes to the board since your last visit</div></div><div class="feat-select-wrapper"><button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button><div class="feat-select-dropdown"><div class="feat-select-option" data-val="No one"><span>No one</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div><div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div><div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div></div></div></div>
+                  </div>
+                </div>
+
+                <!-- Beta features -->
+                <div class="feat-item">
+                  <div class="feat-item-row">
+                    <div class="feat-icon-area feat-icon-area--no-chevron">
+                      <div class="feat-icon-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M14 6.837V5l.105-.447.276-.553H9.618l.276.553L10 5v1.973a9 9 0 0 1-.96 4.044c1.872.06 2.795.286 3.703.513.724.181 1.437.36 2.829.434l-.346-.592A9.001 9.001 0 0 1 14 6.837ZM5.377 17.785A1.5 1.5 0 0 0 6.698 20h10.949a1.5 1.5 0 0 0 1.296-2.256l-2.187-3.748c-2.423-.016-3.471-.27-4.499-.526-.938-.235-1.855-.47-4.256-.47v-.056l-2.623 4.841ZM16 6.837c0 1.24.33 2.457.955 3.527l3.716 6.372C22.032 19.07 20.348 22 17.647 22H6.697c-2.651 0-4.34-2.835-3.077-5.167l3.535-6.526A7 7 0 0 0 8 6.973V5.236l-.895-1.789L8 2h8l.894 1.447L16 5.237v1.6Z"/></svg>
+                      </div>
+                    </div>
+                    <div class="feat-item-left">
+                      <div class="feat-item-top">
+                        <span class="feat-item-label">Beta features</span>
+                      </div>
+                      <div class="feat-item-desc">Give users access to new features as soon as they're available.</div>
+                    </div>
+                    <div class="feat-select-wrapper">
+                      <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
+                      <div class="feat-select-dropdown">
+                        <div class="feat-select-option" data-val="No one"><span>No one</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+              </div>
+            </div>
+
+            <div class="cap-divider"></div>
+
+            <!-- Capabilities -->
+            <div class="feat-section">
+              <div class="feat-section-title">Capabilities</div>
+              <div class="feat-section-desc">Manage AI capabilities used in Miro AI features. Turning off capabilities limits end user availability. <a href="https://help.miro.com/hc/en-us/articles/20164358139794-Create-with-AI" class="mds-text-link">Learn more</a></div>
+              <div class="mds-callout mds-callout--warning" id="sidekicks-disabled-callout-eg" style="display:none; margin-top:16px;">
+                <svg class="mds-callout-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12.866 3.002a1 1 0 0 0-1.732 0l-9 15.598A1 1 0 0 0 3 20h18a1 1 0 0 0 .866-1.4l-9-15.598ZM11 10h2v5h-2v-5Zm0 7h2v2h-2v-2Z"/></svg>
+                <div class="mds-callout-content">
+                  <div class="mds-callout-heading">Sidekicks</div>
+                  <div class="mds-callout-body">This is text used within a callout and it should be a maximum of 2 sentences because people usually don't read them.</div>
+                </div>
+              </div>
+              <div class="aicap-list">
+
+                <!-- Create content -->
+                <div class="feat-item" id="aicap-group-content-eg">
+                  <div class="feat-item-row">
+                    <div class="feat-icon-area">
+                      <svg class="aicap-accordion-chevron" data-accordion="content-sub-eg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg>
+                      <div class="feat-icon-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M13 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8h2v8a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3h8v2Zm-5.257 9.144c.125-.525.89-.526 1.014 0l.01.054.017.098a2.402 2.402 0 0 0 2.018 1.936c.596.086.599.95 0 1.036a2.401 2.401 0 0 0-2.034 2.034c-.087.599-.95.596-1.036 0a2.402 2.402 0 0 0-2.034-2.034c-.598-.087-.597-.95 0-1.036l.098-.016a2.402 2.402 0 0 0 1.936-2.018l.01-.054Zm9.479-10.498a2.206 2.206 0 0 1 3.12 0l1.012 1.012a2.206 2.206 0 0 1 0 3.12l-6.705 6.705-3.616.517L10 12.967l.517-3.616 6.705-6.705Zm-4.82 7.648-.218 1.521 1.521-.217 3.74-3.74-1.304-1.303-3.74 3.739Zm6.526-6.233a.207.207 0 0 0-.292 0l-1.081 1.08 1.303 1.303 1.081-1.08a.207.207 0 0 0 0-.292l-1.011-1.011Z"/></svg>
+                      </div>
+                    </div>
+                    <div class="feat-item-left">
+                      <div class="feat-item-top">
+                        <span class="feat-item-label">Content</span>
+                        <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="GPT 4o,GPT 4o Mini,Claude Sonnet 3.7 (AWS Bedrock),Claude Haiku 3.5 (AWS Bedrock),Claude 3.7 Sonnet,Claude Sonnet 4,Claude Sonnet 4.5,Claude Sonnet 4.6,Claude Opus 4.5,Claude Opus 4.6,o3,o4-Mini,GPT-4.1,GPT-4.1 Mini,Gemini 2.5 Flash,Gemini 2.5 Pro,Gemini 2.5 Flash Lite,GPT-5,GPT-5 Mini">19 AI models</span>
+                      </div>
+                      <div class="feat-item-desc"><span>Use AI to create and edit canvas content like sticky notes, Docs, Tables, Timelines, and more.</span><a href="https://help.miro.com/hc/en-us/articles/20164358139794-Create-with-AI" class="mds-text-link">Learn more</a></div>
+                    </div>
+                    <div class="feat-select-wrapper">
+                      <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
+                      <div class="feat-select-dropdown">
+                        <div class="feat-select-apply-row"><span class="feat-select-apply-label">Apply to entire category</span><div class="mds-switch checked" role="switch" aria-checked="true" data-apply-toggle="content"></div></div>
+                        <div class="feat-select-option" data-val="No one"><span>No one</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="aicap-sub-items collapsed" id="content-sub-eg" style="max-height:0;">
+                    <div class="aicap-sub-item--rich"><div class="aicap-sub-item-info-col"><div class="aicap-sub-item-title-row"><span class="aicap-sub-item-title">Create sticky notes</span><span class="mds-tag mds-tag--neutral ai-models-tag" data-models="GPT 4o,Claude Sonnet 3.7 (AWS Bedrock)">2 AI models</span></div><div class="aicap-sub-item-desc">Create sticky notes with AI</div></div><div class="feat-select-wrapper"><button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button><div class="feat-select-dropdown"><div class="feat-select-option" data-val="No one"><span>No one</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div><div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div><div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div></div></div></div>
+                    <div class="aicap-sub-item--rich"><div class="aicap-sub-item-info-col"><div class="aicap-sub-item-title-row"><span class="aicap-sub-item-title">Cluster sticky notes</span><span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Claude Haiku 3.5 (AWS Bedrock)">Claude Haiku 3.5</span></div><div class="aicap-sub-item-desc">Automatically group sticky notes by keywords or sentiment</div></div><div class="feat-select-wrapper"><button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button><div class="feat-select-dropdown"><div class="feat-select-option" data-val="No one"><span>No one</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div><div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div><div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div></div></div></div>
+                    <div class="aicap-sub-item--rich"><div class="aicap-sub-item-info-col"><div class="aicap-sub-item-title-row"><span class="aicap-sub-item-title">Docs</span><span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Claude 3.7 Sonnet,Claude Sonnet 4,GPT-4o,GPT-4o Mini">4 AI models</span></div><div class="aicap-sub-item-desc">Create and edit documents with AI</div></div><div class="feat-select-wrapper"><button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button><div class="feat-select-dropdown"><div class="feat-select-option" data-val="No one"><span>No one</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div><div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div><div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div></div></div></div>
+                    <div class="aicap-sub-item--rich"><div class="aicap-sub-item-info-col"><div class="aicap-sub-item-title-row"><span class="aicap-sub-item-title">Tables</span><span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Claude Sonnet 3.7 (AWS Bedrock)">Claude Sonnet 3.7</span></div><div class="aicap-sub-item-desc">Create and edit tables with AI</div></div><div class="feat-select-wrapper"><button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button><div class="feat-select-dropdown"><div class="feat-select-option" data-val="No one"><span>No one</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div><div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div><div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div></div></div></div>
+                    <div class="aicap-sub-item--rich"><div class="aicap-sub-item-info-col"><div class="aicap-sub-item-title-row"><span class="aicap-sub-item-title">Diagrams</span><span class="mds-tag mds-tag--neutral ai-models-tag" data-models="GPT 4o Mini,GPT 4o,Claude Sonnet 3.7 (AWS Bedrock)">3 AI models</span></div><div class="aicap-sub-item-desc">Create diagrams with AI assistance</div></div><div class="feat-select-wrapper"><button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button><div class="feat-select-dropdown"><div class="feat-select-option" data-val="No one"><span>No one</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div><div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div><div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div></div></div></div>
+                    <div class="aicap-sub-item--rich"><div class="aicap-sub-item-info-col"><div class="aicap-sub-item-title-row"><span class="aicap-sub-item-title">Text</span><span class="mds-tag mds-tag--neutral ai-models-tag" data-models="GPT 4o Mini">GPT-4o Mini</span></div><div class="aicap-sub-item-desc">Corrects, rewrites, and translates text to improve clarity, tone, and readability</div></div><div class="feat-select-wrapper"><button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button><div class="feat-select-dropdown"><div class="feat-select-option" data-val="No one"><span>No one</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div><div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div><div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div></div></div></div>
+                  </div>
+                </div>
+
+                <!-- Images -->
+                <div class="feat-item" id="aicap-group-images-eg">
+                  <div class="feat-item-row">
+                    <div class="feat-icon-area">
+                      <svg class="aicap-accordion-chevron" data-accordion="images-sub-eg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg>
+                      <div class="feat-icon-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M12 2v2H5a1 1 0 0 0-1 1v9.148l2.219-2.773L7 11h2l.747.336L17.448 20H19a1 1 0 0 0 1-1v-7h2v7a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3h7ZM4 17.352V19a1 1 0 0 0 1 1h9.773l-6.221-7h-1.07L4 17.352ZM19.25 1A3.75 3.75 0 0 0 23 4.75v1.5A3.75 3.75 0 0 0 19.25 10h-1.5A3.75 3.75 0 0 0 14 6.25v-1.5A3.75 3.75 0 0 0 17.75 1h1.5Z" clip-rule="evenodd"/></svg>
+                      </div>
+                    </div>
+                    <div class="feat-item-left">
+                      <div class="feat-item-top">
+                        <span class="feat-item-label">Images</span>
+                        <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Vertex AI Imagen 3,Vertex AI Imagen 3 Fast,Vertex AI Imagen 4,Gemini 2.5 Flash Image (Nano Banana),Stable Diffusion 3.5 Large,Stable Image Core 1.0,Stable Image Ultra 1.0,Titan Image Generator G1 V2,Nova Canvas,Miro,Claude Sonnet 3.7 (AWS Bedrock)">11 AI models</span>
+                      </div>
+                      <div class="feat-item-desc"><span>Create and edit images with AI on the canvas. <a href="https://help.miro.com/hc/en-us/articles/20164358139794-Create-with-AI" class="mds-text-link" style="display:inline;">Learn more</a></span></div>
+                    </div>
+                    <div class="feat-select-wrapper">
+                      <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
+                      <div class="feat-select-dropdown">
+                        <div class="feat-select-apply-row"><span class="feat-select-apply-label">Apply to entire category</span><div class="mds-switch checked" role="switch" aria-checked="true" data-apply-toggle="images"></div></div>
+                        <div class="feat-select-option" data-val="No one"><span>No one</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="aicap-sub-items collapsed" id="images-sub-eg" style="max-height:0;">
+                    <div class="aicap-sub-item--rich"><div class="aicap-sub-item-info-col"><div class="aicap-sub-item-title-row"><span class="aicap-sub-item-title">Create images</span><span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Vertex AI Imagen 3,Vertex AI Imagen 3 Fast,Vertex AI Imagen 4">3 AI models</span></div><div class="aicap-sub-item-desc">Create images with AI</div></div><div class="feat-select-wrapper"><button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button><div class="feat-select-dropdown"><div class="feat-select-option" data-val="No one"><span>No one</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div><div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div><div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div></div></div></div>
+                    <div class="aicap-sub-item--rich"><div class="aicap-sub-item-info-col"><div class="aicap-sub-item-title-row"><span class="aicap-sub-item-title">Remove background</span><span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Miro">Miro</span></div><div class="aicap-sub-item-desc">Remove image backgrounds with AI</div></div><div class="feat-select-wrapper"><button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button><div class="feat-select-dropdown"><div class="feat-select-option" data-val="No one"><span>No one</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div><div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div><div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div></div></div></div>
+                    <div class="aicap-sub-item--rich"><div class="aicap-sub-item-info-col"><div class="aicap-sub-item-title-row"><span class="aicap-sub-item-title">Add captions to images</span><span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Claude Sonnet 3.7 (AWS Bedrock)">Claude Sonnet 3.7</span></div><div class="aicap-sub-item-desc">Create alt text for images</div></div><div class="feat-select-wrapper"><button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button><div class="feat-select-dropdown"><div class="feat-select-option" data-val="No one"><span>No one</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div><div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div><div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div></div></div></div>
+                  </div>
+                </div>
+
+                <!-- Prototypes -->
+                <div class="feat-item">
+                  <div class="feat-item-row">
+                    <div class="feat-icon-area feat-icon-area--no-chevron">
+                      <div class="feat-icon-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M17 5a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V5Zm-3 1v2h-4V6h4Zm5 13a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v14Z"/></svg>
+                      </div>
+                    </div>
+                    <div class="feat-item-left">
+                      <div class="feat-item-top">
+                        <span class="feat-item-label">Prototypes</span>
+                        <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Claude Sonnet 3.7 (AWS Bedrock),Bedrock Stability SD3.5 Large V1,Miro,GPT 4o,Claude 3.0 Opus">5 AI models</span>
+                      </div>
+                      <div class="feat-item-desc">Create interactive prototypes from prompts or image recognition.</div>
+                    </div>
+                    <div class="feat-select-wrapper">
+                      <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
+                      <div class="feat-select-dropdown">
+                        <div class="feat-select-option" data-val="No one"><span>No one</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slides -->
+                <div class="feat-item">
+                  <div class="feat-item-row">
+                    <div class="feat-icon-area feat-icon-area--no-chevron">
+                      <div class="feat-icon-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M17 9v2h-3V9h3Zm0 4v2h-3v-2h3Zm-5.857-1.514a.6.6 0 0 1 0 1.028l-3.234 1.94A.6.6 0 0 1 7 13.94v-3.88a.6.6 0 0 1 .909-.515l3.234 1.94ZM19 4a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h14ZM5 6a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5Z"/></svg>
+                      </div>
+                    </div>
+                    <div class="feat-item-left">
+                      <div class="feat-item-top">
+                        <span class="feat-item-label">Slides</span>
+                        <span class="mds-tag mds-tag--neutral ai-models-tag" data-models="Claude Sonnet 3.7 (AWS Bedrock),Claude Sonnet 3.5 (AWS Bedrock),GPT 4o,Bedrock Stability SD3.5 Large V1">4 AI models</span>
+                      </div>
+                      <div class="feat-item-desc">Create and edit slides with AI.</div>
+                    </div>
+                    <div class="feat-select-wrapper">
+                      <button class="feat-select-trigger filled" data-value="Everyone">Everyone<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
+                      <div class="feat-select-dropdown">
+                        <div class="feat-select-option" data-val="No one"><span>No one</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option selected" data-val="Everyone"><span>Everyone</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                        <div class="feat-select-option" data-val="Specific teams"><span>Specific teams</span><div class="feat-select-radio"><div class="feat-select-radio-dot"></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- AI providers tab -->
+          <div class="cap-panel" id="cap-panel-ai-providers-eg">
+            <div class="cap-header-row">
+              <div class="cap-header-title">Manage AI providers</div>
+              <div class="cap-header-desc">For some features, users can select the AI model they want to use. Manage which AI providers and models will be available for them to choose from. <a href="#">Learn about AI model selection</a></div>
+            </div>
+            <div class="cap-divider"></div>
+
+            <!-- Docs -->
+            <div class="cap-provider-row">
+              <div class="cap-provider-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 20 20"><path d="M11 2H3C2.448 2 2 2.448 2 3v14c0 .552.448 1 1 1h14c.552 0 1-.448 1-1V9h2v8c0 1.657-1.343 3-3 3H3c-1.657 0-3-1.343-3-3V3c0-1.657 1.343-3 3-3h8v2Z" fill="currentColor"/><path d="M5.743 11.144c.125-.525.89-.526 1.015 0l.01.054.016.098c.188 1.007.997 1.789 2.018 1.936.596.086.6.949 0 1.035-1.054.152-1.882.98-2.034 2.034-.087.6-.95.596-1.035 0-.152-1.054-.98-1.882-2.034-2.034-.598-.087-.597-.95 0-1.035l.098-.016c1.007-.188 1.789-.997 1.936-2.018l.01-.054Z" fill="currentColor"/><path d="M15.222.646c.861-.861 2.258-.861 3.12 0l1.012 1.012c.861.861.861 2.258 0 3.12l-6.705 6.705-3.616.517-.967-1.033.517-3.616L15.222.646Zm-4.82 7.647-.218 1.522 1.521-.218 3.74-3.74-1.304-1.303-3.74 3.74Zm6.526-5.536a.312.312 0 0 0-.292 0l-1.081 1.08 1.304 1.304 1.08-1.08a.313.313 0 0 0 0-.293l-1.011-1.011Z" fill="currentColor"/></svg>
+              </div>
+              <div class="cap-provider-content">
+                <div class="cap-provider-title">Docs</div>
+                <div class="cap-provider-desc">Creating and editing documents with AI</div>
+                <div class="cap-provider-toggles">
+                  <div class="cap-toggle-item">
+                    <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                    <div class="cap-toggle-info"><span class="cap-toggle-label">Anthropic</span><span class="cap-toggle-host">Hosted on Amazon Bedrock</span></div>
+                  </div>
+                  <div class="cap-toggle-item">
+                    <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                    <div class="cap-toggle-info"><span class="cap-toggle-label">Google</span><span class="cap-toggle-host">Hosted on Google</span></div>
+                  </div>
+                  <div class="cap-toggle-item">
+                    <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                    <div class="cap-toggle-info"><span class="cap-toggle-label">OpenAI</span><span class="cap-toggle-host">Hosted on Azure OpenAI</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="cap-divider"></div>
+
+            <!-- Images -->
+            <div class="cap-provider-row">
+              <div class="cap-provider-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 20 20"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 0v2H3c-.552 0-1 .448-1 1v9.148l2.219-2.773L5 9h2l.747.336L15.448 18H17c.552 0 1-.448 1-1v-7h2v8c0 1.657-1.343 3-3 3H3c-1.657 0-3-1.343-3-3V3c0-1.657 1.343-3 3-3h7Zm-8 15.352V17c0 .552.448 1 1 1h9.773L6.552 11H5.481L2 15.352Z" fill="currentColor"/><path d="M13.79 1.599c.19-.798 1.353-.799 1.543 0l.015.083.025.15c.188 1.007.997 1.789 2.018 1.936.596.086.6.949 0 1.035-1.054.152-1.882.98-2.034 2.034-.087.6-.95.596-1.035 0-.152-1.054-.98-1.882-2.034-2.034-.598-.087-.597-.95 0-1.035l.098-.016c1.007-.188 1.789-.997 1.936-2.018l.016-.083Z" fill="currentColor"/></svg>
+              </div>
+              <div class="cap-provider-content">
+                <div class="cap-provider-title">Images</div>
+                <div class="cap-provider-desc">Generating images with AI in Miro. Does not include images that are part of Slides or Prototypes.</div>
+                <div class="cap-provider-toggles">
+                  <div class="cap-toggle-item">
+                    <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                    <div class="cap-toggle-info"><span class="cap-toggle-label">Amazon Bedrock</span><span class="cap-toggle-host">Hosted on Amazon Bedrock</span></div>
+                  </div>
+                  <div class="cap-toggle-item">
+                    <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                    <div class="cap-toggle-info"><span class="cap-toggle-label">Google</span><span class="cap-toggle-host">Hosted on Google</span></div>
+                  </div>
+                  <div class="cap-toggle-item">
+                    <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                    <div class="cap-toggle-info"><span class="cap-toggle-label">Stability AI</span><span class="cap-toggle-host">Hosted on Amazon Bedrock</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="cap-divider"></div>
+
+            <!-- Flows instruction blocks -->
+            <div class="cap-provider-row">
+              <div class="cap-provider-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 21 21"><path d="M12.75 11h-8c-1.002 0-1.669.343-2.088.783A2.5 2.5 0 0 0 2 13.5c0 .642.23 1.263.662 1.717.42.44 1.087.783 2.088.783h11.586l-1.293-1.293 1.414-1.414 3 3v1.414l-3 3-1.414-1.414L16.336 18H4.75c-1.498 0-2.706-.532-3.537-1.404A4.5 4.5 0 0 1 0 13.5c0-1.108.395-2.237 1.213-3.096C2.044 9.532 3.252 9 4.75 9h8v2Z" fill="currentColor"/><path d="M9.75 4h-7V2h7v2Z" fill="currentColor"/><path d="M17 0c0 2.071 1.679 3.75 3.75 3.75v1.5C18.679 5.25 17 6.929 17 9h-1.5c0-2.071-1.679-3.75-3.75-3.75v-1.5C13.821 3.75 15.5 2.071 15.5 0H17Z" fill="currentColor"/></svg>
+              </div>
+              <div class="cap-provider-content">
+                <div class="cap-provider-title">Flows instruction blocks</div>
+                <div class="cap-provider-desc">Creating Flows instruction blocks with AI</div>
+                <div class="cap-provider-toggles">
+                  <div class="cap-toggle-item">
+                    <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                    <div class="cap-toggle-info"><span class="cap-toggle-label">Anthropic</span><span class="cap-toggle-host">Hosted on Amazon Bedrock</span></div>
+                  </div>
+                  <div class="cap-toggle-item">
+                    <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                    <div class="cap-toggle-info"><span class="cap-toggle-label">Google</span><span class="cap-toggle-host">Hosted on Google</span></div>
+                  </div>
+                  <div class="cap-toggle-item">
+                    <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                    <div class="cap-toggle-info"><span class="cap-toggle-label">OpenAI</span><span class="cap-toggle-host">Hosted on Azure OpenAI</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="cap-divider"></div>
+
+            <!-- Sidekick responses and tasks -->
+            <div class="cap-provider-row">
+              <div class="cap-provider-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 20 23"><path d="M16.204 0c0 2.071 1.679 3.75 3.75 3.75v1.5c-2.071 0-3.75 1.679-3.75 3.75h-1.5c0-2.071-1.679-3.75-3.75-3.75v-1.5c2.071 0 3.75-1.679 3.75-3.75h1.5Z" fill="currentColor"/><path d="m1.616 21.607 2.025.574c2.483-4.351 7.222-7 12.228-6.834l.598-2.108L2.092 2.822 0 3.99l1.616 17.617Zm11.771-8.132c-3.907.52-7.496 2.515-9.998 5.559L2.13 5.319l11.257 8.156Z" fill="currentColor"/></svg>
+              </div>
+              <div class="cap-provider-content">
+                <div class="cap-provider-title">Sidekick responses and tasks</div>
+                <div class="cap-provider-desc">Core Sidekick processing for response generation and autonomous task execution</div>
+                <div class="cap-provider-toggles">
+                  <div class="cap-toggle-item">
+                    <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                    <div class="cap-toggle-info"><span class="cap-toggle-label">Anthropic</span><span class="cap-toggle-host">Hosted on Amazon Bedrock</span></div>
+                  </div>
+                  <div class="cap-toggle-item">
+                    <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                    <div class="cap-toggle-info"><span class="cap-toggle-label">Google</span><span class="cap-toggle-host">Hosted on Google</span></div>
+                  </div>
+                  <div class="cap-toggle-item">
+                    <div class="mds-switch checked" role="switch" aria-checked="true"></div>
+                    <div class="cap-toggle-info"><span class="cap-toggle-label">OpenAI</span><span class="cap-toggle-host">Hosted on Azure OpenAI</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Your API Keys tab (placeholder) -->
+          <div class="cap-panel" id="cap-panel-api-keys-eg">
+            <div class="cap-placeholder">Your API Keys settings will appear here.</div>
+          </div>
+        </div>
+      </section>

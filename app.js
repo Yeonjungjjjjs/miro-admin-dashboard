@@ -224,26 +224,6 @@ function drawChart(canvasId, data, color) {
   }
 }
 
-// ===== ORG POLICIES DATA STORE =====
-window.OrgPolicies = {
-  orgStats: {
-    totalUsers: 450, activeUsers: 323, inactiveUsers: 127,
-    totalTeams: 80, lowActivityTeams: 12,
-    totalSpaces: 42, emptySpaces: 8,
-    totalBoards: 1240,
-    licenses: { full: 200, basic: 150, unused: 47, total: 350 },
-    addOns: { prototyping: { allocated: 90, total: 100 }, insights: { allocated: 45, total: 50 } }
-  },
-  recommendations: [
-    { id: 'rec-license', title: 'License Recycling', desc: '47 licenses are unused for 90+ days. Recycle to save costs and reallocate to active teams.' },
-    { id: 'rec-reactivate', title: 'Reactivate inactive users', desc: '127 users have expired credentials but remain in project groups. Clean up suggested to maintain audit compliance.' },
-    { id: 'rec-spaces', title: 'Space Consolidation', desc: '8 spaces have no active boards. Consolidate or archive to reduce clutter and improve navigation.' },
-    { id: 'rec-addon', title: 'Add-on Optimization', desc: '3 teams frequently use diagramming features. Prototyping add-on would increase their productivity by ~30%.' },
-    { id: 'rec-access', title: 'Access Policy Review', desc: '15 external guests have board-level access expiring soon. Review and update sharing permissions.' },
-    { id: 'rec-compliance', title: 'Compliance Audit', desc: '4 teams have non-compliant content sharing settings. Run audit to align with org security policies.' }
-  ]
-};
-
 function initCharts() {
   var blue = '#7b9eff';
   drawChart('chart-boards', [280, 310, 300, 320, 340, 330, 335, 320], blue);
@@ -260,21 +240,68 @@ function initCharts() {
   if (el) el.textContent = greet + ', Taylor';
 })();
 
+// Fragment route map
+var fragmentRoutes = {
+  'home': 'pages/home.html',
+  'products': 'pages/products.html',
+  'aiworkflow': 'pages/aiworkflow.html',
+  'allusers': 'pages/allusers.html',
+  'teams': 'pages/teams.html',
+  'miroai-capabilities': 'pages/miroai-capabilities.html',
+  'miroai-cap-entguard': 'pages/miroai-cap-entguard.html',
+  'miroai-cap-noaddons': 'pages/miroai-cap-noaddons.html',
+  'miroai-cap-none': 'pages/miroai-cap-none.html',
+  'miroai-datausage': 'pages/miroai-datausage.html'
+};
+var pageCache = {};
+
 // Routing
 function navigateTo(route) {
   document.querySelectorAll('.page-section').forEach(function(s) { s.classList.remove('active'); });
-  var page = document.getElementById('page-' + route);
-  if (page) page.classList.add('active');
+  var pageContent = document.getElementById('page-content');
 
+  if (fragmentRoutes[route]) {
+    var cached = pageCache[route];
+    if (cached) {
+      pageContent.innerHTML = cached;
+      pageContent.classList.add('active');
+      updateNavState(route);
+      initPageBindings(route);
+    } else {
+      fetch(fragmentRoutes[route] + '?v=' + Date.now())
+        .then(function(r) { return r.text(); })
+        .then(function(html) {
+          pageCache[route] = html;
+          pageContent.innerHTML = html;
+          pageContent.classList.add('active');
+          updateNavState(route);
+          initPageBindings(route);
+        })
+        .catch(function() {
+          pageContent.innerHTML = '<section class="main-content"><h1>Page not found</h1></section>';
+          pageContent.classList.add('active');
+        });
+    }
+  } else {
+    pageContent.innerHTML = '';
+    pageContent.classList.remove('active');
+    var page = document.getElementById('page-' + route);
+    if (page) page.classList.add('active');
+    updateNavState(route);
+  }
+}
+
+function updateNavState(route) {
   document.querySelectorAll('.sidebar-nav a[data-route]').forEach(function(a) { a.classList.remove('active'); a.classList.remove('parent-active'); });
   document.querySelectorAll('.subnav-item').forEach(function(a) { a.classList.remove('active'); });
   var miroaiRoutes = ['miroai-capabilities', 'miroai-cap-entguard', 'miroai-cap-noaddons', 'miroai-cap-none', 'miroai-datausage', 'miroai-moderation'];
-  var polRoutes = ['pol-onboard', 'pol-list'];
-  var activeRoute = route === 'aiworkflow' ? 'products' : (miroaiRoutes.indexOf(route) !== -1 ? 'miroai-capabilities' : (polRoutes.indexOf(route) !== -1 ? 'pol-onboard' : route));
-  var navLink = document.querySelector('.sidebar-nav > a[data-route="' + activeRoute + '"]');
+  var activeRoute = route === 'aiworkflow' ? 'products' : (miroaiRoutes.indexOf(route) !== -1 ? 'miroai-capabilities' : route);
+  var navLink = document.querySelector('.sidebar-nav a[data-route="' + activeRoute + '"]:not(.subnav-item)');
   if (navLink && !navLink.classList.contains('has-subnav')) navLink.classList.add('active');
 
-  var subnavItem = document.querySelector('.subnav-item[data-route="' + route + '"]');
+  var capVariantRoutes = ['miroai-capabilities', 'miroai-cap-entguard', 'miroai-cap-noaddons', 'miroai-cap-none'];
+  var subnavRoute = capVariantRoutes.indexOf(route) !== -1 ? 'miroai-capabilities' : route;
+  var subnavItem = document.querySelector('.subnav-item[data-route="' + subnavRoute + '"]');
   if (subnavItem) {
     subnavItem.classList.add('active');
     var parentNav = subnavItem.closest('.sidebar-subnav');
@@ -317,7 +344,7 @@ function navigateTo(route) {
     if (targetTeamsTab) targetTeamsTab.classList.add('active');
   }
 
-  var hashMap = { home: '#/Home', allusers: '#/Users/AllUsers', 'pol-onboard': '#/Policies/Recommendation', 'pol-list': '#/Policies-list', 'miroai-capabilities': '#/MiroAI/Capabilities', 'miroai-cap-entguard': '#/MiroAI/Capabilities-ent.guard', 'miroai-cap-noaddons': '#/MiroAI/Capabilities-No-add-ons', 'miroai-cap-none': '#/MiroAI/Capabilities-none', 'miroai-cap-customsidekick': '#/MiroAI/Capabilities-custom-sidekick', 'miroai-datausage': '#/MiroAI/DataUsage', 'miroai-moderation': '#/MiroAI/Moderation' };
+  var hashMap = { home: '#/Home', allusers: '#/Users/AllUsers', 'miroai-capabilities': '#/MiroAI/Capabilities', 'miroai-cap-entguard': '#/MiroAI/Capabilities-ent.guard', 'miroai-cap-noaddons': '#/MiroAI/Capabilities-No-add-ons', 'miroai-cap-none': '#/MiroAI/Capabilities-none', 'miroai-datausage': '#/MiroAI/DataUsage', 'miroai-moderation': '#/MiroAI/Moderation' };
   var hash;
   if (route === 'aiworkflow') {
     var activeAiwTab = document.querySelector('.aiw-tab.active');
@@ -347,12 +374,8 @@ function routeFromHash() {
   if (hash.indexOf('/MiroAI/Capabilities-ent.guard') !== -1) return 'miroai-cap-entguard';
   if (hash.indexOf('/MiroAI/Capabilities-No-add-ons') !== -1) return 'miroai-cap-noaddons';
   if (hash.indexOf('/MiroAI/Capabilities-none') !== -1) return 'miroai-cap-none';
-  if (hash.indexOf('/MiroAI/Capabilities-custom-sidekick') !== -1) return 'miroai-cap-customsidekick';
   if (hash.indexOf('/MiroAI/Capabilities') !== -1) return 'miroai-capabilities';
   if (hash.indexOf('/MiroAI') !== -1) return 'miroai-capabilities';
-  if (hash.indexOf('/Policies-list') !== -1) return 'pol-list';
-  if (hash.indexOf('/Policies/Recommendation') !== -1) return 'pol-onboard';
-  if (hash.indexOf('/Policies') !== -1) return 'pol-onboard';
   if (hash.indexOf('/Product/AIworkflow') !== -1) return 'aiworkflow';
   if (hash.indexOf('/Product/Explore') !== -1) return 'products';
   if (hash.indexOf('/Product/Active') !== -1) return 'products';
@@ -482,88 +505,97 @@ document.querySelectorAll('.filter-pill').forEach(function(pill) {
 });
 
 // ===== BULK ACTIONS =====
-var bulkBar = document.getElementById('bulk-actions-bar');
-var bulkToggle = document.getElementById('bulk-actions-toggle');
-var bulkMenu = document.getElementById('bulk-menu');
-var bulkClear = document.getElementById('bulk-clear');
-var selectedCountEl = document.getElementById('selected-count');
-var allUserCheckboxes = document.querySelectorAll('.allusers-table tbody .mds-checkbox');
-var headerCheckbox = document.querySelector('.allusers-table thead .mds-checkbox');
+function initBulkActions() {
+  var bulkBar = document.getElementById('bulk-actions-bar');
+  var bulkToggle = document.getElementById('bulk-actions-toggle');
+  var bulkMenu = document.getElementById('bulk-menu');
+  var bulkClear = document.getElementById('bulk-clear');
+  var selectedCountEl = document.getElementById('selected-count');
+  if (!bulkBar || !bulkToggle || !bulkMenu || !bulkClear) return;
+  var allUserCheckboxes = document.querySelectorAll('.allusers-table tbody .mds-checkbox');
+  var headerCheckbox = document.querySelector('.allusers-table thead .mds-checkbox');
 
-function updateBulkBar() {
-  var checked = document.querySelectorAll('.allusers-table tbody .mds-checkbox:checked');
-  var count = checked.length;
-  if (count > 0) {
-    bulkBar.classList.add('visible');
-    selectedCountEl.textContent = count + ' user' + (count > 1 ? 's' : '') + ' selected';
-  } else {
-    bulkBar.classList.remove('visible');
-    bulkMenu.classList.remove('open');
-  }
-  allUserCheckboxes.forEach(function(cb) {
-    var row = cb.closest('tr');
-    if (row) row.classList.toggle('row-selected', cb.checked);
-  });
-}
-
-allUserCheckboxes.forEach(function(cb) {
-  cb.addEventListener('change', updateBulkBar);
-});
-
-if (headerCheckbox) {
-  headerCheckbox.addEventListener('change', function() {
-    var isChecked = this.checked;
+  function updateBulkBar() {
+    var checked = document.querySelectorAll('.allusers-table tbody .mds-checkbox:checked');
+    var count = checked.length;
+    if (count > 0) {
+      bulkBar.classList.add('visible');
+      if (selectedCountEl) selectedCountEl.textContent = count + ' user' + (count > 1 ? 's' : '') + ' selected';
+    } else {
+      bulkBar.classList.remove('visible');
+      bulkMenu.classList.remove('open');
+    }
     allUserCheckboxes.forEach(function(cb) {
       var row = cb.closest('tr');
-      if (row && row.style.display !== 'none') cb.checked = isChecked;
+      if (row) row.classList.toggle('row-selected', cb.checked);
     });
+  }
+  window._updateBulkBar = updateBulkBar;
+
+  allUserCheckboxes.forEach(function(cb) {
+    cb.addEventListener('change', updateBulkBar);
+  });
+
+  if (headerCheckbox) {
+    headerCheckbox.addEventListener('change', function() {
+      var isChecked = this.checked;
+      allUserCheckboxes.forEach(function(cb) {
+        var row = cb.closest('tr');
+        if (row && row.style.display !== 'none') cb.checked = isChecked;
+      });
+      updateBulkBar();
+    });
+  }
+
+  bulkToggle.addEventListener('click', function(e) {
+    e.stopPropagation();
+    bulkMenu.classList.toggle('open');
+    if (!bulkMenu.classList.contains('open')) {
+      bulkMenu.querySelectorAll('.active').forEach(function(el) { el.classList.remove('active'); });
+    }
+  });
+
+  bulkMenu.querySelectorAll('.bulk-menu-item[data-has-sub]').forEach(function(item) {
+    item.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var wasActive = this.classList.contains('active');
+      bulkMenu.querySelectorAll('.bulk-menu-item.active').forEach(function(el) { el.classList.remove('active'); });
+      bulkMenu.querySelectorAll('.bulk-submenu-item.active').forEach(function(el) { el.classList.remove('active'); });
+      if (!wasActive) this.classList.add('active');
+    });
+  });
+
+  bulkMenu.querySelectorAll('.bulk-submenu-item[data-has-sub]').forEach(function(item) {
+    item.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var parent = this.closest('.bulk-submenu');
+      if (parent) {
+        parent.querySelectorAll('.bulk-submenu-item.active').forEach(function(el) { el.classList.remove('active'); });
+      }
+      this.classList.add('active');
+    });
+  });
+
+  bulkClear.addEventListener('click', function() {
+    allUserCheckboxes.forEach(function(cb) {
+      cb.checked = false;
+      var row = cb.closest('tr');
+      if (row) row.classList.remove('row-selected');
+    });
+    if (headerCheckbox) headerCheckbox.checked = false;
     updateBulkBar();
   });
 }
-
-bulkToggle.addEventListener('click', function(e) {
-  e.stopPropagation();
-  bulkMenu.classList.toggle('open');
-  if (!bulkMenu.classList.contains('open')) {
-    bulkMenu.querySelectorAll('.active').forEach(function(el) { el.classList.remove('active'); });
-  }
-});
-
-bulkMenu.querySelectorAll('.bulk-menu-item[data-has-sub]').forEach(function(item) {
-  item.addEventListener('click', function(e) {
-    e.stopPropagation();
-    var wasActive = this.classList.contains('active');
-    bulkMenu.querySelectorAll('.bulk-menu-item.active').forEach(function(el) { el.classList.remove('active'); });
-    bulkMenu.querySelectorAll('.bulk-submenu-item.active').forEach(function(el) { el.classList.remove('active'); });
-    if (!wasActive) this.classList.add('active');
-  });
-});
-
-bulkMenu.querySelectorAll('.bulk-submenu-item[data-has-sub]').forEach(function(item) {
-  item.addEventListener('click', function(e) {
-    e.stopPropagation();
-    var parent = this.closest('.bulk-submenu');
-    if (parent) {
-      parent.querySelectorAll('.bulk-submenu-item.active').forEach(function(el) { el.classList.remove('active'); });
-    }
-    this.classList.add('active');
-  });
-});
-
-bulkClear.addEventListener('click', function() {
-  allUserCheckboxes.forEach(function(cb) {
-    cb.checked = false;
-    var row = cb.closest('tr');
-    if (row) row.classList.remove('row-selected');
-  });
-  if (headerCheckbox) headerCheckbox.checked = false;
-  updateBulkBar();
-});
+initBulkActions();
 
 document.addEventListener('click', function(e) {
-  if (!document.getElementById('bulk-dropdown').contains(e.target)) {
-    bulkMenu.classList.remove('open');
-    bulkMenu.querySelectorAll('.active').forEach(function(el) { el.classList.remove('active'); });
+  var bd = document.getElementById('bulk-dropdown');
+  if (bd && !bd.contains(e.target)) {
+    var bulkMenu = document.getElementById('bulk-menu');
+    if (bulkMenu) {
+      bulkMenu.classList.remove('open');
+      bulkMenu.querySelectorAll('.active').forEach(function(el) { el.classList.remove('active'); });
+    }
   }
 });
 
@@ -656,6 +688,315 @@ document.getElementById('hamburger-btn').addEventListener('click', function() {
   setTimeout(initCharts, 300);
 });
 
+// ===== PAGE-SPECIFIC BINDING INITIALIZATION =====
+function initPageBindings(route) {
+  // Greeting (home page)
+  if (route === 'home') {
+    var h = new Date().getHours();
+    var greet = h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening';
+    var greetEl = document.getElementById('greeting');
+    if (greetEl) greetEl.textContent = greet + ', Taylor';
+  }
+
+  // Breadcrumb clicks
+  document.querySelectorAll('.breadcrumb a[data-route]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      navigateTo(this.getAttribute('data-route'));
+    });
+  });
+
+  // Products tabs
+  document.querySelectorAll('.products-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.products-tab').forEach(function(t) { t.classList.remove('active'); });
+      document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+      this.classList.add('active');
+      var tabId = this.getAttribute('data-tab');
+      var panel = document.getElementById(tabId);
+      if (panel) panel.classList.add('active');
+      var newHash = tabId === 'tab-explore' ? '#/Product/Explore' : '#/Product/Active';
+      if (location.hash !== newHash) history.pushState(null, '', newHash);
+    });
+  });
+
+  // Product row clicks
+  document.querySelectorAll('.product-row-clickable').forEach(function(row) {
+    row.addEventListener('click', function() {
+      navigateTo(this.getAttribute('data-route'));
+    });
+  });
+
+  // All Users tabs
+  document.querySelectorAll('.allusers-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.allusers-tab').forEach(function(t) { t.classList.remove('active'); });
+      this.classList.add('active');
+    });
+  });
+
+  // Filter pills
+  document.querySelectorAll('.filter-pill').forEach(function(pill) {
+    pill.addEventListener('click', function() {
+      if (this.getAttribute('data-filter') === 'ai-workflow') {
+        this.classList.toggle('active');
+        if (typeof applyAllusersFilters === 'function') applyAllusersFilters();
+      } else {
+        this.classList.toggle('active');
+      }
+    });
+  });
+
+  // Bulk actions
+  initBulkActions();
+
+  // Products tooltip
+  document.querySelectorAll('.allusers-products.mds-tooltip-wrap').forEach(function(wrap) {
+    var products = (wrap.getAttribute('data-products') || '').split(',').filter(Boolean);
+    if (products.length < 2) return;
+    wrap.addEventListener('mouseenter', function() {
+      var html = '<ul>' + products.map(function(p) { return '<li>' + p.trim() + '</li>'; }).join('') + '</ul>';
+      productsTooltip.innerHTML = html;
+      productsTooltip.classList.add('visible');
+      var rect = wrap.getBoundingClientRect();
+      productsTooltip.style.left = (rect.left + rect.width / 2 - productsTooltip.offsetWidth / 2) + 'px';
+      productsTooltip.style.top = (rect.top - productsTooltip.offsetHeight - 8) + 'px';
+    });
+    wrap.addEventListener('mouseleave', function() {
+      productsTooltip.classList.remove('visible');
+    });
+  });
+
+  // AI Models tag tooltip
+  document.querySelectorAll('.ai-models-tag').forEach(function(tag) {
+    tag.addEventListener('mouseenter', function() {
+      var modelsAttr = tag.getAttribute('data-models');
+      if (!modelsAttr) return;
+      var models = modelsAttr.split(',');
+      var count = models.length;
+      var titleText = count === 1 ? tag.textContent.trim() : count + ' AI models';
+      aiModelsTooltip.innerHTML = buildTooltipHTML(models, titleText);
+      aiModelsTooltip.classList.add('visible');
+      var rect = tag.getBoundingClientRect();
+      aiModelsTooltip.style.left = (rect.right + 8) + 'px';
+      aiModelsTooltip.style.top = (rect.top + rect.height / 2 - aiModelsTooltip.offsetHeight / 2) + 'px';
+      var ttRect = aiModelsTooltip.getBoundingClientRect();
+      if (ttRect.top < 8) aiModelsTooltip.style.top = '8px';
+      if (ttRect.bottom > window.innerHeight - 8) aiModelsTooltip.style.top = (window.innerHeight - 8 - aiModelsTooltip.offsetHeight) + 'px';
+      if (ttRect.right > window.innerWidth - 8) {
+        aiModelsTooltip.style.left = (rect.left - aiModelsTooltip.offsetWidth - 8) + 'px';
+        aiModelsTooltip.classList.add('arrow-right');
+      } else {
+        aiModelsTooltip.classList.remove('arrow-right');
+      }
+    });
+    tag.addEventListener('mouseleave', function() {
+      aiModelsTooltip.classList.remove('visible');
+    });
+  });
+
+  // Teams tabs
+  document.querySelectorAll('.teams-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.teams-tab').forEach(function(t) { t.classList.remove('active'); });
+      this.classList.add('active');
+      var tabName = this.getAttribute('data-teams-tab');
+      var newHash = tabName === 'deleted' ? '#/Teams/Deleted' : '#/Teams/Active';
+      if (location.hash !== newHash) history.pushState(null, '', newHash);
+    });
+  });
+
+  // Teams column picker & filter panel
+  initTeamsColumnPicker();
+  initTeamsFilterPanel();
+
+  // Cap variant navigation — intercept cap-nav-option clicks before the generic handler
+  var capSelector = document.getElementById('cap-variant-selector');
+  if (capSelector) {
+    capSelector.querySelectorAll('.cap-nav-option').forEach(function(opt) {
+      opt.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var route = opt.getAttribute('data-route');
+        var trig = capSelector.querySelector('.feat-select-trigger');
+        var dd = capSelector.querySelector('.feat-select-dropdown');
+        if (trig) { trig.classList.remove('open'); }
+        if (dd) { dd.classList.remove('open'); }
+        if (route && fragmentRoutes[route]) {
+          delete pageCache[route];
+          navigateTo(route);
+        }
+      });
+    });
+  }
+
+  // Cap sub-tabs
+  document.querySelectorAll('.cap-tab[data-cap-tab]').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var card = tab.closest('.cap-card');
+      if (card) {
+        card.querySelectorAll('.cap-tab').forEach(function(t) { t.classList.remove('active'); });
+        card.querySelectorAll('.cap-panel').forEach(function(p) { p.classList.remove('active'); });
+      }
+      tab.classList.add('active');
+      var panel = document.getElementById('cap-panel-' + tab.getAttribute('data-cap-tab'));
+      if (panel) panel.classList.add('active');
+    });
+  });
+
+  // Restrictions expand/collapse
+  document.querySelectorAll('.feat-restrictions-toggle').forEach(function(toggle) {
+    toggle.addEventListener('click', function() {
+      var wrap = toggle.closest('.feat-restrictions');
+      if (wrap) wrap.classList.toggle('expanded');
+    });
+  });
+
+  // AI Workflows sub-tabs
+  document.querySelectorAll('.aiw-tab[data-aiw-tab]').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.aiw-tab').forEach(function(t) { t.classList.remove('active'); });
+      document.querySelectorAll('.aiw-panel').forEach(function(p) { p.classList.remove('active'); });
+      this.classList.add('active');
+      var tabName = this.getAttribute('data-aiw-tab');
+      var panel = document.getElementById('aiw-panel-' + tabName);
+      if (panel) panel.classList.add('active');
+      var tabLabel = tabName.charAt(0).toUpperCase() + tabName.slice(1);
+      var newHash = '#/Product/AIworkflow/' + tabLabel;
+      if (location.hash !== newHash) history.pushState(null, '', newHash);
+    });
+  });
+
+  // Add-on close
+  var addonClose = document.getElementById('addon-close');
+  if (addonClose) {
+    addonClose.addEventListener('click', function() {
+      this.closest('.addon-card').style.display = 'none';
+    });
+  }
+
+  // Custom sidekick switch
+  var customSidekickSwitch = document.getElementById('custom-sidekick-switch-cs');
+  if (customSidekickSwitch) {
+    customSidekickSwitch.addEventListener('click', function() {
+      var isOn = this.classList.toggle('checked');
+      this.setAttribute('aria-checked', isOn ? 'true' : 'false');
+      var selectorWrap = document.querySelector('.custom-sidekick-selector-cs');
+      if (selectorWrap) selectorWrap.style.display = isOn ? '' : 'none';
+    });
+  }
+
+  // Accordion chevrons
+  document.querySelectorAll('.aicap-accordion-chevron').forEach(function(chevron) {
+    chevron.addEventListener('click', function() {
+      var targetId = this.getAttribute('data-accordion');
+      var sub = document.getElementById(targetId);
+      if (!sub) return;
+      this.classList.toggle('open');
+      if (sub.classList.contains('collapsed')) {
+        sub.classList.remove('collapsed');
+        sub.style.maxHeight = sub.scrollHeight + 'px';
+        setTimeout(function() { sub.style.maxHeight = ''; }, 260);
+      } else {
+        sub.style.maxHeight = sub.scrollHeight + 'px';
+        requestAnimationFrame(function() {
+          sub.classList.add('collapsed');
+          sub.style.maxHeight = '0';
+        });
+      }
+    });
+  });
+
+  // Apply-to-category toggles
+  document.querySelectorAll('[data-apply-toggle]').forEach(function(sw) {
+    applyParentToSubs(sw);
+    sw.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var isChecked = this.classList.toggle('checked');
+      this.setAttribute('aria-checked', isChecked ? 'true' : 'false');
+      applyParentToSubs(this);
+    });
+  });
+
+  // MDS Switch toggle
+  document.querySelectorAll('.mds-switch').forEach(function(sw) {
+    if (sw.hasAttribute('data-apply-toggle')) return;
+    sw.addEventListener('click', function() {
+      var isChecked = this.classList.toggle('checked');
+      this.setAttribute('aria-checked', isChecked ? 'true' : 'false');
+
+      if (this.closest('#aiw-panel-settings')) {
+        var item = this.closest('.settings-toggle-item');
+        if (!item) return;
+        var labelEl = item.querySelector('.settings-toggle-top-label');
+        if (!labelEl) return;
+        var name = labelEl.textContent.trim();
+        var state = isChecked ? 'turned on' : 'turned off';
+        var toast = document.getElementById('settings-toast');
+        var textEl = document.getElementById('settings-toast-text');
+        if (textEl) textEl.innerHTML = '<strong>' + name + '</strong> ' + state;
+        if (toast) {
+          toast.classList.add('visible');
+          clearTimeout(toast._timer);
+          toast._timer = setTimeout(function() { toast.classList.remove('visible'); }, 3000);
+        }
+      }
+
+      var featRow = this.closest('.feat-item-row');
+      if (featRow) {
+        var selWrapper = featRow.querySelector('.feat-select-wrapper');
+        if (!selWrapper) return;
+        var trig = selWrapper.querySelector('.feat-select-trigger');
+        var dd = selWrapper.querySelector('.feat-select-dropdown');
+        if (!isChecked) {
+          if (!trig._prevValue) trig._prevValue = trig.getAttribute('data-value');
+          trig.classList.add('disabled');
+          trig.classList.remove('open', 'filled');
+          dd.classList.remove('open');
+          selWrapper.querySelectorAll('.feat-select-option').forEach(function(o) { o.classList.remove('selected'); });
+          trig.childNodes[0].textContent = 'No one';
+          trig.setAttribute('data-value', 'No one');
+          var restrictions = this.closest('.feat-item').querySelector('.feat-restrictions');
+          if (restrictions) restrictions.style.display = 'none';
+        } else {
+          trig.classList.remove('disabled');
+          var restoreVal = trig._prevValue || 'Everyone';
+          trig._prevValue = null;
+          trig.classList.add('filled');
+          selWrapper.querySelectorAll('.feat-select-option').forEach(function(o) { o.classList.remove('selected'); });
+          var targetOpt = selWrapper.querySelector('.feat-select-option[data-val="' + restoreVal + '"]');
+          if (targetOpt) targetOpt.classList.add('selected');
+          trig.childNodes[0].textContent = restoreVal;
+          trig.setAttribute('data-value', restoreVal);
+          var restrictions = this.closest('.feat-item').querySelector('.feat-restrictions');
+          if (restrictions) restrictions.style.display = '';
+        }
+      }
+    });
+  });
+
+  // MDS Radio
+  document.querySelectorAll('.settings-radio-row').forEach(function(row) {
+    row.addEventListener('click', function() {
+      var group = this.closest('.settings-radio-group');
+      if (group) group.querySelectorAll('.mds-radio').forEach(function(r) { r.classList.remove('checked'); });
+      this.querySelector('.mds-radio').classList.add('checked');
+    });
+  });
+
+  // Row context menu triggers
+  initContextMenuTriggers();
+
+  // AIW bulk actions
+  if (typeof window.bindAiwBulkActions === 'function') window.bindAiwBulkActions();
+
+  // Assign seats button
+  var btnAssign = document.getElementById('btn-assign-seats');
+  if (btnAssign && window._openAssignSeatsPanel) {
+    btnAssign.addEventListener('click', window._openAssignSeatsPanel);
+  }
+
+}
+
 // Popstate
 window.addEventListener('popstate', function() { navigateTo(routeFromHash()); });
 
@@ -674,7 +1015,7 @@ document.querySelectorAll('.teams-tab').forEach(function(tab) {
 });
 
 // Teams column picker
-(function() {
+function initTeamsColumnPicker() {
   var btn = document.getElementById('teams-col-btn');
   var picker = document.getElementById('teams-col-picker');
   var closeBtn = document.getElementById('teams-col-close');
@@ -753,15 +1094,17 @@ document.querySelectorAll('.teams-tab').forEach(function(tab) {
   });
 
   applyVisibility();
-})();
+}
+initTeamsColumnPicker();
 
 // Teams filter panel
-(function() {
+function initTeamsFilterPanel() {
   var btn = document.getElementById('teams-filter-btn');
   var panel = document.getElementById('teams-filter-panel');
   var closeBtn = document.getElementById('teams-filter-close');
   var clearBtn = document.getElementById('teams-filter-clear');
   var confirmBtn = document.getElementById('teams-filter-confirm');
+  if (!btn || !panel) return;
 
   function closePanel() {
     panel.classList.remove('open');
@@ -796,7 +1139,8 @@ document.querySelectorAll('.teams-tab').forEach(function(tab) {
       closePanel();
     }
   });
-})();
+}
+initTeamsFilterPanel();
 
 // AI models tooltip on cap-tag-wrap hover
 (function() {
@@ -1159,6 +1503,8 @@ function getActiveCapPage() {
   for (var i = 0; i < pages.length; i++) {
     if (pages[i].classList.contains('active')) return pages[i];
   }
+  var pc = document.getElementById('page-content');
+  if (pc && pc.classList.contains('active') && pc.querySelector('.aicap-list')) return pc;
   return document.getElementById('page-miroai-capabilities');
 }
 
@@ -1393,7 +1739,7 @@ document.querySelectorAll('.settings-radio-row').forEach(function(row) {
 // ===== ASSIGN SEATS SIDE PANEL =====
 (function() {
   var panel = document.getElementById('assign-seats-panel');
-  var btnOpen = document.getElementById('btn-assign-seats');
+  if (!panel) return;
   var btnClose = document.getElementById('assign-seats-close');
   var btnCancel = document.getElementById('assign-seats-cancel');
   var assignBtn = document.getElementById('assign-seats-submit');
@@ -1462,7 +1808,7 @@ document.querySelectorAll('.settings-radio-row').forEach(function(row) {
     updateAssignBtn();
   }
 
-  btnOpen.addEventListener('click', openPanel);
+  window._openAssignSeatsPanel = openPanel;
   btnClose.addEventListener('click', closePanel);
   btnCancel.addEventListener('click', closePanel);
   panel.addEventListener('click', function(e) { if (e.target === panel) closePanel(); });
@@ -1529,20 +1875,19 @@ document.querySelectorAll('.settings-radio-row').forEach(function(row) {
 })();
 
 // ===== ROW CONTEXT MENU =====
-(function() {
+var _ctxMenuState = { currentRowUser: null, lastTrigger: null };
+function initContextMenuTriggers() {
   var ctxMenu = document.getElementById('row-ctx-menu');
-  var currentRowUser = null;
-  var lastTrigger = null;
-
+  if (!ctxMenu) return;
   document.querySelectorAll('.allusers-table .allusers-more-btn').forEach(function(btn) {
     btn.addEventListener('click', function(e) {
       e.stopPropagation();
-      if (lastTrigger === this && ctxMenu.classList.contains('open')) {
+      if (_ctxMenuState.lastTrigger === this && ctxMenu.classList.contains('open')) {
         ctxMenu.classList.remove('open');
-        lastTrigger = null;
+        _ctxMenuState.lastTrigger = null;
         return;
       }
-      lastTrigger = this;
+      _ctxMenuState.lastTrigger = this;
       ctxMenu.querySelectorAll('.active').forEach(function(el) { el.classList.remove('active'); });
       var row = this.closest('tr');
       if (!row) return;
@@ -1550,7 +1895,7 @@ document.querySelectorAll('.settings-radio-row').forEach(function(row) {
       var nameEl = row.querySelector('.allusers-user-name');
       var emailEl = row.querySelector('.allusers-user-email');
       var avatarEl = row.querySelector('.allusers-avatar img');
-      currentRowUser = {
+      _ctxMenuState.currentRowUser = {
         name: nameEl ? nameEl.textContent : '',
         email: emailEl ? emailEl.textContent : '',
         avatar: avatarEl ? avatarEl.src : ''
@@ -1568,6 +1913,12 @@ document.querySelectorAll('.settings-radio-row').forEach(function(row) {
       ctxMenu.classList.add('open');
     });
   });
+}
+initContextMenuTriggers();
+(function() {
+  var ctxMenu = document.getElementById('row-ctx-menu');
+  if (!ctxMenu) return;
+  var currentRowUser = _ctxMenuState.currentRowUser;
 
   ctxMenu.querySelectorAll('.row-ctx-item[data-has-sub]').forEach(function(item) {
     item.addEventListener('click', function(e) {
@@ -1602,8 +1953,8 @@ document.querySelectorAll('.settings-radio-row').forEach(function(row) {
     assignSingleBtn.addEventListener('click', function() {
       ctxMenu.classList.remove('open');
       ctxMenu.querySelectorAll('.active').forEach(function(el) { el.classList.remove('active'); });
-      if (currentRowUser && window.openSingleAssignModal) {
-        window.openSingleAssignModal(currentRowUser);
+      if (_ctxMenuState.currentRowUser && window.openSingleAssignModal) {
+        window.openSingleAssignModal(_ctxMenuState.currentRowUser);
       }
     });
   }
@@ -1613,8 +1964,8 @@ document.querySelectorAll('.settings-radio-row').forEach(function(row) {
     unassignSingleBtn.addEventListener('click', function() {
       ctxMenu.classList.remove('open');
       ctxMenu.querySelectorAll('.active').forEach(function(el) { el.classList.remove('active'); });
-      if (currentRowUser && window.openSingleUnassignModal) {
-        window.openSingleUnassignModal(currentRowUser);
+      if (_ctxMenuState.currentRowUser && window.openSingleUnassignModal) {
+        window.openSingleUnassignModal(_ctxMenuState.currentRowUser);
       }
     });
   }
@@ -1743,6 +2094,7 @@ document.querySelectorAll('.settings-radio-row').forEach(function(row) {
   var bulkClear = document.getElementById('aiw-bulk-clear');
   var selectedCountEl = document.getElementById('aiw-selected-count');
   var headerCb = document.getElementById('aiw-header-cb');
+  if (!bulkBar || !bulkToggle || !bulkMenu) return;
 
   function getCheckboxes() {
     return document.querySelectorAll('#aiw-users-table tbody .mds-checkbox');
@@ -2101,1324 +2453,4 @@ document.querySelectorAll('.settings-radio-row').forEach(function(row) {
   });
 })();
 
-// ===== POLICY CHATBOT ENGINE =====
-(function() {
-  var overlay = document.getElementById('pol-chat-overlay');
-  var messagesEl = document.getElementById('pol-chat-messages');
-  var chipsEl = document.getElementById('pol-chat-chips');
-  var inputEl = document.getElementById('pol-chat-input');
-  var sendBtn = document.getElementById('pol-chat-send');
-  var closeBtn = document.getElementById('pol-chat-close');
-  var progressFill = document.getElementById('pol-chat-progress-fill');
-  var titleEl = document.getElementById('pol-chat-title');
 
-  var currentPolicy = null;
-  var currentStep = 0;
-  var collectedData = {};
-  var isProcessing = false;
-
-  // ── Conversation templates for all 6 policies ──
-
-  var policyFlows = {
-    'license-recycling': {
-      title: 'License Recycling',
-      recId: 'rec-license',
-      steps: [
-        {
-          ai: [
-            "I've analyzed your organization's license usage. Here's what I found:",
-            { type: 'data-card', title: 'License Analysis', rows: [
-              { label: 'Total licenses', value: '340', cls: '' },
-              { label: 'Active (last 30 days)', value: '293', cls: 'ok' },
-              { label: 'Inactive 60+ days', value: '28', cls: 'warn' },
-              { label: 'Inactive 90+ days', value: '19', cls: 'danger' },
-              { label: 'Est. annual savings', value: '$14,100', cls: 'ok' }
-            ]},
-            "I recommend recycling <strong>47 unused licenses</strong> (inactive 60+ days). Shall we proceed with the default scope, or would you like to customize?"
-          ],
-          chips: [
-            { label: 'Use recommended scope', value: 'recommended', primary: true },
-            { label: 'Only 90+ days inactive', value: '90-only' },
-            { label: 'Customize threshold', value: 'custom' }
-          ],
-          field: 'scope'
-        },
-        {
-          ai: [
-            "Great choice. Before recycling, I'll configure how affected users are handled:",
-            { type: 'form', fields: [
-              { id: 'notifyUsers', label: 'Notify users before recycling', kind: 'switch', defaultOn: true },
-              { id: 'gracePeriod', label: 'Grace period', kind: 'select', options: [
-                { value: '7', text: '7 days' }, { value: '14', text: '14 days' }, { value: '30', text: '30 days' }
-              ], defaultValue: '14' },
-              { id: 'autoReassign', label: 'Auto-reassign to waitlist', kind: 'switch', defaultOn: false }
-            ]},
-            { type: 'callout', variant: 'info', text: 'Users will receive an email notification and have the grace period to reactivate before the license is recycled.' }
-          ],
-          chips: [
-            { label: 'Looks good, continue', value: 'confirm', primary: true },
-            { label: 'Adjust settings', value: 'adjust' }
-          ],
-          field: 'config'
-        },
-        {
-          ai: [
-            "How often should this policy run?",
-            { type: 'form', fields: [
-              { id: 'cadence', label: 'Recurrence', kind: 'select', options: [
-                { value: 'once', text: 'One-time only' },
-                { value: 'monthly', text: 'Every month' },
-                { value: 'quarterly', text: 'Every 3 months' },
-                { value: 'biannual', text: 'Every 6 months' }
-              ], defaultValue: 'quarterly' },
-              { id: 'requireApproval', label: 'Require admin approval before each run', kind: 'switch', defaultOn: true }
-            ]}
-          ],
-          chips: [
-            { label: 'Continue to review', value: 'review', primary: true }
-          ],
-          field: 'schedule'
-        },
-        {
-          ai: [
-            "Here's your policy summary. Review and activate when ready:",
-            { type: 'summary' },
-            { type: 'callout', variant: 'success', text: 'This policy is estimated to save ~$14,100/year by recycling unused licenses and reallocating them to active teams.' }
-          ],
-          chips: [
-            { label: 'Activate policy', value: 'activate', cls: 'success' },
-            { label: 'Save as draft', value: 'draft' },
-            { label: 'Go back', value: 'back', cls: 'danger' }
-          ],
-          field: 'action'
-        }
-      ],
-      buildPolicy: function(data) {
-        var scope = data.scope === '90-only' ? 19 : 47;
-        var cadence = (data.schedule_cadence) || 'quarterly';
-        var cadenceLabels = { once: 'One-time only', monthly: 'Every month', quarterly: 'Every 3 months', biannual: 'Every 6 months' };
-        var intervalMonths = { once: 0, monthly: 1, quarterly: 3, biannual: 6 }[cadence] || 3;
-        var nextRun = null;
-        if (intervalMonths > 0) {
-          var nr = new Date(); nr.setMonth(nr.getMonth() + intervalMonths);
-          var mos = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-          nextRun = mos[nr.getMonth()] + ' ' + nr.getDate() + ', ' + nr.getFullYear();
-        }
-        return {
-          name: 'License Recycling', targetUsers: scope,
-          deadline: parseInt(data.config_gracePeriod) || 14,
-          cadence: cadence, cadenceLabel: cadenceLabels[cadence] || 'Every 3 months',
-          nextRun: nextRun, requireApproval: data.schedule_requireApproval !== false,
-          config: { sendEmail: data.config_notifyUsers !== false, deadline: parseInt(data.config_gracePeriod) || 14, autoRemove: false, recycleLicense: true, announcement: true, autoReassign: !!data.config_autoReassign, schedule: 'Immediately' }
-        };
-      }
-    },
-    'reactivate-users': {
-      title: 'Reactivate Inactive Users',
-      recId: 'rec-reactivate',
-      steps: [
-        {
-          ai: [
-            "I've identified inactive users in your organization who need attention:",
-            { type: 'data-card', title: 'Inactive User Segments', rows: [
-              { label: 'Invited 90+ days ago, never logged in', value: '68 users', cls: 'danger' },
-              { label: 'Logged in once, inactive 60+ days', value: '34 users', cls: 'warn' },
-              { label: 'Recently invited, within 30-day window', value: '25 users', cls: '' },
-              { label: 'Total affected', value: '127 users', cls: '' }
-            ]},
-            "Which user segments should be included in this reactivation campaign?"
-          ],
-          chips: [
-            { label: 'All 127 users (recommended)', value: 'all', primary: true },
-            { label: 'High priority only (68)', value: 'high-only' },
-            { label: 'High + Medium (102)', value: 'high-med' }
-          ],
-          field: 'scope'
-        },
-        {
-          ai: [
-            "Now let's configure how to reach these users:",
-            { type: 'form', fields: [
-              { id: 'sendEmail', label: 'Send reactivation email', kind: 'switch', defaultOn: true },
-              { id: 'deadline', label: 'Response deadline', kind: 'select', options: [
-                { value: '7', text: '7 days' }, { value: '14', text: '14 days' }, { value: '30', text: '30 days' }
-              ], defaultValue: '14' },
-              { id: 'autoRemove', label: 'Auto-remove from groups after deadline', kind: 'switch', defaultOn: false },
-              { id: 'recycleLicense', label: 'Recycle license if no response', kind: 'switch', defaultOn: false },
-              { id: 'announcement', label: 'Show in-app announcement', kind: 'switch', defaultOn: true }
-            ]}
-          ],
-          chips: [{ label: 'Continue', value: 'confirm', primary: true }],
-          field: 'config'
-        },
-        {
-          ai: [
-            "Set the recurrence for this policy:",
-            { type: 'form', fields: [
-              { id: 'cadence', label: 'Run frequency', kind: 'select', options: [
-                { value: 'once', text: 'One-time only' }, { value: 'monthly', text: 'Every month' },
-                { value: 'quarterly', text: 'Every 3 months' }, { value: 'biannual', text: 'Every 6 months' },
-                { value: 'annual', text: 'Every 12 months' }
-              ], defaultValue: 'quarterly' },
-              { id: 'requireApproval', label: 'Require admin approval before each run', kind: 'switch', defaultOn: true }
-            ]},
-            { type: 'callout', variant: 'info', text: 'Recurring runs will re-scan for newly inactive users matching the same criteria and apply the policy automatically.' }
-          ],
-          chips: [{ label: 'Review summary', value: 'review', primary: true }],
-          field: 'schedule'
-        },
-        {
-          ai: [
-            "Here's your reactivation policy summary:",
-            { type: 'summary' },
-            { type: 'callout', variant: 'success', text: 'Based on similar campaigns, we expect ~40% of users to reactivate within the deadline period.' }
-          ],
-          chips: [
-            { label: 'Activate policy', value: 'activate', cls: 'success' },
-            { label: 'Save as draft', value: 'draft' },
-            { label: 'Go back', value: 'back', cls: 'danger' }
-          ],
-          field: 'action'
-        }
-      ],
-      buildPolicy: function(data) {
-        var scopeMap = { 'all': 127, 'high-only': 68, 'high-med': 102 };
-        var users = scopeMap[data.scope] || 127;
-        var cadence = data.schedule_cadence || 'quarterly';
-        var cadenceLabels = { once: 'One-time only', monthly: 'Every month', quarterly: 'Every 3 months', biannual: 'Every 6 months', annual: 'Every 12 months' };
-        var intervalMonths = { once: 0, monthly: 1, quarterly: 3, biannual: 6, annual: 12 }[cadence] || 3;
-        var nextRun = null;
-        if (intervalMonths > 0) {
-          var nr = new Date(); nr.setMonth(nr.getMonth() + intervalMonths);
-          var mos = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-          nextRun = mos[nr.getMonth()] + ' ' + nr.getDate() + ', ' + nr.getFullYear();
-        }
-        return {
-          name: 'Reactivate inactive users', targetUsers: users,
-          deadline: parseInt(data.config_deadline) || 14,
-          cadence: cadence, cadenceLabel: cadenceLabels[cadence] || 'Every 3 months',
-          nextRun: nextRun, requireApproval: data.schedule_requireApproval !== false,
-          config: { sendEmail: data.config_sendEmail !== false, deadline: parseInt(data.config_deadline) || 14, autoRemove: !!data.config_autoRemove, recycleLicense: !!data.config_recycleLicense, announcement: data.config_announcement !== false, schedule: 'Immediately' }
-        };
-      }
-    },
-    'space-consolidation': {
-      title: 'Space Consolidation',
-      recId: 'rec-spaces',
-      steps: [
-        {
-          ai: [
-            "I've scanned your organization's spaces and found consolidation opportunities:",
-            { type: 'data-card', title: 'Space Analysis', rows: [
-              { label: 'Total spaces', value: '42', cls: '' },
-              { label: 'Active spaces (updated last 30d)', value: '34', cls: 'ok' },
-              { label: 'Empty spaces (0 boards)', value: '3', cls: 'warn' },
-              { label: 'Stale spaces (no activity 90+ days)', value: '5', cls: 'danger' },
-              { label: 'Duplicate/overlapping spaces', value: '2 pairs', cls: 'warn' }
-            ]},
-            "What should we do with inactive spaces?"
-          ],
-          chips: [
-            { label: 'Archive all 8 inactive', value: 'archive-all', primary: true },
-            { label: 'Archive empty only (3)', value: 'archive-empty' },
-            { label: 'Notify owners first', value: 'notify-first' }
-          ],
-          field: 'scope'
-        },
-        {
-          ai: [
-            "Configure the consolidation settings:",
-            { type: 'form', fields: [
-              { id: 'notifyOwners', label: 'Notify space owners before action', kind: 'switch', defaultOn: true },
-              { id: 'gracePeriod', label: 'Grace period for owners to respond', kind: 'select', options: [
-                { value: '7', text: '7 days' }, { value: '14', text: '14 days' }, { value: '30', text: '30 days' }
-              ], defaultValue: '14' },
-              { id: 'moveBoards', label: 'Move remaining boards to a general space', kind: 'switch', defaultOn: true },
-              { id: 'deleteEmpty', label: 'Permanently delete empty spaces', kind: 'switch', defaultOn: false }
-            ]},
-            { type: 'callout', variant: 'warning', text: 'Archived spaces can be restored by admins. Deleted spaces are permanent.' }
-          ],
-          chips: [{ label: 'Continue', value: 'confirm', primary: true }],
-          field: 'config'
-        },
-        {
-          ai: [
-            "Set the schedule:",
-            { type: 'form', fields: [
-              { id: 'cadence', label: 'Run frequency', kind: 'select', options: [
-                { value: 'once', text: 'One-time only' }, { value: 'quarterly', text: 'Every 3 months' }, { value: 'biannual', text: 'Every 6 months' }
-              ], defaultValue: 'quarterly' },
-              { id: 'requireApproval', label: 'Require admin approval', kind: 'switch', defaultOn: true }
-            ]}
-          ],
-          chips: [{ label: 'Review summary', value: 'review', primary: true }],
-          field: 'schedule'
-        },
-        {
-          ai: [
-            "Here's your space consolidation policy:",
-            { type: 'summary' },
-            { type: 'callout', variant: 'success', text: 'Consolidating unused spaces improves navigation and reduces admin overhead.' }
-          ],
-          chips: [
-            { label: 'Activate policy', value: 'activate', cls: 'success' },
-            { label: 'Save as draft', value: 'draft' },
-            { label: 'Go back', value: 'back', cls: 'danger' }
-          ],
-          field: 'action'
-        }
-      ],
-      buildPolicy: function(data) {
-        var scopeMap = { 'archive-all': 8, 'archive-empty': 3, 'notify-first': 8 };
-        var cadence = data.schedule_cadence || 'quarterly';
-        var cadenceLabels = { once: 'One-time only', quarterly: 'Every 3 months', biannual: 'Every 6 months' };
-        var im = { once: 0, quarterly: 3, biannual: 6 }[cadence] || 3;
-        var nextRun = null;
-        if (im > 0) { var nr = new Date(); nr.setMonth(nr.getMonth() + im); var mos = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; nextRun = mos[nr.getMonth()] + ' ' + nr.getDate() + ', ' + nr.getFullYear(); }
-        return { name: 'Space Consolidation', targetUsers: scopeMap[data.scope] || 8, deadline: parseInt(data.config_gracePeriod) || 14, cadence: cadence, cadenceLabel: cadenceLabels[cadence] || 'Every 3 months', nextRun: nextRun, requireApproval: data.schedule_requireApproval !== false, config: { sendEmail: data.config_notifyOwners !== false, deadline: parseInt(data.config_gracePeriod) || 14, autoRemove: false, recycleLicense: false, announcement: true, schedule: 'Immediately' } };
-      }
-    },
-    'addon-optimization': {
-      title: 'Add-on Optimization',
-      recId: 'rec-addon',
-      steps: [
-        {
-          ai: [
-            "I've analyzed feature usage patterns across your teams:",
-            { type: 'data-card', title: 'Add-on Usage Insights', rows: [
-              { label: 'Teams using diagramming heavily', value: '3 teams', cls: 'ok' },
-              { label: 'Avg. diagramming sessions/week', value: '47', cls: '' },
-              { label: 'Teams that would benefit from prototyping', value: '2 teams', cls: '' },
-              { label: 'Est. productivity gain', value: '+30%', cls: 'ok' },
-              { label: 'Monthly add-on cost', value: '$450/mo', cls: 'warn' }
-            ]},
-            "Would you like to proceed with the add-on recommendation for these teams?"
-          ],
-          chips: [
-            { label: 'Recommend to all 3 teams', value: 'all-teams', primary: true },
-            { label: 'Select specific teams', value: 'select-teams' },
-            { label: 'Just generate a report', value: 'report-only' }
-          ],
-          field: 'scope'
-        },
-        {
-          ai: [
-            "Configure the recommendation rollout:",
-            { type: 'form', fields: [
-              { id: 'trialPeriod', label: 'Trial period before full rollout', kind: 'select', options: [
-                { value: '14', text: '14 days' }, { value: '30', text: '30 days' }, { value: '0', text: 'No trial, enable immediately' }
-              ], defaultValue: '30' },
-              { id: 'notifyTeamLeads', label: 'Notify team leads about add-on', kind: 'switch', defaultOn: true },
-              { id: 'trackUsage', label: 'Track usage metrics during trial', kind: 'switch', defaultOn: true },
-              { id: 'autoActivate', label: 'Auto-activate after successful trial', kind: 'switch', defaultOn: false }
-            ]},
-            { type: 'callout', variant: 'info', text: 'During the trial, team members will have full access. Usage data will help decide on permanent activation.' }
-          ],
-          chips: [{ label: 'Continue', value: 'confirm', primary: true }],
-          field: 'config'
-        },
-        {
-          ai: [
-            "Set the optimization review schedule:",
-            { type: 'form', fields: [
-              { id: 'cadence', label: 'Review frequency', kind: 'select', options: [
-                { value: 'once', text: 'One-time only' }, { value: 'quarterly', text: 'Every 3 months' }, { value: 'biannual', text: 'Every 6 months' }
-              ], defaultValue: 'quarterly' },
-              { id: 'requireApproval', label: 'Require approval for activation', kind: 'switch', defaultOn: true }
-            ]}
-          ],
-          chips: [{ label: 'Review summary', value: 'review', primary: true }],
-          field: 'schedule'
-        },
-        {
-          ai: [
-            "Here's your add-on optimization policy:",
-            { type: 'summary' },
-            { type: 'callout', variant: 'success', text: 'Teams with the right tools are 30% more productive. This policy ensures optimal add-on allocation.' }
-          ],
-          chips: [
-            { label: 'Activate policy', value: 'activate', cls: 'success' },
-            { label: 'Save as draft', value: 'draft' },
-            { label: 'Go back', value: 'back', cls: 'danger' }
-          ],
-          field: 'action'
-        }
-      ],
-      buildPolicy: function(data) {
-        var cadence = data.schedule_cadence || 'quarterly';
-        var cadenceLabels = { once: 'One-time only', quarterly: 'Every 3 months', biannual: 'Every 6 months' };
-        var im = { once: 0, quarterly: 3, biannual: 6 }[cadence] || 3;
-        var nextRun = null;
-        if (im > 0) { var nr = new Date(); nr.setMonth(nr.getMonth() + im); var mos = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; nextRun = mos[nr.getMonth()] + ' ' + nr.getDate() + ', ' + nr.getFullYear(); }
-        return { name: 'Add-on Optimization', targetUsers: data.scope === 'select-teams' ? 2 : 3, deadline: parseInt(data.config_trialPeriod) || 30, cadence: cadence, cadenceLabel: cadenceLabels[cadence] || 'Every 3 months', nextRun: nextRun, requireApproval: data.schedule_requireApproval !== false, config: { sendEmail: data.config_notifyTeamLeads !== false, deadline: parseInt(data.config_trialPeriod) || 30, autoRemove: false, recycleLicense: false, announcement: true, schedule: 'Immediately' } };
-      }
-    },
-    'access-review': {
-      title: 'Access Policy Review',
-      recId: 'rec-access',
-      steps: [
-        {
-          ai: [
-            "I've audited sharing permissions across your organization:",
-            { type: 'data-card', title: 'Access Audit Results', rows: [
-              { label: 'External guests with board access', value: '23', cls: '' },
-              { label: 'Guests with access expiring in 7 days', value: '15', cls: 'danger' },
-              { label: 'Boards shared publicly', value: '4', cls: 'warn' },
-              { label: 'Orphaned sharing links', value: '12', cls: 'warn' },
-              { label: 'Teams with external guest access', value: '6', cls: '' }
-            ]},
-            "How would you like to handle expiring guest access?"
-          ],
-          chips: [
-            { label: 'Revoke all expiring access', value: 'revoke-all', primary: true },
-            { label: 'Extend by 30 days', value: 'extend' },
-            { label: 'Review each individually', value: 'review-each' }
-          ],
-          field: 'scope'
-        },
-        {
-          ai: [
-            "Configure the access review settings:",
-            { type: 'form', fields: [
-              { id: 'notifyGuests', label: 'Notify guests before access changes', kind: 'switch', defaultOn: true },
-              { id: 'notifyBoardOwners', label: 'Notify board owners', kind: 'switch', defaultOn: true },
-              { id: 'revokePublicLinks', label: 'Revoke orphaned public sharing links', kind: 'switch', defaultOn: true },
-              { id: 'gracePeriod', label: 'Grace period before revocation', kind: 'select', options: [
-                { value: '3', text: '3 days' }, { value: '7', text: '7 days' }, { value: '14', text: '14 days' }
-              ], defaultValue: '7' }
-            ]},
-            { type: 'callout', variant: 'warning', text: 'Revoking access is immediate after the grace period. Affected users will lose board access.' }
-          ],
-          chips: [{ label: 'Continue', value: 'confirm', primary: true }],
-          field: 'config'
-        },
-        {
-          ai: [
-            "Set the review schedule:",
-            { type: 'form', fields: [
-              { id: 'cadence', label: 'Review frequency', kind: 'select', options: [
-                { value: 'once', text: 'One-time only' }, { value: 'monthly', text: 'Every month' }, { value: 'quarterly', text: 'Every 3 months' }
-              ], defaultValue: 'monthly' },
-              { id: 'requireApproval', label: 'Require admin approval', kind: 'switch', defaultOn: true }
-            ]}
-          ],
-          chips: [{ label: 'Review summary', value: 'review', primary: true }],
-          field: 'schedule'
-        },
-        {
-          ai: [
-            "Here's your access review policy:",
-            { type: 'summary' },
-            { type: 'callout', variant: 'success', text: 'Regular access reviews help maintain security compliance and reduce unauthorized data exposure.' }
-          ],
-          chips: [
-            { label: 'Activate policy', value: 'activate', cls: 'success' },
-            { label: 'Save as draft', value: 'draft' },
-            { label: 'Go back', value: 'back', cls: 'danger' }
-          ],
-          field: 'action'
-        }
-      ],
-      buildPolicy: function(data) {
-        var cadence = data.schedule_cadence || 'monthly';
-        var cadenceLabels = { once: 'One-time only', monthly: 'Every month', quarterly: 'Every 3 months' };
-        var im = { once: 0, monthly: 1, quarterly: 3 }[cadence] || 1;
-        var nextRun = null;
-        if (im > 0) { var nr = new Date(); nr.setMonth(nr.getMonth() + im); var mos = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; nextRun = mos[nr.getMonth()] + ' ' + nr.getDate() + ', ' + nr.getFullYear(); }
-        return { name: 'Access Policy Review', targetUsers: 15, deadline: parseInt(data.config_gracePeriod) || 7, cadence: cadence, cadenceLabel: cadenceLabels[cadence] || 'Every month', nextRun: nextRun, requireApproval: data.schedule_requireApproval !== false, config: { sendEmail: data.config_notifyGuests !== false, deadline: parseInt(data.config_gracePeriod) || 7, autoRemove: true, recycleLicense: false, announcement: data.config_notifyBoardOwners !== false, schedule: 'Immediately' } };
-      }
-    },
-    'compliance-audit': {
-      title: 'Compliance Audit',
-      recId: 'rec-compliance',
-      steps: [
-        {
-          ai: [
-            "I've scanned your organization's content sharing and security settings:",
-            { type: 'data-card', title: 'Compliance Scan Results', rows: [
-              { label: 'Teams audited', value: '18', cls: '' },
-              { label: 'Non-compliant teams', value: '4', cls: 'danger' },
-              { label: 'Public boards with sensitive content', value: '2', cls: 'danger' },
-              { label: 'Missing data classification labels', value: '31 boards', cls: 'warn' },
-              { label: 'Overall compliance score', value: '72%', cls: 'warn' }
-            ]},
-            "How would you like to handle non-compliant teams?"
-          ],
-          chips: [
-            { label: 'Enforce compliance on all 4 teams', value: 'enforce-all', primary: true },
-            { label: 'Send warning to team leads', value: 'warn-leads' },
-            { label: 'Generate audit report only', value: 'report-only' }
-          ],
-          field: 'scope'
-        },
-        {
-          ai: [
-            "Configure the audit enforcement:",
-            { type: 'form', fields: [
-              { id: 'restrictPublicSharing', label: 'Restrict public sharing for non-compliant teams', kind: 'switch', defaultOn: true },
-              { id: 'enforceLabels', label: 'Require data classification labels', kind: 'switch', defaultOn: true },
-              { id: 'notifyTeamLeads', label: 'Notify team leads of violations', kind: 'switch', defaultOn: true },
-              { id: 'remediationPeriod', label: 'Remediation period', kind: 'select', options: [
-                { value: '7', text: '7 days' }, { value: '14', text: '14 days' }, { value: '30', text: '30 days' }
-              ], defaultValue: '14' }
-            ]},
-            { type: 'callout', variant: 'danger', text: '2 boards with sensitive content are currently shared publicly. Immediate action is recommended.' }
-          ],
-          chips: [{ label: 'Continue', value: 'confirm', primary: true }],
-          field: 'config'
-        },
-        {
-          ai: [
-            "Set the audit schedule:",
-            { type: 'form', fields: [
-              { id: 'cadence', label: 'Audit frequency', kind: 'select', options: [
-                { value: 'once', text: 'One-time only' }, { value: 'monthly', text: 'Every month' }, { value: 'quarterly', text: 'Every 3 months' }
-              ], defaultValue: 'monthly' },
-              { id: 'requireApproval', label: 'Require admin approval', kind: 'switch', defaultOn: true }
-            ]}
-          ],
-          chips: [{ label: 'Review summary', value: 'review', primary: true }],
-          field: 'schedule'
-        },
-        {
-          ai: [
-            "Here's your compliance audit policy:",
-            { type: 'summary' },
-            { type: 'callout', variant: 'success', text: 'Regular compliance audits can improve your score from 72% to 95%+ within 2 audit cycles.' }
-          ],
-          chips: [
-            { label: 'Activate policy', value: 'activate', cls: 'success' },
-            { label: 'Save as draft', value: 'draft' },
-            { label: 'Go back', value: 'back', cls: 'danger' }
-          ],
-          field: 'action'
-        }
-      ],
-      buildPolicy: function(data) {
-        var cadence = data.schedule_cadence || 'monthly';
-        var cadenceLabels = { once: 'One-time only', monthly: 'Every month', quarterly: 'Every 3 months' };
-        var im = { once: 0, monthly: 1, quarterly: 3 }[cadence] || 1;
-        var nextRun = null;
-        if (im > 0) { var nr = new Date(); nr.setMonth(nr.getMonth() + im); var mos = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; nextRun = mos[nr.getMonth()] + ' ' + nr.getDate() + ', ' + nr.getFullYear(); }
-        return { name: 'Compliance Audit', targetUsers: 4, deadline: parseInt(data.config_remediationPeriod) || 14, cadence: cadence, cadenceLabel: cadenceLabels[cadence] || 'Every month', nextRun: nextRun, requireApproval: data.schedule_requireApproval !== false, config: { sendEmail: data.config_notifyTeamLeads !== false, deadline: parseInt(data.config_remediationPeriod) || 14, autoRemove: false, recycleLicense: false, announcement: true, schedule: 'Immediately' } };
-      }
-    }
-  };
-
-  // ── Rendering helpers ──
-
-  function scrollToBottom() {
-    setTimeout(function() { messagesEl.scrollTop = messagesEl.scrollHeight; }, 50);
-  }
-
-  function addTyping() {
-    var el = document.createElement('div');
-    el.className = 'pol-chat-typing';
-    el.id = 'pol-chat-typing-indicator';
-    el.innerHTML = '<div class="pol-chat-typing-dot"></div><div class="pol-chat-typing-dot"></div><div class="pol-chat-typing-dot"></div>';
-    messagesEl.appendChild(el);
-    scrollToBottom();
-    return el;
-  }
-
-  function removeTyping() {
-    var t = document.getElementById('pol-chat-typing-indicator');
-    if (t) t.remove();
-  }
-
-  function addMessage(content, sender) {
-    var wrap = document.createElement('div');
-    wrap.className = 'pol-chat-msg pol-chat-msg--' + sender;
-    var label = document.createElement('div');
-    label.className = 'pol-chat-msg-label';
-    label.textContent = sender === 'ai' ? 'Miro AI' : 'You';
-    var bubble = document.createElement('div');
-    bubble.className = 'pol-chat-msg-bubble';
-    if (typeof content === 'string') {
-      bubble.innerHTML = content;
-    } else {
-      bubble.appendChild(content);
-    }
-    if (sender === 'ai') { wrap.appendChild(label); wrap.appendChild(bubble); }
-    else { wrap.appendChild(bubble); wrap.appendChild(label); }
-    messagesEl.appendChild(wrap);
-    scrollToBottom();
-    return bubble;
-  }
-
-  function addDivider(text) {
-    var d = document.createElement('div');
-    d.className = 'pol-chat-divider';
-    d.textContent = text;
-    messagesEl.appendChild(d);
-  }
-
-  function addSpacer() {
-    var s = document.createElement('div');
-    s.className = 'pol-chat-spacer';
-    messagesEl.appendChild(s);
-  }
-
-  function renderDataCard(card) {
-    var el = document.createElement('div');
-    el.className = 'pol-chat-data-card';
-    var title = '<div class="pol-chat-data-card-title"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>' + card.title + '</div>';
-    var rows = '';
-    card.rows.forEach(function(r) {
-      var cls = r.cls ? ' pol-chat-data-val--' + r.cls : '';
-      rows += '<div class="pol-chat-data-row"><span>' + r.label + '</span><span class="pol-chat-data-val' + cls + '">' + r.value + '</span></div>';
-    });
-    el.innerHTML = title + rows;
-    return el;
-  }
-
-  function renderForm(form) {
-    var el = document.createElement('div');
-    el.className = 'pol-chat-inline-form';
-    form.fields.forEach(function(f) {
-      if (f.kind === 'switch') {
-        var row = document.createElement('div');
-        row.className = 'pol-chat-switch-row';
-        row.innerHTML = '<span class="pol-chat-switch-label">' + f.label + '</span>';
-        var sw = document.createElement('div');
-        sw.className = 'mds-switch' + (f.defaultOn ? ' checked' : '');
-        sw.setAttribute('data-chat-field', f.id);
-        sw.setAttribute('role', 'switch');
-        sw.setAttribute('aria-checked', f.defaultOn ? 'true' : 'false');
-        sw.addEventListener('click', function() {
-          var on = sw.classList.toggle('checked');
-          sw.setAttribute('aria-checked', on ? 'true' : 'false');
-        });
-        row.appendChild(sw);
-        el.appendChild(row);
-      } else if (f.kind === 'select') {
-        var field = document.createElement('div');
-        field.className = 'pol-chat-form-field';
-        field.innerHTML = '<label class="pol-chat-form-label">' + f.label + '</label>';
-        var sel = document.createElement('select');
-        sel.className = 'pol-chat-form-select';
-        sel.setAttribute('data-chat-field', f.id);
-        f.options.forEach(function(o) {
-          var opt = document.createElement('option');
-          opt.value = o.value; opt.textContent = o.text;
-          if (o.value === f.defaultValue) opt.selected = true;
-          sel.appendChild(opt);
-        });
-        field.appendChild(sel);
-        el.appendChild(field);
-      } else if (f.kind === 'input') {
-        var field2 = document.createElement('div');
-        field2.className = 'pol-chat-form-field';
-        field2.innerHTML = '<label class="pol-chat-form-label">' + f.label + '</label>';
-        var inp = document.createElement('input');
-        inp.className = 'pol-chat-form-input';
-        inp.type = 'text';
-        inp.setAttribute('data-chat-field', f.id);
-        if (f.placeholder) inp.placeholder = f.placeholder;
-        if (f.defaultValue) inp.value = f.defaultValue;
-        field2.appendChild(inp);
-        el.appendChild(field2);
-      }
-    });
-    return el;
-  }
-
-  function renderCallout(c) {
-    var icons = {
-      info: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>',
-      warning: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>',
-      success: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4 9.55 18Z"/></svg>',
-      danger: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-2h2v2h-2zm0-4V7h2v6h-2z"/></svg>'
-    };
-    var el = document.createElement('div');
-    el.className = 'pol-chat-callout pol-chat-callout--' + c.variant;
-    el.innerHTML = '<span class="pol-chat-callout-icon">' + (icons[c.variant] || '') + '</span><span>' + c.text + '</span>';
-    return el;
-  }
-
-  function renderSummary() {
-    var flow = policyFlows[currentPolicy];
-    if (!flow) return document.createElement('div');
-    var el = document.createElement('div');
-    el.className = 'pol-chat-summary';
-    var title = '<div class="pol-chat-summary-title"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M10.586 13 7.293 9.707l1.414-1.414L12 11.586l6.293-6.293 1.414 1.414-7 7h-2.12ZM4 17h16v2H4v-2Z"/></svg>' + flow.title + '</div>';
-    var rows = '';
-    var scopeChip = '';
-    var flow0 = flow.steps[0];
-    if (flow0 && flow0.chips) {
-      flow0.chips.forEach(function(c) { if (c.value === collectedData.scope) scopeChip = c.label; });
-    }
-    rows += '<div class="pol-chat-summary-row"><span>Scope</span><span class="pol-chat-summary-val">' + (scopeChip || collectedData.scope || 'Default') + '</span></div>';
-    var cadenceVal = collectedData.schedule_cadence || 'quarterly';
-    var cadenceMap = { once: 'One-time only', monthly: 'Every month', quarterly: 'Every 3 months', biannual: 'Every 6 months', annual: 'Every 12 months' };
-    rows += '<div class="pol-chat-summary-row"><span>Recurrence</span><span class="pol-chat-summary-val">' + (cadenceMap[cadenceVal] || cadenceVal) + '</span></div>';
-    rows += '<div class="pol-chat-summary-row"><span>Approval required</span><span class="pol-chat-summary-val">' + (collectedData.schedule_requireApproval !== false ? 'Yes' : 'No') + '</span></div>';
-    var configCount = 0;
-    Object.keys(collectedData).forEach(function(k) { if (k.indexOf('config_') === 0 && collectedData[k] === true) configCount++; });
-    rows += '<div class="pol-chat-summary-row"><span>Active settings</span><span class="pol-chat-summary-val">' + configCount + ' enabled</span></div>';
-    el.innerHTML = title + rows;
-    return el;
-  }
-
-  function collectFormData(stepField) {
-    var switches = messagesEl.querySelectorAll('.mds-switch[data-chat-field]');
-    switches.forEach(function(sw) {
-      collectedData[stepField + '_' + sw.getAttribute('data-chat-field')] = sw.classList.contains('checked');
-    });
-    var selects = messagesEl.querySelectorAll('.pol-chat-form-select[data-chat-field]');
-    selects.forEach(function(sel) {
-      collectedData[stepField + '_' + sel.getAttribute('data-chat-field')] = sel.value;
-    });
-    var inputs = messagesEl.querySelectorAll('.pol-chat-form-input[data-chat-field]');
-    inputs.forEach(function(inp) {
-      collectedData[stepField + '_' + inp.getAttribute('data-chat-field')] = inp.value;
-    });
-  }
-
-  function updateProgress() {
-    var flow = policyFlows[currentPolicy];
-    if (!flow) return;
-    var pct = Math.round(((currentStep + 1) / flow.steps.length) * 100);
-    progressFill.style.width = pct + '%';
-  }
-
-  function showChips(chips) {
-    chipsEl.innerHTML = '';
-    chipsEl.style.display = 'flex';
-    chips.forEach(function(c) {
-      var chip = document.createElement('button');
-      var cls = 'pol-chat-chip';
-      if (c.primary) cls += ' pol-chat-chip--primary';
-      if (c.cls === 'success') cls += ' pol-chat-chip--success';
-      if (c.cls === 'danger') cls += ' pol-chat-chip--danger';
-      chip.className = cls;
-      chip.textContent = c.label;
-      chip.addEventListener('click', function() { handleChipClick(c); });
-      chipsEl.appendChild(chip);
-    });
-    scrollToBottom();
-  }
-
-  function hideChips() { chipsEl.style.display = 'none'; chipsEl.innerHTML = ''; }
-
-  // ── Step processing ──
-
-  function processStep(stepIndex) {
-    var flow = policyFlows[currentPolicy];
-    if (!flow || stepIndex >= flow.steps.length) return;
-    currentStep = stepIndex;
-    updateProgress();
-    isProcessing = true;
-    hideChips();
-
-    var step = flow.steps[stepIndex];
-    var aiMessages = step.ai;
-
-    addSpacer();
-    if (stepIndex > 0) {
-      addDivider('Step ' + (stepIndex + 1) + ' of ' + flow.steps.length);
-    }
-
-    function processAiMsg(idx) {
-      if (idx >= aiMessages.length) {
-        isProcessing = false;
-        if (step.chips) showChips(step.chips);
-        return;
-      }
-      var typing = addTyping();
-      var msg = aiMessages[idx];
-      var typingDelay = typeof msg === 'string' ? 600 + Math.min(msg.length * 5, 1200) : 800;
-
-      setTimeout(function() {
-        removeTyping();
-        if (typeof msg === 'string') {
-          addMessage(msg, 'ai');
-        } else if (msg.type === 'data-card') {
-          addMessage(renderDataCard(msg), 'ai');
-        } else if (msg.type === 'form') {
-          addMessage(renderForm(msg), 'ai');
-        } else if (msg.type === 'callout') {
-          addMessage(renderCallout(msg), 'ai');
-        } else if (msg.type === 'summary') {
-          addMessage(renderSummary(), 'ai');
-        }
-        processAiMsg(idx + 1);
-      }, typingDelay);
-    }
-
-    processAiMsg(0);
-  }
-
-  function handleChipClick(chip) {
-    if (isProcessing) return;
-    var flow = policyFlows[currentPolicy];
-    var step = flow.steps[currentStep];
-
-    collectFormData(step.field);
-    collectedData[step.field] = chip.value;
-    addMessage(chip.label, 'user');
-    hideChips();
-
-    if (chip.value === 'activate' || chip.value === 'draft') {
-      finishPolicy(chip.value);
-      return;
-    }
-    if (chip.value === 'back') {
-      if (currentStep > 0) processStep(currentStep - 1);
-      return;
-    }
-    if (currentStep < flow.steps.length - 1) {
-      processStep(currentStep + 1);
-    }
-  }
-
-  function finishPolicy(action) {
-    var flow = policyFlows[currentPolicy];
-    if (!flow) return;
-    isProcessing = true;
-
-    var typing = addTyping();
-    setTimeout(function() {
-      removeTyping();
-      var status = action === 'activate' ? 'active' : 'draft';
-      var policyData = flow.buildPolicy(collectedData);
-      var policy = {
-        id: 'pol-' + Date.now(),
-        recId: flow.recId,
-        name: policyData.name,
-        status: status,
-        health: status === 'active' ? 'healthy' : 'pending',
-        targetUsers: policyData.targetUsers,
-        segments: '',
-        reactivated: 0,
-        violationCount: 0,
-        deadline: policyData.deadline,
-        createdAt: new Date().toISOString(),
-        cadence: policyData.cadence,
-        cadenceLabel: policyData.cadenceLabel,
-        nextRun: policyData.nextRun,
-        requireApproval: policyData.requireApproval,
-        config: policyData.config,
-        logs: [],
-        nextAction: policyData.nextRun ? 'Next run: ' + policyData.nextRun : null
-      };
-      window.OrgPolicies.activePolicies.push(policy);
-      if (window.refreshRecommendationCards) window.refreshRecommendationCards();
-      if (window.refreshPolicyBanners) window.refreshPolicyBanners();
-      if (window.refreshRecBanners) window.refreshRecBanners();
-
-      var statusText = status === 'active' ? 'activated' : 'saved as draft';
-      addMessage('Your <strong>' + flow.title + '</strong> policy has been ' + statusText + ' successfully! You can review and manage it from the <strong>Policy list</strong>.', 'ai');
-
-      progressFill.style.width = '100%';
-
-      setTimeout(function() {
-        showChips([
-          { label: 'Go to Policy list', value: '_nav_list', primary: true },
-          { label: 'Create another policy', value: '_nav_onboard' },
-          { label: 'Close', value: '_close' }
-        ]);
-        var navChips = chipsEl.querySelectorAll('.pol-chat-chip');
-        navChips.forEach(function(nc) {
-          nc.addEventListener('click', function(e) {
-            e.stopPropagation();
-            var val = nc.textContent;
-            if (val.indexOf('Policy list') !== -1) { closeChat(); navigateTo('pol-list'); }
-            else if (val.indexOf('another') !== -1) { closeChat(); navigateTo('pol-onboard'); }
-            else { closeChat(); }
-          });
-        });
-        isProcessing = false;
-      }, 300);
-
-      var toast = document.createElement('div');
-      toast.className = 'pol-wiz-toast';
-      toast.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4 9.55 18Z"/></svg> Policy ' + statusText;
-      document.body.appendChild(toast);
-      requestAnimationFrame(function() { toast.classList.add('visible'); });
-      setTimeout(function() { toast.classList.remove('visible'); setTimeout(function() { toast.remove(); }, 300); }, 3000);
-    }, 1000);
-  }
-
-  // ── Open / Close ──
-
-  function openChat(policyId) {
-    currentPolicy = policyId;
-    currentStep = 0;
-    collectedData = {};
-    messagesEl.innerHTML = '';
-    hideChips();
-    progressFill.style.width = '0%';
-
-    var flow = policyFlows[policyId];
-    if (!flow) return;
-
-    titleEl.textContent = flow.title;
-    overlay.classList.add('open');
-
-    setTimeout(function() {
-      var typing = addTyping();
-      setTimeout(function() {
-        removeTyping();
-        addMessage("Hi! I\u2019m your Miro AI Policy Assistant. Let\u2019s set up the <strong>" + flow.title + "</strong> policy together. I\u2019ll guide you through each step.", 'ai');
-        addSpacer();
-        processStep(0);
-      }, 800);
-    }, 300);
-  }
-
-  function closeChat() {
-    overlay.classList.remove('open');
-    currentPolicy = null;
-  }
-
-  if (closeBtn) closeBtn.addEventListener('click', closeChat);
-
-  function handleSend() {
-    var val = inputEl.value.trim();
-    if (!val || isProcessing) return;
-    addMessage(val, 'user');
-    inputEl.value = '';
-  }
-  if (sendBtn) sendBtn.addEventListener('click', handleSend);
-  if (inputEl) inputEl.addEventListener('keydown', function(e) { if (e.key === 'Enter') handleSend(); });
-
-  document.querySelectorAll('.pol-card-btn[data-policy]').forEach(function(btn) {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      var policyId = btn.getAttribute('data-policy');
-      if (policyFlows[policyId]) openChat(policyId);
-    });
-  });
-
-  window.openPolicyChat = openChat;
-})();
-
-// Add mock data segments to OrgPolicies
-window.OrgPolicies.inactiveUserSegments = [
-  { id: 'seg-high', label: 'Invited 90+ days ago, never logged in', count: 68, priority: 'high', checked: true },
-  { id: 'seg-med', label: 'Logged in once, inactive 60+ days', count: 34, priority: 'medium', checked: true },
-  { id: 'seg-low', label: 'Recently invited, within 30-day window', count: 25, priority: 'low', checked: false }
-];
-
-// Active policies storage
-window.OrgPolicies.activePolicies = [];
-
-// ===== POLICY LIST PAGE LOGIC =====
-(function() {
-  var reviewPanel = document.getElementById('pol-review-panel');
-
-  function formatDate(d) {
-    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
-  }
-
-  function now() { return new Date(); }
-
-  // Refresh the policy list page
-  function renderPolicyList() {
-    var policies = window.OrgPolicies.activePolicies;
-    var active = policies.filter(function(p) { return p.status === 'active'; });
-    var drafts = policies.filter(function(p) { return p.status === 'draft'; });
-    var paused = policies.filter(function(p) { return p.status === 'paused'; });
-
-    // Update summary counts
-    var acEl = document.getElementById('pol-mgmt-active-count');
-    var dcEl = document.getElementById('pol-mgmt-draft-count');
-    if (acEl) acEl.textContent = active.length;
-    if (dcEl) dcEl.textContent = drafts.length;
-
-    var summaryEl = document.getElementById('pol-mgmt-summary');
-    if (summaryEl) {
-      var parts = [];
-      if (active.length) parts.push('<strong>' + active.length + '</strong> active ' + (active.length === 1 ? 'policy' : 'policies'));
-      if (drafts.length) parts.push('<strong>' + drafts.length + '</strong> ' + (drafts.length === 1 ? 'draft' : 'drafts'));
-      if (paused.length) parts.push('<strong>' + paused.length + '</strong> paused');
-      summaryEl.innerHTML = 'You have ' + parts.join(', ') + '. Here\u2019s what\u2019s happening:';
-    }
-
-    // Render activity items
-    var activityEl = document.getElementById('pol-mgmt-activity');
-    if (activityEl) {
-      var html = '';
-      active.forEach(function(p) {
-        var days = Math.floor((now() - new Date(p.createdAt)) / 86400000);
-        if (days < 1) {
-          html += '<div class="pol-mgmt-activity-item"><div class="pol-mgmt-activity-icon pol-mgmt-activity-icon--ok"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4 9.55 18Z"/></svg></div><div class="pol-mgmt-activity-text"><strong>' + p.name + '</strong> was just activated. Emails are being sent to ' + p.targetUsers + ' users.</div></div>';
-        } else if (p.health === 'violation') {
-          html += '<div class="pol-mgmt-activity-item"><div class="pol-mgmt-activity-icon pol-mgmt-activity-icon--warn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-2h2v2h-2zm0-4V7h2v6h-2z"/></svg></div><div class="pol-mgmt-activity-text"><strong>' + p.name + '</strong> needs review &mdash; ' + (p.violationCount || 0) + ' users haven\u2019t responded and the deadline is approaching.</div></div>';
-        } else {
-          html += '<div class="pol-mgmt-activity-item"><div class="pol-mgmt-activity-icon pol-mgmt-activity-icon--info"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div><div class="pol-mgmt-activity-text"><strong>' + p.name + '</strong> is running smoothly. Day ' + days + ' of ' + (p.deadline || 14) + '. ' + (p.reactivated || 0) + ' users reactivated so far.</div></div>';
-        }
-      });
-      drafts.forEach(function(p) {
-        html += '<div class="pol-mgmt-activity-item"><div class="pol-mgmt-activity-icon pol-mgmt-activity-icon--info"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div><div class="pol-mgmt-activity-text"><strong>' + p.name + '</strong> is saved as draft. Ready to activate when you are.</div></div>';
-      });
-      if (!html) html = '<div class="pol-mgmt-activity-item"><div class="pol-mgmt-activity-icon pol-mgmt-activity-icon--ok"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4 9.55 18Z"/></svg></div><div class="pol-mgmt-activity-text">All policies are running as expected. No action needed.</div></div>';
-      activityEl.innerHTML = html;
-    }
-
-    // Render policy table
-    var tbody = document.getElementById('pol-mgmt-tbody');
-    var countEl = document.getElementById('pol-mgmt-list-count');
-    if (countEl) countEl.textContent = policies.length + ' ' + (policies.length === 1 ? 'policy' : 'policies');
-    if (tbody) {
-      tbody.innerHTML = '';
-      policies.forEach(function(p, idx) {
-        var statusClass = 'pol-mgmt-status--' + p.status;
-        var healthDot = 'pol-mgmt-health-dot--' + (p.health || 'pending');
-        var healthLabel = p.health === 'healthy' ? 'Healthy' : (p.health === 'warning' ? 'Needs review' : (p.health === 'violation' ? 'Violation' : 'Pending'));
-        var nextAction = p.status === 'draft' ? 'Activate' : (p.health === 'warning' || p.health === 'violation' ? 'Review now' : (p.nextAction || 'Day ' + (p.deadline || 14) + ' deadline'));
-
-        var tr = document.createElement('tr');
-        tr.setAttribute('data-pol-idx', idx);
-        tr.innerHTML = '<td class="pol-mgmt-name">' + p.name + '</td>' +
-          '<td><span class="pol-mgmt-status ' + statusClass + '">' + p.status.charAt(0).toUpperCase() + p.status.slice(1) + '</span></td>' +
-          '<td><span class="pol-mgmt-health"><span class="pol-mgmt-health-dot ' + healthDot + '"></span>' + healthLabel + '</span></td>' +
-          '<td>' + p.targetUsers + ' users</td>' +
-          '<td>' + formatDate(new Date(p.createdAt)) + '</td>' +
-          '<td>' + nextAction + '</td>' +
-          '<td><button class="pol-mgmt-more" title="More actions"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg></button></td>';
-        tr.addEventListener('click', function(e) {
-          if (e.target.closest('.pol-mgmt-more')) return;
-          openPolicyReview(idx);
-        });
-        tbody.appendChild(tr);
-      });
-    }
-
-    // Empty state
-    var emptyEl = document.getElementById('pol-mgmt-empty');
-    var tableWrap = document.querySelector('.pol-mgmt-table-wrap');
-    if (policies.length === 0) {
-      if (emptyEl) emptyEl.style.display = '';
-      if (tableWrap) tableWrap.style.display = 'none';
-    } else {
-      if (emptyEl) emptyEl.style.display = 'none';
-      if (tableWrap) tableWrap.style.display = '';
-    }
-
-    // Render remaining recommendation cards
-    var recsGrid = document.getElementById('pol-mgmt-recs-grid');
-    if (recsGrid) {
-      var allRecs = window.OrgPolicies.recommendations;
-      var createdIds = policies.map(function(p) { return p.recId; });
-      var remaining = allRecs.filter(function(r) { return createdIds.indexOf(r.id) === -1; });
-      recsGrid.innerHTML = '';
-      var icons = {
-        'rec-license': { bg: '#eef2ff', color: '#3859ff', svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M17 3a4 4 0 0 0-4 4h2a2 2 0 1 1 4 0v3h-6v2h1v7h-2v-7H5a3 3 0 0 1-3-3V7a4 4 0 0 1 4-4h11ZM4 7v2a1 1 0 0 0 1 1h7V5H6a2 2 0 0 0-2 2Zm17 7v10h-2V14h2Z"/></svg>' },
-        'rec-reactivate': { bg: '#fff4e6', color: '#e5710b', svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M9.45 7.5a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0Zm-2 0a4.5 4.5 0 1 0 9 0 4.5 4.5 0 0 0-9 0Zm4.5 5.5a7.077 7.077 0 0 0-7.042 6.373L4.755 20.9l1.99.2.153-1.528A5.077 5.077 0 0 1 11.95 15v-2Zm9.843 1.61-5 6.5-1.552.04-3-3.5 1.518-1.3 2.198 2.564 4.25-5.523 1.586 1.218Z"/></svg>' },
-        'rec-spaces': { bg: '#ecfdf5', color: '#0ca678', svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M21 3H3v18h18V3ZM5 5h14v14H5V5Z"/></svg>' },
-        'rec-addon': { bg: '#f0f9ff', color: '#0891b2', svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M18 3a3 3 0 0 1 3 3v6.757l-1.5 1.5L18 15.757V14a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h7.757l1.5 1.5H7a3 3 0 0 1-3-3v-6H2v-2h2V6a3 3 0 0 1 3-3h11Z"/></svg>' },
-        'rec-access': { bg: '#fef3f2', color: '#dc2626', svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M4.5 17a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm5 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM7 4a5.001 5.001 0 0 1 4.9 4H21l1 1v5h-2v-4h-2v4h-2v-4h-4.1A5.001 5.001 0 1 1 7 4Z" clip-rule="evenodd"/></svg>' },
-        'rec-compliance': { bg: '#f5f3ff', color: '#7c3aed', svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2Zm0 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16Zm-1 3v6h2V7h-2Zm0 8v2h2v-2h-2Z"/></svg>' }
-      };
-      remaining.forEach(function(rec) {
-        var ic = icons[rec.id] || { bg: '#f1f2f5', color: '#7b7f95', svg: '' };
-        var card = document.createElement('div');
-        card.className = 'pol-card';
-        card.innerHTML = '<div class="pol-card-icon" style="background:' + ic.bg + ';color:' + ic.color + ';">' + ic.svg + '</div>' +
-          '<div class="pol-card-body"><div class="pol-card-title">' + rec.title + '</div><div class="pol-card-desc">' + rec.desc + '</div><button class="pol-card-btn">Start now</button></div>';
-        recsGrid.appendChild(card);
-      });
-    }
-  }
-
-  // Open the policy review side panel
-  function openPolicyReview(idx) {
-    var p = window.OrgPolicies.activePolicies[idx];
-    if (!p || !reviewPanel) return;
-
-    reviewPanel.setAttribute('data-pol-idx', idx);
-
-    document.getElementById('pol-sp-title').textContent = p.name;
-
-    var badge = document.getElementById('pol-sp-status');
-    badge.textContent = p.status.charAt(0).toUpperCase() + p.status.slice(1);
-    badge.className = 'pol-sp-badge pol-sp-badge--' + p.status;
-
-    var healthEl = document.getElementById('pol-sp-health');
-    var hLabel = p.health === 'healthy' ? 'Healthy' : (p.health === 'warning' ? 'Needs review' : (p.health === 'violation' ? 'Violation' : 'Pending'));
-    var hColor = p.health === 'healthy' ? '#0ca678' : (p.health === 'warning' ? '#e5710b' : (p.health === 'violation' ? '#dc2626' : '#a0a4b8'));
-    healthEl.innerHTML = '<span class="pol-sp-health-dot" style="background:' + hColor + ';"></span> ' + hLabel;
-
-    document.getElementById('pol-sp-date').textContent = 'Created ' + formatDate(new Date(p.createdAt));
-
-    document.getElementById('pol-sp-m-users').textContent = p.targetUsers;
-    document.getElementById('pol-sp-m-reactivated').textContent = p.reactivated || 0;
-    document.getElementById('pol-sp-m-pending').textContent = (p.targetUsers - (p.reactivated || 0));
-    var savings = (p.reactivated || 0) * 300;
-    document.getElementById('pol-sp-m-savings').textContent = savings ? '$' + savings.toLocaleString() : '$0';
-
-    // AI assessment
-    var aiText = document.getElementById('pol-sp-ai-text');
-    var days = Math.floor((now() - new Date(p.createdAt)) / 86400000);
-    var cadenceSuffix = p.cadence && p.cadence !== 'once' && p.nextRun ? ' Next automatic run scheduled for ' + p.nextRun + '.' : '';
-    if (days < 1) {
-      aiText.textContent = 'Policy was just activated. Reactivation emails are being sent now. Check back in a few hours for early response data.' + cadenceSuffix;
-    } else if (p.health === 'warning') {
-      aiText.textContent = (p.targetUsers - (p.reactivated || 0)) + ' users still haven\u2019t responded with ' + Math.max(0, (p.deadline || 14) - days) + ' days remaining. Consider sending a reminder or extending the deadline.' + cadenceSuffix;
-    } else if (p.health === 'violation') {
-      aiText.textContent = 'The deadline has passed and ' + (p.targetUsers - (p.reactivated || 0)) + ' users remain inactive. Review the auto-actions or create a follow-up policy.' + cadenceSuffix;
-    } else {
-      aiText.textContent = 'Policy is performing within expected range. ' + (p.reactivated || 0) + ' users have reactivated so far. Estimated completion rate: ~40% by deadline.' + cadenceSuffix;
-    }
-
-    // Config
-    var configEl = document.getElementById('pol-sp-config');
-    var cfg = p.config || {};
-    var cadenceDisplay = p.cadenceLabel || 'One-time only';
-    var nextRunDisplay = p.nextRun || '—';
-    var approvalDisplay = p.requireApproval ? 'Yes' : 'No';
-    configEl.innerHTML =
-      '<div class="pol-sp-config-row"><span class="pol-sp-config-key">Reactivation email</span><span class="pol-sp-config-val">' + (cfg.sendEmail !== false ? 'Enabled' : 'Disabled') + '</span></div>' +
-      '<div class="pol-sp-config-row"><span class="pol-sp-config-key">Deadline</span><span class="pol-sp-config-val">' + (cfg.deadline || 14) + ' days</span></div>' +
-      '<div class="pol-sp-config-row"><span class="pol-sp-config-key">Auto-remove from groups</span><span class="pol-sp-config-val">' + (cfg.autoRemove ? 'Enabled' : 'Disabled') + '</span></div>' +
-      '<div class="pol-sp-config-row"><span class="pol-sp-config-key">Recycle license</span><span class="pol-sp-config-val">' + (cfg.recycleLicense ? 'Enabled' : 'Disabled') + '</span></div>' +
-      '<div class="pol-sp-config-row"><span class="pol-sp-config-key">In-app announcement</span><span class="pol-sp-config-val">' + (cfg.announcement !== false ? 'Enabled' : 'Disabled') + '</span></div>' +
-      '<div class="pol-sp-config-row"><span class="pol-sp-config-key">Schedule</span><span class="pol-sp-config-val">' + (cfg.schedule || 'Immediately') + '</span></div>' +
-      '<div class="pol-sp-config-row"><span class="pol-sp-config-key">Recurrence</span><span class="pol-sp-config-val">' + cadenceDisplay + '</span></div>' +
-      (p.nextRun ? '<div class="pol-sp-config-row"><span class="pol-sp-config-key">Next run</span><span class="pol-sp-config-val" style="color:#7c3aed;font-weight:600;">' + nextRunDisplay + '</span></div>' : '') +
-      '<div class="pol-sp-config-row"><span class="pol-sp-config-key">Approval required</span><span class="pol-sp-config-val">' + approvalDisplay + '</span></div>';
-
-    // Activity log
-    var logEl = document.getElementById('pol-sp-log');
-    var logs = p.logs || [];
-    if (logs.length === 0) {
-      logs = [{ text: 'Policy created', time: 'Just now', active: true }];
-      if (p.status === 'active') {
-        logs.push({ text: 'Reactivation emails sent to ' + p.targetUsers + ' users', time: 'Just now', active: false });
-        if (cfg.announcement !== false) logs.push({ text: 'In-app announcement enabled', time: 'Just now', active: false });
-      }
-    }
-    logEl.innerHTML = '';
-    logs.forEach(function(log) {
-      logEl.innerHTML += '<div class="pol-sp-log-item"><span class="pol-sp-log-dot' + (log.active ? ' pol-sp-log-dot--active' : '') + '"></span><span class="pol-sp-log-text">' + log.text + '</span><span class="pol-sp-log-time">' + log.time + '</span></div>';
-    });
-
-    // Action buttons
-    var pauseBtn = document.getElementById('pol-sp-pause');
-    var deleteBtn = document.getElementById('pol-sp-delete');
-    if (p.status === 'active') {
-      pauseBtn.textContent = 'Pause policy';
-      pauseBtn.className = 'pol-sp-action-btn pol-sp-action-btn--pause';
-      pauseBtn.style.display = '';
-    } else if (p.status === 'paused') {
-      pauseBtn.textContent = 'Resume policy';
-      pauseBtn.className = 'pol-sp-action-btn pol-sp-action-btn--resume';
-      pauseBtn.style.display = '';
-    } else if (p.status === 'draft') {
-      pauseBtn.textContent = 'Activate policy';
-      pauseBtn.className = 'pol-sp-action-btn pol-sp-action-btn--activate';
-      pauseBtn.style.display = '';
-    }
-
-    reviewPanel.classList.add('open');
-  }
-
-  function closePolicyReview() {
-    if (reviewPanel) reviewPanel.classList.remove('open');
-  }
-
-  // Close panel
-  var closeBtn = document.getElementById('pol-review-close');
-  if (closeBtn) closeBtn.addEventListener('click', closePolicyReview);
-  if (reviewPanel) reviewPanel.addEventListener('click', function(e) {
-    if (e.target === reviewPanel) closePolicyReview();
-  });
-
-  // Pause/Resume/Activate from side panel
-  var pauseBtn = document.getElementById('pol-sp-pause');
-  if (pauseBtn) pauseBtn.addEventListener('click', function() {
-    var idx = parseInt(reviewPanel.getAttribute('data-pol-idx'));
-    var p = window.OrgPolicies.activePolicies[idx];
-    if (!p) return;
-    if (p.status === 'active') {
-      p.status = 'paused';
-      p.health = 'pending';
-    } else if (p.status === 'paused') {
-      p.status = 'active';
-      p.health = 'healthy';
-    } else if (p.status === 'draft') {
-      p.status = 'active';
-      p.health = 'healthy';
-    }
-    closePolicyReview();
-    renderPolicyList();
-  });
-
-  // Delete from side panel
-  var deleteBtn = document.getElementById('pol-sp-delete');
-  if (deleteBtn) deleteBtn.addEventListener('click', function() {
-    var idx = parseInt(reviewPanel.getAttribute('data-pol-idx'));
-    window.OrgPolicies.activePolicies.splice(idx, 1);
-    closePolicyReview();
-    renderPolicyList();
-  });
-
-  // Header link to onboard page
-  var goOnboard = document.getElementById('pol-go-onboard');
-  if (goOnboard) goOnboard.addEventListener('click', function(e) {
-    e.preventDefault();
-    navigateTo('pol-onboard');
-  });
-
-  // Header link to policy list page
-  var goList = document.getElementById('pol-go-list');
-  if (goList) goList.addEventListener('click', function(e) {
-    e.preventDefault();
-    navigateTo('pol-list');
-  });
-
-  // Map data-policy attr to recId used in activePolicies
-  var policyToRecId = {
-    'license-recycling': 'rec-license',
-    'reactivate-users': 'rec-reactivate',
-    'space-consolidation': 'rec-spaces',
-    'addon-optimization': 'rec-addon',
-    'access-review': 'rec-access',
-    'compliance-audit': 'rec-compliance'
-  };
-
-  function refreshRecommendationCards() {
-    var created = window.OrgPolicies.activePolicies.map(function(p) { return p.recId; });
-    document.querySelectorAll('#page-pol-onboard .pol-card-btn[data-policy]').forEach(function(btn) {
-      var card = btn.closest('.pol-card');
-      if (!card) return;
-      var recId = policyToRecId[btn.getAttribute('data-policy')];
-      card.style.display = (recId && created.indexOf(recId) !== -1) ? 'none' : '';
-    });
-    var visibleCards = document.querySelectorAll('#page-pol-onboard .pol-card');
-    var visibleCount = 0;
-    visibleCards.forEach(function(c) { if (c.style.display !== 'none') visibleCount++; });
-    var recsHeader = document.querySelector('#page-pol-onboard .pol-recs-header');
-    if (recsHeader) {
-      recsHeader.style.display = visibleCount === 0 ? 'none' : '';
-    }
-  }
-  window.refreshRecommendationCards = refreshRecommendationCards;
-
-  // Policy-to-page banner mapping
-  var policyBanners = {
-    'rec-reactivate': {
-      bannerId: 'pol-banner-allusers',
-      titleId: 'pol-banner-allusers-title',
-      descId: 'pol-banner-allusers-desc',
-      statusId: 'pol-banner-allusers-status',
-      viewId: 'pol-banner-allusers-view',
-      pageRoute: 'allusers',
-      descFn: function(p) {
-        var days = Math.floor((new Date() - new Date(p.createdAt)) / 86400000);
-        var reactivated = p.reactivated || 0;
-        var pending = p.targetUsers - reactivated;
-        if (p.status === 'draft') return 'Draft policy targeting ' + p.targetUsers + ' users. Activate to start reactivation.';
-        if (days < 1) return 'Policy is active \u2014 reactivation emails being sent to ' + p.targetUsers + ' users.';
-        return 'Day ' + days + ' of ' + p.deadline + ' \u2014 ' + reactivated + ' reactivated, ' + pending + ' pending.' + (p.nextRun ? ' Next run: ' + p.nextRun : '');
-      }
-    },
-    'rec-addon': {
-      bannerId: 'pol-banner-products',
-      titleId: 'pol-banner-products-title',
-      descId: 'pol-banner-products-desc',
-      statusId: 'pol-banner-products-status',
-      viewId: 'pol-banner-products-view',
-      pageRoute: 'products',
-      descFn: function(p) {
-        var days = Math.floor((new Date() - new Date(p.createdAt)) / 86400000);
-        if (p.status === 'draft') return 'Draft policy for ' + p.targetUsers + ' teams. Activate to begin the add-on trial rollout.';
-        if (days < 1) return 'Policy is active \u2014 monitoring ' + p.targetUsers + ' teams for add-on optimization.';
-        return 'Day ' + days + ' of ' + p.deadline + ' trial \u2014 tracking usage across ' + p.targetUsers + ' teams.' + (p.nextRun ? ' Next review: ' + p.nextRun : '');
-      }
-    }
-  };
-
-  function refreshPolicyBanners() {
-    var policies = window.OrgPolicies.activePolicies;
-    Object.keys(policyBanners).forEach(function(recId) {
-      var cfg = policyBanners[recId];
-      var banner = document.getElementById(cfg.bannerId);
-      if (!banner) return;
-      var policy = null;
-      for (var i = 0; i < policies.length; i++) {
-        if (policies[i].recId === recId) { policy = policies[i]; break; }
-      }
-      if (!policy) {
-        banner.style.display = 'none';
-        return;
-      }
-      banner.style.display = 'flex';
-      var titleEl = document.getElementById(cfg.titleId);
-      var descEl = document.getElementById(cfg.descId);
-      var statusEl = document.getElementById(cfg.statusId);
-      if (titleEl) titleEl.textContent = policy.name;
-      if (statusEl) {
-        statusEl.textContent = policy.status.charAt(0).toUpperCase() + policy.status.slice(1);
-        statusEl.className = 'mds-tag mds-tag--' + (policy.status === 'active' ? 'success' : (policy.status === 'draft' ? 'warning' : 'neutral'));
-      }
-      if (descEl && cfg.descFn) {
-        descEl.textContent = cfg.descFn(policy);
-      }
-    });
-  }
-  // Toggle rec banners: hide rec when policy exists, show active banner instead
-  var recBannerMap = {
-    'rec-reactivate': 'pol-rec-allusers',
-    'rec-addon': 'pol-rec-products'
-  };
-
-  function refreshRecBanners() {
-    var created = window.OrgPolicies.activePolicies.map(function(p) { return p.recId; });
-    Object.keys(recBannerMap).forEach(function(recId) {
-      var recEl = document.getElementById(recBannerMap[recId]);
-      if (recEl) recEl.style.display = created.indexOf(recId) !== -1 ? 'none' : '';
-    });
-  }
-  window.refreshRecBanners = refreshRecBanners;
-
-  window.refreshPolicyBanners = refreshPolicyBanners;
-
-  // Wire rec banner "Set up policy" buttons to open chatbot
-  document.querySelectorAll('.pol-page-banner-action[data-policy]').forEach(function(btn) {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      var policyId = btn.getAttribute('data-policy');
-      if (window.openPolicyChat) window.openPolicyChat(policyId);
-    });
-  });
-
-  // Wire banner "View policy" buttons
-  Object.keys(policyBanners).forEach(function(recId) {
-    var cfg = policyBanners[recId];
-    var viewBtn = document.getElementById(cfg.viewId);
-    if (viewBtn) viewBtn.addEventListener('click', function() {
-      var policies = window.OrgPolicies.activePolicies;
-      for (var i = 0; i < policies.length; i++) {
-        if (policies[i].recId === recId) {
-          navigateTo('pol-list');
-          break;
-        }
-      }
-    });
-  });
-
-  // Hook into navigation to refresh policy list view
-  var _prevNav = window.navigateTo;
-  window.navigateTo = navigateTo = function(route) {
-    _prevNav(route);
-    if (route === 'pol-list') {
-      renderPolicyList();
-    }
-    if (route === 'pol-onboard') {
-      refreshRecommendationCards();
-    }
-    refreshPolicyBanners();
-    refreshRecBanners();
-  };
-
-  // Initial render
-  renderPolicyList();
-  refreshRecommendationCards();
-  refreshPolicyBanners();
-  refreshRecBanners();
-})();
