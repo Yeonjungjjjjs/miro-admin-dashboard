@@ -252,7 +252,8 @@ var fragmentRoutes = {
   'miroai-cap-noaddons': 'pages/miroai-cap-noaddons.html',
   'miroai-cap-none': 'pages/miroai-cap-none.html',
   'miroai-datausage': 'pages/miroai-datausage.html',
-  'profile': 'pages/profile.html'
+  'profile': 'pages/profile.html',
+  'profile-new': 'pages/profile-new.html'
 };
 var pageCache = {};
 
@@ -296,7 +297,8 @@ function updateNavState(route) {
   document.querySelectorAll('.sidebar-nav a[data-route]').forEach(function(a) { a.classList.remove('active'); a.classList.remove('parent-active'); });
   document.querySelectorAll('.subnav-item').forEach(function(a) { a.classList.remove('active'); });
   var miroaiRoutes = ['miroai-capabilities', 'miroai-cap-entguard', 'miroai-cap-noaddons', 'miroai-cap-none', 'miroai-datausage', 'miroai-moderation'];
-  var activeRoute = route === 'aiworkflow' ? 'products' : (miroaiRoutes.indexOf(route) !== -1 ? 'miroai-capabilities' : route);
+  var profileRoutes = ['profile', 'profile-new'];
+  var activeRoute = route === 'aiworkflow' ? 'products' : (miroaiRoutes.indexOf(route) !== -1 ? 'miroai-capabilities' : (profileRoutes.indexOf(route) !== -1 ? 'profile' : route));
   var navLink = document.querySelector('.sidebar-nav a[data-route="' + activeRoute + '"]:not(.subnav-item)');
   if (navLink && !navLink.classList.contains('has-subnav')) navLink.classList.add('active');
 
@@ -345,7 +347,7 @@ function updateNavState(route) {
     if (targetTeamsTab) targetTeamsTab.classList.add('active');
   }
 
-  var hashMap = { home: '#/Home', allusers: '#/Users/AllUsers', profile: '#/Profile', 'miroai-capabilities': '#/MiroAI/Capabilities', 'miroai-cap-entguard': '#/MiroAI/Capabilities-ent.guard', 'miroai-cap-noaddons': '#/MiroAI/Capabilities-No-add-ons', 'miroai-cap-none': '#/MiroAI/Capabilities-none', 'miroai-datausage': '#/MiroAI/DataUsage', 'miroai-moderation': '#/MiroAI/Moderation' };
+  var hashMap = { home: '#/Home', allusers: '#/Users/AllUsers', profile: '#/Profile', 'profile-new': '#/Profile-new', 'miroai-capabilities': '#/MiroAI/Capabilities', 'miroai-cap-entguard': '#/MiroAI/Capabilities-ent.guard', 'miroai-cap-noaddons': '#/MiroAI/Capabilities-No-add-ons', 'miroai-cap-none': '#/MiroAI/Capabilities-none', 'miroai-datausage': '#/MiroAI/DataUsage', 'miroai-moderation': '#/MiroAI/Moderation' };
   var hash;
   if (route === 'aiworkflow') {
     var activeAiwTab = document.querySelector('.aiw-tab.active');
@@ -377,6 +379,7 @@ function routeFromHash() {
   if (hash.indexOf('/MiroAI/Capabilities-none') !== -1) return 'miroai-cap-none';
   if (hash.indexOf('/MiroAI/Capabilities') !== -1) return 'miroai-capabilities';
   if (hash.indexOf('/MiroAI') !== -1) return 'miroai-capabilities';
+  if (hash.indexOf('/Profile-new') !== -1) return 'profile-new';
   if (hash.indexOf('/Profile') !== -1) return 'profile';
   if (hash.indexOf('/Product/AIworkflow') !== -1) return 'aiworkflow';
   if (hash.indexOf('/Product/Explore') !== -1) return 'products';
@@ -887,8 +890,27 @@ function initPageBindings(route) {
     });
   }
 
+  // Profile variant navigation — switch between profile and profile-new
+  var profileSelector = document.getElementById('profile-variant-selector');
+  if (profileSelector) {
+    profileSelector.querySelectorAll('.profile-nav-option').forEach(function(opt) {
+      opt.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var route = opt.getAttribute('data-route');
+        var trig = profileSelector.querySelector('.feat-select-trigger');
+        var dd = profileSelector.querySelector('.feat-select-dropdown');
+        if (trig) { trig.classList.remove('open'); }
+        if (dd) { dd.classList.remove('open'); }
+        if (route && fragmentRoutes[route]) {
+          delete pageCache[route];
+          navigateTo(route);
+        }
+      });
+    });
+  }
+
   // Profile page tabs
-  if (route === 'profile') {
+  if (route === 'profile' || route === 'profile-new') {
     document.querySelectorAll('.profile-tab').forEach(function(tab) {
       tab.addEventListener('click', function() {
         document.querySelectorAll('.profile-tab').forEach(function(t) { t.classList.remove('active'); });

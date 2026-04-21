@@ -1,0 +1,143 @@
+<section class="main-content">
+  <div style="display:flex;align-items:center;justify-content:space-between;">
+    <h1 class="page-title">Profile settings</h1>
+    <div class="feat-select-wrapper" id="profile-variant-selector">
+      <button class="feat-select-trigger filled" id="profile-variant-trigger" data-value="profile-new">New<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
+      <div class="feat-select-dropdown">
+        <div class="feat-select-option profile-nav-option" data-val="Current" data-route="profile"><span>Current</span></div>
+        <div class="feat-select-option profile-nav-option selected" data-val="New" data-route="profile-new"><span>New</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-card">
+    <!-- Tabs -->
+    <div class="profile-tabs">
+      <div class="profile-tab active" data-profile-tab="profile">Profile</div>
+      <div class="profile-tab" data-profile-tab="notifications">Notifications</div>
+      <div class="profile-tab" data-profile-tab="developers">For developers</div>
+      <div class="profile-tab" data-profile-tab="apps">Apps</div>
+    </div>
+
+    <!-- Tab content -->
+    <div class="profile-tab-content" id="profile-tab-profile">
+      <div style="display:flex;flex-direction:column;gap:32px;">
+
+        <!-- SSO Callout -->
+        <div class="mds-callout mds-callout--info">
+          <svg class="mds-callout-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2Zm-1 5h2v2h-2V7Zm0 4h2v6h-2v-6Z"/></svg>
+          <div class="mds-callout-content">
+            <div class="mds-callout-body">This is the new profile page. Content will be updated later.</div>
+          </div>
+        </div>
+
+        <!-- Form + Avatar columns -->
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:64px;">
+
+          <!-- Left: Form fields -->
+          <div style="display:flex;flex-direction:column;gap:24px;width:480px;flex-shrink:0;">
+            <!-- Name (readonly) -->
+            <div class="mds-form-field">
+              <label class="mds-label">Name</label>
+              <div class="mds-input mds-input--readonly">
+                <input type="text" value="Yeon Jung Lee" readonly>
+              </div>
+            </div>
+            <!-- Industry -->
+            <div class="mds-form-field">
+              <label class="mds-label">Industry</label>
+              <div class="profile-dm-wrapper">
+                <button class="profile-dm-trigger" type="button">
+                  <span class="profile-dm-value">Software Development: applications &amp; systems</span>
+                  <span class="profile-dm-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></span>
+                </button>
+                <div class="profile-dm">
+                  <div class="profile-dm-item" data-value="Architectural &amp; Engineering services"><span>Architectural &amp; Engineering services</span><svg class="profile-dm-item-check" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4 9.55 18Z"/></svg></div>
+                  <div class="profile-dm-item" data-value="Asset management"><span>Asset management</span><svg class="profile-dm-item-check" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4 9.55 18Z"/></svg></div>
+                  <div class="profile-dm-item" data-value="Banking"><span>Banking</span><svg class="profile-dm-item-check" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4 9.55 18Z"/></svg></div>
+                  <div class="profile-dm-item selected" data-value="Software Development: applications &amp; systems"><span>Software Development: applications &amp; systems</span><svg class="profile-dm-item-check" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4 9.55 18Z"/></svg></div>
+                  <div class="profile-dm-item" data-value="Other"><span>Other</span><svg class="profile-dm-item-check" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4 9.55 18Z"/></svg></div>
+                </div>
+              </div>
+            </div>
+            <!-- Role -->
+            <div class="mds-form-field">
+              <label class="mds-label">Role</label>
+              <div class="profile-dm-wrapper">
+                <button class="profile-dm-trigger" type="button">
+                  <span class="profile-dm-value">Design</span>
+                  <span class="profile-dm-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></span>
+                </button>
+                <div class="profile-dm">
+                  <div class="profile-dm-item" data-value="Project Management"><span>Project Management</span><svg class="profile-dm-item-check" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4 9.55 18Z"/></svg></div>
+                  <div class="profile-dm-item selected" data-value="Design"><span>Design</span><svg class="profile-dm-item-check" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4 9.55 18Z"/></svg></div>
+                  <div class="profile-dm-item" data-value="Engineering / Development"><span>Engineering / Development</span><svg class="profile-dm-item-check" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4 9.55 18Z"/></svg></div>
+                  <div class="profile-dm-item" data-value="Other"><span>Other</span><svg class="profile-dm-item-check" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4 9.55 18Z"/></svg></div>
+                </div>
+              </div>
+            </div>
+            <!-- Language -->
+            <div class="mds-form-field">
+              <label class="mds-label">Language</label>
+              <div class="profile-dm-wrapper">
+                <button class="profile-dm-trigger" type="button">
+                  <span class="profile-dm-value">English</span>
+                  <span class="profile-dm-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></span>
+                </button>
+                <div class="profile-dm">
+                  <div class="profile-dm-item selected" data-value="English"><span>English</span><svg class="profile-dm-item-check" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4 9.55 18Z"/></svg></div>
+                  <div class="profile-dm-item" data-value="Español"><span>Español</span><svg class="profile-dm-item-check" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4 9.55 18Z"/></svg></div>
+                  <div class="profile-dm-item" data-value="한국어"><span>한국어</span><svg class="profile-dm-item-check" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4 9.55 18Z"/></svg></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Avatar -->
+          <div style="display:flex;flex-direction:column;gap:20px;align-items:center;">
+            <img src="https://i.pravatar.cc/240?u=tyler" alt="Profile photo" style="width:240px;height:240px;border-radius:999px;object-fit:cover;">
+            <div style="display:flex;gap:8px;">
+              <button class="mds-btn mds-btn--secondary mds-btn--large">Upload</button>
+              <button class="mds-btn mds-btn--secondary mds-btn--large">Remove</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="mds-divider-full"></div>
+
+        <!-- Email section -->
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <h3 style="font-family:var(--font-heading);font-size:20px;font-weight:600;color:var(--text);margin:0;line-height:1.4;">Email</h3>
+          <p style="font-family:var(--font-body);font-size:14px;color:var(--text);margin:0;line-height:1.3;">feena@miro.com</p>
+        </div>
+
+        <!-- Divider -->
+        <div class="mds-divider-full"></div>
+
+        <!-- Privacy section -->
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <h3 style="font-family:var(--font-heading);font-size:20px;font-weight:600;color:var(--text);margin:0;line-height:1.4;">Privacy</h3>
+          <p style="font-family:var(--font-body);font-size:14px;color:var(--text);margin:0;line-height:1.4;max-width:480px;">
+            <a href="#" class="mds-text-link">Manage how Miro uses cookies</a>. These settings are tied to your browser, and are the same for every Miro profile used on this browser.
+          </p>
+        </div>
+
+        <!-- Divider -->
+        <div class="mds-divider-full"></div>
+
+        <!-- Delete account -->
+        <div style="display:flex;flex-direction:column;gap:16px;max-width:480px;">
+          <a href="#" style="font-family:var(--font-body);font-size:14px;color:#d8182c;text-decoration:underline;text-underline-offset:2px;">Delete account</a>
+          <p style="font-family:var(--font-body);font-size:14px;color:var(--text);margin:0;line-height:1.4;">
+            To complete deletion, click the link in the email you will receive. Deleting your account does not end the subscription or payments.
+          </p>
+          <p style="font-family:var(--font-body);font-size:14px;color:var(--text);margin:0;line-height:1.4;">
+            Deleting your account cannot be undone. Content you created will be deleted as well. Learn how to <a href="#" class="mds-text-link">create backups</a> or <a href="#" class="mds-text-link">export content.</a>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

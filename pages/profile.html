@@ -1,5 +1,14 @@
 <section class="main-content">
-  <h1 class="page-title">Profile settings</h1>
+  <div style="display:flex;align-items:center;justify-content:space-between;">
+    <h1 class="page-title">Profile settings</h1>
+    <div class="feat-select-wrapper" id="profile-variant-selector">
+      <button class="feat-select-trigger filled" id="profile-variant-trigger" data-value="profile">Current<svg class="feat-select-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 9.293 12 14.586l5.293-5.293 1.414 1.414-6 6h-1.414l-6-6 1.414-1.414Z"/></svg></button>
+      <div class="feat-select-dropdown">
+        <div class="feat-select-option profile-nav-option selected" data-val="Current" data-route="profile"><span>Current</span></div>
+        <div class="feat-select-option profile-nav-option" data-val="New" data-route="profile-new"><span>New</span></div>
+      </div>
+    </div>
+  </div>
 
   <div class="profile-card">
     <!-- Tabs -->
