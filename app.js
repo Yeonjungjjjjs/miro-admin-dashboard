@@ -1389,6 +1389,42 @@ document.querySelectorAll('.feat-restrictions-toggle').forEach(function(toggle) 
       var trig = wrapper.querySelector('.feat-select-trigger');
       var dd = wrapper.querySelector('.feat-select-dropdown');
       var val = opt.getAttribute('data-val');
+
+      var featItem = opt.closest('.feat-item');
+      var isSubItem = opt.closest('.aicap-sub-items');
+      var isCustomSidekickSelector = opt.closest('#custom-sidekick-toggle-cs');
+      var isSidekicksMain = !isCustomSidekickSelector && featItem && featItem.id && featItem.id.indexOf('feat-sidekicks') === 0;
+
+      if (val === 'No one' && featItem && !isSubItem) {
+        var prevVal = trig.getAttribute('data-value') || 'Everyone';
+        trig.classList.remove('open');
+        dd.classList.remove('open');
+
+        if (isSidekicksMain) {
+          window._pendingSidekickNoOne = { trig: trig, wrapper: wrapper };
+          sidekickConfirmOverlay.classList.add('visible');
+          return;
+        }
+
+        var labelEl = featItem.querySelector('.feat-item-label');
+        var featName = labelEl ? labelEl.textContent.trim() : 'Feature';
+        var descEl = document.getElementById('remove-access-desc');
+        var depsEl = document.getElementById('remove-access-deps');
+        descEl.innerHTML = '<strong>' + featName + '</strong> will not be available to anyone in the organization.';
+
+        var lowerName = featName.toLowerCase();
+        if (lowerName === 'content' || lowerName === 'images') {
+          depsEl.innerHTML = 'This will also restrict access in <strong>Sidekicks</strong> and <strong>Flows</strong>.';
+          depsEl.style.display = '';
+        } else {
+          depsEl.style.display = 'none';
+        }
+
+        window._pendingRemoveAccess = { trig: trig, wrapper: wrapper, opt: opt, prevVal: prevVal };
+        document.getElementById('remove-access-overlay').classList.add('visible');
+        return;
+      }
+
       wrapper.querySelectorAll('.feat-select-option').forEach(function(o) { o.classList.remove('selected'); });
       opt.classList.add('selected');
       trig.childNodes[0].textContent = val;
@@ -1396,7 +1432,6 @@ document.querySelectorAll('.feat-restrictions-toggle').forEach(function(toggle) 
       trig.classList.remove('open');
       dd.classList.remove('open');
       if (val === 'Specific teams') {
-        var featItem = opt.closest('.feat-item');
         var featName = featItem ? featItem.querySelector('.feat-item-label').textContent.trim() : 'Feature';
         openTeamPanel(featName, wrapper);
       }
@@ -1414,27 +1449,15 @@ document.querySelectorAll('.feat-restrictions-toggle').forEach(function(toggle) 
           });
         }
       }
-      var featItem = opt.closest('.feat-item');
-      var isCustomSidekickSelector = opt.closest('#custom-sidekick-toggle-cs');
-      if (!isCustomSidekickSelector && featItem && featItem.id && featItem.id.indexOf('feat-sidekicks') === 0) {
-        if (val === 'No one') {
-          var prevVal = trig._sidekickPrevVal || 'Everyone';
-          trig.childNodes[0].textContent = prevVal;
-          trig.setAttribute('data-value', prevVal);
-          wrapper.querySelectorAll('.feat-select-option').forEach(function(o) {
-            o.classList.toggle('selected', o.getAttribute('data-val') === prevVal);
-          });
-          window._pendingSidekickNoOne = { trig: trig, wrapper: wrapper };
-          sidekickConfirmOverlay.classList.add('visible');
-        } else {
-          var pg = getActiveCapPage();
-          var wasSidekickDisabled = pg && pg.querySelector('.aicap-list.sidekick-disabled');
-          trig._sidekickPrevVal = val;
-          if (wasSidekickDisabled) {
-            applySidekickEnabled();
-          }
+      if (isSidekicksMain) {
+        var pg = getActiveCapPage();
+        var wasSidekickDisabled = pg && pg.querySelector('.aicap-list.sidekick-disabled');
+        trig._sidekickPrevVal = val;
+        if (wasSidekickDisabled) {
+          applySidekickEnabled();
         }
       }
+      updateCapDepCallouts();
       return;
     }
     document.querySelectorAll('.feat-select-trigger.open').forEach(function(t) {
@@ -1689,65 +1712,105 @@ function getActiveCapPage() {
 
 
 function applySidekickDisabled() {
-  var pg = getActiveCapPage();
-  var capSection = pg ? pg.querySelector('.aicap-list') : document.querySelector('.aicap-list');
-  var restrictions = pg ? pg.querySelector('[id^="sidekicks-restrictions"]') : document.getElementById('sidekicks-restrictions');
-  var callout = pg ? pg.querySelector('[id^="sidekicks-disabled-callout"]') : document.getElementById('sidekicks-disabled-callout');
-  if (capSection) capSection.classList.add('sidekick-disabled');
-  if (restrictions) restrictions.style.display = 'none';
-  if (callout) callout.style.display = 'flex';
-  var sidekickOffCallout = pg ? pg.querySelector('.sidekick-off-callout') : document.querySelector('.sidekick-off-callout');
-  if (sidekickOffCallout) sidekickOffCallout.style.display = 'flex';
-  if (capSection) {
-    capSection.querySelectorAll('.feat-select-trigger').forEach(function(t) {
-      if (!t._sidekickPrev) t._sidekickPrev = t.getAttribute('data-value');
-      t.childNodes[0].textContent = 'No one';
-      t.setAttribute('data-value', 'No one');
-      t.classList.add('disabled');
-      t.classList.remove('filled');
-    });
-    capSection.querySelectorAll('.feat-select-option').forEach(function(o) {
-      o.classList.toggle('selected', o.getAttribute('data-val') === 'No one');
-    });
-  }
-  var sidekicksSubSettings = pg ? pg.querySelector('[id^="sidekicks-sub-settings"]') : document.getElementById('sidekicks-sub-settings');
-  if (sidekicksSubSettings) sidekicksSubSettings.style.display = 'none';
+  updateCapDepCallouts();
 }
 
 function applySidekickEnabled() {
+  updateCapDepCallouts();
+}
+
+function updateCapDepCallouts() {
   var pg = getActiveCapPage();
-  var capSection = pg ? pg.querySelector('.aicap-list') : document.querySelector('.aicap-list');
-  var restrictions = pg ? pg.querySelector('[id^="sidekicks-restrictions"]') : document.getElementById('sidekicks-restrictions');
-  var callout = pg ? pg.querySelector('[id^="sidekicks-disabled-callout"]') : document.getElementById('sidekicks-disabled-callout');
-  if (capSection) capSection.classList.remove('sidekick-disabled');
-  if (restrictions) restrictions.style.display = '';
-  if (callout) callout.style.display = 'none';
-  var sidekickOffCallout = pg ? pg.querySelector('.sidekick-off-callout') : document.querySelector('.sidekick-off-callout');
-  if (sidekickOffCallout) sidekickOffCallout.style.display = 'none';
-  if (capSection) {
-    capSection.querySelectorAll('.feat-select-trigger.disabled').forEach(function(t) {
-      var prev = t._sidekickPrev || 'Everyone';
-      t._sidekickPrev = null;
-      t.childNodes[0].textContent = prev;
-      t.setAttribute('data-value', prev);
-      t.classList.add('filled');
-      var applyRow = t.closest('.feat-select-wrapper') && t.closest('.feat-select-wrapper').querySelector('[data-apply-toggle]');
-      if (applyRow && applyRow.classList.contains('checked')) {
-        /* keep sub-selectors disabled per apply-to-category */
-      } else {
-        t.classList.remove('disabled');
+  if (!pg) return;
+
+  function getVal(label) {
+    var items = pg.querySelectorAll('.feat-item');
+    for (var i = 0; i < items.length; i++) {
+      var lbl = items[i].querySelector('.feat-item-label');
+      if (lbl && lbl.textContent.trim().toLowerCase() === label.toLowerCase()) {
+        var trig = items[i].querySelector('.feat-item-row > .feat-select-wrapper .feat-select-trigger');
+        return trig ? trig.getAttribute('data-value') : 'Everyone';
       }
-    });
-    capSection.querySelectorAll('.feat-select-wrapper').forEach(function(w) {
-      var t = w.querySelector('.feat-select-trigger');
-      var v = t.getAttribute('data-value');
-      w.querySelectorAll('.feat-select-option').forEach(function(o) {
-        o.classList.toggle('selected', o.getAttribute('data-val') === v);
-      });
-    });
+    }
+    return 'Everyone';
   }
-  var sidekicksSubSettings = pg ? pg.querySelector('[id^="sidekicks-sub-settings"]') : document.getElementById('sidekicks-sub-settings');
-  if (sidekicksSubSettings) sidekicksSubSettings.style.display = '';
+
+  function getCapVal(id) {
+    var el = pg.querySelector('#' + id);
+    if (!el) return 'Everyone';
+    var trig = el.querySelector('.feat-item-row > .feat-select-wrapper .feat-select-trigger');
+    return trig ? trig.getAttribute('data-value') : 'Everyone';
+  }
+
+  var sidekicksVal = getVal('Sidekicks');
+  var customSidekicksVal = getVal('Custom Sidekicks');
+  var hasCustomSidekicks = !!pg.querySelector('#feat-custom-sidekicks-cs');
+
+  var contentVal = getCapVal('aicap-group-content-cs') !== 'Everyone' ? getCapVal('aicap-group-content-cs') :
+                   (getCapVal('aicap-group-content-eg') !== 'Everyone' ? getCapVal('aicap-group-content-eg') :
+                   (getCapVal('aicap-group-content-na') !== 'Everyone' ? getCapVal('aicap-group-content-na') :
+                   getCapVal('aicap-group-content-nn')));
+  var imagesVal = getCapVal('aicap-group-images-cs') !== 'Everyone' ? getCapVal('aicap-group-images-cs') :
+                  (getCapVal('aicap-group-images-eg') !== 'Everyone' ? getCapVal('aicap-group-images-eg') :
+                  (getCapVal('aicap-group-images-na') !== 'Everyone' ? getCapVal('aicap-group-images-na') :
+                  getCapVal('aicap-group-images-nn')));
+
+  var contentRestricted = contentVal !== 'Everyone';
+  var imagesRestricted = imagesVal !== 'Everyone';
+  var sidekicksOff = sidekicksVal !== 'Everyone';
+  var customSidekicksOff = customSidekicksVal !== 'Everyone';
+
+  var allSidekicksOff = hasCustomSidekicks ? (sidekicksOff && customSidekicksOff) : sidekicksOff;
+
+  var featuresCallouts = pg.querySelectorAll('.cap-dep-callout-features');
+  var sidekickCallouts = pg.querySelectorAll('.cap-dep-callout-sidekicks');
+  var flowsCallouts = pg.querySelectorAll('.cap-dep-callout-flows');
+  var capCallouts = pg.querySelectorAll('.cap-dep-callout-capabilities');
+
+  var aiCapDisabledHeading = 'Restricted capabilities in AI capabilities';
+  var aiCapDisabledBody = hasCustomSidekicks
+    ? 'Some AI capabilities are not available to everyone because both <strong>Sidekick</strong> and <strong>Custom Sidekick</strong> access is set to \u2018No one\u2019. Manage access in <strong>Sidekick</strong> or <strong>Custom Sidekick</strong> to enable AI capabilities.'
+    : 'Some AI capabilities are not available to everyone because <strong>Sidekicks</strong> access is set to \u2018No one\u2019. Manage access in <strong>Sidekick</strong> to enable AI capabilities.';
+
+  var featureCalloutNeeded = contentRestricted || imagesRestricted;
+  var manageParts = [];
+  if (contentRestricted) manageParts.push('<strong>Content</strong>');
+  if (imagesRestricted) manageParts.push('<strong>Images</strong>');
+  var manageText = manageParts.join(' and ');
+
+  // Single callout above Sidekicks for Content/Images restricted
+  var restrictedIn = hasCustomSidekicks
+    ? 'Restricted capabilities in Sidekicks, Custom Sidekicks and Flows'
+    : 'Restricted capabilities in Sidekicks and Flows';
+
+  featuresCallouts.forEach(function(c) {
+    if (allSidekicksOff) {
+      c.querySelector('.mds-callout-heading').textContent = aiCapDisabledHeading;
+      c.querySelector('.mds-callout-body').innerHTML = aiCapDisabledBody;
+      c.style.display = 'flex';
+    } else if (featureCalloutNeeded) {
+      c.querySelector('.mds-callout-heading').textContent = restrictedIn;
+      c.querySelector('.mds-callout-body').innerHTML = 'Some features are not available to everyone in your organization. Manage access in ' + manageText + '.';
+      c.style.display = 'flex';
+    } else {
+      c.style.display = 'none';
+    }
+  });
+
+  // Hide per-feature callouts — replaced by single callout above
+  sidekickCallouts.forEach(function(c) { c.style.display = 'none'; });
+  flowsCallouts.forEach(function(c) { c.style.display = 'none'; });
+
+  // Capabilities section callout: shown when all sidekicks are off
+  capCallouts.forEach(function(c) {
+    if (allSidekicksOff) {
+      c.querySelector('.mds-callout-heading').textContent = aiCapDisabledHeading;
+      c.querySelector('.mds-callout-body').innerHTML = aiCapDisabledBody;
+      c.style.display = 'flex';
+    } else {
+      c.style.display = 'none';
+    }
+  });
 }
 
 document.getElementById('sidekick-confirm-close').addEventListener('click', function() {
@@ -1773,6 +1836,45 @@ document.getElementById('sidekick-confirm-ok').addEventListener('click', functio
   }
 });
 
+// Remove access confirmation modal
+(function() {
+  var overlay = document.getElementById('remove-access-overlay');
+  function closeModal() {
+    overlay.classList.remove('visible');
+    window._pendingRemoveAccess = null;
+  }
+  overlay.addEventListener('click', function(e) { if (e.target === overlay) closeModal(); });
+  document.getElementById('remove-access-close').addEventListener('click', closeModal);
+  document.getElementById('remove-access-cancel').addEventListener('click', closeModal);
+  document.getElementById('remove-access-confirm').addEventListener('click', function() {
+    overlay.classList.remove('visible');
+    var pending = window._pendingRemoveAccess;
+    if (pending) {
+      pending.wrapper.querySelectorAll('.feat-select-option').forEach(function(o) { o.classList.remove('selected'); });
+      pending.opt.classList.add('selected');
+      pending.trig.childNodes[0].textContent = 'No one';
+      pending.trig.setAttribute('data-value', 'No one');
+      pending.trig.classList.remove('filled');
+      var dd = pending.wrapper.querySelector('.feat-select-dropdown');
+      var applyToggle = dd ? dd.querySelector('[data-apply-toggle]') : null;
+      if (applyToggle && applyToggle.classList.contains('checked')) {
+        var groupId = applyToggle.getAttribute('data-apply-toggle');
+        var subItems = document.getElementById(groupId + '-sub');
+        if (subItems) {
+          subItems.querySelectorAll('.feat-select-trigger').forEach(function(t) {
+            t.childNodes[0].textContent = 'No one';
+            t.setAttribute('data-value', 'No one');
+            t.classList.add('disabled');
+            var opts = t.parentElement.querySelectorAll('.feat-select-option');
+            opts.forEach(function(o) { o.classList.toggle('selected', o.getAttribute('data-val') === 'No one'); });
+          });
+        }
+      }
+      window._pendingRemoveAccess = null;
+      updateCapDepCallouts();
+    }
+  });
+})();
 
 // Custom Sidekicks toggle on Capabilities-custom-sidekick page
 var customSidekickSwitch = document.getElementById('custom-sidekick-switch-cs');
