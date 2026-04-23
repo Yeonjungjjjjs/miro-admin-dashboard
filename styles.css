@@ -1270,7 +1270,7 @@ input[type="checkbox"] { accent-color: var(--primary); }
 .feat-item { padding: 0; }
 .feat-item-row {
   display: flex; align-items: flex-start; gap: 16px;
-  padding: 24px;
+  padding: 0;
 }
 .feat-icon-area {
   display: flex; align-items: center; gap: 8px; flex-shrink: 0;
