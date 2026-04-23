@@ -478,17 +478,37 @@
   <div class="assign-modal-overlay" id="sidekick-confirm-overlay">
     <div class="assign-modal">
       <div class="assign-modal-header">
-        <h2>Are you sure you want to disable Sidekick?</h2>
+        <h2>Remove access for everyone?</h2>
         <button class="assign-modal-close" id="sidekick-confirm-close">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M19.707 5.707 13.414 12l6.293 6.293-1.414 1.414L12 13.414l-6.293 6.293-1.414-1.414L10.586 12 4.293 5.707l1.414-1.414L12 10.586l6.293-6.293 1.414 1.414Z"/></svg>
         </button>
       </div>
       <div class="assign-modal-body">
-        <p class="assign-modal-desc">Setting Sidekicks to No one disables all AI capabilities for content creation, image creation, slides, and prototypes.</p>
+        <p class="assign-modal-desc"><strong>Sidekicks</strong> will not be available to anyone in the organization.</p>
       </div>
       <div class="assign-modal-footer">
-        <button class="mds-btn mds-btn--danger mds-btn--large" id="sidekick-confirm-ok">Disable</button>
+        <button class="mds-btn mds-btn--danger mds-btn--large" id="sidekick-confirm-ok">Remove access</button>
         <button class="mds-btn mds-btn--ghost mds-btn--large" id="sidekick-confirm-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== REMOVE ACCESS CONFIRM MODAL ===== -->
+  <div class="assign-modal-overlay" id="remove-access-overlay">
+    <div class="assign-modal">
+      <div class="assign-modal-header">
+        <h2>Remove access for everyone?</h2>
+        <button class="assign-modal-close" id="remove-access-close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M19.707 5.707 13.414 12l6.293 6.293-1.414 1.414L12 13.414l-6.293 6.293-1.414-1.414L10.586 12 4.293 5.707l1.414-1.414L12 10.586l6.293-6.293 1.414 1.414Z"/></svg>
+        </button>
+      </div>
+      <div class="assign-modal-body">
+        <p class="assign-modal-desc" id="remove-access-desc"></p>
+        <p class="assign-modal-desc" id="remove-access-deps" style="display:none;margin-top:4px;"></p>
+      </div>
+      <div class="assign-modal-footer">
+        <button class="mds-btn mds-btn--danger mds-btn--large" id="remove-access-confirm">Remove access</button>
+        <button class="mds-btn mds-btn--ghost mds-btn--large" id="remove-access-cancel">Cancel</button>
       </div>
     </div>
   </div>
