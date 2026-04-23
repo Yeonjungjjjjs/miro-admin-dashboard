@@ -1273,9 +1273,10 @@ input[type="checkbox"] { accent-color: var(--primary); }
   padding: 24px;
 }
 .feat-icon-area {
-  display: flex; align-items: center; gap: 12px; flex-shrink: 0;
+  display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+  width: 68px; box-sizing: border-box;
 }
-.feat-icon-area--no-chevron { gap: 0; }
+.feat-icon-area--no-chevron { justify-content: flex-end; }
 .feat-icon-box {
   width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
   border: 1px solid var(--border); border-radius: 4px; flex-shrink: 0; color: var(--text);
