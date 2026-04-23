@@ -1442,10 +1442,10 @@ input[type="checkbox"] { accent-color: var(--primary); }
 /* Sub-items accordion */
 .aicap-sub-items {
   overflow: hidden; transition: max-height 0.25s ease;
-  padding-left: 108px; padding-right: 24px; padding-bottom: 16px;
+  padding-left: 84px; padding-right: 0; padding-bottom: 40px;
 }
-[id^="sidekicks-restrictions"].aicap-sub-items,
-[id^="custom-sidekicks-restrictions"].aicap-sub-items { margin-top: 8px; padding-left: 108px; padding-right: 0; padding-bottom: 0; }
+[id^="sidekicks-restrictions"].aicap-sub-items { margin-top: 8px; padding-left: 84px; padding-right: 0; padding-bottom: 40px; }
+[id^="custom-sidekicks-sub-restrictions"].aicap-sub-items { margin-top: 8px; padding-left: 84px; padding-right: 0; padding-bottom: 40px; }
 .aicap-sub-items.collapsed { max-height: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important; }
 .aicap-sub-item {
   display: flex; align-items: center; gap: 8px;
