@@ -1,2 +1,4 @@
 .DS_Store
 **/.DS_Store
+node_modules/
+sidekick-app/node_modules/

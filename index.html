@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=20260422">
+  <link rel="stylesheet" href="sidekick-dist/sidekick-bundle.css">
 </head>
 
 <body>
@@ -29,13 +30,16 @@
       <button class="mds-icon-btn" aria-label="Help">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M11 16h2v2h-2v-2Zm3-6a2 2 0 1 0-4 0H8a4 4 0 1 1 5 3.874v1.122h-2V13l1-1a2 2 0 0 0 2-2Zm6 2a8 8 0 1 0-16 0 8 8 0 0 0 16 0Zm2 0c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Z"/></svg>
       </button>
+      <button class="mds-icon-btn" id="sidekick-trigger" aria-label="Admin Sidekick">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M5.5 16A2.5 2.5 0 0 0 8 18.5v1A2.5 2.5 0 0 0 5.5 22h-1A2.5 2.5 0 0 0 2 19.5v-1A2.5 2.5 0 0 0 4.5 16h1Zm5.178-10.793c.325-1.368 2.319-1.37 2.644 0l.027.142.042.255a6.26 6.26 0 0 0 5.26 5.046c1.553.224 1.561 2.473 0 2.699a6.26 6.26 0 0 0-5.302 5.301c-.225 1.563-2.475 1.554-2.699 0a6.26 6.26 0 0 0-5.3-5.3c-1.56-.225-1.557-2.474 0-2.699l.255-.042a6.26 6.26 0 0 0 5.046-5.26l.028-.141ZM19.5 2A2.5 2.5 0 0 0 22 4.5v1A2.5 2.5 0 0 0 19.5 8h-1A2.5 2.5 0 0 0 16 5.5v-1A2.5 2.5 0 0 0 18.5 2h1Z"/></svg>
+      </button>
       <div class="topbar-avatar" id="profile-trigger">
-        <img src="https://i.pravatar.cc/60?u=tyler" alt="Tyler">
+        <img src="images/winnie-profile.png" alt="Winnie Lee">
         <!-- Profile Dropdown -->
         <div class="mds-dropdown-menu" id="profile-dropdown">
           <div class="mds-dropdown-menu-header">
-            <img class="mds-dropdown-menu-avatar" src="https://i.pravatar.cc/60?u=tyler" alt="">
-            <span class="mds-dropdown-menu-name">Yeon Jung Lee</span>
+            <img class="mds-dropdown-menu-avatar" src="images/winnie-profile.png" alt="">
+            <span class="mds-dropdown-menu-name">Winnie Lee</span>
           </div>
           <div class="mds-dropdown-menu-divider"><div class="mds-divider"></div></div>
           <a href="#" class="mds-dropdown-menu-item">
@@ -64,9 +68,9 @@
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-org-container">
       <div class="sidebar-org" id="org-trigger">
-        <div class="sidebar-org-icon">A</div>
+        <div class="sidebar-org-icon" style="background:#4262FF;">F</div>
         <div class="sidebar-org-info">
-          <div class="sidebar-org-name">Acme</div>
+          <div class="sidebar-org-name">Flex fund</div>
           <div class="sidebar-org-tag">Company admin</div>
         </div>
         <div class="sidebar-org-chevron">
@@ -75,34 +79,7 @@
       </div>
       <div class="org-picker" id="org-picker">
         <div class="org-picker-list">
-          <div class="org-picker-item">
-            <div class="org-picker-item-icon" style="background:#2cddb7;"></div>
-            <div class="org-picker-item-info">
-              <div class="org-picker-item-name">Business org</div>
-              <div class="org-picker-item-tag">Team admin</div>
-            </div>
-          </div>
-          <div class="org-picker-item">
-            <div class="org-picker-item-icon" style="background:#ffae57;"></div>
-            <div class="org-picker-item-info">
-              <div class="org-picker-item-name">FlexFund - LATAM</div>
-              <div class="org-picker-item-tag">Company admin</div>
-            </div>
-          </div>
-          <div class="org-picker-item">
-            <div class="org-picker-item-icon" style="background:#3492ff;"></div>
-            <div class="org-picker-item-info">
-              <div class="org-picker-item-name">FlexFund - EMEA</div>
-              <div class="org-picker-item-tag">Company admin</div>
-            </div>
-          </div>
-          <div class="org-picker-item">
-            <div class="org-picker-item-icon" style="background:#f565eb;"></div>
-            <div class="org-picker-item-info">
-              <div class="org-picker-item-name">FlexFund - APAC</div>
-              <div class="org-picker-item-tag">Company admin</div>
-            </div>
-          </div>
+          <!-- Populated dynamically by persona.js -->
         </div>
       </div>
     </div>
@@ -517,7 +494,12 @@
   </div>
 
 
+  <!-- ===== SIDEKICK (React) ===== -->
+  <div id="sidekick-root"></div>
+
   <!-- ===== JAVASCRIPT ===== -->
+  <script src="persona.js"></script>
   <script src="app.js?v=20260422"></script>
+  <script type="module" src="sidekick-dist/sidekick-bundle.js"></script>
 </body>
 </html>

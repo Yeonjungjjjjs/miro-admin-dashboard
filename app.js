@@ -232,13 +232,8 @@ function initCharts() {
   drawChart('chart-licenses', [180, 190, 195, 200, 205, 210, 204, 200], blue);
 }
 
-// Greeting
-(function() {
-  var h = new Date().getHours();
-  var greet = h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening';
-  var el = document.getElementById('greeting');
-  if (el) el.textContent = greet + ', Taylor';
-})();
+// Apply persona on initial boot (top bar, sidebar, org picker)
+if (typeof applyPersona === 'function') applyPersona();
 
 // Fragment route map
 var fragmentRoutes = {
@@ -253,7 +248,8 @@ var fragmentRoutes = {
   'miroai-cap-none': 'pages/miroai-cap-none.html',
   'miroai-datausage': 'pages/miroai-datausage.html',
   'profile': 'pages/profile.html',
-  'profile-new': 'pages/profile-new.html'
+  'profile-new': 'pages/profile-new.html',
+  'home-new': 'pages/home-new.html'
 };
 var pageCache = {};
 
@@ -298,7 +294,8 @@ function updateNavState(route) {
   document.querySelectorAll('.subnav-item').forEach(function(a) { a.classList.remove('active'); });
   var miroaiRoutes = ['miroai-capabilities', 'miroai-cap-entguard', 'miroai-cap-noaddons', 'miroai-cap-none', 'miroai-datausage', 'miroai-moderation'];
   var profileRoutes = ['profile', 'profile-new'];
-  var activeRoute = route === 'aiworkflow' ? 'products' : (miroaiRoutes.indexOf(route) !== -1 ? 'miroai-capabilities' : (profileRoutes.indexOf(route) !== -1 ? 'profile' : route));
+  var homeRoutes = ['home', 'home-new'];
+  var activeRoute = route === 'aiworkflow' ? 'products' : (miroaiRoutes.indexOf(route) !== -1 ? 'miroai-capabilities' : (profileRoutes.indexOf(route) !== -1 ? 'profile' : (homeRoutes.indexOf(route) !== -1 ? 'home' : route)));
   var navLink = document.querySelector('.sidebar-nav a[data-route="' + activeRoute + '"]:not(.subnav-item)');
   if (navLink && !navLink.classList.contains('has-subnav')) navLink.classList.add('active');
 
@@ -315,10 +312,7 @@ function updateNavState(route) {
     }
   }
 
-  var rp = document.getElementById('right-panel');
-  if (rp) rp.style.display = route === 'home' ? '' : 'none';
-
-  if (route === 'home') setTimeout(initCharts, 50);
+  if (route === 'home' || route === 'home-new') setTimeout(initCharts, 50);
 
   if (route === 'aiworkflow') {
     var aiwTab = aiwTabFromHash();
@@ -328,6 +322,10 @@ function updateNavState(route) {
     if (targetTab) targetTab.classList.add('active');
     var targetPanel = document.getElementById('aiw-panel-' + aiwTab);
     if (targetPanel) targetPanel.classList.add('active');
+    // Auto-open assign seats panel if hash ends with /Assign
+    if ((location.hash || '').indexOf('/Assign') !== -1 && window._openAssignSeatsPanel) {
+      setTimeout(window._openAssignSeatsPanel, 60);
+    }
   }
 
   if (route === 'products') {
@@ -347,13 +345,14 @@ function updateNavState(route) {
     if (targetTeamsTab) targetTeamsTab.classList.add('active');
   }
 
-  var hashMap = { home: '#/Home', allusers: '#/Users/AllUsers', profile: '#/Profile', 'profile-new': '#/Profile-new', 'miroai-capabilities': '#/MiroAI/Capabilities', 'miroai-cap-entguard': '#/MiroAI/Capabilities-ent.guard', 'miroai-cap-noaddons': '#/MiroAI/Capabilities-No-add-ons', 'miroai-cap-none': '#/MiroAI/Capabilities-none', 'miroai-datausage': '#/MiroAI/DataUsage', 'miroai-moderation': '#/MiroAI/Moderation' };
+  var hashMap = { home: '#/Home', 'home-new': '#/Home-new', allusers: '#/Users/AllUsers', profile: '#/Profile', 'profile-new': '#/Profile-new', 'miroai-capabilities': '#/MiroAI/Capabilities', 'miroai-cap-entguard': '#/MiroAI/Capabilities-ent.guard', 'miroai-cap-noaddons': '#/MiroAI/Capabilities-No-add-ons', 'miroai-cap-none': '#/MiroAI/Capabilities-none', 'miroai-datausage': '#/MiroAI/DataUsage', 'miroai-moderation': '#/MiroAI/Moderation' };
   var hash;
   if (route === 'aiworkflow') {
     var activeAiwTab = document.querySelector('.aiw-tab.active');
     var tabName = activeAiwTab ? activeAiwTab.getAttribute('data-aiw-tab') : 'users';
     var tabLabel = tabName.charAt(0).toUpperCase() + tabName.slice(1);
-    hash = '#/Product/AIworkflow/' + tabLabel;
+    var assignSuffix = (location.hash || '').indexOf('/Assign') !== -1 ? '/Assign' : '';
+    hash = '#/Product/AIworkflow/' + tabLabel + assignSuffix;
   } else if (route === 'products') {
     var activeProdTab = document.querySelector('.products-tab.active');
     var prodTabId = activeProdTab ? activeProdTab.getAttribute('data-tab') : 'tab-active';
@@ -385,6 +384,7 @@ function routeFromHash() {
   if (hash.indexOf('/Product/Explore') !== -1) return 'products';
   if (hash.indexOf('/Product/Active') !== -1) return 'products';
   if (hash.indexOf('/Product') !== -1) return 'products';
+  if (hash.indexOf('/Home-new') !== -1) return 'home-new';
   if (hash.indexOf('/Home') !== -1) return 'home';
   return 'home';
 }
@@ -693,6 +693,20 @@ document.getElementById('hamburger-btn').addEventListener('click', function() {
   setTimeout(initCharts, 300);
 });
 
+// ===== SIDEKICK PANEL (React) =====
+(function() {
+  var trigger = document.getElementById('sidekick-trigger');
+  if (!trigger) return;
+  trigger.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (window.AdminSidekick) {
+      window.AdminSidekick.toggle();
+    } else {
+      window.dispatchEvent(new CustomEvent('sidekick:toggle'));
+    }
+  });
+})();
+
 // ===== PROFILE DROPDOWN =====
 (function() {
   var trigger = document.getElementById('profile-trigger');
@@ -758,13 +772,8 @@ document.getElementById('hamburger-btn').addEventListener('click', function() {
 
 // ===== PAGE-SPECIFIC BINDING INITIALIZATION =====
 function initPageBindings(route) {
-  // Greeting (home page)
-  if (route === 'home') {
-    var h = new Date().getHours();
-    var greet = h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening';
-    var greetEl = document.getElementById('greeting');
-    if (greetEl) greetEl.textContent = greet + ', Taylor';
-  }
+  // Apply persona data to newly loaded page content
+  if (typeof applyPersona === 'function') applyPersona();
 
   // Breadcrumb clicks
   document.querySelectorAll('.breadcrumb a[data-route]').forEach(function(a) {
@@ -906,6 +915,25 @@ function initPageBindings(route) {
         var route = opt.getAttribute('data-route');
         var trig = profileSelector.querySelector('.feat-select-trigger');
         var dd = profileSelector.querySelector('.feat-select-dropdown');
+        if (trig) { trig.classList.remove('open'); }
+        if (dd) { dd.classList.remove('open'); }
+        if (route && fragmentRoutes[route]) {
+          delete pageCache[route];
+          navigateTo(route);
+        }
+      });
+    });
+  }
+
+  // Home variant navigation — switch between home and home-new
+  var homeSelector = document.getElementById('home-variant-selector');
+  if (homeSelector) {
+    homeSelector.querySelectorAll('.home-nav-option').forEach(function(opt) {
+      opt.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var route = opt.getAttribute('data-route');
+        var trig = homeSelector.querySelector('.feat-select-trigger');
+        var dd = homeSelector.querySelector('.feat-select-dropdown');
         if (trig) { trig.classList.remove('open'); }
         if (dd) { dd.classList.remove('open'); }
         if (route && fragmentRoutes[route]) {
@@ -1127,10 +1155,13 @@ function initPageBindings(route) {
   // AIW bulk actions
   if (typeof window.bindAiwBulkActions === 'function') window.bindAiwBulkActions();
 
-  // Assign seats button
+  // Assign seats button — open panel and update URL
   var btnAssign = document.getElementById('btn-assign-seats');
   if (btnAssign && window._openAssignSeatsPanel) {
-    btnAssign.addEventListener('click', window._openAssignSeatsPanel);
+    btnAssign.addEventListener('click', function() {
+      history.pushState(null, '', '#/Product/AIworkflow/Users/Assign');
+      window._openAssignSeatsPanel();
+    });
   }
 
 }
@@ -1562,11 +1593,18 @@ document.addEventListener('click', function(e) {
     var wrapper = trigger.closest('.mds-select-wrapper');
     var dropdown = wrapper.querySelector('.mds-select-dropdown');
     var isOpen = dropdown.classList.contains('open');
-    document.querySelectorAll('.mds-select-dropdown.open').forEach(function(d) { d.classList.remove('open'); });
+    document.querySelectorAll('.mds-select-dropdown.open').forEach(function(d) { d.classList.remove('open'); d.classList.remove('open-up'); });
     document.querySelectorAll('.mds-select-trigger.open').forEach(function(t) { t.classList.remove('open'); });
     if (!isOpen) {
+      dropdown.classList.remove('open-up');
       dropdown.classList.add('open');
       trigger.classList.add('open');
+      // Flip upward if dropdown overflows viewport bottom
+      var trigRect = trigger.getBoundingClientRect();
+      var ddRect = dropdown.getBoundingClientRect();
+      if (ddRect.bottom > window.innerHeight - 8) {
+        dropdown.classList.add('open-up');
+      }
       var si = dropdown.querySelector('.mds-select-dropdown-search');
       if (si) { si.value = ''; si.focus(); }
       dropdown.querySelectorAll('.mds-select-option').forEach(function(o) { o.style.display = ''; });
@@ -1610,7 +1648,7 @@ document.addEventListener('click', function(e) {
     }
     return;
   }
-  document.querySelectorAll('.mds-select-dropdown.open').forEach(function(d) { d.classList.remove('open'); });
+  document.querySelectorAll('.mds-select-dropdown.open').forEach(function(d) { d.classList.remove('open'); d.classList.remove('open-up'); });
   document.querySelectorAll('.mds-select-trigger.open').forEach(function(t) { t.classList.remove('open'); });
 });
 
@@ -1926,6 +1964,9 @@ document.querySelectorAll('.settings-radio-row').forEach(function(row) {
   function closePanel() {
     panel.classList.remove('open');
     document.body.style.overflow = '';
+    if ((location.hash || '').indexOf('/Assign') !== -1) {
+      history.pushState(null, '', '#/Product/AIworkflow/Users');
+    }
   }
 
   function resetPanel() {
