@@ -1257,8 +1257,8 @@ input[type="checkbox"] { accent-color: var(--primary); }
 /* Features tab */
 .feat-section { padding: 24px; }
 .feat-section-title {
-  font-family: var(--font-heading); font-size: 20px; font-weight: 600;
-  color: var(--text); line-height: 1.4; margin: 0;
+  font-family: var(--font-heading); font-size: 16px; font-weight: 600;
+  color: var(--text); line-height: 1.5; margin: 0;
 }
 .feat-section-desc {
   font-family: var(--font-body); font-size: 14px; color: var(--text-subtle);
